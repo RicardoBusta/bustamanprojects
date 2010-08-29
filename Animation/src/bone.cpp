@@ -1,6 +1,6 @@
 #include "bone.h"
 #include "model.h"
-#include "dogine/dogine.h"
+#include "dogine.h"
 
 bone::bone(model* m)
 {

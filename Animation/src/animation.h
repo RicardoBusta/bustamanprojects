@@ -1,7 +1,7 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include "dogine/dogine.h"
+#include "dogine.h"
 
 class bone;
 class model;

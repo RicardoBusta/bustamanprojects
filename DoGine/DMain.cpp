@@ -85,8 +85,8 @@ void DMain::adjust_texture(){
 }
 
 void DMain::adjust_frustum(){
-    glOrtho( 0, screen.width, 0, screen.height, -5000, 5000 ); //projeção ortogonal
-    //glFrustum (-320,320, -240,240, 500,6000); //projeção c/ perspectiva
+    glOrtho( 0, screen.width, 0, screen.height, -5000, 5000 ); //projeï¿½ï¿½o ortogonal
+    //glFrustum (-320,320, -240,240, 500,6000); //projeï¿½ï¿½o c/ perspectiva
     //glTranslated(0,0,-3000);
 }
 

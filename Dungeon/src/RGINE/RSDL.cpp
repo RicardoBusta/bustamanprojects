@@ -14,15 +14,10 @@ RSDL::RSDL() {
 	width = 640;
 	height = 480;
 	bpp = 32;
-
 	quit = false;
-
-	// TODO Auto-generated constructor stub
-
 }
 
 RSDL::~RSDL() {
-	// TODO Auto-generated destructor stub
 }
 
 //Init all subsystems

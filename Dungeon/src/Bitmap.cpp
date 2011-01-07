@@ -40,6 +40,26 @@ Color Bitmap::getPixel(int x, int y){
 	return c;
 }
 
+void Bitmap::paintArea(int x, int y, Bitmap *area){
+	if(x>=0 and x<width and y>=0 and y<width){
+		for(int i=0;i<area->getWidth();i++){
+			for(int j=0;j<area->getHeight();j++){
+				if(x+i>=0 and x+i<width and y+j>=0 and y+j<width){
+					setPixel(x+i, y+j, area->getPixel(i,j));
+				}
+			}
+		}
+	}
+}
+
+int Bitmap::getWidth(){
+	return width;
+}
+
+int Bitmap::getHeight(){
+	return height;
+}
+
 void Bitmap::bitmapColor3(Color c){
 	glColor3f(c.r,c.g,c.b);
 }

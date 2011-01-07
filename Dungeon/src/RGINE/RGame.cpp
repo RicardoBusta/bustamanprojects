@@ -21,16 +21,15 @@ RGame::~RGame() {
 
 bool RGame::exec(){
 	sdl.init();
-	//sdl.timer_init();
-	//sdl.timer_start();
+	sdl.timer_init();
+	sdl.timer_start();
 	init();
 	while(!sdl.finished()){
 		sdl.input();
 		sdl.render_begin();
 		handle();
 		sdl.render_end();
-		cout << "lolis" << endl;
-		//sdl.timer_delay();
+		sdl.timer_delay();
 	}
 	SDL_Quit();
 	return 0;

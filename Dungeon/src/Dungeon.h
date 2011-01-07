@@ -14,8 +14,12 @@
 
 class Dungeon: public RGame {
 private:
+	float test;
+	bool changed;
 	void init();
 	void handle();
+
+	void rayCasting();
 
 	void logic();
 	void draw();

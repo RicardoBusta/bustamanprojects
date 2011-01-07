@@ -28,8 +28,16 @@ public:
 	void setPixel(int x, int y, Color c);
 	Color getPixel(int x, int y);
 
+	void paintArea(int x, int y, Bitmap *area);
+
 	void glDraw();
 	void glDrawAs(int w, int h);
+
+	int getWidth();
+	int getHeight();
+
+	//SDL_Surface getSurface();
+	//void setSurface(SDL_Surface s);
 };
 
 #endif /* BITMAP_H_ */

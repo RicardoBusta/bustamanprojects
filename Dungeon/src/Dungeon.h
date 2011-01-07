@@ -14,6 +14,7 @@
 
 class Dungeon: public RGame {
 private:
+	float camerax,cameray,cameraz;
 	float test;
 	bool changed;
 	void init();

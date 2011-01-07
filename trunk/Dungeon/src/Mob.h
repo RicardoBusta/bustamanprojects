@@ -35,17 +35,8 @@ struct CombatLog{
 };
 
 //Game Mob - Might be a hero or monster
-class Mob {
+class Mob{
 private:
-	//Mob Position on the grid. (0,0) = bottom left
-	struct POSITION{
-		int x;
-		int y;
-		POSITION(){
-			x=y=0;
-		}
-	};
-
 	//Basic Attributes
 	struct STATUS{
 		int LVL;		//Level		- The current level. Should range from 1 to 10
@@ -135,6 +126,9 @@ private:
 public:
 	Mob();
 	virtual ~Mob();
+
+	//Test
+	virtual void draw();
 };
 
 #endif /* HERO_H_ */

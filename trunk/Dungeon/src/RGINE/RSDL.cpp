@@ -58,7 +58,7 @@ void RSDL::opengl_resize()
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	glViewport(0,0,width, height);
-	glOrtho( 0.0,width, 0.0,height , -100,100);
+	glOrtho( 0.0,width, 0.0,height , -1000,1000);
 	//glFrustum (-width/20,width/20, -height/20,height/20, 50,6000);
 	glMatrixMode(GL_TEXTURE);
 	//texture

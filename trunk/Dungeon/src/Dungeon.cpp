@@ -9,8 +9,11 @@
 #include <cmath>
 
 #include "Ray.h"
+#include "Mobs/Mob.h"
+
 
 Dungeon::Dungeon() {
+	camerax=cameray=cameraz=0;
 }
 
 Dungeon::~Dungeon() {
@@ -32,7 +35,7 @@ void Dungeon::rayCasting(){
 	const int ns = 3;
 	Sphere *s[ns];
 	for(int k=0;k<ns;k++){
-		s[k] = new Sphere(Point3(10*k,50,200),1*test);
+		s[k] = new Sphere(Point3(50*k,50,200),1*test);
 	}
 	for(int i=0;i<bitmap->getWidth();i++){
 		for(int j=0;j<bitmap->getHeight();j++){
@@ -50,6 +53,11 @@ void Dungeon::rayCasting(){
 }
 
 void Dungeon::logic(){
+	if(mouse().left.isDown){
+		camerax += mouse().speed.y;
+		cameray += mouse().speed.x;
+	}
+	/*
 	if(key(SDLK_UP).isDown){
 		changed = true;
 		test++;
@@ -61,13 +69,36 @@ void Dungeon::logic(){
 	if(changed){
 		rayCasting();
 		changed = false;
-	}
+	}*/
 }
 
 void Dungeon::draw(){
-	//bitmap->glDraw();
-	Bitmap *bmp = new Bitmap(getWidth(),getHeight());
-	bmp->paintArea(getWidth()/2,getHeight()/2,bitmap);
-	bmp->glDraw();
-	//bitmap->glDrawAs(getWidth(),getHeight());
+	float scale=32;
+	glTranslatef(getWidth()/2,getHeight()/2,0);
+	glRotatef(camerax,1,0,0);
+	glRotatef(cameray,0,1,0);
+	glRotatef(cameraz,0,0,1);
+	glTranslatef(-getWidth()/2,-getHeight()/2,0);
+
+
+	glTranslatef(getWidth()/2-10*32,getHeight()/2-10*32,0);
+	Mob m;
+	//m.position.x = 3;
+	//m.position.y = 3;
+	m.draw();
+
+	glBegin(GL_QUADS);
+	for(int i=0;i<20;i++){
+		for(int j=0;j<20;j++){
+			glColor3f(95.0/255,45.0/255,0);
+			glVertex3f(i*scale,j*scale,0);
+			glColor3f(85.0/255,35.0/255,0);
+			glVertex3f((i+1)*scale,j*scale,0);
+			glColor3f(95.0/255,45.0/255,0);
+			glVertex3f((i+1)*scale,(j+1)*scale,0);
+			glColor3f(85.0/255,35.0/255,0);
+			glVertex3f(i*scale,(j+1)*scale,0);
+		}
+	}
+	glEnd();
 }

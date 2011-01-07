@@ -13,22 +13,26 @@
 class Shape{
 public:
 	Shape();
-	virtual bool hittest(Point3 p, Point3 d, float *l)=0;
+	virtual bool hitTest(Point3 p, Point3 v, float *l, bool *hit)=0;
 };
 
 class Sphere:public Shape{
+private:
+	Point3 c;
+	float r;
 public:
-	Sphere(float x, float y, float z, float r);
-	bool hittest(Point3 p, Point3 d, float *l);
+	Sphere(Point3 p, float r);
+	bool hitTest(Point3 p, Point3 v, float *l, bool *hit);
 };
 
 class Ray {
 public:
-	Ray(Point3 p, Point3 d);
+	Ray(Point3 p, Point3 v);
 	virtual ~Ray();
 
-	Point3 p,d;
+	Point3 p,v;
 	float distance;
+	bool hit;
 
 	bool intersect(Shape *s);
 };

@@ -7,18 +7,21 @@ CPP_SRCS += \
 ../src/Bitmap.cpp \
 ../src/Dungeon.cpp \
 ../src/Ray.cpp \
+../src/Sprite.cpp \
 ../src/main.cpp 
 
 OBJS += \
 ./src/Bitmap.o \
 ./src/Dungeon.o \
 ./src/Ray.o \
+./src/Sprite.o \
 ./src/main.o 
 
 CPP_DEPS += \
 ./src/Bitmap.d \
 ./src/Dungeon.d \
 ./src/Ray.d \
+./src/Sprite.d \
 ./src/main.d 
 
 

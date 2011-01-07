@@ -14,8 +14,8 @@ class Tile{
 public:
 	bool wall;
 
-
 	Tile();
+	void draw(int x, int y);
 };
 
 class Map {
@@ -25,6 +25,8 @@ public:
 
 	Map(int w,int h);
 	virtual ~Map();
+
+	void draw();
 };
 
 #endif /* MAP_H_ */

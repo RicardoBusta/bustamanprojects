@@ -11,6 +11,7 @@
 #include "RGINE/RGame.h"
 
 #include "Bitmap.h"
+#include "Map.h"
 
 class Dungeon: public RGame {
 private:
@@ -26,6 +27,8 @@ private:
 	void draw();
 
 	Bitmap *bitmap;
+	//Test
+	Map *map;
 public:
 	Dungeon();
 	virtual ~Dungeon();

@@ -9,7 +9,7 @@
 #include <cmath>
 
 #include "Ray.h"
-#include "Mobs/Mob.h"
+#include "Mob.h"
 
 
 Dungeon::Dungeon() {
@@ -29,6 +29,7 @@ void Dungeon::init(){
 	test = 1;
 	changed = true;
 	bitmap = new Bitmap(100,100);
+	map = new Map(20,20);
 }
 
 void Dungeon::rayCasting(){
@@ -73,7 +74,6 @@ void Dungeon::logic(){
 }
 
 void Dungeon::draw(){
-	float scale=32;
 	glTranslatef(getWidth()/2,getHeight()/2,0);
 	glRotatef(camerax,1,0,0);
 	glRotatef(cameray,0,1,0);
@@ -86,19 +86,5 @@ void Dungeon::draw(){
 	//m.position.x = 3;
 	//m.position.y = 3;
 	m.draw();
-
-	glBegin(GL_QUADS);
-	for(int i=0;i<20;i++){
-		for(int j=0;j<20;j++){
-			glColor3f(95.0/255,45.0/255,0);
-			glVertex3f(i*scale,j*scale,0);
-			glColor3f(85.0/255,35.0/255,0);
-			glVertex3f((i+1)*scale,j*scale,0);
-			glColor3f(95.0/255,45.0/255,0);
-			glVertex3f((i+1)*scale,(j+1)*scale,0);
-			glColor3f(85.0/255,35.0/255,0);
-			glVertex3f(i*scale,(j+1)*scale,0);
-		}
-	}
-	glEnd();
+	map->draw();
 }

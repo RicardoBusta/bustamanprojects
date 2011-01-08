@@ -12,6 +12,7 @@
 
 class Bitmap {
 private:
+	bool setup;
 	int width;
 	int height;
 	Color *pixel;
@@ -22,8 +23,10 @@ private:
 	void bitmapColor3(Color c);
 	void bitmapColor4(Color c);
 public:
-	Bitmap(int w, int h);
+	Bitmap();
 	virtual ~Bitmap();
+
+	void set(int w, int h);
 
 	void setPixel(int x, int y, Color c);
 	Color getPixel(int x, int y);

@@ -11,6 +11,8 @@
 #include <string>
 using namespace std;
 
+class Map;
+
 //Attribute Structure
 struct Status{
 	string tooltip;	//Describes the status
@@ -37,6 +39,13 @@ struct CombatLog{
 //Game Mob - Might be a hero or monster
 class Mob{
 private:
+	//Map Positioning
+	struct POSITION{
+		int x, y;
+		POSITION(){
+			x=y=0;
+		}
+	}position;
 	//Basic Attributes
 	struct STATUS{
 		int LVL;		//Level		- The current level. Should range from 1 to 10
@@ -129,6 +138,8 @@ public:
 
 	//Test
 	virtual void draw();
+	bool setPosition(int x, int y, Map *m);
+	bool move(int x, int y, Map *m);
 };
 
 #endif /* HERO_H_ */

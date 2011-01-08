@@ -12,6 +12,7 @@
 
 #include "Bitmap.h"
 #include "Map.h"
+#include "Mob.h"
 
 class Dungeon: public RGame {
 private:
@@ -26,9 +27,10 @@ private:
 	void logic();
 	void draw();
 
-	Bitmap *bitmap;
+	Bitmap bitmap;
 	//Test
-	Map *map;
+	Map map;
+	Mob hero;
 public:
 	Dungeon();
 	virtual ~Dungeon();

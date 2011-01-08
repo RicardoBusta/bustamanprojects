@@ -4,14 +4,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/RGINE/RGLText.cpp \
 ../src/RGINE/RGame.cpp \
 ../src/RGINE/RSDL.cpp 
 
 OBJS += \
+./src/RGINE/RGLText.o \
 ./src/RGINE/RGame.o \
 ./src/RGINE/RSDL.o 
 
 CPP_DEPS += \
+./src/RGINE/RGLText.d \
 ./src/RGINE/RGame.d \
 ./src/RGINE/RSDL.d 
 

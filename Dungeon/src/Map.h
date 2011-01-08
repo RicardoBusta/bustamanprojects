@@ -8,23 +8,27 @@
 #ifndef MAP_H_
 #define MAP_H_
 
-#include "Mob.h"
+class Mob;
 
 class Tile{
 public:
 	bool wall;
+	Mob *mob;
 
 	Tile();
 	void draw(int x, int y);
 };
 
 class Map {
+private:
+	bool setup;
 public:
 	int width,height;
 	Tile *tile;
 
-	Map(int w,int h);
+	Map();
 	virtual ~Map();
+	void set(int w, int h);
 
 	void draw();
 };

@@ -2,7 +2,8 @@
  * RGame.cpp
  *
  *  Created on: 05/01/2011
- *      Author: ricardo
+ *      Author: Ricardo Bustamante de Queiroz
+ *      e-mail: ricardobqueiroz@gmail.com
  */
 
 #include "RGame.h"

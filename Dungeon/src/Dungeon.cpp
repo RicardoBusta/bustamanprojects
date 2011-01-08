@@ -104,9 +104,9 @@ void Dungeon::draw(){
 	glRotatef(cameray,0,1,0);
 	glRotatef(cameraz,0,0,1);
 	glTranslatef(-getWidth()/2,-getHeight()/2,0);
-	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
 
-	RGLText text("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 32,100,100);
+	RGLText text("ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\n1234567890", 32,0,100);
 	text.draw();
+	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
 	//map.draw();
 }

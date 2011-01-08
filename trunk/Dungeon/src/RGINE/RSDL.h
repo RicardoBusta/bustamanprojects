@@ -1,10 +1,11 @@
 /*
  * RSDL.h
  *
- *	Ricardo's SDL Class
- *
  *  Created on: 05/01/2011
- *      Author: ricardo
+ *      Author: Ricardo Bustamante de Queiroz
+ *      e-mail: ricardobqueiroz@gmail.com
+ *
+ *      SDL + opengl class
  */
 
 #ifndef RSDL_H_

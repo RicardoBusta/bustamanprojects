@@ -35,8 +35,12 @@ public:
 	void setText(string text);
 	void setSize(float s);
 	void setColor(float r, float g, float b);
+	void setSpacing(float x, float y);
+	void setAspect(float x, float y);
+	void setDetail(int d);
+	void setLineWidth(float w);
 
-	RGLText(string text, float size, float x, float y);
+	RGLText(string text, float size, float x, float y, float w);
 	virtual ~RGLText();
 };
 

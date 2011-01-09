@@ -104,7 +104,9 @@ void Dungeon::draw(){
 	glTranslatef(-getWidth()/2,-getHeight()/2,0);
 
 	//RGLText text("ABCDEFGHIJ\nKLMNOPQRST\nUVWXYZ?!.:\n1234567890", 64,0,300);
-	RGLText text(" Fonte 3D do ricardo =D\n fuck yea!!", 16,0,300);
+	RGLText text("Fonte 3D do ricardo =D\nfuck yea!!\nlineWidth4\naspect2:3\ncolor:green", 16,0,300,4);
+	text.setColor(0,1,0);
+	text.setAspect(2,3);
 	text.draw();
 	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
 	//map.draw();

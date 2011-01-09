@@ -25,6 +25,7 @@ RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0, float w=1) {
 	aspecty = 1;
 	detail = 10;
 	lineWidth = w;
+	r = g = b = 1;
 }
 
 RGLText::~RGLText() {
@@ -122,10 +123,10 @@ void RGLText::drawCharacter(char c){
 	char fc;
 	if(c >= 'a' and c <='z'){
 		fc = c - 'a' + 'A';
+		glScalef(1,0.75,1);
 	}else{
 		fc = c;
 	}
-
 	switch(fc){
 	case 'A':
 		glBegin(GL_LINES);
@@ -223,11 +224,11 @@ void RGLText::drawCharacter(char c){
 			glVertex3f(0.5,0,0);
 			glVertex3f(0.5,1,0);
 
-			glVertex3f(0,1,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.25,1,0);
+			glVertex3f(0.75,1,0);
 
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.25,0,0);
+			glVertex3f(0.75,0,0);
 		glEnd();
 		break;
 	case 'J':
@@ -508,11 +509,212 @@ void RGLText::drawCharacter(char c){
 	case '.':
 		drawCircular(0,360,0.5,0.05,0.05,0.05);
 		break;
+	case ',':
+		glBegin(GL_LINES);
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.5,0,0);
+
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.45,0.05,0);
+		glEnd();
+		drawCircular(-90,180,0.5,0.05,0.05,0.05);
+		break;
 	case ':':
 		drawCircular(0,360,0.5,0.55,0.05,0.05);
 		drawCircular(0,360,0.5,0.05,0.05,0.05);
 		break;
+	case ';':
+		glBegin(GL_LINES);
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.5,0,0);
+
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.45,0.05,0);
+		glEnd();
+		drawCircular(0,360,0.5,0.55,0.05,0.05);
+		drawCircular(-90,180,0.5,0.05,0.05,0.05);
+		break;
 	case ' ':
+		//That's it, seriously...
+		break;
+	case '_':
+		glBegin(GL_LINES);
+			glVertex3f(0,0,0);
+			glVertex3f(1,0,0);
+		glEnd();
+		break;
+	case '-':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.75,0.5,0);
+		glEnd();
+		break;
+	case '+':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.75,0.5,0);
+
+			glVertex3f(0.5,0.25,0);
+			glVertex3f(0.5,0.75,0);
+		glEnd();
+		break;
+	case '/':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0,0);
+			glVertex3f(0.75,1,0);
+		glEnd();
+		break;
+	case '*':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0.55,0);
+			glVertex3f(0.75,0.95,0);
+
+			glVertex3f(0.25,0.95,0);
+			glVertex3f(0.75,0.55,0);
+
+			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.5,1,0);
+		glEnd();
+		break;
+	case '\\':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,1,0);
+			glVertex3f(0.75,0,0);
+		glEnd();
+		break;
+	case '=':
+		glBegin(GL_LINES);
+			glVertex3f(0,0.3,0);
+			glVertex3f(1,0.3,0);
+
+			glVertex3f(0,0.7,0);
+			glVertex3f(1,0.7,0);
+		glEnd();
+		break;
+	case '#':
+		glBegin(GL_LINES);
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.3,1,0);
+
+			glVertex3f(0.7,0,0);
+			glVertex3f(0.7,1,0);
+
+			glVertex3f(0,0.3,0);
+			glVertex3f(1,0.3,0);
+
+			glVertex3f(0,0.7,0);
+			glVertex3f(1,0.7,0);
+		glEnd();
+		break;
+	case '$':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,1,0);
+		glEnd();
+		drawCircular(0,270,0.5,0.7,0.5,0.2);
+		drawCircular(180,450,0.5,0.3,0.5,0.2);
+		break;
+	case '\'':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0.75,0);
+			glVertex3f(0.5,1,0);
+		glEnd();
+		break;
+	case '\"':
+		glBegin(GL_LINES);
+			glVertex3f(0.4,0.75,0);
+			glVertex3f(0.4,1,0);
+
+			glVertex3f(0.6,0.75,0);
+			glVertex3f(0.6,1,0);
+		glEnd();
+		break;
+	case '(':
+		drawCircular(150,210,1.5,0.5,1,1);
+		break;
+	case ')':
+		drawCircular(-30,30,-0.5,0.5,1,1);
+		break;
+	case '[':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,1,0);
+
+			glVertex3f(0.7,0,0);
+			glVertex3f(0.5,0,0);
+
+			glVertex3f(0.7,1,0);
+			glVertex3f(0.5,1,0);
+		glEnd();
+		break;
+	case ']':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,1,0);
+
+			glVertex3f(0.3,0,0);
+			glVertex3f(0.5,0,0);
+
+			glVertex3f(0.3,1,0);
+			glVertex3f(0.5,1,0);
+		glEnd();
+		break;
+	case '{':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0.875,0);
+			glVertex3f(0.5,0.625,0);
+
+			glVertex3f(0.5,0.375,0);
+			glVertex3f(0.5,0.125,0);
+		glEnd();
+		drawCircular(90,180,0.625,0.875,0.125,0.125);
+		drawCircular(0,-90,0.375,0.625,0.125,0.125);
+		drawCircular(90,0,0.375,0.375,0.125,0.125);
+		drawCircular(180,270,0.625,0.125,0.125,0.125);
+		break;
+	case '}':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0.875,0);
+			glVertex3f(0.5,0.625,0);
+
+			glVertex3f(0.5,0.375,0);
+			glVertex3f(0.5,0.125,0);
+		glEnd();
+		drawCircular(0,90,0.375,0.875,0.125,0.125);
+		drawCircular(180,270,0.625,0.625,0.125,0.125);
+		drawCircular(90,180,0.625,0.375,0.125,0.125);
+		drawCircular(0,-90,0.375,0.125,0.125,0.125);
+		break;
+	case '<':
+		glBegin(GL_LINES);
+			glVertex3f(0,0.5,0);
+			glVertex3f(1,0.2,0);
+
+			glVertex3f(0,0.5,0);
+			glVertex3f(1,0.8,0);
+		glEnd();
+		break;
+	case '>':
+		glBegin(GL_LINES);
+			glVertex3f(1,0.5,0);
+			glVertex3f(0,0.2,0);
+
+			glVertex3f(1,0.5,0);
+			glVertex3f(0,0.8,0);
+		glEnd();
+		break;
+	case '%':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0.25,0);
+			glVertex3f(0.75,0.75,0);
+		glEnd();
+		drawCircular(0,360,0.25,0.75,0.2,0.2);
+		drawCircular(0,360,0.75,0.25,0.2,0.2);
+		break;
+	case '@':
+		drawCircular(0,300,0.5,0.5,0.5,0.5);
+		drawCircular(0,360,0.5,0.5,0.2,0.2);
+		drawCircular(180,360,0.85,0.5,0.15,0.15);
 		break;
 	default:
 		glBegin(GL_LINE_STRIP);

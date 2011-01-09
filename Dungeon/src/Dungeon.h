@@ -27,6 +27,9 @@ private:
 	void logic();
 	void draw();
 
+	void drawMenu();
+	void drawMap();
+
 	Bitmap bitmap;
 	//Test
 	Map map;

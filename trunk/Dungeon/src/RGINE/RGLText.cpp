@@ -53,14 +53,14 @@ void RGLText::drawCircular(float angle1, float angle2, float cx, float cy, float
 	float angleStart = angle1*M_PI/180;
 	float angleEnd = angle2*M_PI/180;
 	float angleIncrement = detail*M_PI/180;
-
+	float mult = 1;
 	if(angle2 < angle1){
-		angleIncrement*=-1;
+		mult*=-1;
 	}
 
 	float px, py;
 	glBegin(GL_LINE_STRIP);
-	for(float i=angleStart;i<angleEnd;i+=angleIncrement){
+	for(float i=angleStart;i*mult<angleEnd*mult;i+=angleIncrement*mult){
 		px = cx+cos(i)*scalex;
 		py = cy+sin(i)*scaley;
 		glVertex3f(px,py,0);
@@ -106,11 +106,10 @@ void RGLText::drawCharacter(char c){
 	char fc;
 	if(c >= 'a' and c <='z'){
 		fc = c - 'a' + 'A';
-	}else if( (c >= 'A' and c <='Z') or (c >= '0' and c <='9')){
-		fc = c;
 	}else{
-		fc = '?';
+		fc = c;
 	}
+
 	switch(fc){
 	case 'A':
 		glBegin(GL_LINES);
@@ -130,13 +129,13 @@ void RGLText::drawCharacter(char c){
 			glVertex3f(0,1,0);
 
 			glVertex3f(0,1,0);
-			glVertex3f(0.5,1,0);
+			glVertex3f(0.51,1,0);
 
 			glVertex3f(0,0.5,0);
-			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.51,0.5,0);
 
 			glVertex3f(0,0,0);
-			glVertex3f(0.5,0,0);
+			glVertex3f(0.51,0,0);
 		glEnd();
 		drawCircular(-90,90,0.5,0.75,0.5,0.25);
 		drawCircular(-90,90,0.5,0.25,0.5,0.25);
@@ -150,10 +149,10 @@ void RGLText::drawCharacter(char c){
 			glVertex3f(0,1,0);
 
 			glVertex3f(0,1,0);
-			glVertex3f(0.5,1,0);
+			glVertex3f(0.51,1,0);
 
 			glVertex3f(0,0,0);
-			glVertex3f(0.5,0,0);
+			glVertex3f(0.51,0,0);
 		glEnd();
 		drawCircular(-90,90,0.5,0.5,0.5,0.5);
 		break;
@@ -408,21 +407,96 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case '2':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0,0);
+			glVertex3f(0.75,0,0);
+
+			glVertex3f(0.25,0,0);
+			glVertex3f(0.5+cos(-45*M_PI/180)/4,0.75+sin(-45*M_PI/180)/4,0);
+		glEnd();
+		drawCircular(-45,180,0.5,0.75,0.25,0.25);
 		break;
 	case '3':
-		drawCircular(0,360,0.5,0.5,0.25,0.5);
+		drawCircular(-90,180,0.5,0.75,0.25,0.25);
+		drawCircular(90,-180,0.5,0.25,0.25,0.25);
 		break;
 	case '4':
+		glBegin(GL_LINES);
+			glVertex3f(0.625,0,0);
+			glVertex3f(0.625,1,0);
+
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.75,0.5,0);
+
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.625,1,0);
+		glEnd();
 		break;
 	case '5':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,1,0);
+			glVertex3f(0.75,1,0);
+
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.25,1,0);
+
+			glVertex3f(0.25,0.5,0);
+			glVertex3f(0.5,0.5,0);
+		glEnd();
+		drawCircular(-180,90,0.5,0.25,0.25,0.25);
 		break;
 	case '6':
+		glBegin(GL_LINES);
+			glVertex3f(0.25,0.76,0);
+			glVertex3f(0.25,0.27,0);
+		glEnd();
+		drawCircular(0,180,0.5,0.75,0.25,0.25);
+		drawCircular(0,360,0.5,0.25,0.25,0.25);
 		break;
 	case '7':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.75,1,0);
+
+			glVertex3f(0.25,1,0);
+			glVertex3f(0.75,1,0);
+		glEnd();
 		break;
 	case '8':
+		drawCircular(0,360,0.5,0.75,0.25,0.25);
+		drawCircular(0,360,0.5,0.25,0.25,0.25);
 		break;
 	case '9':
+		glBegin(GL_LINES);
+			glVertex3f(0.75,0.74,0);
+			glVertex3f(0.75,0.23,0);
+		glEnd();
+		drawCircular(0,360,0.5,0.75,0.25,0.25);
+		drawCircular(180,360,0.5,0.25,0.25,0.25);
+		break;
+	case '?':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.5,0.3,0);
+		glEnd();
+		drawCircular(-90,180,0.5,0.75,0.5,0.25);
+		drawCircular(0,360,0.5,0.05,0.05,0.05);
+		break;
+	case '!':
+		glBegin(GL_LINES);
+			glVertex3f(0.5,1,0);
+			glVertex3f(0.5,0.3,0);
+		glEnd();
+		drawCircular(0,360,0.5,0.05,0.05,0.05);
+		break;
+	case '.':
+		drawCircular(0,360,0.5,0.05,0.05,0.05);
+		break;
+	case ':':
+		drawCircular(0,360,0.5,0.55,0.05,0.05);
+		drawCircular(0,360,0.5,0.05,0.05,0.05);
+		break;
+	case ' ':
 		break;
 	default:
 		glBegin(GL_LINE_STRIP);

@@ -83,7 +83,7 @@ void Dungeon::logic(){
 	}
 	/*
 	if(key(SDLK_UP).isDown){
-		changed = true;
+		changed = true;ima
 		test++;
 	}
 	if(key(SDLK_DOWN).isDown){
@@ -97,15 +97,14 @@ void Dungeon::logic(){
 }
 
 void Dungeon::draw(){
-
-
 	glTranslatef(getWidth()/2,getHeight()/2,0);
 	glRotatef(camerax,1,0,0);
 	glRotatef(cameray,0,1,0);
 	glRotatef(cameraz,0,0,1);
 	glTranslatef(-getWidth()/2,-getHeight()/2,0);
 
-	RGLText text("ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\n1234567890", 32,0,100);
+	//RGLText text("ABCDEFGHIJ\nKLMNOPQRST\nUVWXYZ?!.:\n1234567890", 64,0,300);
+	RGLText text(" Fonte 3D do ricardo =D\n fuck yea!!", 16,0,300);
 	text.draw();
 	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
 	//map.draw();

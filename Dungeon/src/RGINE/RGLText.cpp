@@ -14,7 +14,7 @@
 #include <SDL/SDL_opengl.h>
 #include <cmath>
 
-RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0) {
+RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0, float w=1) {
 	text = t;
 	size = s;
 	x = nx;
@@ -24,7 +24,7 @@ RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0) {
 	aspectx = 1;
 	aspecty = 1;
 	detail = 10;
-	lineWidth = 1;
+	lineWidth = w;
 }
 
 RGLText::~RGLText() {
@@ -47,6 +47,21 @@ void RGLText::setColor(float nr, float ng, float nb){
 	r = nr;
 	g = ng;
 	b = nb;
+}
+
+void RGLText::setSpacing(float x, float y){
+	spacingx = x;
+	spacingy = y;
+}
+void RGLText::setAspect(float x, float y){
+	aspectx = x;
+	aspecty = y;
+}
+void RGLText::setDetail(int d){
+	detail = d;
+}
+void RGLText::setLineWidth(float w){
+	lineWidth = w;
 }
 
 void RGLText::drawCircular(float angle1, float angle2, float cx, float cy, float scalex, float scaley){
@@ -74,6 +89,7 @@ void RGLText::drawCircular(float angle1, float angle2, float cx, float cy, float
 
 void RGLText::draw(){
 	glLineWidth(lineWidth);
+	glColor3f(r,g,b);
 	glPushMatrix();
 	glTranslated(x,y,0);
 	glScalef(size*aspectx,size*aspecty,0);

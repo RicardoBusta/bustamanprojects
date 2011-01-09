@@ -102,7 +102,7 @@ void Dungeon::drawMenu(){
 	RGLText playername("Ricardo", 12,10,380,1);
 	playername.draw();
 	RGLText raceclass("Human Nerd", 12,10,300,1);
-	RGLText specs("\n\b\b\b\b\b\b\b\b\bBug Detection;\n\b\b\b\b\b\b\b\b\bInfrared Vision;\n\b\b\b\b\b\b\b\b\bForce push;", 12,0,0,1);
+	RGLText specs("\n\b\b\b\b\b\b\b\b\bBug Detectiona;\n\b\b\b\b\b\b\b\b\bInfrared Vision;\n\b\b\b\b\b\b\b\b\bForce push;", 12,0,0,1);
 	raceclass.setNext(&specs);
 	specs.setColor(1,0,1);
 	raceclass.draw();

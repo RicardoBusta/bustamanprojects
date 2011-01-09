@@ -8,6 +8,8 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#define SCALE 20
+
 class Mob;
 
 class Tile{

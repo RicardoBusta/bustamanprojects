@@ -14,7 +14,7 @@
 #include <SDL/SDL_opengl.h>
 #include <cmath>
 
-RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0, float w=1) {
+RGLText::RGLText(string t="", float s=16, float nx=0, float ny=0, float w=1) {
 	text = t;
 	size = s;
 	x = nx;
@@ -26,6 +26,8 @@ RGLText::RGLText(string t="", float s=1, float nx=0, float ny=0, float w=1) {
 	detail = 10;
 	lineWidth = w;
 	r = g = b = 1;
+	next = NULL;
+	tabsize = 4;
 }
 
 RGLText::~RGLText() {
@@ -65,6 +67,10 @@ void RGLText::setLineWidth(float w){
 	lineWidth = w;
 }
 
+void RGLText::setNext(RGLText *n){
+	next = n;
+}
+
 void RGLText::drawCircular(float angle1, float angle2, float cx, float cy, float scalex, float scaley){
 	float angleStart = angle1*M_PI/180;
 	float angleEnd = angle2*M_PI/180;
@@ -93,27 +99,45 @@ void RGLText::draw(){
 	glColor3f(r,g,b);
 	glPushMatrix();
 	glTranslated(x,y,0);
-	glScalef(size*aspectx,size*aspecty,0);
+	glScalef(size*aspectx,size*aspecty,1);
 	int clpos = 0;
+	int tabpos = 0;
 	for(unsigned int i=0;i<text.size();i++){
 		char c = text.c_str()[i];
 		switch(c){
 		case '\n':
+			//end of line
 			glTranslated(-clpos,-1,0);
 			clpos = 0;
 			break;
+		case '\t':
+			//tab
+			tabpos = clpos+tabsize-clpos%tabsize;
+			glTranslated(tabpos-clpos,0,0);
+			clpos = tabpos;
+			break;
+		case '\b':
+			//backspace
+			glTranslated(-1,0,0);
+			clpos--;
 		case '\0':
+			//the end
 			break;
 		default:
 			clpos++;
 			glPushMatrix();
 			glTranslated(spacingx/2,spacingy/2,0);
-			glScalef(1-spacingx,1-spacingy,0);
+			glScalef(1-spacingx,1-spacingy,1);
 			drawCharacter(text.c_str()[i]);
 			glPopMatrix();
 			glTranslated(1,0,0);
 			break;
 		}
+	}
+	if(next!=NULL and next!=this){
+		glTranslated(-1,0,0);
+		glScalef(1/size*aspectx,1/size*aspecty,1);
+		next->draw();
 	}
 	glPopMatrix();
 	glLineWidth(1);

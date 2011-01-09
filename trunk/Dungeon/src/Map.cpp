@@ -33,7 +33,7 @@ void Map::set(int w=10, int h=10){
 using namespace std;
 
 void Map::draw(){
-	int scale = 32;
+	int scale = SCALE;
 	for(int i=0;i<width;i++){
 		for(int j=0;j<height;j++){
 			glPushMatrix();
@@ -51,7 +51,7 @@ Tile::Tile(){
 }
 
 void Tile::draw(int x, int y){
-	float scale = 32;
+	float scale = SCALE;
 	/*
 	glColor3f(95.0/255,45.0/255,0);
 	glVertex3f(x*scale,y*scale,0);

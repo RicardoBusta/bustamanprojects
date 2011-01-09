@@ -26,6 +26,9 @@ private:
 	float r,g,b;			//text color
 	int detail;				//angle increment for circular characters
 	float lineWidth;		//character line width
+	int tabsize;			//size of tab in characters
+
+	RGLText *next;
 
 	//auxiliar
 	void drawCircular(float angle1, float angle2, float cx, float cy, float scalex, float scaley); //draw circular sections of characters
@@ -39,6 +42,7 @@ public:
 	void setAspect(float x, float y);
 	void setDetail(int d);
 	void setLineWidth(float w);
+	void setNext(RGLText *n);
 
 	RGLText(string text, float size, float x, float y, float w);
 	virtual ~RGLText();

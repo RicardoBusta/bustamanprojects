@@ -35,7 +35,7 @@ void Mob::engageCombat(Mob e){
 }
 
 void Mob::draw(){
-	float scale = 32;
+	float scale = SCALE;
 		glColor3f(1,1,1);
 		glVertex3f(0,0,scale+1);
 		glVertex3f(scale,0,scale+1);

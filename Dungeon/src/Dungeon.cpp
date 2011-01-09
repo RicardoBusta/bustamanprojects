@@ -28,7 +28,7 @@ void Dungeon::init(){
 	test = 1;
 	changed = true;
 	bitmap.set(100,100);
-	map.set(20,15);
+	map.set(20,20);
 	srand(time(0));
 	for(int i=0;i<map.width;i++){
 		for(int j=0;j<map.height;j++){
@@ -62,13 +62,14 @@ void Dungeon::rayCasting(){
 }
 
 void Dungeon::logic(){
+	/*
 	if(key(SDLK_c).down){
 		camerax=cameray=cameraz=0;
 	}
 	if(mouse().left.isDown){
 		camerax += mouse().speed.y;
 		cameray += mouse().speed.x;
-	}
+	}*/
 	if(key(SDLK_UP).down){
 		hero.move(0,1, &map);
 	}
@@ -97,16 +98,25 @@ void Dungeon::logic(){
 }
 
 void Dungeon::drawMenu(){
-	glTranslatef(0,0,2000);
-	RGLText text1("Agora acredito que minha fonte esteja\n100% para escrever textos estranhos\n!@#$%*()[]{}<>,.;:?", 64,0,300,1);
+	glTranslatef(400,0,1800);
+	RGLText playername("Ricardo", 12,10,380,1);
+	playername.draw();
+	RGLText raceclass("Human Nerd", 12,10,300,1);
+	RGLText specs("\n\b\b\b\b\b\b\b\b\bBug Detection;\n\b\b\b\b\b\b\b\b\bInfrared Vision;\n\b\b\b\b\b\b\b\b\bForce push;", 12,0,0,1);
+	raceclass.setNext(&specs);
+	specs.setColor(1,0,1);
+	raceclass.draw();
+	//specs.draw();
+
+	RGLText text1("String 2 ", 12,0,0,1);
 	text1.setLineWidth(1);
 	text1.setColor(1,1,1);
 	text1.draw();
 }
 
 void Dungeon::drawMap(){
-	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
-	//map.draw();
+	//glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
+	map.draw();
 }
 
 void Dungeon::draw(){

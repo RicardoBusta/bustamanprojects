@@ -12,8 +12,8 @@
 using namespace std;
 
 RSDL::RSDL() {
-	width = 640;
-	height = 480;
+	width = 560;
+	height = 400;
 	bpp = 32;
 	quit = false;
 }
@@ -26,7 +26,7 @@ bool RSDL::init(){
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_SetVideoMode(width,height,bpp,SDL_OPENGL|SDL_RESIZABLE);
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-	SDL_WM_SetCaption( "test" , NULL);
+	SDL_WM_SetCaption( "Ricardo's Dungeon!" , NULL);
 	opengl_init();
 	atexit(SDL_Quit);
 	return true;
@@ -59,7 +59,7 @@ void RSDL::opengl_resize()
 	glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
 	glViewport(0,0,width, height);
-	glOrtho( 0.0,width, 0.0,height , -2000,2000);
+	glOrtho( 0.0,width, 0.0,height , -2000,1000);
 	//glFrustum (-width/20,width/20, -height/20,height/20, 50,6000);
 	glMatrixMode(GL_TEXTURE);
 	//texture

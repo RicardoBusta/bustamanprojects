@@ -96,18 +96,30 @@ void Dungeon::logic(){
 	}*/
 }
 
+void Dungeon::drawMenu(){
+	glTranslatef(0,0,2000);
+	RGLText text1("Agora acredito que minha fonte esteja\n100% para escrever textos estranhos\n!@#$%*()[]{}<>,.;:?", 64,0,300,1);
+	text1.setLineWidth(1);
+	text1.setColor(1,1,1);
+	text1.draw();
+}
+
+void Dungeon::drawMap(){
+	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
+	//map.draw();
+}
+
 void Dungeon::draw(){
+	glPushMatrix();
+	drawMenu();
+	glPopMatrix();
+
+	glPushMatrix();
 	glTranslatef(getWidth()/2,getHeight()/2,0);
 	glRotatef(camerax,1,0,0);
 	glRotatef(cameray,0,1,0);
 	glRotatef(cameraz,0,0,1);
 	glTranslatef(-getWidth()/2,-getHeight()/2,0);
-
-	//RGLText text("ABCDEFGHIJ\nKLMNOPQRST\nUVWXYZ?!.:\n1234567890", 64,0,300);
-	RGLText text("Fonte 3D do ricardo =D\nfuck yea!!\nlineWidth4\naspect2:3\ncolor:green", 16,0,300,4);
-	text.setColor(0,1,0);
-	text.setAspect(2,3);
-	text.draw();
-	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
-	//map.draw();
+	drawMap();
+	glPopMatrix();
 }

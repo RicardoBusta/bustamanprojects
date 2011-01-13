@@ -13,9 +13,23 @@
 
 #include <cmath>
 
-#define BEGINLOWER 		glPushMatrix();\
-						glScalef(1,0.75,1);
-#define ENDLOWER		glPopMatrix();
+#define LOWERFRAME		glColor3f(1,0,0);\
+						glBegin(GL_LINE_STRIP);\
+						glVertex3f(0.125,0,-1);\
+						glVertex3f(0.875,0,-1);\
+						glVertex3f(0.875,0.75,-1);\
+						glVertex3f(0.125,0.75,-1);\
+						glVertex3f(0.125,0,-1);\
+						glEnd();\
+						glColor3f(0,0,1);\
+						glBegin(GL_LINES);\
+						glVertex3f(0.125,1,-1);\
+						glVertex3f(0.875,1,-1);\
+						glVertex3f(0.125,-0.25,-1);\
+						glVertex3f(0.875,-0.25,-1);\
+						glEnd();\
+						glColor3f(1,1,1);
+
 
 void RGLText::drawCharacter(char c){
 
@@ -59,18 +73,12 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'a':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0.5,1,0);
-
-			glVertex3f(0.5,1,0);
-			glVertex3f(1,0,0);
-
-			glVertex3f(0.25,0.5,0);
-			glVertex3f(0.75,0.5,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,0.5625,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,180,0.5,0.5625,0.375,0.1875);
+		drawCircular(0,360,0.5,0.1875,0.375,0.1875);
 		break;
 	case 'B':
 		glBegin(GL_LINES);
@@ -90,31 +98,17 @@ void RGLText::drawCharacter(char c){
 		drawCircular(-90,90,0.5,0.25,0.5,0.25);
 		break;
 	case 'b':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
-
-			glVertex3f(0,1,0);
-			glVertex3f(0.51,1,0);
-
-			glVertex3f(0,0.5,0);
-			glVertex3f(0.51,0.5,0);
-
-			glVertex3f(0,0,0);
-			glVertex3f(0.51,0,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,1,0);
 		glEnd();
-		drawCircular(-90,90,0.5,0.75,0.5,0.25);
-		drawCircular(-90,90,0.5,0.25,0.5,0.25);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
 		break;
 	case 'C':
-		drawCircular(30,330,0.5,0.5,0.5,0.5);
+		drawCircular(40,320,0.5,0.5,0.5,0.5);
 		break;
 	case 'c':
-		BEGINLOWER
-		drawCircular(30,330,0.5,0.5,0.5,0.5);
-		ENDLOWER
+		drawCircular(40,320,0.5,0.375,0.375,0.375);
 		break;
 	case 'D':
 		glBegin(GL_LINES);
@@ -130,20 +124,12 @@ void RGLText::drawCharacter(char c){
 		drawCircular(-90,90,0.5,0.5,0.5,0.5);
 		break;
 	case 'd':
-		BEGINLOWER
-			glBegin(GL_LINES);
-				glVertex3f(0,0,0);
-				glVertex3f(0,1,0);
-
-				glVertex3f(0,1,0);
-				glVertex3f(0.51,1,0);
-
-				glVertex3f(0,0,0);
-				glVertex3f(0.51,0,0);
-			glEnd();
-			drawCircular(-90,90,0.5,0.5,0.5,0.5);
-			ENDLOWER
-			break;
+		glBegin(GL_LINES);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,1,0);
+		glEnd();
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
+		break;
 	case 'E':
 		glBegin(GL_LINES);
 			glVertex3f(0,0,0);
@@ -160,21 +146,11 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'e':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
-
-			glVertex3f(0,1,0);
-			glVertex3f(1,1,0);
-
-			glVertex3f(0,0.5,0);
-			glVertex3f(1,0.5,0);
-
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.125,0.375,0);
+			glVertex3f(0.875,0.375,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,320,0.5,0.375,0.375,0.375);
 		break;
 	case 'F':
 		glBegin(GL_LINES);
@@ -189,7 +165,7 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'f':
-		BEGINLOWER
+		LOWERFRAME
 		glBegin(GL_LINES);
 			glVertex3f(0,0,0);
 			glVertex3f(0,1,0);
@@ -200,7 +176,6 @@ void RGLText::drawCharacter(char c){
 			glVertex3f(0,0.5,0);
 			glVertex3f(1,0.5,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'G':
 		glBegin(GL_LINES);
@@ -210,13 +185,12 @@ void RGLText::drawCharacter(char c){
 		drawCircular(30,360,0.5,0.5,0.5,0.5);
 		break;
 	case 'g':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0.5,0.5,0);
-			glVertex3f(1,0.5,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,0.75,0);
 		glEnd();
-		drawCircular(30,360,0.5,0.5,0.5,0.5);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
+		drawCircular(220,360,0.5,0,0.375,0.25);
 		break;
 	case 'H':
 		glBegin(GL_LINES);
@@ -231,18 +205,14 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'h':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,1,0);
 
-			glVertex3f(1,1,0);
-			glVertex3f(1,0,0);
-
-			glVertex3f(0,0.5,0);
-			glVertex3f(1,0.5,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,0.375,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,180,0.5,0.375,0.375,0.375);
 		break;
 	case 'I':
 		glBegin(GL_LINES);
@@ -257,18 +227,17 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'i':
-		BEGINLOWER
 		glBegin(GL_LINES);
 			glVertex3f(0.5,0,0);
-			glVertex3f(0.5,1,0);
+			glVertex3f(0.5,0.75,0);
 
-			glVertex3f(0.25,1,0);
-			glVertex3f(0.75,1,0);
+			glVertex3f(0.25,0.75,0);
+			glVertex3f(0.5,0.75,0);
 
 			glVertex3f(0.25,0,0);
 			glVertex3f(0.75,0,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,360,0.5,0.875,0.05,0.05);
 		break;
 	case 'J':
 		glBegin(GL_LINES);
@@ -281,16 +250,15 @@ void RGLText::drawCharacter(char c){
 		drawCircular(180,360,0.375,0.375,0.375,0.375);
 		break;
 	case 'j':
-		BEGINLOWER
+		LOWERFRAME
 		glBegin(GL_LINES);
-			glVertex3f(0.75,0.375,0);
-			glVertex3f(0.75,1,0);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,0.75,0);
 
-			glVertex3f(0.5,1,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.25,0.75,0);
+			glVertex3f(0.5,0.75,0);
 		glEnd();
-		drawCircular(180,360,0.375,0.375,0.375,0.375);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.875,0.05,0.05);
 		break;
 	case 'K':
 		glBegin(GL_LINES);
@@ -305,18 +273,16 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'k':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,1,0);
 
-			glVertex3f(0,0.5,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.125,0.375,0);
+			glVertex3f(0.875,0.75,0);
 
-			glVertex3f(0,0.5,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.125,0.375,0);
+			glVertex3f(0.875,0,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'L':
 		glBegin(GL_LINES);
@@ -328,15 +294,14 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'l':
-		BEGINLOWER
+		LOWERFRAME
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,1,0);
 
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.25,1,0);
+			glVertex3f(0.5,1,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'M':
 		glBegin(GL_LINES);
@@ -354,21 +319,18 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'm':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,0.75,0);
 
-			glVertex3f(1,0,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.5,0,0);
+			glVertex3f(0.5,0.375,0);
 
-			glVertex3f(0,1,0);
-			glVertex3f(0.5,0.5,0);
-
-			glVertex3f(1,1,0);
-			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,0.375,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,180,0.3215,0.375,0.1875,0.375);
+		drawCircular(0,180,0.6875,0.375,0.1875,0.375);
 		break;
 	case 'N':
 		glBegin(GL_LINES);
@@ -383,26 +345,20 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'n':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,0.75,0);
 
-			glVertex3f(1,0,0);
-			glVertex3f(1,1,0);
-
-			glVertex3f(0,1,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.875,0.375,0);
 		glEnd();
-		ENDLOWER
+		drawCircular(0,180,0.5,0.375,0.375,0.375);
 		break;
 	case 'O':
 		drawCircular(0,360,0.5,0.5,0.5,0.5);
 		break;
 	case 'o':
-		BEGINLOWER
-		drawCircular(0,360,0.5,0.5,0.5,0.5);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
 		break;
 	case 'P':
 		glBegin(GL_LINES);
@@ -418,19 +374,11 @@ void RGLText::drawCharacter(char c){
 		drawCircular(-90,90,0.5,0.75,0.5,0.25);
 		break;
 	case 'p':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
-
-			glVertex3f(0,1,0);
-			glVertex3f(0.5,1,0);
-
-			glVertex3f(0,0.5,0);
-			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.125,-0.25,0);
+			glVertex3f(0.125,0.75,0);
 		glEnd();
-		drawCircular(-90,90,0.5,0.75,0.5,0.25);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
 		break;
 	case 'Q':
 		glBegin(GL_LINES);
@@ -440,13 +388,11 @@ void RGLText::drawCharacter(char c){
 		drawCircular(0,360,0.5,0.5,0.5,0.5);
 		break;
 	case 'q':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0.5,0.5,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.875,-0.25,0);
+			glVertex3f(0.875,0.75,0);
 		glEnd();
-		drawCircular(0,360,0.5,0.5,0.5,0.5);
-		ENDLOWER
+		drawCircular(0,360,0.5,0.375,0.375,0.375);
 		break;
 	case 'R':
 		glBegin(GL_LINES);
@@ -465,32 +411,19 @@ void RGLText::drawCharacter(char c){
 		drawCircular(-90,90,0.5,0.75,0.5,0.25);
 		break;
 	case 'r':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(0,1,0);
-
-			glVertex3f(0.5,0.5,0);
-			glVertex3f(1,0,0);
-
-			glVertex3f(0,1,0);
-			glVertex3f(0.5,1,0);
-
-			glVertex3f(0,0.5,0);
-			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.125,0.75,0);
 		glEnd();
-		drawCircular(-90,90,0.5,0.75,0.5,0.25);
-		ENDLOWER
+		drawCircular(40,180,0.5,0.375,0.375,0.375);
 		break;
 	case 'S':
 		drawCircular(0,270,0.5,0.75,0.5,0.25);
 		drawCircular(180,450,0.5,0.25,0.5,0.25);
 		break;
 	case 's':
-		BEGINLOWER
-		drawCircular(0,270,0.5,0.75,0.5,0.25);
-		drawCircular(180,450,0.5,0.25,0.5,0.25);
-		ENDLOWER
+		drawCircular(0,270,0.5,0.5625,0.375,0.1875);
+		drawCircular(180,450,0.5,0.1875,0.375,0.1875);
 		break;
 	case 'T':
 		glBegin(GL_LINES);
@@ -502,15 +435,14 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 't':
-		BEGINLOWER
+		LOWERFRAME
 		glBegin(GL_LINES);
 			glVertex3f(0.5,0,0);
 			glVertex3f(0.5,1,0);
 
-			glVertex3f(0,1,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.25,0.75,0);
+			glVertex3f(0.75,0.75,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'U':
 		glBegin(GL_LINES);
@@ -523,16 +455,14 @@ void RGLText::drawCharacter(char c){
 		drawCircular(180,360,0.5,0.5,0.5,0.5);
 		break;
 	case 'u':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0.5,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0.375,0);
+			glVertex3f(0.125,0.75,0);
 
-			glVertex3f(1,1,0);
-			glVertex3f(1,0.5,0);
+			glVertex3f(0.875,0.375,0);
+			glVertex3f(0.875,0.75,0);
 		glEnd();
-		drawCircular(180,360,0.5,0.5,0.5,0.5);
-		ENDLOWER
+		drawCircular(180,360,0.5,0.375,0.375,0.375);
 		break;
 	case 'V':
 		glBegin(GL_LINES);
@@ -544,15 +474,13 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'v':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,1,0);
+			glVertex3f(0.125,0.75,0);
 			glVertex3f(0.5,0,0);
 
 			glVertex3f(0.5,0,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.875,0.75,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'W':
 		glBegin(GL_LINES);
@@ -570,21 +498,19 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'w':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,1,0);
-			glVertex3f(0.2,0,0);
+			glVertex3f(0.125,0.75,0);
+			glVertex3f(0.3,0,0);
 
-			glVertex3f(0.8,0,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.7,0,0);
+			glVertex3f(0.875,0.75,0);
 
-			glVertex3f(0.8,0,0);
+			glVertex3f(0.7,0,0);
 			glVertex3f(0.5,0.5,0);
 
-			glVertex3f(0.2,0,0);
+			glVertex3f(0.3,0,0);
 			glVertex3f(0.5,0.5,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'X':
 		glBegin(GL_LINES);
@@ -596,15 +522,13 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'x':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.875,0.75,0);
 
-			glVertex3f(1,0,0);
-			glVertex3f(0,1,0);
+			glVertex3f(0.875,0,0);
+			glVertex3f(0.125,0.75,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'Y':
 		glBegin(GL_LINES);
@@ -619,18 +543,13 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'y':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,1,0);
-			glVertex3f(0.5,0.5,0);
+			glVertex3f(0.125,0.75,0);
+			glVertex3f(0.5,0.375,0);
 
-			glVertex3f(0.5,0.5,0);
-			glVertex3f(1,1,0);
-
-			glVertex3f(0.5,0.5,0);
-			glVertex3f(0.5,0,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.875,0.75,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case 'Z':
 		glBegin(GL_LINES);
@@ -645,18 +564,16 @@ void RGLText::drawCharacter(char c){
 		glEnd();
 		break;
 	case 'z':
-		BEGINLOWER
 		glBegin(GL_LINES);
-			glVertex3f(0,0,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.875,0.75,0);
 
-			glVertex3f(0,1,0);
-			glVertex3f(1,1,0);
+			glVertex3f(0.125,0.75,0);
+			glVertex3f(0.875,0.75,0);
 
-			glVertex3f(0,0,0);
-			glVertex3f(1,0,0);
+			glVertex3f(0.125,0,0);
+			glVertex3f(0.875,0,0);
 		glEnd();
-		ENDLOWER
 		break;
 	case '0':
 		drawCircular(0,360,0.5,0.5,0.25,0.5);

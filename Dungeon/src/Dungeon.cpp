@@ -112,11 +112,12 @@ void Dungeon::drawMenu(){
 	//raceclass.draw();
 	//specs.draw();
 
-	RGLText text1("ABCDEFGHIJKLMNOPQRSTUVW\nXYZabcdefghijklmnopqrst\nuvwxyz1234567890\n!@#$%&*(){}[]~\"\\\'<>,.:;\nºª", 24,0,400,1);
+	RGLText text1("ABCDEFGHIJKLMNOPQRSTUVW\nXYZabcdefghijklmnopqrst\nuvwxyz1234567890\n!?@#$%&*(){}[]~\"\\/\'<>,.\n:;ºª", 24,0,400,1);
 	text1.draw();
-	RGLText text2("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character", 24,0,250,1);
+	RGLText text2("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character ||cFF0000|cFF0000like this", 24,0,250,1);
 	text2.draw();
-	RGLText text3("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character", 32,0,200,1);
+	RGLText text3("Seu besta", 32,0,100,1);
+	text3.draw();
 
 	glPopMatrix();
 }

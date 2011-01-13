@@ -62,14 +62,13 @@ void Dungeon::rayCasting(){
 }
 
 void Dungeon::logic(){
-	/*
 	if(key(SDLK_c).down){
 		camerax=cameray=cameraz=0;
 	}
 	if(mouse().left.isDown){
 		camerax += mouse().speed.y;
 		cameray += mouse().speed.x;
-	}*/
+	}//*/
 	if(key(SDLK_UP).down){
 		hero.move(0,1, &map);
 	}
@@ -84,7 +83,7 @@ void Dungeon::logic(){
 	}
 	/*
 	if(key(SDLK_UP).isDown){
-		changed = true;ima
+		changed = true;
 		test++;
 	}
 	if(key(SDLK_DOWN).isDown){
@@ -94,12 +93,20 @@ void Dungeon::logic(){
 	if(changed){
 		rayCasting();
 		changed = false;
-	}*/
+	}//*/
 }
 
 void Dungeon::drawMenu(){
-	glTranslatef(400,0,1800);
-	RGLText playername("Ricardo", 12,10,380,1);
+	glPushMatrix();
+	glTranslatef(getWidth()/2,getHeight()/2,0);
+	glRotatef(camerax,1,0,0);
+	glRotatef(cameray,0,1,0);
+	glRotatef(cameraz,0,0,1);
+	glTranslatef(-getWidth()/2,-getHeight()/2,0);
+
+	glTranslatef(400,0,100);
+	//glTranslatef(400,0,1800);
+	RGLText playername("Ricardo is |bffffff|cff0000awesome\n|rTesting Another line", 12,0,400,1);
 	playername.draw();
 	RGLText raceclass("Human Nerd", 12,10,300,1);
 	RGLText specs("\n\b\b\b\b\b\b\b\b\bBug Detectiona;\n\b\b\b\b\b\b\b\b\bInfrared Vision;\n\b\b\b\b\b\b\b\b\bForce push;", 12,0,0,1);
@@ -112,6 +119,8 @@ void Dungeon::drawMenu(){
 	text1.setLineWidth(1);
 	text1.setColor(1,1,1);
 	text1.draw();
+
+	glPopMatrix();
 }
 
 void Dungeon::drawMap(){

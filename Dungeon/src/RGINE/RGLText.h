@@ -12,21 +12,24 @@
 #ifndef RGLTEXT_H_
 #define RGLTEXT_H_
 
-#include <string>
-using namespace std;
+#include "RGLWidget.h"
 
-class RGLText {
+class RGLText:public RGLWidget{
 private:
 	void drawCharacter(char c);
 	string text;			//text
-	float x,y;				//text position
 	float spacingx,spacingy;//spacing between characters
 	float size;				//character size (square)
 	float aspectx, aspecty; //text aspect x:y
 	float r,g,b;			//text color
+	float bgr, bgg, bgb;		//background color
 	int detail;				//angle increment for circular characters
 	float lineWidth;		//character line width
 	int tabsize;			//size of tab in characters
+	bool lowercase;
+	bool uppercase;
+	bool underline;
+	bool bg;				//background
 
 	RGLText *next;
 
@@ -34,10 +37,12 @@ private:
 	void drawCircular(float angle1, float angle2, float cx, float cy, float scalex, float scaley); //draw circular sections of characters
 public:
 	void draw();
-	void setPos(float x, float y);
 	void setText(string text);
 	void setSize(float s);
 	void setColor(float r, float g, float b);
+	void setColor(string col);
+	void setBGColor(float r, float g, float b);
+	void setBGColor(string col);
 	void setSpacing(float x, float y);
 	void setAspect(float x, float y);
 	void setDetail(int d);

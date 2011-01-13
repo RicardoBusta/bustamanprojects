@@ -38,18 +38,22 @@ private:
 public:
 	void draw();
 	void setText(string text);
-	void setSize(float s);
+	void appendText(string text);
+	void setSize(float size);
 	void setColor(float r, float g, float b);
-	void setColor(string col);
+	void setColor(string color);
 	void setBGColor(float r, float g, float b);
-	void setBGColor(string col);
+	void setBGColor(string color);
 	void setSpacing(float x, float y);
 	void setAspect(float x, float y);
-	void setDetail(int d);
-	void setLineWidth(float w);
-	void setNext(RGLText *n);
+	void setDetail(int detail);
+	void setLineWidth(float width);
+	void setNext(RGLText *next);
+	void setLowerCase();
+	void setUpperCase();
+	void setNoCase();
 
-	RGLText(string text, float size, float x, float y, float w);
+	RGLText(string text, float size, float x, float y, float width);
 	virtual ~RGLText();
 };
 

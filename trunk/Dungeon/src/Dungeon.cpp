@@ -104,28 +104,26 @@ void Dungeon::drawMenu(){
 	glRotatef(cameraz,0,0,1);
 	glTranslatef(-getWidth()/2,-getHeight()/2,0);
 
-	glTranslatef(400,0,100);
+	//glTranslatef(400,0,100);
 	//glTranslatef(400,0,1800);
-	RGLText playername("Ricardo is |bffffff|cff0000awesome\n|rTesting Another line", 12,0,400,1);
-	playername.draw();
-	RGLText raceclass("Human Nerd", 12,10,300,1);
-	RGLText specs("\n\b\b\b\b\b\b\b\b\bBug Detectiona;\n\b\b\b\b\b\b\b\b\bInfrared Vision;\n\b\b\b\b\b\b\b\b\bForce push;", 12,0,0,1);
-	raceclass.setNext(&specs);
-	specs.setColor(1,0,1);
-	raceclass.draw();
+	//RGLText playername("Ricardo", 12,0,400,1);
+	//playername.draw();
+	//RGLText raceclass("Human Nerd\n|cff00ffSpell 1; \nSpell 2; \nSpell 3;", 12,10,300,1);
+	//raceclass.draw();
 	//specs.draw();
 
-	RGLText text1("String 2 ", 12,0,0,1);
-	text1.setLineWidth(1);
-	text1.setColor(1,1,1);
+	RGLText text1("ABCDEFGHIJKLMNOPQRSTUVW\nXYZabcdefghijklmnopqrst\nuvwxyz1234567890\n!@#$%&*(){}[]~\"\\\'<>,.:;\nºª", 24,0,400,1);
 	text1.draw();
+	RGLText text2("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character", 24,0,250,1);
+	text2.draw();
+	RGLText text3("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character", 32,0,200,1);
 
 	glPopMatrix();
 }
 
 void Dungeon::drawMap(){
 	//glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
-	map.draw();
+	//map.draw();
 }
 
 void Dungeon::draw(){

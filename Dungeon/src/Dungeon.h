@@ -9,6 +9,7 @@
 #define DUNGEON_H_
 
 #include "RGINE/RGame.h"
+#include <list>
 
 #include "Bitmap.h"
 #include "Map.h"

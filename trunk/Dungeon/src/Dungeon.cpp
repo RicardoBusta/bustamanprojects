@@ -11,6 +11,7 @@
 #include "Ray.h"
 #include "Mob.h"
 #include "RGINE/RGLText.h"
+#include "RGINE/RGL3DBMP.h"
 
 Dungeon::Dungeon() {
 }
@@ -112,24 +113,31 @@ void Dungeon::drawMenu(){
 	//raceclass.draw();
 	//specs.draw();
 
+	//RGL3DBMP bmp;
+	//bmp.x = 100;
+	//bmp.y = 100;
+	//bmp.optimize();
+	//bmp.draw();
+
 	RGLText text1("ABCDEFGHIJKLMNOPQRSTUVW\nXYZabcdefghijklmnopqrst\nuvwxyz1234567890\n!?@#$%&*(){}[]~\"\\/\'<>,.\n:;ºª", 24,0,400,1);
 	text1.draw();
 	RGLText text2("Testing special commands:\n|cff0000Color\n|CffffffBG Color|r\n|| character ||cFF0000|cFF0000like this", 24,0,250,1);
 	text2.draw();
-	RGLText text3("Seu besta", 32,0,100,1);
+	RGLText text3("|c00ff00|Cff0000Seu|r besta", 32,0,100,1);
+	text3.setLineWidth(3);
 	text3.draw();
 
 	glPopMatrix();
 }
 
 void Dungeon::drawMap(){
-	//glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
-	//map.draw();
+	glTranslatef(getWidth()/2-map.width*16,getHeight()/2-map.height*16,0);
+	map.draw();
 }
 
 void Dungeon::draw(){
 	glPushMatrix();
-	drawMenu();
+	//drawMenu();
 	glPopMatrix();
 
 	glPushMatrix();

@@ -10,10 +10,15 @@
 
 //TODO this class will be every single object handled in this game
 
+#include "RFrame.h"
+
 class REntity {
 public:
 	REntity();
 	virtual ~REntity();
+
+private:
+	RFrame frame;
 };
 
 #endif /* RENTITY_H_ */

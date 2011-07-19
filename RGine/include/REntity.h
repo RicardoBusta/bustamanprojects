@@ -17,6 +17,7 @@ public:
 	REntity();
 	virtual ~REntity();
 
+	void handle();
 private:
 	RFrame frame;
 };

@@ -15,6 +15,14 @@ class RPoint3f {
 public:
 	RPoint3f();
 	virtual ~RPoint3f();
+
+	//Operators
+	bool operator==(RPoint3f); //TODO
+	RPoint3f operator=(RPoint3f); //TODO
+	RPoint3f operator+(RPoint3f); //TODO
+	RPoint3f operator-(RPoint3f); //TODO
+	RPoint3f operator*(int); //TODO
+	RPoint3f operator/(int); //TODO
 private:
 	float x_;
 	float y_;

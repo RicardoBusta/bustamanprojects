@@ -8,10 +8,10 @@
 #include "REntity.h"
 
 REntity::REntity() {
-	// TODO Auto-generated constructor stub
-
 }
 
 REntity::~REntity() {
-	// TODO Auto-generated destructor stub
+}
+
+void REntity::handle(){
 }

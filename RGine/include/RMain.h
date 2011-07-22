@@ -24,7 +24,7 @@ private:
 	RSDL sdl;
 
 	void init();
-	void handle();
+	void render();
 };
 
 #endif /* RMAIN_H_ */

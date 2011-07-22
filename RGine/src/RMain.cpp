@@ -23,10 +23,11 @@ int RMain::run(){
 	init();
 	while(!sdl.finished()){
 		sdl.input();
+		logic();
 		sdl.render_begin();
-		handle();
+		render();
 		sdl.render_end();
-		//sdl.timer_delay();
+		sdl.timer_delay();
 	}
 	SDL_Quit();
 	return 0;
@@ -34,7 +35,11 @@ int RMain::run(){
 
 void RMain::init(){}
 
-void RMain::handle(){
+void RMain::logic(){
+
+}
+
+void RMain::render(){
 	glBegin(GL_TRIANGLES);
 	glColor3f(1,1,1);
 	glVertex3f(0,0,0);

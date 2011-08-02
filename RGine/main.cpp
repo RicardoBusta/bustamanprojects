@@ -6,12 +6,12 @@
  *      e-mail: ricardobqueiroz@gmail.com
  */
 
-#include "RMain.h"
+#include "Game.h"
 
 #include <iostream>
 using namespace std;
 
 int main(int argc, char *argv[]){
-	RMain a;
+	Game a;
 	return a.run();
 }

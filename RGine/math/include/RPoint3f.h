@@ -14,7 +14,16 @@
 class RPoint3f {
 public:
 	RPoint3f();
+	RPoint3f(float x, float y, float z);
 	virtual ~RPoint3f();
+
+	float x();
+	float y();
+	float z();
+
+	void setX(float x); //TODO
+	void setY(float y); //TODO
+	void setZ(float z); //TODO
 
 	//Operators
 	bool operator==(RPoint3f); //TODO

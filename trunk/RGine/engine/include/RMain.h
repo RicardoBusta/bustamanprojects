@@ -23,9 +23,10 @@ public:
 private:
 	RSDL sdl;
 
-	void init();
-	void logic();
-	void render();
+	virtual void render();
+
+	virtual void init()=0;
+	virtual void logic()=0;
 };
 
 #endif /* RMAIN_H_ */

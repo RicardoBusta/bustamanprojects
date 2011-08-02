@@ -33,17 +33,6 @@ int RMain::run(){
 	return 0;
 }
 
-void RMain::init(){}
-
-void RMain::logic(){
-
-}
-
 void RMain::render(){
-	glBegin(GL_TRIANGLES);
-	glColor3f(1,1,1);
-	glVertex3f(0,0,0);
-	glVertex3f(200,200,0);
-	glVertex3f(0,200,0);
-	glEnd();
+	//TODO render all entities and widgets properly
 }

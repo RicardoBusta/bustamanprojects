@@ -13,6 +13,24 @@ RPoint3f::RPoint3f() {
 
 }
 
+RPoint3f::RPoint3f(float x, float y, float z){
+	x_ = x;
+	y_ = y;
+	z_ = z;
+}
+
 RPoint3f::~RPoint3f() {
 	// TODO Auto-generated destructor stub
+}
+
+float RPoint3f::x(){
+	return x_;
+}
+
+float RPoint3f::y(){
+	return y_;
+}
+
+float RPoint3f::z(){
+	return z_;
 }

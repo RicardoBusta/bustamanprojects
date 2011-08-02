@@ -9,6 +9,7 @@
 #include "RCommon.h"
 
 #include <cmath>
+#include <math.h>
 
 RFrame::RFrame() {
 	// TODO Auto-generated constructor stub

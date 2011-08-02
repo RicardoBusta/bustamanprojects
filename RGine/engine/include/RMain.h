@@ -24,6 +24,7 @@ private:
 	RSDL sdl;
 
 	void init();
+	void logic();
 	void render();
 };
 

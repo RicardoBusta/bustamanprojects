@@ -81,39 +81,46 @@ void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
 
 
 
-void rglDrawCone(float radius, float height, RColor color)
+void rglDrawCone(float radius, float height, unsigned int div, RColor color)
 {
 	glBegin(GL_TRIANGLES);
 	glColor3ub(color.r(), color.g(), color.b());
-	int div = 10;
-	float ang = (2/div)*(M_PI);
+	float ang = (2.0/div)*(M_PI);
+	float h = height/2;
 	float x,y,z;
-	for(int i = 0; i<div; i++)
+	float c,s,c1,s1;
+	for(unsigned int i = 0; i<div; i++)
 	{
-		//tampa de baixo
+		float ca = (i/(float)div);
+		glColor3f(color.rF()*ca,color.gF()*ca,color.bF()*ca);
+		c = radius*cos(ang*i);
+		c1 = radius*cos(ang*(i+1));
+		s = -radius*sin(ang*i);
+		s1 = -radius*sin(ang*(i+1));
+
+		//bot
 		x=z=0;
-		y=-height/2;
+		y=-h;
 		glVertex3f(x, y, z);
-		x = cos(ang*(i+1));
-		z = sin(ang*(i+1));
+		x = c1;
+		z = s1;
 		glVertex3f(x, y, z);
-		x = cos(ang*i);
-		z = sin(ang*i);
+		x = c;
+		z = s;
 		glVertex3f(x, y, z);
 
-		//lateral
-		x = z = 0;
-		y = height/2;
+		//side bot
 		glVertex3f(x, y, z);
-		x = cos(ang*i);
-		z = sin(ang*i);
+		x = c1;
+		z = s1;
 		glVertex3f(x, y, z);
-		x = cos(ang*(i+1));
-		z = sin(ang*(i+1));
+		y=h;
+		x = 0;
+		z = 0;
 		glVertex3f(x, y, z);
+
 	}
 	glEnd();
-
 }
 
 

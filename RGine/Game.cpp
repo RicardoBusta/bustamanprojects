@@ -43,5 +43,6 @@ void Game::logic(){
 void Game::render(){
 	glMultMatrixf(frame.getMatrix());
 
-	rglDrawCylinder(200,200,100,RColor(255,255,255));
+	//rglDrawCylinder(200,200,100,RColor(255,255,255));
+	rglDrawCone(200,200,100,RColor(255,255,255));
 }

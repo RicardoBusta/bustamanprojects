@@ -15,11 +15,15 @@ public:
 	RFrame();
 	virtual ~RFrame();
 
+	void setIdentity();
 	void setPosition(float x, float y, float z);
+	void move(float x, float y, float z);
+	void scale(float x, float y, float z);
 	void rotate(float angle, float x, float y, float z);
+
+	float* getMatrix();
 private:
-	RPoint3f position;
-	float rotation[16];
+	float matrix[16];
 };
 
 #endif /* RFRAME_H_ */

@@ -7,6 +7,8 @@
 
 #include "RCommon.h"
 
+#include "RString.h"
+
 void matrixMult(float *A, float *B, int o){
 	float res[o*o];
 	/*
@@ -25,4 +27,14 @@ void matrixMult(float *A, float *B, int o){
 	for(int i=0;i<o*o;i++){
 		A[i] = res[i];
 	}
+}
+
+void matrixPrint(float *A, int o){
+	for(int i=0;i<o;i++){
+		for(int j=0;j<o;j++){
+			cout << A[i+j*o] ; //TODO return string instead of printing on console
+		}
+		cout << endl;
+	}
+	cout << endl;
 }

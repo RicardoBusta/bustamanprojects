@@ -20,8 +20,12 @@ public:
 
 	int run();
 
-private:
+protected:
+	MouseStruct mouse();
+	KeyStruct key(int id);
 	RSDL sdl;
+
+private:
 
 	virtual void render();
 

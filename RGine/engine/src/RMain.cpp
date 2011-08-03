@@ -33,6 +33,16 @@ int RMain::run(){
 	return 0;
 }
 
+MouseStruct RMain::mouse()
+{
+	return sdl.mouse();
+}
+
+KeyStruct RMain::key(int id)
+{
+	return sdl.key(id);
+}
+
 void RMain::render(){
 	//TODO render all entities and widgets properly
 }

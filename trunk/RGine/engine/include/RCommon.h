@@ -11,4 +11,7 @@
 //Multiply a matrix A*B where A and B are square and of order o
 void matrixMult(float *A, float *B, int o);
 
+//Print Matrix
+void matrixPrint(float *A, int o);
+
 #endif /* RCOMMON_H_ */

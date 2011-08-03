@@ -26,7 +26,7 @@ bool RSDL::init(){
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_SetVideoMode(width,height,bpp,SDL_OPENGL|SDL_RESIZABLE);
 	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-	SDL_WM_SetCaption( "Ricardo's Dungeon!" , NULL);
+	SDL_WM_SetCaption( "Ricardo's Engine!" , NULL);
 	opengl_init();
 	atexit(SDL_Quit);
 	return true;

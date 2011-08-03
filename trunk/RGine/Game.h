@@ -10,6 +10,8 @@
 
 #include "RMain.h"
 
+#include "RFrame.h"
+
 class Game:public RMain {
 public:
 	Game();
@@ -18,6 +20,8 @@ public:
 	void init();
 	void logic();
 	void render();
+private:
+	RFrame frame;
 };
 
 #endif /* GAME_H_ */

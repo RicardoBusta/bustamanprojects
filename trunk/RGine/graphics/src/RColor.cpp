@@ -51,3 +51,32 @@ void RColor::setG(int g){
 void RColor::setB(int b){
 	b_ = b;
 }
+
+void RColor::setR(float r)
+{
+}
+
+void RColor::setG(float g)
+{
+}
+
+void RColor::setB(float b)
+{
+}
+
+float RColor::rF()
+{
+	return r_/255.0;
+}
+
+
+float RColor::gF()
+{
+	return g_/255.0;
+}
+
+float RColor::bF()
+{
+	return b_/255.0;
+}
+

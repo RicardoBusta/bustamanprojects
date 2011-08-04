@@ -20,20 +20,20 @@ using namespace std;
 
 #include "RPoint2i.h"
 
-struct KeyStruct{
+struct KeyStruct {
 	bool up; //Key was lifted during that frame
 	bool down; //Key was pressed during that frame
 	bool isDown; //Key is down
-	KeyStruct(){
+	KeyStruct() {
 		up = false;
 		down = false;
 		isDown = false;
 	}
 };
 
-struct MouseStruct{
-	KeyStruct left,right,middle;
-	RPoint2i position, speed;
+struct MouseStruct {
+	KeyStruct left, right, middle, wheelup, wheeldown;
+	RPoint2i position, speed, wheelspeed;
 };
 
 class RSDL {
@@ -60,13 +60,12 @@ private:
 	MouseStruct mouse_;
 	void mouse_reset();
 
-
 	//Timer
 	bool timer_started;
-    int  timer_startTicks;
-    bool timer_paused;
-    int  timer_pausedTicks;
-    int  fps;
+	int timer_startTicks;
+	bool timer_paused;
+	int timer_pausedTicks;
+	int fps;
 
 public:
 	RSDL();
@@ -83,7 +82,7 @@ public:
 	void timer_pause();
 	void timer_unpause();
 	void timer_delay();
-	int  timer_getTicks();
+	int timer_getTicks();
 
 	//Controls
 	bool finished();

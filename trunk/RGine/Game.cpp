@@ -20,29 +20,43 @@ Game::~Game() {
 }
 
 void Game::init(){
+	cam.setZ(1);
 }
 
 #include "RString.h"
 
 void Game::logic(){
 	if(mouse().left.isDown){
-		frame.rotate(mouse().speed.x(),0,1,0);
-		frame.rotate(mouse().speed.y(),1,0,0);
-
+		//frame.rotate(mouse().speed.x(),0,1,0);
+		//frame.rotate(mouse().speed.y(),1,0,0);
+		cam.setX(cam.x()+mouse().speed.y());
+		cam.setY(cam.y()+mouse().speed.x());
 		//frame.setPosition(mouse().position.x(),sdl.getHeight()-mouse().position.y(),0);
 	}
 	if(key(SDLK_EQUALS).isDown){
-		frame.scale(1.001,1.001,1.001);
+		cam.setZ(cam.z()+0.01);
 	}
 	if(key(SDLK_MINUS).isDown){
-		frame.scale(0.999,0.999,0.999);
+		cam.setZ(cam.z()-0.01);
 	}
+
+	frame.setIdentity();
 	frame.setPosition(200,200,0);
+	frame.rotate(cam.x(),1,0,0);
+	frame.rotate(cam.y(),0,1,0);
+	frame.scale(cam.z(),cam.z(),cam.z());
 }
 
 void Game::render(){
-	glMultMatrixf(frame.getMatrix());
+	glLoadMatrixf(frame.getMatrix());
 
 	//rglDrawCylinder(200,200,100,RColor(255,255,255));
+	//rglDrawCone(200,200,100,RColor(255,255,255));
+	rglDrawSphere(100,30,RColor(255,255,255));
+	//rglDrawBox(200, 20, 200, RColor(0.1f, 0.1f, 0.9f));
+
+	frame.setIdentity();
+	frame.setPosition(300,300,0);
+	glLoadMatrixf(frame.getMatrix());
 	rglDrawCone(200,200,100,RColor(255,255,255));
 }

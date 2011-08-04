@@ -15,7 +15,7 @@ RColor::RColor() {
 RColor::~RColor() {
 	// TODO Auto-generated destructor stub
 }
-
+//TODO fix color
 RColor::RColor(int r, int g, int b){
 	r_ = r;
 	g_ = g;

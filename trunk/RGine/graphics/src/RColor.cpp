@@ -16,67 +16,63 @@ RColor::~RColor() {
 	// TODO Auto-generated destructor stub
 }
 //TODO fix color
-RColor::RColor(int r, int g, int b){
+RColor::RColor(int r, int g, int b) {
 	r_ = r;
 	g_ = g;
 	b_ = b;
 }
 
-RColor::RColor(float r, float g, float b){
-	r_ = (int)(r*255.0);
-	g_ = (int)(g*255.0);
-	b_ = (int)(b*255.0);
+RColor::RColor(float r, float g, float b) {
+	r_ = (int) (r * 255.0);
+	g_ = (int) (g * 255.0);
+	b_ = (int) (b * 255.0);
 }
 
-int RColor::r(){
+int RColor::r() {
 	return r_;
 }
 
-int RColor::g(){
+int RColor::g() {
 	return g_;
 }
 
-int RColor::b(){
+int RColor::b() {
 	return b_;
 }
 
-void RColor::setR(int r){
+void RColor::setR(int r) {
 	r_ = r;
 }
 
-void RColor::setG(int g){
+void RColor::setG(int g) {
 	g_ = g;
 }
 
-void RColor::setB(int b){
+void RColor::setB(int b) {
 	b_ = b;
 }
 
-void RColor::setR(float r)
-{
+void RColor::setR(float r) {
+	r_ = (r * 255);
 }
 
-void RColor::setG(float g)
-{
+void RColor::setG(float g) {
+	g_ = (g * 255);
 }
 
-void RColor::setB(float b)
-{
+void RColor::setB(float b) {
+	b_ = (b * 255);
 }
 
-float RColor::rF()
-{
-	return r_/255.0;
+float RColor::rF() {
+	return r_ / 255.0;
 }
 
-
-float RColor::gF()
-{
-	return g_/255.0;
+float RColor::gF() {
+	return g_ / 255.0;
 }
 
-float RColor::bF()
-{
-	return b_/255.0;
+float RColor::bF() {
+	return b_ / 255.0;
 }
 

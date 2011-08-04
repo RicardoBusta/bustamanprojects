@@ -11,7 +11,7 @@
 
 //TODO make this class to replace c++ default list (maybe)
 
-template <class T>
+template<class T>
 class RList {
 public:
 	RList();

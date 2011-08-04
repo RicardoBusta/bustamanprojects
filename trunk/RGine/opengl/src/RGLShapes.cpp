@@ -6,35 +6,31 @@
  */
 
 #include "RGLShapes.h"
-#include "RPoint3f.h"
 
 #include <SDL/SDL_opengl.h>
 #include <cmath>
-
-#include "RGLPrimitives.h"
+#include <RPoint3f.h>
 
 //TODO all
 
-
-void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
-{
+void rglDrawCylinder(float radius, float height, unsigned int div,
+		RColor color) {
 	glBegin(GL_TRIANGLES);
 	glColor3ub(color.r(), color.g(), color.b());
-	float ang = (2.0/div)*(M_PI);
-	float h = height/2;
-	float x,y,z;
-	float c,s,c1,s1;
-	for(unsigned int i = 0; i<div; i++)
-	{
-		float ca = (i/(float)div);
-		glColor3f(color.rF()*ca,color.gF()*ca,color.bF()*ca);
-		c = radius*cos(ang*i);
-		c1 = radius*cos(ang*(i+1));
-		s = -radius*sin(ang*i);
-		s1 = -radius*sin(ang*(i+1));
+	float ang = (2.0 / div) * (M_PI);
+	float h = height / 2;
+	float x, y, z;
+	float c, s, c1, s1;
+	for (unsigned int i = 0; i < div; i++) {
+		float ca = (i / (float) div);
+		glColor3f(color.rF() * ca, color.gF() * ca, color.bF() * ca);
+		c = radius * cos(ang * i);
+		c1 = radius * cos(ang * (i + 1));
+		s = -radius * sin(ang * i);
+		s1 = -radius * sin(ang * (i + 1));
 		//top
-		x=z=0;
-		y=h;
+		x = z = 0;
+		y = h;
 		glVertex3f(x, y, z);
 		x = c;
 		z = s;
@@ -44,8 +40,8 @@ void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
 		glVertex3f(x, y, z);
 
 		//bot
-		x=z=0;
-		y=-h;
+		x = z = 0;
+		y = -h;
 		glVertex3f(x, y, z);
 		x = c1;
 		z = s1;
@@ -55,14 +51,14 @@ void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
 		glVertex3f(x, y, z);
 
 		//side top
-		y=h;
+		y = h;
 		x = c1;
 		z = s1;
 		glVertex3f(x, y, z);
 		x = c;
 		z = s;
 		glVertex3f(x, y, z);
-		y=-h;
+		y = -h;
 		glVertex3f(x, y, z);
 
 		//side bot
@@ -70,7 +66,7 @@ void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
 		x = c1;
 		z = s1;
 		glVertex3f(x, y, z);
-		y=h;
+		y = h;
 		x = c1;
 		z = s1;
 		glVertex3f(x, y, z);
@@ -79,28 +75,24 @@ void rglDrawCylinder(float radius, float height, unsigned int div, RColor color)
 	glEnd();
 }
 
-
-
-void rglDrawCone(float radius, float height, unsigned int div, RColor color)
-{
+void rglDrawCone(float radius, float height, unsigned int div, RColor color) {
 	glBegin(GL_TRIANGLES);
 	glColor3ub(color.r(), color.g(), color.b());
-	float ang = (2.0/div)*(M_PI);
-	float h = height/2;
-	float x,y,z;
-	float c,s,c1,s1;
-	for(unsigned int i = 0; i<div; i++)
-	{
-		float ca = (i/(float)div);
-		glColor3f(color.rF()*ca,color.gF()*ca,color.bF()*ca);
-		c = radius*cos(ang*i);
-		c1 = radius*cos(ang*(i+1));
-		s = -radius*sin(ang*i);
-		s1 = -radius*sin(ang*(i+1));
+	float ang = (2.0 / div) * (M_PI);
+	float h = height / 2;
+	float x, y, z;
+	float c, s, c1, s1;
+	for (unsigned int i = 0; i < div; i++) {
+		float ca = (i / (float) div);
+		glColor3f(color.rF() * ca, color.gF() * ca, color.bF() * ca);
+		c = radius * cos(ang * i);
+		c1 = radius * cos(ang * (i + 1));
+		s = -radius * sin(ang * i);
+		s1 = -radius * sin(ang * (i + 1));
 
 		//bot
-		x=z=0;
-		y=-h;
+		x = z = 0;
+		y = -h;
 		glVertex3f(x, y, z);
 		x = c1;
 		z = s1;
@@ -114,7 +106,7 @@ void rglDrawCone(float radius, float height, unsigned int div, RColor color)
 		x = c1;
 		z = s1;
 		glVertex3f(x, y, z);
-		y=h;
+		y = h;
 		x = 0;
 		z = 0;
 		glVertex3f(x, y, z);
@@ -123,12 +115,10 @@ void rglDrawCone(float radius, float height, unsigned int div, RColor color)
 	glEnd();
 }
 
-
-void rglDrawBox(float width, float height, float depth, RColor color)
-{
-	float w = width/2;
-	float h = height/2;
-	float d = depth/2;
+void rglDrawBox(float width, float height, float depth, RColor color) {
+	float w = width / 2;
+	float h = height / 2;
+	float d = depth / 2;
 
 	RPoint3f p[8];
 	p[0].set(w, h, d);
@@ -195,60 +185,57 @@ void rglDrawBox(float width, float height, float depth, RColor color)
 	glEnd();
 }
 
-
-void rglDrawSphere(float radius, unsigned int div, RColor color)
-{
-	float sa,sa1,ca,ca1;
-	float sb,sb1,cb,cb1;
-	float x,y,z;
-	float ang = ((2.0/div)*(M_PI));
+void rglDrawSphere(float radius, unsigned int div, RColor color) {
+	float sa, sa1, ca, ca1;
+	float sb, sb1, cb, cb1;
+	float x, y, z;
+	float ang = ((2.0 / div) * (M_PI));
 	glBegin(GL_TRIANGLES);
-	for(unsigned int i=0;i<div;i++){
-		for(unsigned int j=div/2-1;j<div;j++){
-			float cola = ((i+1)/(float)div);
-			float cola2 = ((j+1)/(float)div);
-			glColor3f(color.rF()*cola,color.gF()*cola,color.bF()*cola2);
+	for (unsigned int i = 0; i < div; i++) {
+		for (unsigned int j = div / 2 - 1; j < div; j++) {
+			float cola = ((i + 1) / (float) div);
+			float cola2 = ((j + 1) / (float) div);
+			glColor3f(color.rF() * cola, color.gF() * cola, color.bF() * cola2);
 			//longitude
-			sa = sin(ang*i);
-			sa1 = sin(ang*(i+1));
-			ca = cos(ang*i);
-			ca1 = cos(ang*(i+1));
+			sa = sin(ang * i);
+			sa1 = sin(ang * (i + 1));
+			ca = cos(ang * i);
+			ca1 = cos(ang * (i + 1));
 			//latitude
-			sb = radius*sin(ang*(j-div/4));
-			sb1 = radius*sin(ang*((j+1)-div/4));
-			cb = radius*cos(ang*(j-div/4));
-			cb1 = radius*cos(ang*((j+1)-div/4));
+			sb = radius * sin(ang * (j - div / 4));
+			sb1 = radius * sin(ang * ((j + 1) - div / 4));
+			cb = radius * cos(ang * (j - div / 4));
+			cb1 = radius * cos(ang * ((j + 1) - div / 4));
 
-			x = cb*ca;
+			x = cb * ca;
 			y = sb;
-			z = cb*sa;
-			glVertex3f(x,y,z);
-			x = cb1*ca;
+			z = cb * sa;
+			glVertex3f(x, y, z);
+			x = cb1 * ca;
 			y = sb1;
-			z = cb1*sa;
-			glVertex3f(x,y,z);
-			x = cb1*ca1;
+			z = cb1 * sa;
+			glVertex3f(x, y, z);
+			x = cb1 * ca1;
 			y = sb1;
-			z = cb1*sa1;
-			glVertex3f(x,y,z);
+			z = cb1 * sa1;
+			glVertex3f(x, y, z);
 
-			if(j!=div/2-1 and j!=div){
-				x = cb*ca;
+			if (j != div / 2 - 1 and j != div) {
+				x = cb * ca;
 				y = sb;
-				z = cb*sa;
-				glVertex3f(x,y,z);
-				x = cb1*ca1;
+				z = cb * sa;
+				glVertex3f(x, y, z);
+				x = cb1 * ca1;
 				y = sb1;
-				z = cb1*sa1;
-				glVertex3f(x,y,z);
-				x = cb*ca1;
+				z = cb1 * sa1;
+				glVertex3f(x, y, z);
+				x = cb * ca1;
 				y = sb;
-				z = cb*sa1;
-				glVertex3f(x,y,z);
+				z = cb * sa1;
+				glVertex3f(x, y, z);
 			}
 		}
 	}
 	glEnd();
 }
-
 

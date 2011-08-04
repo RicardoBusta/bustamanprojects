@@ -8,18 +8,18 @@
 
 #include "RList.h"
 
-template <class T>
+template<class T>
 RList<T>::RList() {
 	// TODO Auto-generated constructor stub
 
 }
 
-template <class T>
+template<class T>
 RList<T>::~RList() {
 	// TODO Auto-generated destructor stub
 }
 
-template <class T>
-T RList<T>::operator[](const int index){
+template<class T>
+T RList<T>::operator[](const int index) {
 
 }

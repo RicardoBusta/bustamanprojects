@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-class RString:public string {
+class RString: public string {
 public:
 	RString();
 	virtual ~RString();

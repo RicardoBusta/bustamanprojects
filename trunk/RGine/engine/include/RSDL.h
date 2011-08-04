@@ -18,7 +18,7 @@
 #include <list>
 using namespace std;
 
-#include "RPoint2i.h"
+#include <RPoint2i.h>
 
 struct KeyStruct {
 	bool up; //Key was lifted during that frame

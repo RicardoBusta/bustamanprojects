@@ -21,7 +21,7 @@ RFrame::~RFrame() {
 }
 
 float* RFrame::getMatrix() {
-	return matrix;
+	return (matrix);
 }
 
 void RFrame::setIdentity() {

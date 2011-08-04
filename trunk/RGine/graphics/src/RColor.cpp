@@ -30,15 +30,15 @@ RColor::RColor(float r, float g, float b) {
 }
 
 int RColor::r() {
-	return r_;
+	return (r_);
 }
 
 int RColor::g() {
-	return g_;
+	return (g_);
 }
 
 int RColor::b() {
-	return b_;
+	return (b_);
 }
 
 void RColor::setR(int r) {
@@ -66,14 +66,14 @@ void RColor::setB(float b) {
 }
 
 float RColor::rF() {
-	return r_ / 255.0f;
+	return (r_ / 255.0f);
 }
 
 float RColor::gF() {
-	return g_ / 255.0f;
+	return (g_ / 255.0f);
 }
 
 float RColor::bF() {
-	return b_ / 255.0f;
+	return (b_ / 255.0f);
 }
 

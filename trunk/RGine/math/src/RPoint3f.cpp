@@ -24,15 +24,15 @@ RPoint3f::~RPoint3f() {
 }
 
 float RPoint3f::x() {
-	return x_;
+	return (x_);
 }
 
 float RPoint3f::y() {
-	return y_;
+	return (y_);
 }
 
 float RPoint3f::z() {
-	return z_;
+	return (z_);
 }
 
 void RPoint3f::set(float x, float y, float z) {
@@ -58,6 +58,6 @@ vector<float> RPoint3f::getVector() {
 	v.push_back(x_);
 	v.push_back(y_);
 	v.push_back(z_);
-	return v;
+	return (v);
 }
 

@@ -27,9 +27,9 @@ public:
 	float gF();
 	float bF();
 
-	void setR(float r);//TODO
-	void setG(float g);//TODO
-	void setB(float b);//TODO
+	void setR(float r);
+	void setG(float g);
+	void setB(float b);
 
 private:
 	int r_;

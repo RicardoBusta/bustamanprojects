@@ -14,7 +14,8 @@
 using namespace std;
 
 void rglDrawTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RColor color);
-void rglDrawQuad(RPoint3f p1, RPoint3f p2, RPoint3f p3, RPoint3f p4, RColor color);
+void rglDrawQuad(RPoint3f p1, RPoint3f p2, RPoint3f p3, RPoint3f p4,
+		RColor color);
 void rglDrawLineStrip(vector<RPoint3f> points, RColor color);
 //TODO more primitives
 

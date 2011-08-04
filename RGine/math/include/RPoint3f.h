@@ -9,12 +9,10 @@
 #ifndef RPOINT3F_H_
 #define RPOINT3F_H_
 
-
 //TODO finish this class
 
 #include <vector>
 using namespace std;
-
 
 class RPoint3f {
 public:

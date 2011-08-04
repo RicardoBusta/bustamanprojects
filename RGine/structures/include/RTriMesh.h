@@ -11,7 +11,8 @@
 #include "RPoint3f.h"
 #include "RColor.h"
 #include <vector>
-using namespace std; //TODO replace with RVector
+using namespace std;
+//TODO replace with RVector
 
 class RTriMesh {
 public:

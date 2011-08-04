@@ -12,7 +12,7 @@
 
 #include "RFrame.h"
 
-class Game:public RMain {
+class Game: public RMain {
 public:
 	Game();
 	virtual ~Game();

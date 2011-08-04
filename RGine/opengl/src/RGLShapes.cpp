@@ -11,8 +11,6 @@
 #include <cmath>
 #include <RPoint3f.h>
 
-//TODO all
-
 void rglDrawCylinder(float radius, float height, unsigned int div,
 		RColor color) {
 	glBegin(GL_TRIANGLES);
@@ -193,9 +191,8 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	glBegin(GL_TRIANGLES);
 	for (unsigned int i = 0; i < div; i++) {
 		for (unsigned int j = div / 2 - 1; j < div; j++) {
-			float cola = ((i + 1) / (float) div);
-			float cola2 = ((j + 1) / (float) div);
-			glColor3f(color.rF() * cola, color.gF() * cola, color.bF() * cola2);
+			float col = ((i+j) / (float) (div+div));
+			glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 			//longitude
 			sa = sin(ang * i);
 			sa1 = sin(ang * (i + 1));

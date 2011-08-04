@@ -153,6 +153,12 @@ void RSDL::mouse_reset() {
 	mouse_.middle.up = false;
 	mouse_.middle.down = false;
 
+	mouse_.wheeldown.up = false;
+	mouse_.wheeldown.down = false;
+
+	mouse_.wheelup.up = false;
+	mouse_.wheelup.down = false;
+
 	mouse_.speed.set(0, 0);
 }
 

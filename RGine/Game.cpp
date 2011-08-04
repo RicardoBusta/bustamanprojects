@@ -11,12 +11,9 @@
 #include "RGLShapes.h"
 
 Game::Game() {
-	// TODO Auto-generated constructor stub
-
 }
 
 Game::~Game() {
-	// TODO Auto-generated destructor stub
 }
 
 void Game::init() {
@@ -33,10 +30,12 @@ void Game::logic() {
 		cam.setY(cam.y() + mouse().speed.x());
 		//frame.setPosition(mouse().position.x(),sdl.getHeight()-mouse().position.y(),0);
 	}
-	if (key(SDLK_EQUALS).isDown) {
+	//if (key(SDLK_EQUALS).isDown) {
+	if(mouse().wheelup.isDown){
 		cam.setZ(cam.z() + 0.01);
 	}
-	if (key(SDLK_MINUS).isDown) {
+	//if (key(SDLK_MINUS).isDown) {
+	if(mouse().wheeldown.isDown){
 		cam.setZ(cam.z() - 0.01);
 	}
 

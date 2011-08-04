@@ -8,14 +8,15 @@
 #include "RColor.h"
 
 RColor::RColor() {
-	// TODO Auto-generated constructor stub
-
+	r_ = 255;
+	g_ = 255;
+	b_ = 255;
 }
 
 RColor::~RColor() {
-	// TODO Auto-generated destructor stub
+
 }
-//TODO fix color
+
 RColor::RColor(int r, int g, int b) {
 	r_ = r;
 	g_ = g;
@@ -65,14 +66,14 @@ void RColor::setB(float b) {
 }
 
 float RColor::rF() {
-	return r_ / 255.0;
+	return r_ / 255.0f;
 }
 
 float RColor::gF() {
-	return g_ / 255.0;
+	return g_ / 255.0f;
 }
 
 float RColor::bF() {
-	return b_ / 255.0;
+	return b_ / 255.0f;
 }
 

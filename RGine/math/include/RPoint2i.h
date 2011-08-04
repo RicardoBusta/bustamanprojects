@@ -27,6 +27,8 @@ public:
 	RPoint2i operator=(RPoint2i); //TODO
 	RPoint2i operator+(RPoint2i); //TODO
 	RPoint2i operator-(RPoint2i); //TODO
+	RPoint2i operator*(RPoint2i); //TODO
+	RPoint2i operator^(RPoint2i); //TODO
 	RPoint2i operator*(int); //TODO
 	RPoint2i operator/(int); //TODO
 private:

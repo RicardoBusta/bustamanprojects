@@ -21,11 +21,11 @@ RPoint2i::~RPoint2i() {
 }
 
 int RPoint2i::x() {
-	return x_;
+	return (x_);
 }
 
 int RPoint2i::y() {
-	return y_;
+	return (y_);
 }
 
 void RPoint2i::setX(int x) {

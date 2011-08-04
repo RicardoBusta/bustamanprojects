@@ -30,15 +30,15 @@ int RMain::run() {
 		sdl.timer_delay();
 	}
 	SDL_Quit();
-	return 0;
+	return (0);
 }
 
 MouseStruct RMain::mouse() {
-	return sdl.mouse();
+	return (sdl.mouse());
 }
 
 KeyStruct RMain::key(int id) {
-	return sdl.key(id);
+	return (sdl.key(id));
 }
 
 void RMain::render() {

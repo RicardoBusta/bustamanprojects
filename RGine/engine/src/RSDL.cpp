@@ -4,6 +4,9 @@
  *  Created on: Jan 05, 2011
  *      Author: Ricardo Bustamante de Queiroz
  *      e-mail: ricardobqueiroz@gmail.com
+ *
+ *  @section DESCRIPTION
+ *  RSDL is the class that interacts with directly with sdl
  */
 
 #include "RSDL.h"
@@ -21,7 +24,9 @@ RSDL::RSDL() {
 RSDL::~RSDL() {
 }
 
-//Init all subsystems
+/*
+ * Init all subsystems
+ */
 bool RSDL::init() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_SetVideoMode(width, height, bpp, SDL_OPENGL | SDL_RESIZABLE);
@@ -29,7 +34,7 @@ bool RSDL::init() {
 	SDL_WM_SetCaption("Ricardo's Engine!", NULL);
 	opengl_init();
 	atexit(SDL_Quit);
-	return true;
+	return (true);
 }
 
 void RSDL::render_begin() {
@@ -49,7 +54,7 @@ bool RSDL::opengl_init() {
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
 	opengl_resize();
-	return true;
+	return (true);
 }
 
 //Set OpenGL Projection Matrix
@@ -106,12 +111,12 @@ void RSDL::timer_unpause() {
 int RSDL::timer_getTicks() {
 	if (timer_started == true) {
 		if (timer_paused == true) {
-			return timer_pausedTicks;
+			return (timer_pausedTicks);
 		} else {
-			return SDL_GetTicks() - timer_startTicks;
+			return (SDL_GetTicks() - timer_startTicks);
 		}
 	}
-	return 0;
+	return (0);
 }
 
 //Delay if frame ended up too early
@@ -123,15 +128,15 @@ void RSDL::timer_delay() {
 
 //Tells the game if sdl has finished it's operation or issued a quit command
 bool RSDL::finished() {
-	return quit;
+	return (quit);
 }
 
 MouseStruct RSDL::mouse() {
-	return mouse_;
+	return (mouse_);
 }
 
 KeyStruct RSDL::key(int kID) {
-	return key_[kID];
+	return (key_[kID]);
 }
 
 void RSDL::key_reset() {
@@ -250,9 +255,9 @@ void RSDL::input() {
 }
 
 int RSDL::getHeight() {
-	return height;
+	return (height);
 }
 
 int RSDL::getWidth() {
-	return width;
+	return (width);
 }

@@ -16,12 +16,12 @@ RMain::~RMain() {
 	// TODO Auto-generated destructor stub
 }
 
-int RMain::run(){
+int RMain::run() {
 	sdl.init();
 	sdl.timer_init();
 	sdl.timer_start();
 	init();
-	while(!sdl.finished()){
+	while (!sdl.finished()) {
 		sdl.input();
 		logic();
 		sdl.render_begin();
@@ -33,16 +33,14 @@ int RMain::run(){
 	return 0;
 }
 
-MouseStruct RMain::mouse()
-{
+MouseStruct RMain::mouse() {
 	return sdl.mouse();
 }
 
-KeyStruct RMain::key(int id)
-{
+KeyStruct RMain::key(int id) {
 	return sdl.key(id);
 }
 
-void RMain::render(){
+void RMain::render() {
 	//TODO render all entities and widgets properly
 }

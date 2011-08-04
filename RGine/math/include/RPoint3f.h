@@ -9,7 +9,12 @@
 #ifndef RPOINT3F_H_
 #define RPOINT3F_H_
 
+
 //TODO finish this class
+
+#include <vector>
+using namespace std;
+
 
 class RPoint3f {
 public:
@@ -24,6 +29,9 @@ public:
 	void setX(float x); //TODO
 	void setY(float y); //TODO
 	void setZ(float z); //TODO
+	void set(float x, float y, float z);
+
+	vector<float> getVector(); //todo replace x,y,z w/ vector
 
 	//Operators
 	bool operator==(RPoint3f); //TODO

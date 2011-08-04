@@ -21,6 +21,9 @@ public:
 	void logic();
 	void render();
 private:
+
+	RPoint3f cam;
+
 	RFrame frame;
 };
 

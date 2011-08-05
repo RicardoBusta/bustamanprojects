@@ -9,6 +9,9 @@
 #ifndef RPOINT2I_H_
 #define RPOINT2I_H_
 
+/**
+ * 2D integer coordinate point.
+ */
 class RPoint2i {
 public:
 	RPoint2i();

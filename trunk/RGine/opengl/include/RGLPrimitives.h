@@ -34,10 +34,38 @@
 #include "vector" //TODO replace std::vector with RVector
 using namespace std;
 
+/**
+ * Draw a triangle using OpenGL commands.
+ *
+ * @param p1 First point.
+ * @param p2 Second point.
+ * @param p3 Third point.
+ * @param color Color.
+ */
 void rglDrawTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RColor color);
+
+/**
+ * Draw a quad using OpenGL commands.
+ *
+ * @param p1 First point.
+ * @param p2 Second point.
+ * @param p3 Third point.
+ * @param p4 Fourth point.
+ * @param color Color.
+ */
 void rglDrawQuad(RPoint3f p1, RPoint3f p2, RPoint3f p3, RPoint3f p4,
 		RColor color);
+
+/**
+ * Draw a line strip using OpenGL commands.
+ *
+ * @param points
+ * @param color
+ */
 void rglDrawLineStrip(vector<RPoint3f> points, RColor color);
-//TODO more primitives
+
+/*
+ * TODO more primitives.
+ */
 
 #endif /* RGLPRIMITIVES_H_ */

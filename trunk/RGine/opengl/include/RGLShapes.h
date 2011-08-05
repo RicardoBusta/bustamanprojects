@@ -33,12 +33,65 @@
 
 #include <RTriMesh.h>
 
+/**
+ * Draw a box using OpenGL commands.
+ *
+ * @param width Box width.
+ * @param height Box height.
+ * @param depht Box depth.
+ * @param color Box color.
+ */
 void rglDrawBox(float width, float height, float depht, RColor color);
-void rglDrawCapsule(float radius, float height, unsigned int div, RColor color); //TODO
+
+/**
+ * Draw a capsule using OpenGL commands.
+ *
+ * @param radius Capsule corners radius.
+ * @param height Capsule body height.
+ * @param div Capsule level of detail.
+ * @param color Capsule color.
+ */
+void rglDrawCapsule(float radius, float height, unsigned int div, RColor color);
+
+/**
+ * Draw a cone using OpenGL commands.
+ *
+ * @param radius Cone bottom radius.
+ * @param height Cone height.
+ * @param div Cone level of detail.
+ * @param color Cone color.
+ */
 void rglDrawCone(float radius, float height, unsigned int div, RColor color);
-void rglDrawConvexHull(); //TODO
+
+/**
+ * Draw a convex hull using OpenGL commands. TODO
+ */
+void rglDrawConvexHull();
+
+/**
+ * Draw a cylinder using OpenGL commands.
+ *
+ * @param radius Cylinder radius.
+ * @param height Cylinder height.
+ * @param div Cylinder level of detail.
+ * @param color Cylinder color.
+ */
 void rglDrawCylinder(float radius, float height, unsigned int div, RColor color);
+
+/**
+ * Draw a sphere using OpenGL commands.
+ *
+ * @param radius Sphere radius.
+ * @param div Sphere level of detail.
+ * @param color Sphere color.
+ */
 void rglDrawSphere(float radius, unsigned int div, RColor color);
-void rglDrawTriMesh(RTriMesh mesh); //TODO
+
+/**
+ * Draw a triangle mesh using OpenGL commands. TODO
+ *
+ * @param mesh Triangular mesh containing a vector of vertexes.
+ */
+void rglDrawTriMesh(RTriMesh mesh);
 
 #endif /* RGLSHAPES_H_ */

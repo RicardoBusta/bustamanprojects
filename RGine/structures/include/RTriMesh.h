@@ -1,8 +1,29 @@
-/*
- * RTriMesh.h
+/**
+ * @file
+ * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
+ * @version
  *
- *  Created on: Aug 3, 2011
- *      Author: ricardo
+ * @section LICENSE
+ *
+ * This file is part of RGine.
+ *
+ * RGine is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @section DESCRIPTION
+ *
+ * File: RTriMesh.h
+ * Created on: Aug 5, 2011
  */
 
 #ifndef RTRIMESH_H_
@@ -22,8 +43,26 @@ public:
 	RTriMesh();
 	virtual ~RTriMesh();
 
-	void addPoint(RPoint3f point, RPoint3f normal, RColor color);
+	/**
+	 * Add a point to the triangular mesh.
+	 *
+	 * @param point The position of the vertex that will be added.
+	 * @param normal Normal of that vertex. Default is (0,0,1).
+	 * @param color Color of that vertex. Default is white.
+	 */
+	void addPoint(RPoint3f point, RPoint3f normal, RColor color=RColor(255,255,255));
+	/**
+	 * Get a point at the given position.
+	 *
+	 * @param at Index of the wanted vertex.
+	 * @return The point of that vertex.
+	 */
 	RPoint3f getPoint(int at);
+	/**
+	 * Remove the vertex from the triangular mesh.
+	 *
+	 * @param at Vertex index.
+	 */
 	void removePoint(int at);
 
 private:

@@ -1,5 +1,5 @@
 /**
- * @file main.cpp
+ * @file
  * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
  * @version
  *
@@ -23,6 +23,7 @@
  * @section DESCRIPTION
  *
  * Created on: Jul 14, 2011
+ * File: main.cpp
  */
 
 #include "Game.h"

@@ -1,5 +1,5 @@
 /**
- * @file RGLText.h
+ * @file
  * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
  * @version
  *
@@ -22,6 +22,7 @@
  *
  * @section DESCRIPTION
  * 
+ * File: RGLText.h
  * Created on: Aug 5, 2011
  */
 

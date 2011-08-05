@@ -1,11 +1,30 @@
-/*
- * RSDL.h
+/**
+ * @file
+ * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
+ * @version
  *
- *  Created on: Jan 05, 2011
- *      Author: Ricardo Bustamante de Queiroz
- *      e-mail: ricardobqueiroz@gmail.com
+ * @section LICENSE
+ *
+ * This file is part of RGine.
+ *
+ * RGine is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @section DESCRIPTION
+ *
+ * File: RSDL.h
+ * Created on: Aug 5, 2011
  */
-
 #ifndef RSDL_H_
 #define RSDL_H_
 
@@ -21,7 +40,7 @@ using namespace std;
 #include <RPoint2i.h>
 
 /**
- *
+ * This structure will keep track of every key or button state.
  */
 struct KeyStruct {
 	/**
@@ -46,13 +65,52 @@ struct KeyStruct {
 	}
 };
 
+/**
+ * This structure will keep track of the mouse state. Including buttons states
+ * and speed, position etc.
+ */
 struct MouseStruct {
-	KeyStruct left, right, middle, wheelup, wheeldown;
-	RPoint2i position, speed, wheelspeed;
+	/**
+	 * Left mouse button state.
+	 */
+	KeyStruct left;
+	/**
+	 * Right mouse button state.
+	 */
+	KeyStruct right;
+	/**
+	 * Middle mouse button state.
+	 */
+	KeyStruct middle;
+	/**
+	 * Mousewheel UP button state.
+	 */
+	KeyStruct wheelup;
+	/**
+	 * Mousewheel DOWN button state.
+	 */
+	KeyStruct wheeldown;
+	/**
+	 * Mouse current position on screen. Being (0,0) left top corner.
+	 */
+	RPoint2i position;
+	/**
+	 * Mouse current speed on move.
+	 */
+	RPoint2i speed;
+	/**
+	 * Mousewheel speed.
+	 */
+	RPoint2i wheelspeed;
 };
 
+/**
+ * Class that will make direct access to the sdl commands and make it available
+ * to the rest of the application.
+ */
 class RSDL {
 private:
+	friend class RMain;
 	//Screen
 	int width;
 	int height;
@@ -82,14 +140,6 @@ private:
 	int timer_pausedTicks;
 	int fps;
 
-public:
-	RSDL();
-	virtual ~RSDL();
-
-	//Subsystems Control
-	bool init();
-	bool end();
-
 	//Timer
 	void timer_init();
 	void timer_start();
@@ -98,6 +148,13 @@ public:
 	void timer_unpause();
 	void timer_delay();
 	int timer_getTicks();
+public:
+	RSDL();
+	virtual ~RSDL();
+
+	//Subsystems Control
+	bool init();
+	bool end();
 
 	//Controls
 	bool finished();

@@ -20,10 +20,25 @@ using namespace std;
 
 #include <RPoint2i.h>
 
+/**
+ *
+ */
 struct KeyStruct {
-	bool up; //Key was lifted during that frame
+	/**
+	 * If the key was lifted during that frame this will be true.
+	 */
+	bool up;
+	/**
+	 * If the key was pressed during that frame this will be true.
+	 */
 	bool down; //Key was pressed during that frame
+	/**
+	 * If the key is down this will be true (pressed)
+	 */
 	bool isDown; //Key is down
+	/**
+	 * this struct will keep track on the key states.
+	 */
 	KeyStruct() {
 		up = false;
 		down = false;

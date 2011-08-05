@@ -1,5 +1,5 @@
 /**
- * @file game.h
+ * @file
  * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
  * @version
  *
@@ -18,10 +18,11 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @section DESCRIPTION
  *
+ * File: game.h
  * Created on: Aug 2, 2011
  */
 
@@ -53,9 +54,13 @@ public:
 	 */
 	void render();
 private:
-
+	/**
+	 * Camera position
+	 */
 	RPoint3f cam;
-
+	/**
+	 * Camera frame (transformations: rotation, scale etc)
+	 */
 	RFrame frame;
 };
 

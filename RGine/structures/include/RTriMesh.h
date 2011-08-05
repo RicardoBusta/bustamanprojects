@@ -14,6 +14,9 @@
 using namespace std;
 //TODO replace with RVector
 
+/**
+ * This class stores a triangular mesh. Used to represent a tridimentional object.
+ */
 class RTriMesh {
 public:
 	RTriMesh();

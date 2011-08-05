@@ -29,7 +29,7 @@
 #define RPHYSICALOBJECT_H_
 
 /**
- *
+ * This class will be used by the physics engine to represent an object with physical behavior.
  */
 class RPhysicalObject {
 public:

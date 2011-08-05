@@ -8,6 +8,11 @@
 #ifndef RVECTOR_H_
 #define RVECTOR_H_
 
+//TODO this class
+
+/**
+ * Class used to store an array of objects.
+ */
 class RVector {
 public:
 	RVector();

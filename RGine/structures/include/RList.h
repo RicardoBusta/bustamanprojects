@@ -12,6 +12,9 @@
 //TODO make this class to replace c++ default list (maybe)
 
 template<class T>
+/**
+ * This class is a list of objects.
+ */
 class RList {
 public:
 	RList();

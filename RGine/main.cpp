@@ -30,6 +30,9 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * Program's main function. Will create a Game Object and run it and return it's result.
+ */
 int main(int argc, char *argv[]) {
 	Game a;
 	return (a.run());

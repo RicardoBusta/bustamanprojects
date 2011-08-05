@@ -43,6 +43,11 @@ public:
 	RMain();
 	virtual ~RMain();
 
+	/**
+	 * Run the main application loop.
+	 *
+	 * @return Will return 0 if no error is found during execution.
+	 */
 	int run();
 
 protected:

@@ -152,24 +152,66 @@ public:
 	RSDL();
 	virtual ~RSDL();
 
-	//Subsystems Control
+	/**
+	 * Will init SDL subsystems.
+	 *
+	 * @return True if everything went ok.
+	 */
 	bool init();
+
+	/**
+	 * Will end SDL subsystems.
+	 *
+	 * @return True if everything went ok.
+	 */
 	bool end();
 
-	//Controls
+	/**
+	 * Will warn if the main loop was finished by the application.
+	 *
+	 * @return True if the main loop is finished.
+	 */
 	bool finished();
+
+	/**
+	 * Will track all key and mouse input.
+	 */
 	void input();
 
-	//OpenGL
+	/**
+	 * Prepare the main loop for render.
+	 */
 	void render_begin();
+
+	/**
+	 * Complete the render phase by finishing it.
+	 */
 	void render_end();
 
-	//Input
+	/**
+	 * Mouse structure.
+	 *
+	 * @return will return the mouse structure.
+	 */
 	MouseStruct mouse();
-	KeyStruct key(int);
 
-	//Information
+	/**
+	 * Key structure. Will return a specific key given it's ID (SDLK_*id*).
+	 * @param id Key ID. (SDLK_*id*).
+	 * @return The wanted key structure.
+	 */
+	KeyStruct key(int id);
+
+	/**
+	 * Get the SDL screen width.
+	 * @return Screen width.
+	 */
 	int getWidth();
+
+	/**
+	 * Get the SDL screen height.
+	 * @return Screen height.
+	 */
 	int getHeight();
 };
 

@@ -14,11 +14,29 @@
 #include <vector>
 using namespace std;
 
+/**
+ * 3D float coordinate point.
+ */
 class RPoint3f {
 public:
+	/**
+	 * Constructor.
+	 */
 	RPoint3f();
-	RPoint3f(float x, float y, float z);
+
+	/**
+	 * Destructor.
+	 */
 	virtual ~RPoint3f();
+
+	/**
+	 * Constructor. Will create a point with 3 given coordinates.
+	 *
+	 * @param x X Coordinate.
+	 * @param y Y Coordinate.
+	 * @param z Z coordinate.
+	 */
+	RPoint3f(float x, float y, float z);
 
 	float x();
 	float y();

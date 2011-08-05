@@ -6,6 +6,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript">
+$(document).ready(initResizable);
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -20,6 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">RGine&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">RGineisasimplegameenginemadebyRicardoBustamante.</div>
   </td>
  </tr>
  </tbody>
@@ -53,49 +61,65 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('Game_8h.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <h1>Game.h</h1>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*</span>
-<a name="l00002"></a>00002 <span class="comment"> * game.h</span>
-<a name="l00003"></a>00003 <span class="comment"> *</span>
-<a name="l00004"></a>00004 <span class="comment"> *  Created on: Aug 2, 2011</span>
-<a name="l00005"></a>00005 <span class="comment"> *      Author: ricardo</span>
-<a name="l00006"></a>00006 <span class="comment"> */</span>
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="preprocessor">#ifndef GAME_H_</span>
-<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define GAME_H_</span>
-<a name="l00010"></a>00010 <span class="preprocessor"></span>
-<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;RMain.h&quot;</span>
-<a name="l00012"></a>00012 
-<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;RFrame.h&quot;</span>
-<a name="l00014"></a>00014 
-<a name="l00015"></a><a class="code" href="classGame.html">00015</a> <span class="keyword">class </span><a class="code" href="classGame.html">Game</a>: <span class="keyword">public</span> <a class="code" href="classRMain.html">RMain</a> {
-<a name="l00016"></a>00016 <span class="keyword">public</span>:
-<a name="l00017"></a>00017         <a class="code" href="classGame.html">Game</a>();
-<a name="l00018"></a>00018         <span class="keyword">virtual</span> ~<a class="code" href="classGame.html">Game</a>();
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020         <span class="keywordtype">void</span> init();
-<a name="l00021"></a>00021         <span class="keywordtype">void</span> logic();
-<a name="l00022"></a>00022         <span class="keywordtype">void</span> render();
-<a name="l00023"></a>00023 <span class="keyword">private</span>:
-<a name="l00024"></a>00024 
-<a name="l00025"></a>00025         <a class="code" href="classRPoint3f.html">RPoint3f</a> cam;
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027         <a class="code" href="classRFrame.html">RFrame</a> frame;
-<a name="l00028"></a>00028 };
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="preprocessor">#endif </span><span class="comment">/* GAME_H_ */</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00028"></a>00028 <span class="preprocessor">#ifndef GAME_H_</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span><span class="preprocessor">#define GAME_H_</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;RMain.h&quot;</span>
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="preprocessor">#include &quot;RFrame.h&quot;</span>
+<a name="l00034"></a>00034 
+<a name="l00038"></a><a class="code" href="classGame.html">00038</a> <span class="keyword">class </span><a class="code" href="classGame.html">Game</a>: <span class="keyword">public</span> <a class="code" href="classRMain.html">RMain</a> {
+<a name="l00039"></a>00039 <span class="keyword">public</span>:
+<a name="l00040"></a>00040         <a class="code" href="classGame.html">Game</a>();
+<a name="l00041"></a>00041         <span class="keyword">virtual</span> ~<a class="code" href="classGame.html">Game</a>();
+<a name="l00042"></a>00042 
+<a name="l00046"></a>00046         <span class="keywordtype">void</span> <a class="code" href="classGame.html#a6f3a33940524b6ba9d83f627ccb14bbf">init</a>();
+<a name="l00050"></a>00050         <span class="keywordtype">void</span> <a class="code" href="classGame.html#ae93d6615d19503966f6e20235adc6daf">logic</a>();
+<a name="l00054"></a>00054         <span class="keywordtype">void</span> <a class="code" href="classGame.html#a15ddd769261d923827a3cdf41499c843">render</a>();
+<a name="l00055"></a>00055 <span class="keyword">private</span>:
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057         <a class="code" href="classRPoint3f.html">RPoint3f</a> cam;
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         <a class="code" href="classRFrame.html">RFrame</a> frame;
+<a name="l00060"></a>00060 };
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif </span><span class="comment">/* GAME_H_ */</span>
 </pre></div></div>
 </div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><b>Game.h</b>      </li>
+      <li class="footer">Generated on Thu Aug 4 2011 21:33:37 for RGine by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
+    </ul>
+  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -104,8 +128,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 4 2011 09:11:27 for RGine by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
+
 </body>
 </html>

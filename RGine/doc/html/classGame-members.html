@@ -6,6 +6,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript">
+$(document).ready(initResizable);
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -20,6 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">RGine&#160;<span id="projectnumber">0.1</span></div>
+   <div id="projectbrief">RGineisasimplegameenginemadebyRicardoBustamante.</div>
   </td>
  </tr>
  </tbody>
@@ -53,9 +61,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('classGame.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <h1>Game Member List</h1>  </div>
@@ -63,23 +85,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 This is the complete list of members for <a class="el" href="classGame.html">Game</a>, including all inherited members.<table>
   <tr bgcolor="#f0f0f0"><td><b>Game</b>() (defined in <a class="el" href="classGame.html">Game</a>)</td><td><a class="el" href="classGame.html">Game</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>init</b>() (defined in <a class="el" href="classGame.html">Game</a>)</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classGame.html#a6f3a33940524b6ba9d83f627ccb14bbf">init</a>()</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>key</b>(int id) (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td><code> [protected]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>logic</b>() (defined in <a class="el" href="classGame.html">Game</a>)</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classGame.html#ae93d6615d19503966f6e20235adc6daf">logic</a>()</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>mouse</b>() (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td><code> [protected]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>render</b>() (defined in <a class="el" href="classGame.html">Game</a>)</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classGame.html#a15ddd769261d923827a3cdf41499c843">render</a>()</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>RMain</b>() (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>run</b>() (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>sdl</b> (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td><code> [protected]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~Game</b>() (defined in <a class="el" href="classGame.html">Game</a>)</td><td><a class="el" href="classGame.html">Game</a></td><td><code> [virtual]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>~RMain</b>() (defined in <a class="el" href="classRMain.html">RMain</a>)</td><td><a class="el" href="classRMain.html">RMain</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="footer">Generated on Thu Aug 4 2011 21:33:37 for RGine by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
+    </ul>
+  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,8 +118,6 @@ This is the complete list of members for <a class="el" href="classGame.html">Gam
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Thu Aug 4 2011 09:11:27 for RGine by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
+
 </body>
 </html>

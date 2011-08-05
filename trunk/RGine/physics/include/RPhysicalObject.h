@@ -26,16 +26,78 @@
  * Created on: Aug 5, 2011
  */
 
+/* TODO
 #ifndef RPHYSICALOBJECT_H_
 #define RPHYSICALOBJECT_H_
 
+#include <cmath>
+#include <irrlicht.h>
+#include <btBulletDynamicsCommon.h>
+#include "vlJoint.h"
+
+#define MeshBuffer IMeshBuffer
+#define Vector3D vector3df
+
+using namespace irr;
+using namespace core;
+using namespace scene;
+using namespace video;
+using namespace io;
+using namespace gui;
+
+enum RShape {
+    RSHAPE_SPHERE, RSHAPE_BOX, RSHAPE_CAPSULE, RSHAPE_CYLINDER, RSHAPE_CONE, RSHAPE_CONVEXHULL, RSHAPE_TRIMESH
+};
+
 /**
  * This class will be used by the physics engine to represent an object with physical behavior.
- */
+ *
 class RPhysicalObject {
+    friend class vlEnvironment;
+    friend class PhysicsSim;
+    friend class Joint;
+
+private:
+    btRigidBody* rigidBody;
+    btCollisionShape* shape;
+    btDefaultMotionState* motionState;
+    double mass;
+
+    //ISceneNode* irrnode;
+
 public:
-	RPhysicalObject();
-	virtual ~RPhysicalObject();
+    void initializeTerrain(btCollisionShape* shape, btDefaultMotionState* motionState);
+    void initialize(btCollisionShape* shape);
+
+    void Update();
+
+public:
+
+    btRigidBody* getRigidBody();
+    //ISceneNode* getSceneNode();
+    btVector3 getJointReferenceAxis();
+
+    //public:
+
+    RPhysicalObject(ISceneNode* irrnode, double mass);
+    ~RPhysicalObject();
+
+    MeshBuffer* getMeshBuffer();
+    Vector3D getScale();
+    Vector3D getPosition();
+    Vector3D getRotation();
+    matrix4 getAbsoluteTransformation();
+
+    float getAngularVel();
+    float getLinearVel();
+
+    void setRestitution(float c);
+    void setFriction(float c);
+
+    void setLinearDamping(float damp);
+    void setAngularDamping(float damp);
+
+    bool isColliding(RPhysicalObject* obj);
 };
 
 #endif /* RPHYSICALOBJECT_H_ */

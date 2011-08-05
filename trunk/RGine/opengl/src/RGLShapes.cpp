@@ -13,12 +13,12 @@
 
 void rglDrawCylinder(float radius, float height, unsigned int div,
 		RColor color) {
-	glBegin(GL_TRIANGLES);
-	glColor3ub(color.r(), color.g(), color.b());
 	float ang = (2.0 / div) * (M_PI);
 	float h = height / 2;
 	float x, y, z;
 	float c, s, c1, s1;
+	glBegin(GL_TRIANGLES);
+	glColor3ub(color.r(), color.g(), color.b());
 	for (unsigned int i = 0; i < div; i++) {
 		float ca = (i / (float) div);
 		glColor3f(color.rF() * ca, color.gF() * ca, color.bF() * ca);
@@ -74,12 +74,12 @@ void rglDrawCylinder(float radius, float height, unsigned int div,
 }
 
 void rglDrawCone(float radius, float height, unsigned int div, RColor color) {
-	glBegin(GL_TRIANGLES);
-	glColor3ub(color.r(), color.g(), color.b());
 	float ang = (2.0 / div) * (M_PI);
 	float h = height / 2;
 	float x, y, z;
 	float c, s, c1, s1;
+	glBegin(GL_TRIANGLES);
+	glColor3ub(color.r(), color.g(), color.b());
 	for (unsigned int i = 0; i < div; i++) {
 		float ca = (i / (float) div);
 		glColor3f(color.rF() * ca, color.gF() * ca, color.bF() * ca);
@@ -183,6 +183,46 @@ void rglDrawBox(float width, float height, float depth, RColor color) {
 	glEnd();
 }
 
+void rglDrawCapsule(float radius, float height, unsigned int div,
+		RColor color) {
+	float h = height / 2;
+	float x, y, z;
+	float s, c, s1, c1;
+	float ang = (2.0 / div) * (M_PI);
+	glBegin(GL_TRIANGLES);
+	for (unsigned int i = 0; i < div; i++) {
+		float col = ((i) / (float) (div));
+		glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
+
+		c = radius * cos(ang * i);
+		c1 = radius * cos(ang * (i + 1));
+		s = -radius * sin(ang * i);
+		s1 = -radius * sin(ang * (i + 1));
+
+		//side top
+		y = h;
+		x = c1;
+		z = s1;
+		glVertex3f(x, y, z);
+		x = c;
+		z = s;
+		glVertex3f(x, y, z);
+		y = -h;
+		glVertex3f(x, y, z);
+
+		//side bot
+		glVertex3f(x, y, z);
+		x = c1;
+		z = s1;
+		glVertex3f(x, y, z);
+		y = h;
+		x = c1;
+		z = s1;
+		glVertex3f(x, y, z);
+	}
+	glEnd();
+}
+
 void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	float sa, sa1, ca, ca1;
 	float sb, sb1, cb, cb1;
@@ -190,8 +230,8 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	float ang = ((2.0 / div) * (M_PI));
 	glBegin(GL_TRIANGLES);
 	for (unsigned int i = 0; i < div; i++) {
-		for (unsigned int j = div / 2 - 1; j < div; j++) {
-			float col = ((i+j) / (float) (div+div));
+		for (unsigned int j = 0; j < div / 2; j++) {
+			float col = ((i + j) / (float) (div + div));
 			glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 			//longitude
 			sa = sin(ang * i);
@@ -199,40 +239,43 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 			ca = cos(ang * i);
 			ca1 = cos(ang * (i + 1));
 			//latitude
-			sb = radius * sin(ang * (j - div / 4));
-			sb1 = radius * sin(ang * ((j + 1) - div / 4));
-			cb = radius * cos(ang * (j - div / 4));
-			cb1 = radius * cos(ang * ((j + 1) - div / 4));
-
-			x = cb * ca;
-			y = sb;
-			z = cb * sa;
-			glVertex3f(x, y, z);
-			x = cb1 * ca;
-			y = sb1;
-			z = cb1 * sa;
-			glVertex3f(x, y, z);
-			x = cb1 * ca1;
-			y = sb1;
-			z = cb1 * sa1;
-			glVertex3f(x, y, z);
-
-			if (j != div / 2 - 1 and j != div) {
-				x = cb * ca;
-				y = sb;
-				z = cb * sa;
+			sb = radius * sin(ang * j);
+			sb1 = radius * sin(ang * (j + 1));
+			cb = radius * cos(ang * j);
+			cb1 = radius * cos(ang * (j + 1));
+			if (j != 0) {
+				x = sb * ca;
+				y = cb;
+				z = sb * sa;
 				glVertex3f(x, y, z);
-				x = cb1 * ca1;
-				y = sb1;
-				z = cb1 * sa1;
+				x = sb * ca1;
+				y = cb;
+				z = sb * sa1;
 				glVertex3f(x, y, z);
-				x = cb * ca1;
-				y = sb;
-				z = cb * sa1;
+				x = sb1 * ca1;
+				y = cb1;
+				z = sb1 * sa1;
+				glVertex3f(x, y, z);
+			}
+			if (j != (div / 2) - 1) {
+				x = sb * ca;
+				y = cb;
+				z = sb * sa;
+				glVertex3f(x, y, z);
+				x = sb1 * ca1;
+				y = cb1;
+				z = sb1 * sa1;
+				glVertex3f(x, y, z);
+				x = sb1 * ca;
+				y = cb1;
+				z = sb1 * sa;
 				glVertex3f(x, y, z);
 			}
 		}
 	}
 	glEnd();
+}
+
+void rglDrawTriMesh(RTriMesh mesh) {
 }
 

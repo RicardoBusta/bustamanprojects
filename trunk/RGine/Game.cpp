@@ -1,10 +1,29 @@
-/*
- * game.cpp
+/**
+ * @file game.cpp
+ * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
+ * @version
  *
- *  Created on: Aug 2, 2011
- *      Author: ricardo
+ * @section LICENSE
+ *
+ * This file is part of RGine.
+ *
+ * RGine is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @section DESCRIPTION
+ *
+ * Created on: Aug 2, 2011
  */
-
 #include "Game.h"
 
 #include "RGLPrimitives.h"
@@ -51,11 +70,12 @@ void Game::render() {
 
 	//rglDrawCylinder(200,200,100,RColor(255,255,255));
 	//rglDrawCone(200,200,100,RColor(255,255,255));
-	rglDrawSphere(100, 30, RColor(255, 255, 255));
+	rglDrawSphere(100, 16, RColor(255, 255, 255));
+	rglDrawCapsule(100,200,10,RColor(255,255,255));
 	//rglDrawBox(200, 20, 200, RColor(0.1f, 0.1f, 0.9f));
 
-	frame.setIdentity();
-	frame.setPosition(300, 300, 0);
-	glLoadMatrixf(frame.getMatrix());
-	rglDrawCone(200, 200, 100, RColor(255, 255, 255));
+	//frame.setIdentity();
+	//frame.setPosition(300, 300, 0);
+	//glLoadMatrixf(frame.getMatrix());
+	//rglDrawCone(200, 200, 100, RColor(255, 255, 255));
 }

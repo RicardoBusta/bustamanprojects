@@ -187,11 +187,12 @@ void rglDrawCapsule(float radius, float height, unsigned int div,
 		RColor color) {
 	float h = height / 2;
 	float x, y, z;
-	float s, c, s1, c1;
-	float ang = (2.0 / div) * (M_PI);
+	float s, c, s1, c1, o;
+	float sb, cb, sb1, cb1;
+	float ang = (1.0 / div) * (M_PI);
 	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < div; i++) {
-		float col = ((i) / (float) (div));
+	for (unsigned int i = 0; i < 2*div; i++) {
+		float col = (i / (float) (2*div));
 		glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 
 		c = radius * cos(ang * i);
@@ -219,6 +220,48 @@ void rglDrawCapsule(float radius, float height, unsigned int div,
 		x = c1;
 		z = s1;
 		glVertex3f(x, y, z);
+
+		for (unsigned int j = 0; j < div; j++) {
+			if(j<div/2) o = h; else o = -h;
+			//longitude
+			s = -sin(ang * i);
+			s1 = -sin(ang * (i + 1));
+			c = cos(ang * i);
+			c1 = cos(ang * (i + 1));
+			//latitude
+			sb = radius * sin(ang * j);
+			sb1 = radius * sin(ang * (j + 1));
+			cb = radius * cos(ang * j);
+			cb1 = radius * cos(ang * (j + 1));
+			if (j != div-1) {
+				x = sb * c;
+				y = cb+o;
+				z = sb * s;
+				glVertex3f(x, y, z);
+				x = sb1 * c;
+				y = cb1+o;
+				z = sb1 * s;
+				glVertex3f(x, y, z);
+				x = sb1 * c1;
+				y = cb1+o;
+				z = sb1 * s1;
+				glVertex3f(x, y, z);
+			}
+			if (j != 0) {
+				x = sb * c;
+				y = cb+o;
+				z = sb * s;
+				glVertex3f(x, y, z);
+				x = sb1 * c1;
+				y = cb1+o;
+				z = sb1 * s1;
+				glVertex3f(x, y, z);
+				x = sb * c1;
+				y = cb+o;
+				z = sb * s1;
+				glVertex3f(x, y, z);
+			}
+		}
 	}
 	glEnd();
 }
@@ -227,15 +270,15 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	float sa, sa1, ca, ca1;
 	float sb, sb1, cb, cb1;
 	float x, y, z;
-	float ang = ((2.0 / div) * (M_PI));
+	float ang = ((1.0 / div) * (M_PI));
 	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < div; i++) {
-		for (unsigned int j = 0; j < div / 2; j++) {
-			float col = ((i + j) / (float) (div + div));
+	for (unsigned int i = 0; i < 2*div; i++) {
+		for (unsigned int j = 0; j < div; j++) {
+			float col = ((i + j) / (float) (2*div + div));
 			glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 			//longitude
-			sa = sin(ang * i);
-			sa1 = sin(ang * (i + 1));
+			sa = -sin(ang * i);
+			sa1 = -sin(ang * (i + 1));
 			ca = cos(ang * i);
 			ca1 = cos(ang * (i + 1));
 			//latitude
@@ -243,21 +286,21 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 			sb1 = radius * sin(ang * (j + 1));
 			cb = radius * cos(ang * j);
 			cb1 = radius * cos(ang * (j + 1));
-			if (j != 0) {
+			if (j != div - 1) {
 				x = sb * ca;
 				y = cb;
 				z = sb * sa;
 				glVertex3f(x, y, z);
-				x = sb * ca1;
-				y = cb;
-				z = sb * sa1;
+				x = sb1 * ca;
+				y = cb1;
+				z = sb1 * sa;
 				glVertex3f(x, y, z);
 				x = sb1 * ca1;
 				y = cb1;
 				z = sb1 * sa1;
 				glVertex3f(x, y, z);
 			}
-			if (j != (div / 2) - 1) {
+			if (j != 0) {
 				x = sb * ca;
 				y = cb;
 				z = sb * sa;
@@ -266,9 +309,9 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 				y = cb1;
 				z = sb1 * sa1;
 				glVertex3f(x, y, z);
-				x = sb1 * ca;
-				y = cb1;
-				z = sb1 * sa;
+				x = sb * ca1;
+				y = cb;
+				z = sb * sa1;
 				glVertex3f(x, y, z);
 			}
 		}

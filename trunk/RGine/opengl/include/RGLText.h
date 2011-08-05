@@ -29,7 +29,7 @@
 #define RGLTEXT_H_
 
 /**
- *
+ * Class used to write texts with opengl commands.
  */
 class RGLText {
 public:

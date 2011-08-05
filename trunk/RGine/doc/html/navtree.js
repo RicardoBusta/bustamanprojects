@@ -3,64 +3,23 @@ var NAVTREE =
   [ "RGine", "index.html", [
     [ "Class List", "annotated.html", [
       [ "Game", "classGame.html", null ],
-      [ "KeyStruct", "structKeyStruct.html", null ],
-      [ "MouseStruct", "structMouseStruct.html", null ],
-      [ "RColor", "classRColor.html", null ],
-      [ "REntity", "classREntity.html", null ],
-      [ "RFrame", "classRFrame.html", null ],
       [ "RGLText", "classRGLText.html", null ],
       [ "RList< T >", "classRList.html", null ],
-      [ "RMain", "classRMain.html", null ],
       [ "RPhysicalObject", "classRPhysicalObject.html", null ],
-      [ "RPoint2i", "classRPoint2i.html", null ],
-      [ "RPoint3f", "classRPoint3f.html", null ],
-      [ "RSDL", "classRSDL.html", null ],
       [ "RString", "classRString.html", null ],
       [ "RTriMesh", "classRTriMesh.html", null ],
       [ "RVector", "classRVector.html", null ]
     ] ],
     [ "Class Index", "classes.html", null ],
-    [ "Class Hierarchy", "hierarchy.html", [
-      [ "KeyStruct", "structKeyStruct.html", null ],
-      [ "MouseStruct", "structMouseStruct.html", null ],
-      [ "RColor", "classRColor.html", null ],
-      [ "REntity", "classREntity.html", null ],
-      [ "RFrame", "classRFrame.html", null ],
-      [ "RGLText", "classRGLText.html", null ],
-      [ "RList< T >", "classRList.html", null ],
-      [ "RMain", "classRMain.html", [
-        [ "Game", "classGame.html", null ]
-      ] ],
-      [ "RPhysicalObject", "classRPhysicalObject.html", null ],
-      [ "RPoint2i", "classRPoint2i.html", null ],
-      [ "RPoint3f", "classRPoint3f.html", null ],
-      [ "RSDL", "classRSDL.html", null ],
-      [ "RString", "classRString.html", null ],
-      [ "RTriMesh", "classRTriMesh.html", null ],
-      [ "RVector", "classRVector.html", null ]
-    ] ],
     [ "Class Members", "functions.html", null ],
     [ "File List", "files.html", [
-      [ "Game.h", null, null ],
+      [ "Game.cpp", "Game_8cpp.html", null ],
+      [ "Game.h", "Game_8h.html", null ],
       [ "main.cpp", "main_8cpp.html", null ],
-      [ "engine/include/RCommon.h", null, null ],
-      [ "engine/include/REntity.h", null, null ],
-      [ "engine/include/RMain.h", null, null ],
-      [ "engine/include/RSDL.h", null, null ],
-      [ "graphics/include/RColor.h", null, null ],
-      [ "math/include/RFrame.h", null, null ],
-      [ "math/include/RPoint2i.h", null, null ],
-      [ "math/include/RPoint3f.h", null, null ],
-      [ "opengl/include/RGLPrimitives.h", null, null ],
-      [ "opengl/include/RGLShapes.h", null, null ],
       [ "opengl/include/RGLText.h", "RGLText_8h.html", null ],
       [ "opengl/src/RGLText.cpp", "RGLText_8cpp.html", null ],
       [ "physics/include/RPhysicalObject.h", "RPhysicalObject_8h.html", null ],
-      [ "physics/src/RPhysicalObject.cpp", "RPhysicalObject_8cpp.html", null ],
-      [ "structures/include/RList.h", null, null ],
-      [ "structures/include/RString.h", null, null ],
-      [ "structures/include/RTriMesh.h", null, null ],
-      [ "structures/include/RVector.h", null, null ]
+      [ "physics/src/RPhysicalObject.cpp", "RPhysicalObject_8cpp.html", null ]
     ] ],
     [ "File Members", "globals.html", null ]
   ] ]

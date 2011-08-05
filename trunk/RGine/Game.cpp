@@ -1,5 +1,5 @@
 /**
- * @file game.cpp
+ * @file
  * @author Ricardo Bustamante de Queiroz <ricardobqueiroz@gmail.com>
  * @version
  *
@@ -18,10 +18,11 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @section DESCRIPTION
  *
+ * File: game.cpp
  * Created on: Aug 2, 2011
  */
 #include "Game.h"
@@ -70,7 +71,7 @@ void Game::render() {
 
 	//rglDrawCylinder(200,200,100,RColor(255,255,255));
 	//rglDrawCone(200,200,100,RColor(255,255,255));
-	rglDrawSphere(100, 16, RColor(255, 255, 255));
+	//rglDrawSphere(100, 16, RColor(255, 255, 255));
 	rglDrawCapsule(100,200,10,RColor(255,255,255));
 	//rglDrawBox(200, 20, 200, RColor(0.1f, 0.1f, 0.9f));
 

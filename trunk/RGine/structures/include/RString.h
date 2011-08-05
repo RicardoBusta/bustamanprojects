@@ -11,6 +11,9 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * This class is used to store an array of characters.
+ */
 class RString: public string {
 public:
 	RString();

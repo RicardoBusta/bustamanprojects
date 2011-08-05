@@ -4,6 +4,13 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <title>RGine: Game Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript">
+$(document).ready(initResizable);
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -32,11 +39,23 @@
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('classGame.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a>  </div>
@@ -45,16 +64,9 @@
 </div>
 <div class="contents">
 <!-- doxytag: class="Game" --><!-- doxytag: inherits="RMain" -->
-<p><code>#include &lt;<a class="el" href="Game_8h_source.html">Game.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Game:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classGame.png" usemap="#Game_map" alt=""/>
-  <map id="Game_map" name="Game_map">
-<area href="classRMain.html" alt="RMain" shape="rect" coords="0,0,48,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;Game.h&gt;</code></p>
+
+<p>Inherits RMain.</p>
 
 <p><a href="classGame-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -75,14 +87,12 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void Game::init </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>This method initializes the variables and environment. Run once before the game loop. </p>
-
-<p>Implements <a class="el" href="classRMain.html">RMain</a>.</p>
 
 </div>
 </div>
@@ -94,14 +104,12 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void Game::logic </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>This method comes before the rendering phase, where the game logic is made. </p>
-
-<p>Implements <a class="el" href="classRMain.html">RMain</a>.</p>
 
 </div>
 </div>
@@ -113,24 +121,29 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void Game::render </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td><code> [virtual]</code></td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>This method defines how the game graphics should be rendered. </p>
 
-<p>Reimplemented from <a class="el" href="classRMain.html">RMain</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="Game_8h_source.html">Game.h</a></li>
-<li>Game.cpp</li>
+<li><a class="el" href="Game_8h.html">Game.h</a></li>
+<li><a class="el" href="Game_8cpp.html">Game.cpp</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 5 2011 12:53:34 for RGine by&#160;
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="classGame.html">Game</a>      </li>
+      <li class="footer">Generated on Fri Aug 5 2011 13:55:17 for RGine by&#160;
 <a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
+    </ul>
+  </div>
+
 </body>
 </html>

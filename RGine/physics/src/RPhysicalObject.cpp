@@ -26,12 +26,14 @@
  * Created on: Aug 5, 2011
  */
 
-/* TODO
 #include "RPhysicalObject.h"
 
-RPhysicalObject::RPhysicalObject(ISceneNode* irrnode, double mass) {
+#include <RPoint3f.h>
+#include <cmath>
+
+RPhysicalObject::RPhysicalObject(REntity* entity, double mass) {
     this->mass = mass;
-    this->irrnode = irrnode;
+    this->entity = entity;
 }
 
 void RPhysicalObject::initializeTerrain(btCollisionShape* shape, btDefaultMotionState* motionState) {
@@ -45,11 +47,11 @@ void RPhysicalObject::initializeTerrain(btCollisionShape* shape, btDefaultMotion
 }
 
 void RPhysicalObject::initialize(btCollisionShape* shape) {
-    vector3df pos, rotation;
-    pos = irrnode->getPosition();
-    rotation = irrnode->getRotation();
+    RPoint3f pos, rotation;
+    pos = entity->position;//irrnode->getPosition();
+    rotation = entity->rotation;//irrnode->getRotation();
     btQuaternion rot;
-    rot.setEuler(rotation.Y*PI/180.0, rotation.X*PI/180.0, rotation.Z*PI/180.0);
+    rot.setEuler(rotation.y()*M_PI/180.0, rotation.x()*M_PI/180.0, rotation.z()*M_PI/180.0);
 
     this->shape = shape;
 
@@ -57,7 +59,7 @@ void RPhysicalObject::initialize(btCollisionShape* shape) {
     trans.setIdentity();
 
     trans.setRotation(rot);
-    trans.setOrigin(btVector3(pos.X, pos.Y, pos.Z));
+    trans.setOrigin(btVector3(pos.x(), pos.y(), pos.z()));
 
     this->motionState = new btDefaultMotionState(trans);
     btScalar m = this->mass;
@@ -66,13 +68,11 @@ void RPhysicalObject::initialize(btCollisionShape* shape) {
     btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(m, this->motionState, this->shape, inertia);
     this->rigidBody = new btRigidBody(rigidBodyCI);
 
-
     this->rigidBody->setCenterOfMassTransform(trans);
-
 }
 
 RPhysicalObject::~RPhysicalObject() {
-    irrnode->remove();
+    //entity->remove();
     delete rigidBody->getMotionState();
     delete rigidBody;
     delete shape;
@@ -92,58 +92,58 @@ void RPhysicalObject::Update() {
     float YSquared = Y * Y;
     float ZSquared = Z * Z;
 
-    eulerRot.setX(atan2f(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared));
-    eulerRot.setY(asinf(-2.0f * (X * Z - Y * W)));
-    eulerRot.setZ(atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
+    eulerRot.setX(atan2(2.0f * (Y * Z + X * W), -XSquared - YSquared + ZSquared + WSquared));
+    eulerRot.setY(asin(-2.0f * (X * Z - Y * W)));
+    eulerRot.setZ(atan2(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
     //eulerRot *= RADTODEG;
-    eulerRot.setX( eulerRot.x()*180.0/PI );
-    eulerRot.setY( eulerRot.y()*180.0/PI );
-    eulerRot.setZ( eulerRot.z()*180.0/PI );
+    eulerRot.setX( eulerRot.x()*180.0/M_PI );
+    eulerRot.setY( eulerRot.y()*180.0/M_PI );
+    eulerRot.setZ( eulerRot.z()*180.0/M_PI );
 
-    if(irrnode != NULL) {
-        irrnode->setPosition(vector3df(pos.x(), pos.y(), pos.z()));
-        irrnode->setRotation(vector3df(eulerRot.x(), eulerRot.y(), eulerRot.z()));
+    if(entity != NULL) {
+        entity->position = Vector3D(pos.x(), pos.y(), pos.z());
+        entity->rotation = Vector3D(eulerRot.x(), eulerRot.y(), eulerRot.z());
     }
 }
 
 btRigidBody* RPhysicalObject::getRigidBody() {
-    return rigidBody;
+    return (rigidBody);
 }
 
-ISceneNode* RPhysicalObject::getSceneNode() {
-    return irrnode;
+REntity* RPhysicalObject::getEntity() {
+    return entity;
 }
 
-MeshBuffer* RPhysicalObject::getMeshBuffer() {
+/*MeshBuffer* RPhysicalObject::getMeshBuffer() {
     return ((IAnimatedMeshSceneNode*)irrnode)->getMesh()->getMesh(0)->getMeshBuffer(0);
-}
+}*/
 
 Vector3D RPhysicalObject::getScale() {
-    return irrnode->getScale();
+    return (entity->scale);
 }
 
 Vector3D RPhysicalObject::getPosition() {
-    return irrnode->getPosition();
+    return (entity->position);
 }
 
 Vector3D RPhysicalObject::getRotation() {
-    return irrnode->getRotation();
+    return (entity->rotation);
 }
 
-matrix4 RPhysicalObject::getAbsoluteTransformation() {
-    return irrnode->getAbsoluteTransformation();
+RMatrix4f RPhysicalObject::getAbsoluteTransformation() {
+    return (entity->getAbsoluteTransformation());
 }
 
 float RPhysicalObject::getAngularVel() {
     btVector3 vel =	rigidBody->getAngularVelocity();
 
-    return vel.length();
+    return (vel.length());
 }
 
 float RPhysicalObject::getLinearVel() {
     btVector3 vel =	rigidBody->getLinearVelocity();
 
-    return vel.length();
+    return (vel.length());
 }
 
 void RPhysicalObject::setRestitution(float c) {
@@ -165,6 +165,5 @@ void RPhysicalObject::setLinearDamping(float damp) {
 }
 
 bool RPhysicalObject::isColliding(RPhysicalObject* obj) {
-    return rigidBody->checkCollideWith(obj->getRigidBody());
+    return (rigidBody->checkCollideWith(obj->getRigidBody()));
 }
-*/

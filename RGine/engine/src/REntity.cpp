@@ -28,9 +28,13 @@
 
 #include "REntity.h"
 
+#include <RFrame.h>
+
 REntity::REntity() {
 	hasMesh = false;
 	hasPhysics = false;
+
+	scale.set(1,1,1);
 }
 
 REntity::~REntity() {
@@ -45,5 +49,19 @@ void REntity::render()
 
 	}
 }
+
+/*TODO if physics bug the issue might be here*/
+RMatrix4f REntity::getAbsoluteTransformation()
+{
+	RFrame f;
+	f.rotate(rotation.y(),0,1,0);
+	f.rotate(rotation.x(),1,0,0);
+	f.rotate(rotation.z(),0,0,1);
+	f.move(position.x(),position.y(),position.z());
+	f.scale(scale.x(),scale.y(),scale.z());
+	return f.getMatrix();
+}
+
+
 
 

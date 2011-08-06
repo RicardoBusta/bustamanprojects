@@ -68,7 +68,9 @@ public:
 	 *
 	 * @return The 4x4 matrix ready to be used with opengl commands.
 	 */
-	float* getMatrix();
+	float* getTransformation();
+
+	RMatrix4f getMatrix();
 private:
 	/**
 	 * Data structure where the transformations are saved.

@@ -32,10 +32,13 @@
 /**
  *
  */
-class RPhysicalBox {
+
+#include "RPhysicalObject.h"
+
+class RPhysicalBox : public RPhysicalObject {
 public:
-	RPhysicalBox();
-	virtual ~RPhysicalBox();
+    RPhysicalBox(REntity* entity, double mass);
+    ~RPhysicalBox();
 };
 
 #endif /* RPHYSICALBOX_H_ */

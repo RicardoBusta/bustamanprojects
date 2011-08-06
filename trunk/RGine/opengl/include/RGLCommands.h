@@ -21,13 +21,20 @@
  * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @section DESCRIPTION
- *
- * File: RCommon.h
+ * 
+ * File: RGLCommands.h
  * Created on: Aug 5, 2011
  */
 
-#ifndef RCOMMON_H_
-#define RCOMMON_H_
+#ifndef RGLCOMMANDS_H_
+#define RGLCOMMANDS_H_
 
+#include <RMatrix4f.h>
 
-#endif /* RCOMMON_H_ */
+/**
+ *
+ */
+void rglSetMatrix(RMatrix4f);
+RMatrix4f rglGetMatrix();
+
+#endif /* RGLCOMMANDS_H_ */

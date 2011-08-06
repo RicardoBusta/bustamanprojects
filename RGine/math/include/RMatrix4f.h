@@ -21,13 +21,29 @@
  * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @section DESCRIPTION
- *
- * File: RCommon.h
+ * 
+ * File: RMatrix4f.h
  * Created on: Aug 5, 2011
  */
 
-#ifndef RCOMMON_H_
-#define RCOMMON_H_
+#ifndef RMATRIX4F_H_
+#define RMATRIX4F_H_
 
+/**
+ * A 4x4 matrix structure. Mostly used for transformations.
+ */
+class RMatrix4f {
+public:
+	RMatrix4f();
+	virtual ~RMatrix4f();
 
-#endif /* RCOMMON_H_ */
+	float data[16];
+
+	const float* gl();
+
+	RMatrix4f operator=(RMatrix4f);
+	RMatrix4f operator*(RMatrix4f);
+};
+
+#endif /* RMATRIX4F_H_ */
+

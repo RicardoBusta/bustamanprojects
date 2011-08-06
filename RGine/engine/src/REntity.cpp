@@ -29,6 +29,8 @@
 #include "REntity.h"
 
 REntity::REntity() {
+	hasMesh = false;
+	hasPhysics = false;
 }
 
 REntity::~REntity() {
@@ -39,6 +41,9 @@ void REntity::handle(){
 
 void REntity::render()
 {
+	if(hasMesh){
+
+	}
 }
 
 

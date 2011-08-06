@@ -22,17 +22,8 @@
  *
  * @section DESCRIPTION
  * 
- * File: RMatrix4.cpp
+ * File: RGLCommands.cpp
  * Created on: Aug 5, 2011
  */
 
-#include "RMatrix4.h"
-
-RMatrix4::RMatrix4() {
-	// TODO Auto-generated constructor stub
-
-}
-
-RMatrix4::~RMatrix4() {
-	// TODO Auto-generated destructor stub
-}
+#include "RGLCommands.h"

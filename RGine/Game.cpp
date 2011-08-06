@@ -90,9 +90,9 @@ void Game::render() {
 
 
 	glLoadIdentity();
-	RGLText asd("|cFF0000t|c00FF00este\n|rteste",50,0,300,200,1);
-	asd.setColor(1,1,1);
-	asd.draw();
+	RGLText txt("|cFF0000t|c00FF00este\n|rteste",50,0,300,200,1);
+	txt.setColor(1,1,1);
+	txt.draw();
 
 	//glLoadMatrixf(frame.getMatrix());
 

@@ -22,21 +22,42 @@
  *
  * @section DESCRIPTION
  * 
- * File: RMatrix4.h
+ * File: RMatrix4f.cpp
  * Created on: Aug 5, 2011
  */
 
-#ifndef RMATRIX4_H_
-#define RMATRIX4_H_
+#include "RMatrix4f.h"
 
-/**
- *
- */
-class RMatrix4 {
-public:
-	RMatrix4();
-	virtual ~RMatrix4();
-};
+RMatrix4f::RMatrix4f() {
+	for(int i=0;i<16;i++){
+		data[i]=0;
+	}
+}
 
-#endif /* RMATRIX4_H_ */
+RMatrix4f::~RMatrix4f() {
+}
+
+const float* RMatrix4f::gl(){
+	return (data);
+}
+
+RMatrix4f RMatrix4f::operator =(RMatrix4f m) {
+	for (int i = 0; i < 16; i++) {
+		data[i] = m.data[i];
+	}
+	return (*this);
+}
+
+RMatrix4f RMatrix4f::operator *(RMatrix4f m) {
+	RMatrix4f r;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			r.data[i + j * 4] = 0;
+			for (int k = 0; k < 4; k++) {
+				r.data[i + j * 4] += data[i + k * 4] * m.data[k + j * 4];
+			}
+		}
+	}
+	return (r);
+}
 

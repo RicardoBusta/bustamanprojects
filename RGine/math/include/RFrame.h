@@ -10,6 +10,8 @@
 
 #include "RPoint3f.h"
 
+#include "RMatrix4f.h"
+
 /**
  * Class that stores transformation state in a 4x4 matrix, like opengl.
  * Can keep track of position, scale, rotation etc.
@@ -71,7 +73,7 @@ private:
 	/**
 	 * Data structure where the transformations are saved.
 	 */
-	float matrix[16];
+	RMatrix4f matrix;
 };
 
 #endif /* RFRAME_H_ */

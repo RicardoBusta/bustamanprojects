@@ -212,8 +212,8 @@ void rglDrawCapsule(float radius, float height, unsigned int div,
 	float sb, cb, sb1, cb1;
 	float ang = (1.0 / div) * (M_PI);
 	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < 2*div; i++) {
-		float col = (i / (float) (2*div));
+	for (unsigned int i = 0; i < 2 * div; i++) {
+		float col = (i / (float) (2 * div));
 		glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 
 		c = radius * cos(ang * i);
@@ -243,7 +243,10 @@ void rglDrawCapsule(float radius, float height, unsigned int div,
 		glVertex3f(x, y, z);
 
 		for (unsigned int j = 0; j < div; j++) {
-			if(j<div/2) o = h; else o = -h;
+			if (j < div / 2)
+				o = h;
+			else
+				o = -h;
 			//longitude
 			s = -sin(ang * i);
 			s1 = -sin(ang * (i + 1));
@@ -254,31 +257,31 @@ void rglDrawCapsule(float radius, float height, unsigned int div,
 			sb1 = radius * sin(ang * (j + 1));
 			cb = radius * cos(ang * j);
 			cb1 = radius * cos(ang * (j + 1));
-			if (j != div-1) {
+			if (j != div - 1) {
 				x = sb * c;
-				y = cb+o;
+				y = cb + o;
 				z = sb * s;
 				glVertex3f(x, y, z);
 				x = sb1 * c;
-				y = cb1+o;
+				y = cb1 + o;
 				z = sb1 * s;
 				glVertex3f(x, y, z);
 				x = sb1 * c1;
-				y = cb1+o;
+				y = cb1 + o;
 				z = sb1 * s1;
 				glVertex3f(x, y, z);
 			}
 			if (j != 0) {
 				x = sb * c;
-				y = cb+o;
+				y = cb + o;
 				z = sb * s;
 				glVertex3f(x, y, z);
 				x = sb1 * c1;
-				y = cb1+o;
+				y = cb1 + o;
 				z = sb1 * s1;
 				glVertex3f(x, y, z);
 				x = sb * c1;
-				y = cb+o;
+				y = cb + o;
 				z = sb * s1;
 				glVertex3f(x, y, z);
 			}
@@ -293,9 +296,9 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	float x, y, z;
 	float ang = ((1.0 / div) * (M_PI));
 	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < 2*div; i++) {
+	for (unsigned int i = 0; i < 2 * div; i++) {
 		for (unsigned int j = 0; j < div; j++) {
-			float col = ((i + j) / (float) (2*div + div));
+			float col = ((i + j) / (float) (2 * div + div));
 			glColor3f(color.rF() * col, color.gF() * col, color.bF() * col);
 			//longitude
 			sa = -sin(ang * i);
@@ -340,6 +343,172 @@ void rglDrawSphere(float radius, unsigned int div, RColor color) {
 	glEnd();
 }
 
+void rglDrawConvexHull() {
+}
+
 void rglDrawTriMesh(RTriMesh mesh) {
+	glBegin(GL_TRIANGLES);
+	for (unsigned int i = 0; i < mesh.points.size(); i++) {
+		float col = ((float)(i+1)/(float)mesh.points.size()); //TODO remove after debugging is complete
+		glColor3f(mesh.colors[i].rF()*col, mesh.colors[i].gF()*col, mesh.colors[i].bF()*col);
+		glNormal3fv(mesh.normals[i].getVector().data());
+		glVertex3fv(mesh.points[i].getVector().data());
+	}
+	glEnd();
+}
+
+RTriMesh rglGenBox(float width, float height, float depth, RColor color) {
+	RTriMesh mesh;
+
+	float w = width / 2;
+	float h = height / 2;
+	float d = depth / 2;
+
+	RPoint3f p[8];
+	p[0].set(w, h, d);
+	p[1].set(w, h, -d);
+	p[2].set(-w, h, -d);
+	p[3].set(-w, h, d);
+	p[4].set(w, -h, d);
+	p[5].set(w, -h, -d);
+	p[6].set(-w, -h, -d);
+	p[7].set(-w, -h, d);
+	RPoint3f n[6];
+	n[0].set(1, 0, 0); //right
+	n[1].set(0, 1, 0); //top
+	n[2].set(0, 0, 1); //near
+	n[3].set(-1, 0, 0); //left
+	n[4].set(0, -1, 0); //bottom
+	n[5].set(0, 0, -1); //far
+
+	//near
+	mesh.addTriangle(p[0], p[3], p[7], n[2], color);
+	mesh.addTriangle(p[0], p[7], p[4], n[2], color);
+
+	//far
+	mesh.addTriangle(p[1], p[5], p[6], n[5], color);
+	mesh.addTriangle(p[1], p[6], p[2], n[5], color);
+
+	//top
+	mesh.addTriangle(p[0], p[1], p[2], n[1], color);
+	mesh.addTriangle(p[0], p[2], p[3], n[1], color);
+
+	//bottom
+	mesh.addTriangle(p[7], p[6], p[5], n[4], color);
+	mesh.addTriangle(p[7], p[5], p[4], n[4], color);
+
+	//right
+	mesh.addTriangle(p[0], p[4], p[5], n[0], color);
+	mesh.addTriangle(p[0], p[5], p[1], n[0], color);
+
+	//left
+	mesh.addTriangle(p[2], p[6], p[7], n[3], color);
+	mesh.addTriangle(p[2], p[7], p[3], n[3], color);
+
+	return (mesh);
+}
+
+RTriMesh rglGenCapsule(float radius, float height, unsigned int div,
+		RColor color) {
+	RTriMesh mesh;
+	float h = height / 2;
+	RPoint3f p1, p2, p3;
+	float s, c, s1, c1, o;
+	float sb, cb, sb1, cb1;
+	float ang = (1.0 / div) * (M_PI);
+	for (unsigned int i = 0; i < 2 * div; i++) {
+		c = radius * cos(ang * i);
+		c1 = radius * cos(ang * (i + 1));
+		s = -radius * sin(ang * i);
+		s1 = -radius * sin(ang * (i + 1));
+
+		//side top
+		p1.set(c1, h, s1);
+		p2.set(c, h, s);
+		p3.set(c, -h, s);
+		mesh.addTriangle(p1, p2, p3, color);
+
+		//side bot
+		p1.set(c, -h, s);
+		p2.set(c1, -h, s1);
+		p3.set(c1, h, s1);
+		mesh.addTriangle(p1, p2, p3, color);
+
+		for (unsigned int j = 0; j < div; j++) {
+			if (j < div / 2)
+				o = h;
+			else
+				o = -h;
+			//longitude
+			s = -sin(ang * i);
+			s1 = -sin(ang * (i + 1));
+			c = cos(ang * i);
+			c1 = cos(ang * (i + 1));
+			//latitude
+			sb = radius * sin(ang * j);
+			sb1 = radius * sin(ang * (j + 1));
+			cb = radius * cos(ang * j);
+			cb1 = radius * cos(ang * (j + 1));
+			if (j != div - 1) {
+				p1.set(sb * c, cb + o, sb * s);
+				p2.set(sb1 * c, cb1 + o, sb1 * s);
+				p3.set(sb1 * c1, cb1 + o, sb1 * s1);
+				mesh.addTriangle(p1, p2, p3, color);
+			}
+			if (j != 0) {
+				p1.set(sb * c, cb + o, sb * s);
+				p2.set(sb1 * c1, cb1 + o, sb1 * s1);
+				p3.set(sb * c1, cb + o, sb * s1);
+				mesh.addTriangle(p1, p2, p3, color);
+			}
+		}
+	}
+	return mesh;
+}
+
+RTriMesh rglGenCone(float radius, float height, unsigned int div,
+		RColor color) {
+}
+
+RTriMesh rglGenConvexHull() {
+}
+
+RTriMesh rglGenCylinder(float radius, float height, unsigned int div,
+		RColor color) {
+}
+
+RTriMesh rglGenSphere(float radius, unsigned int div, RColor color) {
+	RTriMesh mesh;
+	float sa, sa1, ca, ca1;
+	float sb, sb1, cb, cb1;
+	RPoint3f p1, p2, p3;
+	float ang = ((1.0 / div) * (M_PI));
+	for (unsigned int i = 0; i < 2 * div; i++) {
+		for (unsigned int j = 0; j < div; j++) {
+			//longitude
+			sa = -sin(ang * i);
+			sa1 = -sin(ang * (i + 1));
+			ca = cos(ang * i);
+			ca1 = cos(ang * (i + 1));
+			//latitude
+			sb = radius * sin(ang * j);
+			sb1 = radius * sin(ang * (j + 1));
+			cb = radius * cos(ang * j);
+			cb1 = radius * cos(ang * (j + 1));
+			if (j != div - 1) {
+				p1.set(sb * ca, cb, sb * sa);
+				p2.set(sb1 * ca, cb1, sb1 * sa);
+				p3.set(sb1 * ca1, cb1, sb1 * sa1);
+				mesh.addTriangle(p1, p2, p3, color);
+			}
+			if (j != 0) {
+				p1.set(sb * ca, cb, sb * sa);
+				p2.set(sb1 * ca1, cb1, sb1 * sa1);
+				p3.set(sb * ca1, cb, sb * sa1);
+				mesh.addTriangle(p1, p2, p3, color);
+			}
+		}
+	}
+	return (mesh);
 }
 

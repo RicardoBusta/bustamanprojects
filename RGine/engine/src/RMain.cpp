@@ -53,11 +53,11 @@ int RMain::run() {
 	return (0);
 }
 
-MouseStruct RMain::mouse() {
+RSDLMouseStruct RMain::mouse() {
 	return (sdl.mouse());
 }
 
-KeyStruct RMain::key(int id) {
+RSDLKeyStruct RMain::key(int id) {
 	return (sdl.key(id));
 }
 

@@ -27,8 +27,10 @@
  */
 #include "Game.h"
 
-#include "RGLPrimitives.h"
-#include "RGLShapes.h"
+#include <RGLPrimitives.h>
+#include <RGLShapes.h>
+#include <RGLText.h>
+#include <REntity.h>
 
 Game::Game() {
 }
@@ -38,41 +40,66 @@ Game::~Game() {
 
 void Game::init() {
 	cam.setZ(1);
+
+	objList.push_back(REntity());
+	objList.push_back(REntity());
+
+	objList[0].triMesh = rglGenBox(200, 20, 200, RColor(0.1f, 0.1f, 0.9f));
+	objList[1].triMesh = rglGenCapsule(100,200,10,RColor(255,255,255));
+//	obj.triMesh = rglGenSphere(100, 16, RColor(255, 255, 255));
 }
 
 #include "RString.h"
 
 void Game::logic() {
 	if (mouse().left.isDown) {
-		//frame.rotate(mouse().speed.x(),0,1,0);
-		//frame.rotate(mouse().speed.y(),1,0,0);
-		cam.setX(cam.x() + mouse().speed.y());
-		cam.setY(cam.y() + mouse().speed.x());
+		objList[0].frame.rotate(mouse().speed.x(),0,1,0);
+		objList[0].frame.rotate(mouse().speed.y(),1,0,0);
+		//cam.setX(cam.x() + mouse().speed.y());
+		//cam.setY(cam.y() + mouse().speed.x());
 		//frame.setPosition(mouse().position.x(),sdl.getHeight()-mouse().position.y(),0);
 	}
-	//if (key(SDLK_EQUALS).isDown) {
-	if(mouse().wheelup.isDown){
-		cam.setZ(cam.z() + 0.01);
+	if(mouse().right.isDown){
+		objList[1].frame.rotate(mouse().speed.x(),0,1,0);
+		objList[1].frame.rotate(mouse().speed.y(),1,0,0);
 	}
-	//if (key(SDLK_MINUS).isDown) {
-	if(mouse().wheeldown.isDown){
-		cam.setZ(cam.z() - 0.01);
+	if (key(SDLK_EQUALS).isDown) {
+//	if(mouse().wheelup.isDown){
+		//cam.setZ(cam.z() + 0.01);
+		objList[0].frame.scale(1.01,1.01,1.01);
+	}
+	if (key(SDLK_MINUS).isDown) {
+//	if(mouse().wheeldown.isDown){
+		//cam.setZ(cam.z() - 0.01);
+		objList[0].frame.scale(0.99,0.99,0.99);
 	}
 
-	frame.setIdentity();
-	frame.setPosition(200, 200, 0);
-	frame.rotate(cam.x(), 1, 0, 0);
-	frame.rotate(cam.y(), 0, 1, 0);
-	frame.scale(cam.z(), cam.z(), cam.z());
+//	obj.frame.setIdentity();
+	objList[0].frame.setPosition(200, 200, 0);
+	objList[1].frame.setPosition(300, 300, 0);
+//	obj.frame.rotate(cam.x(), 1, 0, 0);
+//	obj.frame.rotate(cam.y(), 0, 1, 0);
+//	obj.frame.scale(cam.z(), cam.z(), cam.z());
 }
 
 void Game::render() {
-	glLoadMatrixf(frame.getMatrix());
+	for(unsigned int i=0;i<objList.size();i++){
+		glLoadMatrixf(objList[i].frame.getMatrix());
+		rglDrawTriMesh(objList[i].triMesh);
+	}
+
+
+	glLoadIdentity();
+	RGLText asd("|cFF0000t|c00FF00este\n|rteste",50,0,300,200,1);
+	asd.setColor(1,1,1);
+	asd.draw();
+
+	//glLoadMatrixf(frame.getMatrix());
 
 	//rglDrawCylinder(200,200,100,RColor(255,255,255));
 	//rglDrawCone(200,200,100,RColor(255,255,255));
 	//rglDrawSphere(100, 16, RColor(255, 255, 255));
-	rglDrawCapsule(100,200,10,RColor(255,255,255));
+	//rglDrawCapsule(100,200,10,RColor(255,255,255));
 	//rglDrawBox(200, 20, 200, RColor(0.1f, 0.1f, 0.9f));
 
 	//frame.setIdentity();

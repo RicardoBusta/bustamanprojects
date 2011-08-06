@@ -38,10 +38,10 @@
  *
  * @param width Box width.
  * @param height Box height.
- * @param depht Box depth.
+ * @param depth Box depth.
  * @param color Box color.
  */
-void rglDrawBox(float width, float height, float depht, RColor color);
+void rglDrawBox(float width, float height, float depth, RColor color);
 
 /**
  * Draw a capsule using OpenGL commands.
@@ -93,5 +93,23 @@ void rglDrawSphere(float radius, unsigned int div, RColor color);
  * @param mesh Triangular mesh containing a vector of vertexes.
  */
 void rglDrawTriMesh(RTriMesh mesh);
+
+/**
+ * Generate a box and returns a tringle mesh.
+ *
+ * @param width Box width.
+ * @param height Box height.
+ * @param depth Box depth.
+ * @param color Box color.
+ *
+ * @return A triangle mesh representing this object.
+ */
+RTriMesh rglGenBox(float width, float height, float depth, RColor color);
+RTriMesh rglGenCapsule(float radius, float height, unsigned int div, RColor color);
+RTriMesh rglGenCone(float radius, float height, unsigned int div, RColor color);
+RTriMesh rglGenConvexHull();
+RTriMesh rglGenCylinder(float radius, float height, unsigned int div, RColor color);
+RTriMesh rglGenSphere(float radius, unsigned int div, RColor color);;
+
 
 #endif /* RGLSHAPES_H_ */

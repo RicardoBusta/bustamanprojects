@@ -134,11 +134,11 @@ bool RSDL::finished() {
 	return (quit);
 }
 
-MouseStruct RSDL::mouse() {
+RSDLMouseStruct RSDL::mouse() {
 	return (mouse_);
 }
 
-KeyStruct RSDL::key(int kID) {
+RSDLKeyStruct RSDL::key(int kID) {
 	return (key_[kID]);
 }
 

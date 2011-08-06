@@ -21,39 +21,22 @@
  * along with RGine.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @section DESCRIPTION
- *
- * File: RList.h
+ * 
+ * File: RMatrix4.h
  * Created on: Aug 5, 2011
  */
 
-#include <list>
-using namespace std;
+#ifndef RMATRIX4_H_
+#define RMATRIX4_H_
 
-#define RList list
-
-/*
-#ifndef RLIST_H_
-#define RLIST_H_
-
-//TODO make this class to replace c++ default list (maybe)
-
-template<class T>
 /**
- * This class is a list of objects.
  *
-class RList {
+ */
+class RMatrix4 {
 public:
-	RList();
-	virtual ~RList();
-
-	/**
-	 * This operator is used to obtain an element in the list given an index.
-	 *
-	 * @param index Index of the wanted element.
-	 * @return The element of that index.
-	 *
-	T operator[](const int index);
-private:
+	RMatrix4();
+	virtual ~RMatrix4();
 };
 
-#endif /* RLIST_H_ */
+#endif /* RMATRIX4_H_ */
+

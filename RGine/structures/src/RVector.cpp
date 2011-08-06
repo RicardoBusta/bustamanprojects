@@ -26,6 +26,7 @@
  * Created on: Aug 5, 2011
  */
 
+/*
 #include "RVector.h"
 
 RVector::RVector() {
@@ -35,4 +36,4 @@ RVector::RVector() {
 
 RVector::~RVector() {
 	// TODO Auto-generated destructor stub
-}
+}*/

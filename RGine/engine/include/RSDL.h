@@ -42,7 +42,7 @@ using namespace std;
 /**
  * This structure will keep track of every key or button state.
  */
-struct KeyStruct {
+struct RSDLKeyStruct {
 	/**
 	 * If the key was lifted during that frame this will be true.
 	 */
@@ -58,7 +58,7 @@ struct KeyStruct {
 	/**
 	 * this struct will keep track on the key states.
 	 */
-	KeyStruct() {
+	RSDLKeyStruct() {
 		up = false;
 		down = false;
 		isDown = false;
@@ -69,27 +69,27 @@ struct KeyStruct {
  * This structure will keep track of the mouse state. Including buttons states
  * and speed, position etc.
  */
-struct MouseStruct {
+struct RSDLMouseStruct {
 	/**
 	 * Left mouse button state.
 	 */
-	KeyStruct left;
+	RSDLKeyStruct left;
 	/**
 	 * Right mouse button state.
 	 */
-	KeyStruct right;
+	RSDLKeyStruct right;
 	/**
 	 * Middle mouse button state.
 	 */
-	KeyStruct middle;
+	RSDLKeyStruct middle;
 	/**
 	 * Mousewheel UP button state.
 	 */
-	KeyStruct wheelup;
+	RSDLKeyStruct wheelup;
 	/**
 	 * Mousewheel DOWN button state.
 	 */
-	KeyStruct wheeldown;
+	RSDLKeyStruct wheeldown;
 	/**
 	 * Mouse current position on screen. Being (0,0) left top corner.
 	 */
@@ -125,12 +125,12 @@ private:
 	void opengl_resize();
 
 	//Keyboard
-	KeyStruct key_[SDLK_LAST];
+	RSDLKeyStruct key_[SDLK_LAST];
 	list<int> key_mod;
 	void key_reset();
 
 	//Mouse
-	MouseStruct mouse_;
+	RSDLMouseStruct mouse_;
 	void mouse_reset();
 
 	//Timer
@@ -193,14 +193,14 @@ public:
 	 *
 	 * @return will return the mouse structure.
 	 */
-	MouseStruct mouse();
+	RSDLMouseStruct mouse();
 
 	/**
 	 * Key structure. Will return a specific key given it's ID (SDLK_*id*).
 	 * @param id Key ID. (SDLK_*id*).
 	 * @return The wanted key structure.
 	 */
-	KeyStruct key(int id);
+	RSDLKeyStruct key(int id);
 
 	/**
 	 * Get the SDL screen width.

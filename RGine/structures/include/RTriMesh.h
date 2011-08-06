@@ -51,6 +51,8 @@ public:
 	 * @param color Color of that vertex. Default is white.
 	 */
 	void addPoint(RPoint3f point, RPoint3f normal, RColor color=RColor(255,255,255));
+	void addTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RColor color=RColor(255,255,255));
+	void addTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RPoint3f normal, RColor color=RColor(255,255,255));
 	/**
 	 * Get a point at the given position.
 	 *
@@ -65,7 +67,10 @@ public:
 	 */
 	void removePoint(int at);
 
-private:
+public: //make private
+	vector<RPoint3f> points;
+	vector<RPoint3f> normals;
+	vector<RColor> colors;
 };
 
 #endif /* RTRIMESH_H_ */

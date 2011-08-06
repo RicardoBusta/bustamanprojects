@@ -24,6 +24,8 @@
  *
  * Created on: Jul 14, 2011
  * File: main.cpp
+ *
+ * Copyright 2009,2010,2011 Ricardo Bustamante de Queiroz
  */
 
 #include "Game.h"

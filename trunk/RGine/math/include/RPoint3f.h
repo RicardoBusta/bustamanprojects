@@ -49,12 +49,15 @@ public:
 
 	vector<float> getVector(); //todo replace x,y,z w/ vector
 
+	float norm();
+	RPoint3f unit();
+
 	//Operators
 	bool operator==(RPoint3f); //TODO
 	RPoint3f operator=(RPoint3f); //TODO
 	RPoint3f operator+(RPoint3f); //TODO
 	RPoint3f operator-(RPoint3f); //TODO
-	RPoint3f operator*(RPoint3f); //TODO
+	float operator*(RPoint3f); //TODO
 	RPoint3f operator^(RPoint3f); //TODO
 	RPoint3f operator*(float); //TODO
 	RPoint3f operator/(float); //TODO

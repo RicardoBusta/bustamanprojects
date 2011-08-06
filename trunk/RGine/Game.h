@@ -31,7 +31,9 @@
 
 #include "RMain.h"
 
-#include "RFrame.h"
+#include <RFrame.h>
+#include <REntity.h>
+#include <RVector.h>
 
 /**
  * This class inherits the main engine class. It's where the game should be programmed.
@@ -62,6 +64,8 @@ private:
 	 * Camera frame (transformations: rotation, scale etc)
 	 */
 	RFrame frame;
+
+	vector<REntity> objList;
 };
 
 #endif /* GAME_H_ */

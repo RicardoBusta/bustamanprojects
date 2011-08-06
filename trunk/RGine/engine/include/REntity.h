@@ -32,6 +32,9 @@
 //TODO this class will be every single object handled in this game
 
 #include <RFrame.h>
+#include <RTriMesh.h>
+
+class RPhysicalObject;
 
 /**
  * Every single object in the game will be an entity.
@@ -46,9 +49,16 @@ public:
 	 * Every entity should be able to handle itself. It means moving, rotating,
 	 * interacting or whatever it's supposed to do.
 	 */
-	void handle();
-private:
+	virtual void handle();
+	virtual void render();
+public://TODO make private
 	RFrame frame;
+
+	bool hasPhysics;
+	RPhysicalObject *physicalObject;
+
+	bool hasMesh;
+	RTriMesh triMesh;
 };
 
 #endif /* RENTITY_H_ */

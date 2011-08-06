@@ -36,3 +36,9 @@ REntity::~REntity() {
 
 void REntity::handle(){
 }
+
+void REntity::render()
+{
+}
+
+

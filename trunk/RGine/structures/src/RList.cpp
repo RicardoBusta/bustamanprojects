@@ -25,6 +25,8 @@
  * File: RList.cpp
  * Created on: Aug 5, 2011
  */
+
+/*
 #include "RList.h"
 
 template<class T>
@@ -41,4 +43,4 @@ RList<T>::~RList() {
 template<class T>
 T RList<T>::operator[](const int index) {
 
-}
+}*/

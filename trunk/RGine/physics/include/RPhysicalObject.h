@@ -26,78 +26,73 @@
  * Created on: Aug 5, 2011
  */
 
-/* TODO
 #ifndef RPHYSICALOBJECT_H_
 #define RPHYSICALOBJECT_H_
 
 #include <cmath>
-#include <irrlicht.h>
 #include <btBulletDynamicsCommon.h>
-#include "vlJoint.h"
+#include "RJoint.h"
 
-#define MeshBuffer IMeshBuffer
-#define Vector3D vector3df
-
-using namespace irr;
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
+#define Vector3D RPoint3f
 
 enum RShape {
-    RSHAPE_SPHERE, RSHAPE_BOX, RSHAPE_CAPSULE, RSHAPE_CYLINDER, RSHAPE_CONE, RSHAPE_CONVEXHULL, RSHAPE_TRIMESH
+	RSHAPE_SPHERE,
+	RSHAPE_BOX,
+	RSHAPE_CAPSULE,
+	RSHAPE_CYLINDER,
+	RSHAPE_CONE,
+	RSHAPE_CONVEXHULL,
+	RSHAPE_TRIMESH
 };
 
 /**
- * This class will be used by the physics engine to represent an object with physical behavior.
- *
+ * This class will be used by the physics engine to represent an object with
+ * physical behavior.
+ */
 class RPhysicalObject {
-    friend class vlEnvironment;
-    friend class PhysicsSim;
-    friend class Joint;
+	friend class RJoint;
 
 private:
-    btRigidBody* rigidBody;
-    btCollisionShape* shape;
-    btDefaultMotionState* motionState;
-    double mass;
+	btRigidBody* rigidBody;
+	btCollisionShape* shape;
+	btDefaultMotionState* motionState;
+	double mass;
 
-    //ISceneNode* irrnode;
+	REntity* entity;
+	//ISceneNode* irrnode;
 
+	void initializeTerrain(btCollisionShape* shape,
+			btDefaultMotionState* motionState);
+	void initialize(btCollisionShape* shape);
+
+	void Update();
 public:
-    void initializeTerrain(btCollisionShape* shape, btDefaultMotionState* motionState);
-    void initialize(btCollisionShape* shape);
 
-    void Update();
+	btRigidBody* getRigidBody();
+	btVector3 getJointReferenceAxis();
+	REntity* getEntity();
 
-public:
+	//public:
 
-    btRigidBody* getRigidBody();
-    //ISceneNode* getSceneNode();
-    btVector3 getJointReferenceAxis();
+	RPhysicalObject(REntity* entity, double mass);
+	~RPhysicalObject();
 
-    //public:
+	//MeshBuffer* getMeshBuffer();
+	Vector3D getScale();
+	Vector3D getPosition();
+	Vector3D getRotation();
+	RMatrix4 getAbsoluteTransformation();
 
-    RPhysicalObject(ISceneNode* irrnode, double mass);
-    ~RPhysicalObject();
+	float getAngularVel();
+	float getLinearVel();
 
-    MeshBuffer* getMeshBuffer();
-    Vector3D getScale();
-    Vector3D getPosition();
-    Vector3D getRotation();
-    matrix4 getAbsoluteTransformation();
+	void setRestitution(float c);
+	void setFriction(float c);
 
-    float getAngularVel();
-    float getLinearVel();
+	void setLinearDamping(float damp);
+	void setAngularDamping(float damp);
 
-    void setRestitution(float c);
-    void setFriction(float c);
-
-    void setLinearDamping(float damp);
-    void setAngularDamping(float damp);
-
-    bool isColliding(RPhysicalObject* obj);
+	bool isColliding(RPhysicalObject* obj);
 };
 
 #endif /* RPHYSICALOBJECT_H_ */

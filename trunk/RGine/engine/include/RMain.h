@@ -56,14 +56,14 @@ protected:
 	 *
 	 * @return The mouse structure.
 	 */
-	MouseStruct mouse();
+	RSDLMouseStruct mouse();
 	/**
 	 * Gets a specific key (by SDLK_(key) id).
 	 *
 	 * @param id The identifier of the key.
 	 * @return The key structure.
 	 */
-	KeyStruct key(int id);
+	RSDLKeyStruct key(int id);
 	/**
 	 * SDL object.
 	 */

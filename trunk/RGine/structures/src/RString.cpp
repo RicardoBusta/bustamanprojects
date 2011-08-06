@@ -26,6 +26,7 @@
  * Created on: Aug 5, 2011
  */
 
+/*
 #include "RString.h"
 
 RString::RString() {
@@ -36,3 +37,5 @@ RString::RString() {
 RString::~RString() {
 	// TODO Auto-generated destructor stub
 }
+}*/
+

@@ -29,12 +29,52 @@
 #ifndef RGLTEXT_H_
 #define RGLTEXT_H_
 
+#include <RString.h>
+
 /**
  * Class used to write texts with opengl commands.
  */
 class RGLText {
+private:
+	void drawCharacter(char c);RString text; //text
+	float spacingx, spacingy; //spacing between characters
+	float size; //character size (square)
+	float aspectx, aspecty; //text aspect x:y
+	float x, y, z;
+	float r, g, b; //text color
+	float bgr, bgg, bgb; //background color
+	int detail; //angle increment for circular characters
+	float lineWidth; //character line width
+	int tabsize; //size of tab in characters
+	bool lowercase;
+	bool uppercase;
+	bool underline;
+	bool bg; //background
+
+	RGLText *next;
+
+	//auxiliar
+	void drawCircular(float angle1, float angle2, float cx, float cy,
+			float scalex, float scaley); //draw circular sections of characters
 public:
-	RGLText();
+	void draw();
+	void setText(RString text);
+	void appendText(RString text);
+	void setSize(float size);
+	void setColor(float r, float g, float b);
+	void setColor(RString color);
+	void setBGColor(float r, float g, float b);
+	void setBGColor(RString color);
+	void setSpacing(float x, float y);
+	void setAspect(float x, float y);
+	void setDetail(int detail);
+	void setLineWidth(float width);
+	void setNext(RGLText *next);
+	void setLowerCase();
+	void setUpperCase();
+	void setNoCase();
+
+	RGLText(RString text, float size, float x, float y, float z, float width);
 	virtual ~RGLText();
 };
 

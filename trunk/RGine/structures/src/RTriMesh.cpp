@@ -37,3 +37,57 @@ RTriMesh::~RTriMesh() {
 	// TODO Auto-generated destructor stub
 }
 
+void RTriMesh::addPoint(RPoint3f point, RPoint3f normal, RColor color)
+{
+	points.push_back(point);
+	normals.push_back(normal);
+	colors.push_back(color);
+}
+
+
+
+void RTriMesh::addTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RColor color)
+{
+	RPoint3f px1 = p1-p3;
+	RPoint3f px2 = p2-p3;
+	RPoint3f n = (px1^px2).unit();
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	normals.push_back(n);
+	normals.push_back(n);
+	normals.push_back(n);
+	colors.push_back(color);
+	colors.push_back(color);
+	colors.push_back(color);
+}
+
+void RTriMesh::addTriangle(RPoint3f p1, RPoint3f p2, RPoint3f p3, RPoint3f n, RColor color)
+{
+	points.push_back(p1);
+	points.push_back(p2);
+	points.push_back(p3);
+	normals.push_back(n);
+	normals.push_back(n);
+	normals.push_back(n);
+	colors.push_back(color);
+	colors.push_back(color);
+	colors.push_back(color);
+}
+
+
+
+RPoint3f RTriMesh::getPoint(int at)
+{
+	return (points.at(at));
+}
+
+
+
+void RTriMesh::removePoint(int at)
+{
+	//points.erase(points.at(at));
+}
+
+
+

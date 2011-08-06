@@ -53,30 +53,30 @@ void Game::init() {
 
 void Game::logic() {
 	if (mouse().left.isDown) {
-		objList[0].frame.rotate(mouse().speed.x(),0,1,0);
-		objList[0].frame.rotate(mouse().speed.y(),1,0,0);
+		objList[0].rotation.setY(objList[0].rotation.y()+mouse().speed.x());
+		objList[0].rotation.setX(objList[0].rotation.x()+mouse().speed.y());
 		//cam.setX(cam.x() + mouse().speed.y());
 		//cam.setY(cam.y() + mouse().speed.x());
 		//frame.setPosition(mouse().position.x(),sdl.getHeight()-mouse().position.y(),0);
 	}
 	if(mouse().right.isDown){
-		objList[1].frame.rotate(mouse().speed.x(),0,1,0);
-		objList[1].frame.rotate(mouse().speed.y(),1,0,0);
+		objList[1].rotation.setY(objList[1].rotation.y()+mouse().speed.x());
+				objList[1].rotation.setX(objList[1].rotation.x()+mouse().speed.y());
 	}
 	if (key(SDLK_EQUALS).isDown) {
 //	if(mouse().wheelup.isDown){
 		//cam.setZ(cam.z() + 0.01);
-		objList[0].frame.scale(1.01,1.01,1.01);
+		objList[0].scale*1.01;
 	}
 	if (key(SDLK_MINUS).isDown) {
 //	if(mouse().wheeldown.isDown){
 		//cam.setZ(cam.z() - 0.01);
-		objList[0].frame.scale(0.99,0.99,0.99);
+		objList[0].scale*0.99;
 	}
 
 //	obj.frame.setIdentity();
-	objList[0].frame.setPosition(200, 200, 0);
-	objList[1].frame.setPosition(300, 300, 0);
+	objList[0].position = RPoint3f(200, 200, 0);
+	objList[1].position = RPoint3f(300, 300, 0);
 //	obj.frame.rotate(cam.x(), 1, 0, 0);
 //	obj.frame.rotate(cam.y(), 0, 1, 0);
 //	obj.frame.scale(cam.z(), cam.z(), cam.z());
@@ -84,7 +84,7 @@ void Game::logic() {
 
 void Game::render() {
 	for(unsigned int i=0;i<objList.size();i++){
-		glLoadMatrixf(objList[i].frame.getMatrix());
+		glLoadMatrixf(objList[i].getAbsoluteTransformation().gl());
 		rglDrawTriMesh(objList[i].triMesh);
 	}
 

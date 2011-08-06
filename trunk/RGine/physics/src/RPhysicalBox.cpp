@@ -28,12 +28,18 @@
 
 #include "RPhysicalBox.h"
 
-RPhysicalBox::RPhysicalBox() {
-	// TODO Auto-generated constructor stub
+RPhysicalBox::RPhysicalBox(REntity* entity, double mass)
+    :RPhysicalObject(entity, mass) {
+    btVector3 size;
+    RPoint3f scale = entity->scale;
 
+//    size.setX(scale.X*((entity->triMesh.getBoundingBox().MaxEdge.x() - entity->triMesh.getBoundingBox().MinEdge.x())/2.0 );
+//    size.setY(scale.Y*(((IAnimatedMeshSceneNode*)irrbox)->getMesh()->getBoundingBox().MaxEdge.Y - ((IAnimatedMeshSceneNode*)irrbox)->getMesh()->getBoundingBox().MinEdge.Y)/2.0 );
+//    size.setZ(scale.Z*(((IAnimatedMeshSceneNode*)irrbox)->getMesh()->getBoundingBox().MaxEdge.Z - ((IAnimatedMeshSceneNode*)irrbox)->getMesh()->getBoundingBox().MinEdge.Z)/2.0 );
+
+    initialize(new btBoxShape( size ));
 }
 
 RPhysicalBox::~RPhysicalBox() {
 	// TODO Auto-generated destructor stub
 }
-

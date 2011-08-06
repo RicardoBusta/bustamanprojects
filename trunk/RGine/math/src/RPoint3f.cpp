@@ -10,7 +10,9 @@
 
 RPoint3f::RPoint3f() {
 	// TODO Auto-generated constructor stub
-
+	x_ = 0;
+	y_ = 0;
+	z_ = 0;
 }
 
 RPoint3f::RPoint3f(float x, float y, float z) {

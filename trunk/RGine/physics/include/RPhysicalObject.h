@@ -29,9 +29,11 @@
 #ifndef RPHYSICALOBJECT_H_
 #define RPHYSICALOBJECT_H_
 
+#include "RPhysicalJoint.h"
+
 #include <cmath>
 #include <btBulletDynamicsCommon.h>
-#include "RJoint.h"
+#include <REntity.h>
 
 #define Vector3D RPoint3f
 
@@ -61,6 +63,7 @@ private:
 	REntity* entity;
 	//ISceneNode* irrnode;
 
+protected:
 	void initializeTerrain(btCollisionShape* shape,
 			btDefaultMotionState* motionState);
 	void initialize(btCollisionShape* shape);
@@ -81,7 +84,7 @@ public:
 	Vector3D getScale();
 	Vector3D getPosition();
 	Vector3D getRotation();
-	RMatrix4 getAbsoluteTransformation();
+	RMatrix4f getAbsoluteTransformation();
 
 	float getAngularVel();
 	float getLinearVel();

@@ -30,7 +30,7 @@
 #define RMATRIX4F_H_
 
 /**
- * A 4x4 matrix structure. Mostly used for transformations.
+ * A 4x4 matrix structure used mostly for linear transformations.
  */
 class RMatrix4f {
 public:

@@ -20,8 +20,12 @@ RFrame::~RFrame() {
 	// TODO Auto-generated destructor stub
 }
 
-float* RFrame::getMatrix() {
+float* RFrame::getTransformation() {
 	return (matrix.data);
+}
+
+RMatrix4f RFrame::getMatrix(){
+	return (matrix);
 }
 
 void RFrame::setIdentity() {

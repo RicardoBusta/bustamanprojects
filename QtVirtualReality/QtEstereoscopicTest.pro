@@ -7,7 +7,7 @@
 QT       += core gui\
             opengl
 
-TARGET = QtEstereoscopicTest
+TARGET = QtVirtualReality
 TEMPLATE = app
 
 

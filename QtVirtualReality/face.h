@@ -41,7 +41,7 @@ public:
                 normal.z = a.z/norm;
 
 
-                cout << normal.x << " " << normal.y << " " << normal.z << endl;
+                //cout << normal.x << " " << normal.y << " " << normal.z << endl;
             }
         }
     }

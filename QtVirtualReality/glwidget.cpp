@@ -75,7 +75,7 @@ void GLWidget::paintGL(){
     drawScene(-spacing);
     glViewport((w) / 2, (h - side) / 2, side/2, side);
     drawScene(spacing);
-    n+=10;
+    n+=1;
 }
 
 void GLWidget::resizeGL(int w, int h){

@@ -168,14 +168,12 @@ void GLWidget::drawScene(float offset){
     glPopMatrix();
 
     glPopMatrix();
-
-
 }
 
 void GLWidget::drawStereo()
 {
-    GLubyte colors[3];
-    glReadPixels(,,1,1,GL_RGB,GL_UNSIGNED_BYTE,(void*)colors);
+    /*GLubyte colors[3];
+    glReadPixels(0,0,1,1,GL_RGB,GL_UNSIGNED_BYTE,(void*)colors);
     cout << (int)colors[0] << (int)colors[1] << (int)colors[2] << endl;
-    //glDrawPixels(1,1,GL_RGB,GL_FLOAT,&colors);
+    //glDrawPixels(1,1,GL_RGB,GL_FLOAT,&colors);*/
 }

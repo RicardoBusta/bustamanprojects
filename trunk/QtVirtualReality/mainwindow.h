@@ -19,7 +19,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    GLWidget *g1;//, *g2;
+    GLWidget *glwidget;
 
     void resizeEvent(QResizeEvent *);
 

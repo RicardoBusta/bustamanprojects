@@ -40,6 +40,7 @@ public:
                 normal.y = a.y/norm;
                 normal.z = a.z/norm;
 
+
                 cout << normal.x << " " << normal.y << " " << normal.z << endl;
             }
         }

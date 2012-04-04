@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sat Mar 24 09:10:26 2012
+** Created: Wed Apr 4 13:20:59 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,13 +14,13 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
@@ -33,10 +33,9 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QWidget *gl1;
-    QCheckBox *checkBox;
     QHBoxLayout *horizontalLayout;
     QLabel *glFinal;
-    QLabel *label;
+    QSpacerItem *horizontalSpacer;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -49,8 +48,8 @@ public:
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setSpacing(0);
+        gridLayout->setContentsMargins(0, 0, 0, 0);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gl1 = new QWidget(centralWidget);
         gl1->setObjectName(QString::fromUtf8("gl1"));
@@ -62,11 +61,6 @@ public:
 
         gridLayout->addWidget(gl1, 1, 0, 1, 1);
 
-        checkBox = new QCheckBox(centralWidget);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
-
-        gridLayout->addWidget(checkBox, 5, 0, 1, 1);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -77,13 +71,12 @@ public:
 
         horizontalLayout->addWidget(glFinal);
 
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout->addItem(horizontalSpacer);
 
 
-        gridLayout->addLayout(horizontalLayout, 3, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout, 4, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -105,10 +98,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
-        checkBox->setText(QApplication::translate("MainWindow", "nao roda", 0, QApplication::UnicodeUTF8));
         glFinal->setText(QString());
-        label->setText(QApplication::translate("MainWindow", "Teste de Visao Estereoscopica\n"
-"Ricardo Bustamante", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

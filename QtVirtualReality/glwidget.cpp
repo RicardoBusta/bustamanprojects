@@ -1,5 +1,7 @@
 #include "glwidget.h"
 
+#include <material.h>
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
@@ -27,8 +29,8 @@ void GLWidget::initializeGL(){
     //glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHT0);
 
-    float lspecular[] = {0.1,0.1,0.1,1.0};
-    float lambient[] = {0.5,0,0,1.0};
+    float lspecular[] = {0.3,0.3,0.3,1.0};
+    float lambient[] = {0.5,0.5,0.5,1.0};
     float ldiffuse[] = {0.5,0.5,0.5,1.0};
     float lposition[] = {0,0,1,1.0};
 
@@ -37,18 +39,26 @@ void GLWidget::initializeGL(){
     glLightfv(GL_LIGHT0, GL_DIFFUSE, ldiffuse);
     glLightfv(GL_LIGHT0, GL_POSITION, lposition);
 
-    float mspecular[] = {0.5,0.5,0.5,1.0};
-    float memission[] = {0.1,0.5,0,1.0};
-    float mdiffuse[] = {0.5,0.5,0.5,1.0};
-    float mshininess[] = {1};
+    Material mat;
 
+    mat.gl();
+
+    /*
+    float mspecular[] = {0.5,1,0.5,1.0};
+    float memission[] = {0,0,0,1.0};
+    float mdiffuse[] = {1,0.5,0.5,1.0};
+    float mshininess[] = {1};
+    */
+
+    /*
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mspecular);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mshininess);
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mdiffuse);
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, memission);
+    */
 
-    glDisable(GL_LIGHTING);
-
+    //glDisable(GL_LIGHTING);
+    glEnable(GL_LIGHTING);
 
     //object->makeObject();
 }
@@ -99,34 +109,52 @@ using namespace std;
 #define SPC << " " <<
 
 void GLWidget::drawFigure(){
-    for(int f=0;f<obj.facelist.size();f++){
-        //Face *fa = (Face*)&obj.facelist.at(f);
-        glBegin(GL_POLYGON);
-        //glBegin(GL_POINTS);
-        //glBegin(GL_LINE_STRIP);
-        for(int v=0;v<obj.facelist.at(f).vert.size();v++){
-            int vnum = obj.facelist.at(f).vert.at(v);
-            Vert ve;
-            ve = obj.vertlist.at( vnum-1 );
-            //glNormal3f(obj.facelist.at(f).normal.x,obj.facelist.at(f).normal.y,obj.facelist.at(f).normal.z);
-            //cout << obj.facelist.at(f).normal.x SPC obj.facelist.at(f).normal.y SPC obj.facelist.at(f).normal.z << endl;
-            float c = (float)f/(float)(obj.facelist.size()-1);
-            glColor3f(c,c,c);
-            glVertex3f(ve.x,ve.y,ve.z);
+    for(int o=0;o<scenario.objectlist.size();o++){
+        scenario.objectlist[o].material.gl();
+        glPushMatrix();
+        glTranslatef(scenario.objectlist.at(o).posx,scenario.objectlist.at(o).posy,scenario.objectlist.at(o).posz);
+        glRotatef(scenario.objectlist.at(o).rotx,1,0,0);
+        glRotatef(scenario.objectlist.at(o).roty,0,1,0);
+        glRotatef(scenario.objectlist.at(o).rotz,0,0,1);
+        for(int f=0;f<scenario.objectlist.at(o).facelist.size();f++){
+            //Face *fa = (Face*)&obj.facelist.at(f);
+
+            Vert normal = scenario.objectlist.at(o).facelist.at(f).normal;
+            glNormal3f(normal.x, normal.y, normal.z);
+
+            glBegin(GL_POLYGON);
+            //glBegin(GL_POINTS);
+            //glBegin(GL_LINE_STRIP);
+            for(int v=0;v<scenario.objectlist.at(o).facelist.at(f).vert.size();v++){
+                int vnum = scenario.objectlist.at(o).facelist.at(f).vert.at(v);
+                Vert ve;
+                ve = scenario.objectlist.at(o).vertlist.at( vnum-1 );
+                //glNormal3f(obj.facelist.at(f).normal.x,obj.facelist.at(f).normal.y,obj.facelist.at(f).normal.z);
+                //cout << obj.facelist.at(f).normal.x SPC obj.facelist.at(f).normal.y SPC obj.facelist.at(f).normal.z << endl;
+                float c = (float)f/(float)(scenario.objectlist.at(o).facelist.size()-1);
+                glColor3f(c,c,c);
+                glVertex3f(ve.x,ve.y,ve.z);
+            }
+            glEnd();
+
+            //Print normals;
+            /*
+            for(int v=0;v<scenario.objectlist.at(o).facelist.at(f).vert.size();v++){
+                int vnum = scenario.objectlist.at(o).facelist.at(f).vert.at(v);
+                Vert ve, norm;
+                ve = scenario.objectlist.at(o).vertlist.at( vnum-1 );
+                norm = scenario.objectlist.at(o).facelist.at(f).normal;
+                norm = norm + ve;
+                glBegin(GL_LINES);
+                    glColor3f(1,0,0);
+                    glVertex3f(ve.x,ve.y,ve.z);
+                    glVertex3f(norm.x,norm.y,norm.z);
+                glEnd();
+            }//*/
+            //end print normals;
         }
-        glEnd();
-
-        /*
-        Vert n,c;
-        c = obj.facelist.at(f).center;
-        n = obj.facelist.at(f).normal;
-
-        glColor3f(1,0,0);
-        glBegin(GL_POINTS);
-            glVertex3f(c.x,c.y,c.z);
-            //glVertex3f(n.x,n.y,n.z);
-        glEnd();
-        glColor3f(1,1,1);*/
+        glPopMatrix();
+        scenario.objectlist[o].update();
     }
 }
 
@@ -146,26 +174,7 @@ void GLWidget::drawScene(float offset){
 
     glTranslatef(offset,0,0);
 
-    glPushMatrix();
-    glTranslatef(0,0,-3);
-    glRotatef(n,0,1,0);
-    //glScalef(2,2,2);
     drawFigure();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(3,0,-5);
-    glRotatef(n,0,1,0);
-    //glScalef(2,2,2);
-    drawFigure();
-    glPopMatrix();
-
-    glPushMatrix();
-    glTranslatef(-3,0,-8);
-    glRotatef(n,0,1,0);
-    //glScalef(2,2,2);
-    drawFigure();
-    glPopMatrix();
 
     glPopMatrix();
 }

@@ -2,10 +2,9 @@
 #define GLWIDGET_H
 
 #include <QGLWidget>
-#include <object.h>
 
+#include <scenario.h>
 #include <qmath.h>
-
 #include <face.h>
 
 class GLWidget : public QGLWidget
@@ -29,7 +28,8 @@ public:
     int n;
     int slide;
 
-    Object obj;
+    //Object obj;
+    Scenario scenario;
 
     void toggle();
     bool toggled;

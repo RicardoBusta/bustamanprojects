@@ -16,12 +16,16 @@ SOURCES += main.cpp\
     glwidget.cpp \
     object.cpp \
     vert.cpp \
-    face.cpp
+    face.cpp \
+    scenario.cpp \
+    material.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     object.h \
     vert.h \
-    face.h
+    face.h \
+    scenario.h \
+    material.h
 
 FORMS    += mainwindow.ui

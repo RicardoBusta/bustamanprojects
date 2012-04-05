@@ -8,6 +8,8 @@ GLWidget::GLWidget(QWidget *parent) :
     n = 0;
     slide = 0;
 
+    IOD = 0.1;
+
     toggled = false;
 }
 
@@ -68,8 +70,6 @@ void GLWidget::paintGL(){
     //glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
 
-    float spacing = 0.1;
-
     /*if(n==1){
         glTranslated(-spacing, 0.0, 0);
     }else if(n==2){
@@ -82,9 +82,9 @@ void GLWidget::paintGL(){
     //glCallList(object->object);
 
     glViewport((w - side) / 2, (h - side) / 2, side/2, side);
-    drawScene(-spacing);
+    drawScene(-IOD);
     glViewport((w) / 2, (h - side) / 2, side/2, side);
-    drawScene(spacing);
+    drawScene(IOD);
     n+=1;
 }
 

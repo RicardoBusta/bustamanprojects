@@ -28,6 +28,8 @@ public:
     int n;
     int slide;
 
+    float IOD;
+
     //Object obj;
     Scenario scenario;
 

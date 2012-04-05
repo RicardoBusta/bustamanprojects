@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QString filename = "models/Monkey.obj";
     QString filename2 = "models/IcoSphere.obj";
     QString filename3 = "models/Box.obj";
+    //QString filename4 = "models/truck.obj";
     //QString filename2 = "models/Planta.obj";
     glwidget->scenario.addObject(filename,0,0,-3);
     glwidget->scenario.objectlist.last().material.set(MAT_RED);

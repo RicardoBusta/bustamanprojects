@@ -26,6 +26,9 @@ private:
 private slots:
     void timedUpdate();
     void updateSlide();
+
+    void addIOD();
+    void removeIOD();
 };
 
 #endif // MAINWINDOW_H

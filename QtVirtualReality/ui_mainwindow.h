@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Apr 4 13:20:59 2012
+** Created: Thu Apr 5 09:26:27 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -19,6 +19,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
+#include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
@@ -30,6 +31,8 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionAdd_IOD;
+    QAction *actionRemove_IOD;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QWidget *gl1;
@@ -37,6 +40,7 @@ public:
     QLabel *glFinal;
     QSpacerItem *horizontalSpacer;
     QMenuBar *menuBar;
+    QMenu *menuCamera;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -45,6 +49,10 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(400, 300);
+        actionAdd_IOD = new QAction(MainWindow);
+        actionAdd_IOD->setObjectName(QString::fromUtf8("actionAdd_IOD"));
+        actionRemove_IOD = new QAction(MainWindow);
+        actionRemove_IOD->setObjectName(QString::fromUtf8("actionRemove_IOD"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -82,6 +90,8 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 400, 21));
+        menuCamera = new QMenu(menuBar);
+        menuCamera->setObjectName(QString::fromUtf8("menuCamera"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -89,6 +99,10 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuCamera->menuAction());
+        menuCamera->addAction(actionAdd_IOD);
+        menuCamera->addAction(actionRemove_IOD);
 
         retranslateUi(MainWindow);
 
@@ -98,7 +112,12 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        actionAdd_IOD->setText(QApplication::translate("MainWindow", "Add IOD", 0, QApplication::UnicodeUTF8));
+        actionAdd_IOD->setShortcut(QApplication::translate("MainWindow", "=", 0, QApplication::UnicodeUTF8));
+        actionRemove_IOD->setText(QApplication::translate("MainWindow", "Remove IOD", 0, QApplication::UnicodeUTF8));
+        actionRemove_IOD->setShortcut(QApplication::translate("MainWindow", "-", 0, QApplication::UnicodeUTF8));
         glFinal->setText(QString());
+        menuCamera->setTitle(QApplication::translate("MainWindow", "Camera", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

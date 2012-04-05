@@ -1,0 +1,62 @@
+# Blender MTL File: 'Pickup_Truck_Generic.blend'
+# Material Count: 6
+newmtl None_PickupBed.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd z:\WebSite_Blender\Models\PickupTruck\blend\textures\PickupBed.png
+
+
+newmtl None_Pickup_TailLight.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Ricardo\Desktop\textures\Pickup_TailLight.png
+
+
+newmtl None_Reflect_Shiny_128.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd z:\WebSite_Blender\Models\PickupTruck\blend\textures\Reflect_Shiny_128.png
+
+
+newmtl None_Reflection.jpg
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Ricardo\Desktop\textures\Reflection.jpg
+
+
+newmtl None_Tire_Tread_256.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd z:\WebSite_Blender\Models\PickupTruck\blend\textures\Tire_Tread_256.png
+
+
+newmtl None_grill&Headlight.png
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\Ricardo\Desktop\textures\grill&Headlight.png
+
+

@@ -13,7 +13,7 @@
 #include <iostream>
 using namespace std;
 
-#define REDCYAN_STEREO
+//#define REDCYAN_STEREO
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,12 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionRemove_IOD,SIGNAL(triggered()),this,SLOT(removeIOD()));
 
     QString filename = "models/sydney.md2";
-    //QString filename2 = "models/IcoSphere.obj";
-    //QString filename3 = "models/Box.obj";
-    QString filename4 = "models/smoothmonkey.obj";
-    //QString filename4 = "models/truck.obj";
-    //QString filename2 = "models/Planta.obj";
-    glwidget->scenario.addObject(filename,0,0,-200);
+    glwidget->scenario.addObject(filename,0,0,-100);
     glwidget->scenario.objectlist.last().setRot( -90, 0, 0 );
     glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
     //glwidget->scenario.addObject(filename2,3,0,-5);

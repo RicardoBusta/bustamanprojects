@@ -27,6 +27,8 @@ void Object::load(QString filename)
 
 void Object::update()
 {
+    rotz+=10;
+
     frame++;
 
     if(frame >= nframes)

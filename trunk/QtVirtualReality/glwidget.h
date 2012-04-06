@@ -22,6 +22,7 @@ public:
     int w,h,side;
 
     void drawFigure();
+    void updateObjects();
     void drawScene(float offset);
     void drawStereo();
 

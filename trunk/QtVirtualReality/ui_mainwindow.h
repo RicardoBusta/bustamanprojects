@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Apr 5 09:26:27 2012
+** Created: Thu Apr 5 21:29:09 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -23,7 +23,6 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
-#include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -41,7 +40,6 @@ public:
     QSpacerItem *horizontalSpacer;
     QMenuBar *menuBar;
     QMenu *menuCamera;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -93,9 +91,6 @@ public:
         menuCamera = new QMenu(menuBar);
         menuCamera->setObjectName(QString::fromUtf8("menuCamera"));
         MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);

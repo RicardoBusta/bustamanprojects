@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include "face.h"
+#include "md2.h"
 
 #include "material.h"
 
@@ -12,19 +13,26 @@ public:
 
     void load(QString filename);
 
-    QList<Vert> vertlist;
-    QList<Face> facelist;
-
+    Mesh *mesh;
     Material material;
 
     float posx,posy,posz;
     float rotx,roty,rotz;
 
-    void update();
-    void calcNormals();
+    int frame;
+    int nframes;
 
-    Face getFace(int id);
-    Vert getVert(int id);
+    void update();
+
+    void setRot(float x, float y, float z)
+    {
+        rotx = x;
+        roty = y;
+        rotz = z;
+    }
+
+    //Face getFace(int id);
+    //Vert getVert(int id);
 };
 
 #endif // OBJECT_H

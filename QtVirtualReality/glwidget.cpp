@@ -1,5 +1,5 @@
 #include "glwidget.h"
-
+#include "md2.h"
 #include <material.h>
 
 GLWidget::GLWidget(QWidget *parent) :
@@ -116,43 +116,9 @@ void GLWidget::drawFigure(){
         glRotatef(scenario.objectlist.at(o).rotx,1,0,0);
         glRotatef(scenario.objectlist.at(o).roty,0,1,0);
         glRotatef(scenario.objectlist.at(o).rotz,0,0,1);
-        for(int f=0;f<scenario.objectlist.at(o).facelist.size();f++){
-            //Face *fa = (Face*)&obj.facelist.at(f);
 
-            Vert normal = scenario.objectlist.at(o).facelist.at(f).normal;
-            glNormal3f(normal.x, normal.y, normal.z);
+        RenderFrame(scenario.objectlist.at(o).frame, scenario.objectlist.at(o).mesh);
 
-            glBegin(GL_POLYGON);
-            //glBegin(GL_POINTS);
-            //glBegin(GL_LINE_STRIP);
-            for(int v=0;v<scenario.objectlist.at(o).facelist.at(f).vert.size();v++){
-                int vnum = scenario.objectlist.at(o).facelist.at(f).vert.at(v);
-                Vert ve;
-                ve = scenario.objectlist.at(o).vertlist.at( vnum-1 );
-                //glNormal3f(obj.facelist.at(f).normal.x,obj.facelist.at(f).normal.y,obj.facelist.at(f).normal.z);
-                //cout << obj.facelist.at(f).normal.x SPC obj.facelist.at(f).normal.y SPC obj.facelist.at(f).normal.z << endl;
-                float c = (float)f/(float)(scenario.objectlist.at(o).facelist.size()-1);
-                glColor3f(c,c,c);
-                glVertex3f(ve.x,ve.y,ve.z);
-            }
-            glEnd();
-
-            //Print normals;
-            /*
-            for(int v=0;v<scenario.objectlist.at(o).facelist.at(f).vert.size();v++){
-                int vnum = scenario.objectlist.at(o).facelist.at(f).vert.at(v);
-                Vert ve, norm;
-                ve = scenario.objectlist.at(o).vertlist.at( vnum-1 );
-                norm = scenario.objectlist.at(o).facelist.at(f).normal;
-                norm = norm + ve;
-                glBegin(GL_LINES);
-                    glColor3f(1,0,0);
-                    glVertex3f(ve.x,ve.y,ve.z);
-                    glVertex3f(norm.x,norm.y,norm.z);
-                glEnd();
-            }//*/
-            //end print normals;
-        }
         glPopMatrix();
         scenario.objectlist[o].update();
     }

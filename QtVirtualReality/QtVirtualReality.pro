@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     vert.cpp \
     face.cpp \
     scenario.cpp \
-    material.cpp
+    material.cpp \
+    md2.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -26,6 +27,8 @@ HEADERS  += mainwindow.h \
     vert.h \
     face.h \
     scenario.h \
-    material.h
+    material.h \
+    md2.h \
+    anorms.h
 
 FORMS    += mainwindow.ui

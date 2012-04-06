@@ -38,9 +38,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QString filename4 = "models/smoothmonkey.obj";
     //QString filename4 = "models/truck.obj";
     //QString filename2 = "models/Planta.obj";
-    glwidget->scenario.addObject(filename,0,0,-30);
+    glwidget->scenario.addObject(filename,0,0,-200);
     glwidget->scenario.objectlist.last().setRot( -90, 0, 0 );
-    glwidget->scenario.objectlist.last().material.set(MAT_RED);
+    glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
     //glwidget->scenario.addObject(filename2,3,0,-5);
     //glwidget->scenario.objectlist.last().material.set(MAT_GREEN);
     //glwidget->scenario.addObject(filename3,-3,0,-8);
@@ -72,7 +72,7 @@ void MainWindow::addIOD()
 {
     glwidget->IOD+=0.01;
 
-    this->statusBar()->
+    //this->statusBar()->
 }
 
 void MainWindow::removeIOD()

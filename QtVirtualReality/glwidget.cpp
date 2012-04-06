@@ -85,6 +85,7 @@ void GLWidget::paintGL(){
     drawScene(-IOD);
     glViewport((w) / 2, (h - side) / 2, side/2, side);
     drawScene(IOD);
+    updateObjects();
     n+=1;
 }
 
@@ -120,6 +121,12 @@ void GLWidget::drawFigure(){
         RenderFrame(scenario.objectlist.at(o).frame, scenario.objectlist.at(o).mesh);
 
         glPopMatrix();
+        //scenario.objectlist[o].update();
+    }
+}
+
+void GLWidget::updateObjects(){
+    for(int o=0;o<scenario.objectlist.size();o++){
         scenario.objectlist[o].update();
     }
 }

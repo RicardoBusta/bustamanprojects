@@ -155,6 +155,16 @@ void FreeModel(struct md2_model_t *mdl)
     }
 }
 
+void calcNormals(float v1[], float v2[], float v3[], float norm[])
+{
+    float vert1[3] = {v2[0] - v1[0], v2[1] - v1[1], v2[2] - v1[2]};
+    float vert2[3] = {v3[0] - v1[0], v3[1] - v1[1], v3[2] - v1[2]};
+
+    norm[0] = vert1[1]*vert2[2] - vert1[2]*vert2[1];
+    norm[1] = vert1[2]*vert2[0] - vert1[0]*vert2[2];
+    norm[2] = vert1[0]*vert2[1] - vert1[1]*vert2[0];
+}
+
 /**
  * Render the model at frame n.
  */
@@ -163,8 +173,8 @@ void RenderFrame(int n, const struct md2_model_t *mdl)
     if(mdl!=NULL)
     {
         int i, j;
-        GLfloat s, t;
-        vec3_t v;
+        GLfloat s1, t1, s2, t2, s3, t3;
+        vec3_t v1, v2, v3;
         struct md2_frame_t *pframe;
         struct md2_vertex_t *pvert;
 
@@ -178,26 +188,67 @@ void RenderFrame(int n, const struct md2_model_t *mdl)
         for (i = 0; i < mdl->header.num_tris; ++i)
         {
             /* Draw each vertex */
-            for (j = 0; j < 3; ++j)
+            //for (j = 0; j < 3; ++j)
             {
                 pframe = &mdl->frames[n];
-                pvert = &pframe->verts[mdl->triangles[i].vertex[j]];
+                pvert = &pframe->verts[mdl->triangles[i].vertex[0]];
 
                 /* Compute texture coordinates */
-                s = (GLfloat)mdl->texcoords[mdl->triangles[i].st[j]].s / mdl->header.skinwidth;
-                t = (GLfloat)mdl->texcoords[mdl->triangles[i].st[j]].t / mdl->header.skinheight;
-
-                /* Pass texture coordinates to OpenGL */
-                glTexCoord2f(s, t);
+                s1 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[0]].s / mdl->header.skinwidth;
+                t1 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[0]].t / mdl->header.skinheight;
 
                 /* Normal vector */
-                glNormal3fv(anorms_table[pvert->normalIndex]);
+                //glNormal3fv(anorms_table[pvert->normalIndex]);
 
                 /* Calculate vertex real position */
-                v[0] = (pframe->scale[0] * pvert->v[0]) + pframe->translate[0];
-                v[1] = (pframe->scale[1] * pvert->v[1]) + pframe->translate[1];
-                v[2] = (pframe->scale[2] * pvert->v[2]) + pframe->translate[2];
-                glVertex3fv(v);
+                v1[0] = (pframe->scale[0] * pvert->v[0]) + pframe->translate[0];
+                v1[1] = (pframe->scale[1] * pvert->v[1]) + pframe->translate[1];
+                v1[2] = (pframe->scale[2] * pvert->v[2]) + pframe->translate[2];
+
+                pframe = &mdl->frames[n];
+                pvert = &pframe->verts[mdl->triangles[i].vertex[1]];
+
+                /* Compute texture coordinates */
+                s2 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[1]].s / mdl->header.skinwidth;
+                t2 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[1]].t / mdl->header.skinheight;
+
+                /* Normal vector */
+                //glNormal3fv(anorms_table[pvert->normalIndex]);
+
+                /* Calculate vertex real position */
+                v2[0] = (pframe->scale[0] * pvert->v[0]) + pframe->translate[0];
+                v2[1] = (pframe->scale[1] * pvert->v[1]) + pframe->translate[1];
+                v2[2] = (pframe->scale[2] * pvert->v[2]) + pframe->translate[2];
+
+                pframe = &mdl->frames[n];
+                pvert = &pframe->verts[mdl->triangles[i].vertex[2]];
+
+                /* Compute texture coordinates */
+                s3 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[2]].s / mdl->header.skinwidth;
+                t3 = (GLfloat)mdl->texcoords[mdl->triangles[i].st[2]].t / mdl->header.skinheight;
+
+                /* Normal vector */
+                //glNormal3fv(anorms_table[pvert->normalIndex]);
+
+                /* Calculate vertex real position */
+                v3[0] = (pframe->scale[0] * pvert->v[0]) + pframe->translate[0];
+                v3[1] = (pframe->scale[1] * pvert->v[1]) + pframe->translate[1];
+                v3[2] = (pframe->scale[2] * pvert->v[2]) + pframe->translate[2];
+
+                float norm[3];
+                calcNormals(v1,v2,v3,norm);
+
+                glNormal3fv(norm);
+                glTexCoord2f(s1, t1);
+                glVertex3fv(v1);
+
+                glNormal3fv(norm);
+                glTexCoord2f(s2, t2);
+                glVertex3fv(v2);
+
+                glNormal3fv(norm);
+                glTexCoord2f(s3, t3);
+                glVertex3fv(v3);
             }
         }
         glEnd();

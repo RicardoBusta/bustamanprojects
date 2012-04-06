@@ -63,6 +63,13 @@ void GLWidget::initializeGL(){
     glEnable(GL_LIGHTING);
 
     //object->makeObject();
+
+    glEnable(GL_TEXTURE_2D);
+    QImage *tex = new QImage("images/faerie.bmp");
+    QImage *glTex = new QImage( QGLWidget::convertToGLFormat(*tex) );
+    int id = QGLWidget::bindTexture(*glTex);
+    glBindTexture(GL_TEXTURE_2D, id);
+
 }
 
 void GLWidget::paintGL(){

@@ -32,18 +32,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAdd_IOD,SIGNAL(triggered()),this,SLOT(addIOD()));
     connect(ui->actionRemove_IOD,SIGNAL(triggered()),this,SLOT(removeIOD()));
 
-    QString filename = "models/Monkey.obj";
-    QString filename2 = "models/IcoSphere.obj";
-    QString filename3 = "models/Box.obj";
+    QString filename = "models/sydney.md2";
+    //QString filename2 = "models/IcoSphere.obj";
+    //QString filename3 = "models/Box.obj";
     QString filename4 = "models/smoothmonkey.obj";
     //QString filename4 = "models/truck.obj";
     //QString filename2 = "models/Planta.obj";
-    glwidget->scenario.addObject(filename4,0,0,-3);
-    glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
-    glwidget->scenario.addObject(filename2,3,0,-5);
-    glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
-    glwidget->scenario.addObject(filename3,-3,0,-8);
-    glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
+    glwidget->scenario.addObject(filename,0,0,-30);
+    glwidget->scenario.objectlist.last().setRot( -90, 0, 0 );
+    glwidget->scenario.objectlist.last().material.set(MAT_RED);
+    //glwidget->scenario.addObject(filename2,3,0,-5);
+    //glwidget->scenario.objectlist.last().material.set(MAT_GREEN);
+    //glwidget->scenario.addObject(filename3,-3,0,-8);
+    //glwidget->scenario.objectlist.last().material.set(MAT_BLUE);
 
 
 #ifndef REDCYAN_STEREO

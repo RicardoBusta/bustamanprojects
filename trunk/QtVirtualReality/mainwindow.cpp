@@ -24,23 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
     glwidget = new GLWidget(ui->gl1);
 
     QTimer *timer = new QTimer();
-    timer->start(120);
+    timer->start(60);
 
     connect(timer, SIGNAL(timeout()),this,SLOT(timedUpdate()));
     //connect(ui->checkBox,SIGNAL(toggled(bool)),this,SLOT(updateSlide()));
 
     connect(ui->actionAdd_IOD,SIGNAL(triggered()),this,SLOT(addIOD()));
     connect(ui->actionRemove_IOD,SIGNAL(triggered()),this,SLOT(removeIOD()));
-
-    QString filename = "models/faerie.md2";
-    glwidget->scenario.addObject(filename,0,0,-100);
-    glwidget->scenario.objectlist.last().setRot( -90, 0, 0 );
-    glwidget->scenario.objectlist.last().material.set(MAT_WHITE);
-    //glwidget->scenario.addObject(filename2,3,0,-5);
-    //glwidget->scenario.objectlist.last().material.set(MAT_GREEN);
-    //glwidget->scenario.addObject(filename3,-3,0,-8);
-    //glwidget->scenario.objectlist.last().material.set(MAT_BLUE);
-
 
 #ifndef REDCYAN_STEREO
     ui->glFinal->hide();

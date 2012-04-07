@@ -1,6 +1,8 @@
 #include "glwidget.h"
 #include "md2.h"
+#include "audiodevice.h"
 #include <material.h>
+#include <QMessageBox>
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
@@ -15,35 +17,68 @@ GLWidget::GLWidget(QWidget *parent) :
 
 GLWidget::~GLWidget()
 {
+
 }
 
 void GLWidget::initializeGL(){
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    //glShadeModel(GL_FLAT);
-    glShadeModel(GL_SMOOTH);
+
+    //Chama a função de inicializar da alut e inicializa os atributos da classe. Parametro define o quanto o com irá decair com a distância
+    audioDevice::initilize(0.1);
+
+    QString filename = "models/faerie.md2";
+    scenario.addObject(filename,-20,0,-100);
+    scenario.objectlist.last().setRot( -90, 0, 0 );
+    scenario.objectlist.last().material.set(MAT_WHITE);
+    scenario.objectlist.last().loadTexture("images/faerie.bmp");
+    scenario.objectlist.last().loadAudio("sounds/laugh_child.wav");
+
+    //Toca o audio dado o id... Segundo parametro diz se o audio ficará em loop
+    audioDevice::playSound(scenario.objectlist.last().soundID, true );
+
+
+    QString filename2 = "models/sydney.md2";
+    scenario.addObject(filename2,20,0,-100);
+    scenario.objectlist.last().setRot( -90, 0, 0 );
+    scenario.objectlist.last().material.set(MAT_WHITE);
+    scenario.objectlist.last().loadTexture("images/sydney.bmp");
+    scenario.objectlist.last().loadAudio("sounds/sea.wav");
+
+    //Toca o audio dado o id... Segundo parametro diz se o audio ficará em loop
+    audioDevice::playSound(scenario.objectlist.last().soundID, true );
+
+    //Atributos do ouvinte
+    float pos[] = {0,0,0};
+    float vel[] = {0,0,0};
+    float ori[] = {0,0,0};
+    audioDevice::setLstAttributes(pos, vel, ori);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glAlphaFunc(GL_GREATER,0.1f);
+    glEnable(GL_ALPHA_TEST);
+    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_CULL_FACE);
+    glDepthFunc( GL_LEQUAL );
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    //glEnable(GL_POLYGON_OFFSET_FILL);
-    //glPolygonOffset(1.0,1.0);
 
-    glEnable(GL_LIGHTING);
-    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    //glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHT0);
+//    glEnable(GL_LIGHTING);
+//    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+//    //glEnable(GL_COLOR_MATERIAL);
+//    glEnable(GL_LIGHT0);
 
-    float lspecular[] = {0.3,0.3,0.3,1.0};
-    float lambient[] = {0.5,0.5,0.5,1.0};
-    float ldiffuse[] = {0.5,0.5,0.5,1.0};
-    float lposition[] = {0,0,1,1.0};
+//    float lspecular[] = {0.3,0.3,0.3,1.0};
+//    float lambient[] = {0.5,0.5,0.5,1.0};
+//    float ldiffuse[] = {0.5,0.5,0.5,1.0};
+//    float lposition[] = {0,0,1,1.0};
 
-    glLightfv(GL_LIGHT0, GL_SPECULAR, lspecular);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, lambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, ldiffuse);
-    glLightfv(GL_LIGHT0, GL_POSITION, lposition);
+//    glLightfv(GL_LIGHT0, GL_SPECULAR, lspecular);
+//    glLightfv(GL_LIGHT0, GL_AMBIENT, lambient);
+//    glLightfv(GL_LIGHT0, GL_DIFFUSE, ldiffuse);
+//    glLightfv(GL_LIGHT0, GL_POSITION, lposition);
 
-    Material mat;
+//    Material mat;
 
-    mat.gl();
+//    mat.gl();
 
     /*
     float mspecular[] = {0.5,1,0.5,1.0};
@@ -59,16 +94,8 @@ void GLWidget::initializeGL(){
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, memission);
     */
 
-    //glDisable(GL_LIGHTING);
-    glEnable(GL_LIGHTING);
-
     //object->makeObject();
 
-    glEnable(GL_TEXTURE_2D);
-    QImage *tex = new QImage("images/faerie.bmp");
-    QImage *glTex = new QImage( QGLWidget::convertToGLFormat(*tex) );
-    int id = QGLWidget::bindTexture(*glTex);
-    glBindTexture(GL_TEXTURE_2D, id);
 
 }
 
@@ -117,6 +144,7 @@ using namespace std;
 #define SPC << " " <<
 
 void GLWidget::drawFigure(){
+
     for(int o=0;o<scenario.objectlist.size();o++){
         scenario.objectlist[o].material.gl();
         glPushMatrix();
@@ -124,6 +152,10 @@ void GLWidget::drawFigure(){
         glRotatef(scenario.objectlist.at(o).rotx,1,0,0);
         glRotatef(scenario.objectlist.at(o).roty,0,1,0);
         glRotatef(scenario.objectlist.at(o).rotz,0,0,1);
+
+        //QGLWidget::bindTexture(scenario.objectlist.at(o).texName);
+        glBindTexture( GL_TEXTURE_2D, scenario.objectlist.at(o).texID );
+
 
         RenderFrame(scenario.objectlist.at(o).frame, scenario.objectlist.at(o).mesh);
 

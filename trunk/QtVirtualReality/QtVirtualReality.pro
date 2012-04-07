@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     face.cpp \
     scenario.cpp \
     material.cpp \
-    md2.cpp
+    md2.cpp \
+    audiodevice.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -29,6 +30,12 @@ HEADERS  += mainwindow.h \
     scenario.h \
     material.h \
     md2.h \
-    anorms.h
+    anorms.h \
+    audiodevice.h
 
 FORMS    += mainwindow.ui
+
+
+LIBS += OpenAL/libs/OpenAL32.lib OpenAL/libs/alut.lib
+
+INCLUDEPATH += OpenAL/include

@@ -1,9 +1,10 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include<QString>
+
 #include "face.h"
 #include "md2.h"
-
 #include "material.h"
 
 class Object
@@ -12,9 +13,16 @@ public:
     Object();
 
     void load(QString filename);
+    void loadTexture(QString filename);
+    void loadAudio(QString filename);
 
     Mesh *mesh;
     Material material;
+
+    GLuint texID;
+    QString texName;
+
+    int soundID;
 
     float posx,posy,posz;
     float rotx,roty,rotz;
@@ -30,6 +38,7 @@ public:
         roty = y;
         rotz = z;
     }
+
 
     //Face getFace(int id);
     //Vert getVert(int id);

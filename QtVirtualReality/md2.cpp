@@ -20,28 +20,23 @@ int ReadMD2Model(const char *filename, struct md2_model_t *mdl)
 {
     FILE *fp;
     int i;
+    FILE* f;
 
     fp = fopen (filename, "rb");
     if(!fp)
     {
+        f = fopen("debug.txt", "a");
+        fprintf(f, "Erro...\n");
+        fclose(f);
         fprintf (stderr, "Error: couldn't open \"%s\"!\n", filename);
         return 0;
     }
 
-    FILE* f = fopen("debug.txt", "a");
-    fprintf(f, "Arquivo aberto...\n");
-    fclose(f);
+
 
     /* Read header */
     fread (&mdl->header, 1, sizeof (struct md2_header_t), fp);
 
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Leitura do cabeçalho...\n");
-    fclose(f);
-
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Acessando dados do arquivo...\n");
-    fclose(f);
 
     if((mdl->header.ident != 844121161) || (mdl->header.version != 8))
     {
@@ -54,10 +49,6 @@ int ReadMD2Model(const char *filename, struct md2_model_t *mdl)
         return 0;
     }
 
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Sem erros de versão ou identificador...\n");
-    fclose(f);
-
     /* Memory allocations */
     mdl->skins = (struct md2_skin_t *) malloc(sizeof (struct md2_skin_t) * mdl->header.num_skins);
     mdl->texcoords = (struct md2_texCoord_t *) malloc(sizeof (struct md2_texCoord_t) * mdl->header.num_st);
@@ -65,9 +56,6 @@ int ReadMD2Model(const char *filename, struct md2_model_t *mdl)
     mdl->frames = (struct md2_frame_t *) malloc(sizeof (struct md2_frame_t) * mdl->header.num_frames);
     mdl->glcmds = (int *) malloc(sizeof (int) * mdl->header.num_glcmds);
 
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Memoria alocada...\n");
-    fclose(f);
 
     /* Read model data */
     fseek (fp, mdl->header.offset_skins, SEEK_SET);
@@ -82,10 +70,6 @@ int ReadMD2Model(const char *filename, struct md2_model_t *mdl)
     fseek (fp, mdl->header.offset_glcmds, SEEK_SET);
     fread (mdl->glcmds, sizeof (int), mdl->header.num_glcmds, fp);
 
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Informações sobre o arquivo lidas com sucesso...\n");
-    fclose(f);
-
     /* Read frames */
     fseek (fp, mdl->header.offset_frames, SEEK_SET);
     for (i = 0; i < mdl->header.num_frames; ++i)
@@ -99,10 +83,6 @@ int ReadMD2Model(const char *filename, struct md2_model_t *mdl)
         fread (mdl->frames[i].name, sizeof (char), 16, fp);
         fread (mdl->frames[i].verts, sizeof (struct md2_vertex_t), mdl->header.num_vertices, fp);
     }
-
-    f = fopen("debug.txt", "a");
-    fprintf(f, "Arquivo lido com sucesso...\n");
-    fclose(f);
 
     fclose (fp);
     return 1;
@@ -239,15 +219,15 @@ void RenderFrame(int n, const struct md2_model_t *mdl)
                 calcNormals(v1,v2,v3,norm);
 
                 glNormal3fv(norm);
-                glTexCoord2f(s1, t1);
+                glTexCoord2f(s1, 1-t1);
                 glVertex3fv(v1);
 
                 glNormal3fv(norm);
-                glTexCoord2f(s2, t2);
+                glTexCoord2f(s2, 1-t2);
                 glVertex3fv(v2);
 
                 glNormal3fv(norm);
-                glTexCoord2f(s3, t3);
+                glTexCoord2f(s3, 1-t3);
                 glVertex3fv(v3);
             }
         }

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Apr 5 21:29:09 2012
+** Created: Tue Apr 17 14:00:12 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -21,7 +21,7 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
-#include <QtGui/QSpacerItem>
+#include <QtGui/QStackedWidget>
 #include <QtGui/QStatusBar>
 #include <QtGui/QWidget>
 
@@ -34,10 +34,14 @@ public:
     QAction *actionRemove_IOD;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QWidget *gl1;
     QHBoxLayout *horizontalLayout;
+    QStackedWidget *stackedWidget;
+    QWidget *finalPage;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *glFinal;
-    QSpacerItem *horizontalSpacer;
+    QWidget *glPage;
+    QHBoxLayout *horizontalLayout_2;
+    QWidget *gl1;
     QMenuBar *menuBar;
     QMenu *menuCamera;
     QStatusBar *statusBar;
@@ -57,32 +61,47 @@ public:
         gridLayout->setSpacing(0);
         gridLayout->setContentsMargins(0, 0, 0, 0);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gl1 = new QWidget(centralWidget);
-        gl1->setObjectName(QString::fromUtf8("gl1"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(gl1->sizePolicy().hasHeightForWidth());
-        gl1->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(gl1, 1, 0, 1, 1);
-
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        glFinal = new QLabel(centralWidget);
+
+        gridLayout->addLayout(horizontalLayout, 3, 0, 1, 1);
+
+        stackedWidget = new QStackedWidget(centralWidget);
+        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        finalPage = new QWidget();
+        finalPage->setObjectName(QString::fromUtf8("finalPage"));
+        horizontalLayout_3 = new QHBoxLayout(finalPage);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        glFinal = new QLabel(finalPage);
         glFinal->setObjectName(QString::fromUtf8("glFinal"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(glFinal->sizePolicy().hasHeightForWidth());
         glFinal->setSizePolicy(sizePolicy);
 
-        horizontalLayout->addWidget(glFinal);
+        horizontalLayout_3->addWidget(glFinal);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        stackedWidget->addWidget(finalPage);
+        glPage = new QWidget();
+        glPage->setObjectName(QString::fromUtf8("glPage"));
+        horizontalLayout_2 = new QHBoxLayout(glPage);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        gl1 = new QWidget(glPage);
+        gl1->setObjectName(QString::fromUtf8("gl1"));
+        sizePolicy.setHeightForWidth(gl1->sizePolicy().hasHeightForWidth());
+        gl1->setSizePolicy(sizePolicy);
 
-        horizontalLayout->addItem(horizontalSpacer);
+        horizontalLayout_2->addWidget(gl1);
 
+        stackedWidget->addWidget(glPage);
 
-        gridLayout->addLayout(horizontalLayout, 4, 0, 1, 1);
+        gridLayout->addWidget(stackedWidget, 4, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);

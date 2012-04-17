@@ -4,6 +4,8 @@
 #include <material.h>
 #include <QMessageBox>
 
+#define USE_STENCIL
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
@@ -11,8 +13,6 @@ GLWidget::GLWidget(QWidget *parent) :
     slide = 0;
 
     IOD = 0.1;
-
-    toggled = false;
 }
 
 GLWidget::~GLWidget()
@@ -20,8 +20,7 @@ GLWidget::~GLWidget()
 
 }
 
-void GLWidget::initializeGL(){
-
+void GLWidget::initializeAudio(){
     //Chama a função de inicializar da alut e inicializa os atributos da classe. Parametro define o quanto o com irá decair com a distância
     audioDevice::initilize(0.1);
 
@@ -34,7 +33,6 @@ void GLWidget::initializeGL(){
 
     //Toca o audio dado o id... Segundo parametro diz se o audio ficará em loop
     audioDevice::playSound(scenario.objectlist.last().soundID, true );
-
 
     QString filename2 = "models/sydney.md2";
     scenario.addObject(filename2,20,0,-100);
@@ -51,6 +49,10 @@ void GLWidget::initializeGL(){
     float vel[] = {0,0,0};
     float ori[] = {0,0,0};
     audioDevice::setLstAttributes(pos, vel, ori);
+}
+
+void GLWidget::initializeGL(){
+    initializeAudio();
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
@@ -60,6 +62,12 @@ void GLWidget::initializeGL(){
     //glEnable(GL_CULL_FACE);
     glDepthFunc( GL_LEQUAL );
     glEnable(GL_DEPTH_TEST);
+#ifdef USE_STENCIL
+    glEnable(GL_STENCIL_TEST);
+    //glStencilFunc(GL_EQUAL,);
+    //glStencilMask()
+    //glStencilOp(
+#endif
 
 //    glEnable(GL_LIGHTING);
 //    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
@@ -168,17 +176,6 @@ void GLWidget::updateObjects(){
     for(int o=0;o<scenario.objectlist.size();o++){
         scenario.objectlist[o].update();
     }
-}
-
-void GLWidget::toggle()
-{
-    if(toggled){
-        glDisable(GL_LIGHTING);
-    }else{
-        glDisable(GL_LIGHTING);
-    }
-    toggled = !toggled;
-
 }
 
 void GLWidget::drawScene(float offset){

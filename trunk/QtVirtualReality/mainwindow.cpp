@@ -14,6 +14,7 @@
 using namespace std;
 
 //#define REDCYAN_STEREO
+//#define TV_STEREO
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,12 +33,17 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAdd_IOD,SIGNAL(triggered()),this,SLOT(addIOD()));
     connect(ui->actionRemove_IOD,SIGNAL(triggered()),this,SLOT(removeIOD()));
 
-#ifndef REDCYAN_STEREO
-    ui->glFinal->hide();
+
+    ui->stackedWidget->setCurrentWidget(ui->glPage);
+#ifdef REDCYAN_STEREO
+    ui->stackedWidget->setCurrentWidget(ui->finalPage);
+#endif
+#ifdef TV_STEREO
+    ui->stackedWidget->setCurrentWidget(ui->finalPage);
 #endif
 
-    this->showMaximized();
-
+    //this->showMaximized();
+    this->showFullScreen();
 }
 
 MainWindow::~MainWindow()
@@ -87,6 +93,28 @@ void MainWindow::timedUpdate(){
     QPixmap pix = QPixmap::fromImage(img2);
     ui->glFinal->setPixmap(pix);
 
+#endif
+
+#ifdef TV_STEREO
+    QImage img1 = glwidget->grabFrameBuffer(false);
+    int width2 = img1.width()/2;
+
+    QImage img2(width2*2,img1.height(),QImage::Format_ARGB32);
+
+    for (int y=0;y<img1.height();y++){
+        int w = (y%2);
+        int z = 1 - w;
+        for(int x=0;x<img1.width()/2;x++){
+            QColor c1 = img1.pixel(x,y);
+            QColor c2 = img1.pixel(x+width2,y);
+
+            img2.setPixel((x*2)+w,y,c1.rgba());
+            img2.setPixel((x*2)+z,y,c2.rgba());
+        }
+    }
+
+    QPixmap pix = QPixmap::fromImage(img2);
+    ui->glFinal->setPixmap(pix);
 #endif
     //}
 }

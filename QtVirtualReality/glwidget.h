@@ -34,8 +34,7 @@ public:
     //Object obj;
     Scenario scenario;
 
-    void toggle();
-    bool toggled;
+    void initializeAudio();
 };
 
 #endif // GLWIDGET_H

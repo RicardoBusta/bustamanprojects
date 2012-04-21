@@ -1,11 +1,10 @@
 package quadratura.sequencial;
 
-import quadratura.concorrente.FileOutput;
-
 public class Main {	
 	public static double epsilon = 0.00000001; 
 	
 	public static double f(double x){
+		//return task.f(x);
 		return x*x;
 	}
 	
@@ -19,7 +18,7 @@ public class Main {
 		double fa = f(a);
 		double fb = f(b);
 		
-		double newarea = calcarea(a,b,f(a),f(b));
+		double newarea = calcarea(a,b,fa,fb);
 		double area, la, lb;
 		
 		int div = 2;

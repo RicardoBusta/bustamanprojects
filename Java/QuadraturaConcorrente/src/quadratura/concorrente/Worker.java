@@ -1,5 +1,8 @@
 package quadratura.concorrente;
 
+import net.sourceforge.jeval.EvaluationException;
+import net.sourceforge.jeval.Evaluator;
+
 public class Worker implements Runnable {
 	public static FileOutput fileoutput = new FileOutput();
 	
@@ -17,10 +20,23 @@ public class Worker implements Runnable {
 
 	public Worker(int id) {
 		this.id = id;
+		eval = new Evaluator();
 	}
 
 	double mid, fmid, larea, rarea;
-
+	
+	private Evaluator eval;
+	
+	public double f(double x) {
+		String res="";
+		try {
+			res = eval.evaluate(Task.sf(x));
+		} catch (EvaluationException e) {
+			e.printStackTrace();
+		}
+		return Double.valueOf(res);
+	}
+	
 	public void run() {
 		while (!over) {
 			/* Check for Termination */
@@ -39,12 +55,12 @@ public class Worker implements Runnable {
 				Critical.open();
 				task = Bag.get();
 				idle--;
-				fileoutput.writeln("Worker "+id+"> get task: ["+task.left+";"+task.right+"].");
+				fileoutput.writeln("Worker "+id+"> get task "+task.number+": ["+task.left+";"+task.right+"].");
 				Critical.close();
 
 				/* Calculate mid and fmid */
 				mid = (task.left + task.right) / 2;
-				fmid = Task.f(mid);
+				fmid = f(mid);
 				/* Calculate larea and rarea */
 				larea = Task.area(task.left, mid, task.fleft, fmid);
 				rarea = Task.area(mid, task.right, fmid, task.fright);

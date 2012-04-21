@@ -1,19 +1,23 @@
-package quadratura.concorrente;
+package quadratura;
 
-public class Main {
+import quadratura.concorrente.*;
+
+public class Main {	
 	// Create the 10 workers that will handle tasks.
 	public static Thread worker[] = new Thread[Worker.numberOfWorkers];
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {	
 		// Add the first task to the bag. It is the interval [a,b].
 		
 		double a = 0.0;
 		double b = 10.0;
 		
-		Worker.fileoutput.begin();
-		Worker.fileoutput.writeln("Start! Initial task: f(x) ["+a+";"+b+"].");
-		Bag.add(Task.firstTask(a, b));
+		Task firstTask = new Task(a,b);
+		Bag.add(firstTask);
 		Bag.release();
+		
+		Worker.fileoutput.begin();
+		Worker.fileoutput.writeln("Start! Initial task: f(x)="+Task.fx+" => ["+a+";"+b+"].");
 
 		// Start the 10 threads that will compute eventual tasks.
 		for (int i = 0; i < Worker.numberOfWorkers; i++) {

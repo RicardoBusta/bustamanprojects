@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 #define USE_STENCIL
+//#define RED_CYAN_STEREO
 
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
@@ -54,57 +55,17 @@ void GLWidget::initializeAudio(){
 void GLWidget::initializeGL(){
     initializeAudio();
 
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    glAlphaFunc(GL_GREATER,0.1f);
-    glEnable(GL_ALPHA_TEST);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_BLEND);
+    //glAlphaFunc(GL_GREATER,0.1f);
+    //glEnable(GL_ALPHA_TEST);
     glEnable(GL_TEXTURE_2D);
     //glEnable(GL_CULL_FACE);
     glDepthFunc( GL_LEQUAL );
     glEnable(GL_DEPTH_TEST);
 #ifdef USE_STENCIL
     glEnable(GL_STENCIL_TEST);
-    //glStencilFunc(GL_EQUAL,);
-    //glStencilMask()
-    //glStencilOp(
 #endif
-
-//    glEnable(GL_LIGHTING);
-//    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-//    //glEnable(GL_COLOR_MATERIAL);
-//    glEnable(GL_LIGHT0);
-
-//    float lspecular[] = {0.3,0.3,0.3,1.0};
-//    float lambient[] = {0.5,0.5,0.5,1.0};
-//    float ldiffuse[] = {0.5,0.5,0.5,1.0};
-//    float lposition[] = {0,0,1,1.0};
-
-//    glLightfv(GL_LIGHT0, GL_SPECULAR, lspecular);
-//    glLightfv(GL_LIGHT0, GL_AMBIENT, lambient);
-//    glLightfv(GL_LIGHT0, GL_DIFFUSE, ldiffuse);
-//    glLightfv(GL_LIGHT0, GL_POSITION, lposition);
-
-//    Material mat;
-
-//    mat.gl();
-
-    /*
-    float mspecular[] = {0.5,1,0.5,1.0};
-    float memission[] = {0,0,0,1.0};
-    float mdiffuse[] = {1,0.5,0.5,1.0};
-    float mshininess[] = {1};
-    */
-
-    /*
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mspecular);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mshininess);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mdiffuse);
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, memission);
-    */
-
-    //object->makeObject();
-
-
 }
 
 void GLWidget::paintGL(){
@@ -123,10 +84,27 @@ void GLWidget::paintGL(){
     glRotated(zRot, 0.0, 0.0, 1.0);
     //glCallList(object->object);
 
+
+#ifdef USE_STENCIL
+    //glViewport((w - side) / 2, (h - side) / 2, side, side);
+//    glColor3f(1,0,0);
+    glStencilFunc(GL_NOTEQUAL,1,~0);
+//    glClearColor(1,0,0,1);
+//    glClear(GL_COLOR_BUFFER_BIT);
+    drawScene(-IOD);
+//    glColor3f(0,0,1);
+    glStencilFunc(GL_EQUAL,1,~0);
+//    glClearColor(0,0,1,1);
+//    glClear(GL_COLOR_BUFFER_BIT);
+    drawScene(IOD);
+
+#else
     glViewport((w - side) / 2, (h - side) / 2, side/2, side);
     drawScene(-IOD);
     glViewport((w) / 2, (h - side) / 2, side/2, side);
     drawScene(IOD);
+#endif
+
     updateObjects();
     n+=1;
 }
@@ -136,12 +114,35 @@ void GLWidget::resizeGL(int w, int h){
     this->w = w;
     this->h = h;
     //glViewport((w - side) / 2, (h - side) / 2, side, side);
-    glMatrixMode(GL_PROJECTION);
+
+#ifdef USE_STENCIL
+    //STENCIL
+    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    //int zoom = 1;
-    //glOrtho(-250/zoom,250/zoom,-250/zoom,250/zoom,1000/zoom,-1000/zoom);
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,w-1,0,h-1,-1,1);
+
+    glStencilOp (GL_REPLACE, GL_REPLACE, GL_REPLACE);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+
+    unsigned char * pattern = (unsigned char *) malloc(sizeof(unsigned char) * w * h);
+    for(unsigned int i = 0; i < (unsigned int) (w * h); i++) {
+      if(((int)(i/w))%2) pattern[i] = i%2;
+      else pattern[i] = 1 - i%2;
+    }
+
+    glDrawPixels(w, h, GL_STENCIL_INDEX, GL_UNSIGNED_BYTE, pattern);
+    free(pattern);
+#endif
+
+    glMatrixMode (GL_PROJECTION);
+    glLoadIdentity();
     glFrustum(-1,1,-1,1,1,1000);
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glViewport(0, 0, w, h);
 }
 
 #include <cmath>
@@ -186,12 +187,4 @@ void GLWidget::drawScene(float offset){
     drawFigure();
 
     glPopMatrix();
-}
-
-void GLWidget::drawStereo()
-{
-    /*GLubyte colors[3];
-    glReadPixels(0,0,1,1,GL_RGB,GL_UNSIGNED_BYTE,(void*)colors);
-    cout << (int)colors[0] << (int)colors[1] << (int)colors[2] << endl;
-    //glDrawPixels(1,1,GL_RGB,GL_FLOAT,&colors);*/
 }

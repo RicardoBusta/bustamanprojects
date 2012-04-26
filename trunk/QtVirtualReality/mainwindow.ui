@@ -22,42 +22,18 @@
      <number>0</number>
     </property>
     <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout"/>
-    </item>
-    <item row="4" column="0">
-     <widget class="QStackedWidget" name="stackedWidget">
-      <widget class="QWidget" name="finalPage">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="glFinal">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="glPage">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QWidget" name="gl1" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QWidget" name="gl1" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -70,16 +46,15 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuCamera">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Camera</string>
+     <string>File</string>
     </property>
     <addaction name="actionAdd_IOD"/>
     <addaction name="actionRemove_IOD"/>
    </widget>
-   <addaction name="menuCamera"/>
+   <addaction name="menuFile"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd_IOD">
    <property name="text">
     <string>Add IOD</string>
@@ -94,6 +69,20 @@
    </property>
    <property name="shortcut">
     <string>-</string>
+   </property>
+  </action>
+  <action name="action_fullScreen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Fullscreen</string>
+   </property>
+   <property name="toolTip">
+    <string>fullScreen</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>

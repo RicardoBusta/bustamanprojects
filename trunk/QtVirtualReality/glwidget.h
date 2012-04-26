@@ -24,7 +24,6 @@ public:
     void drawFigure();
     void updateObjects();
     void drawScene(float offset);
-    void drawStereo();
 
     int n;
     int slide;

@@ -152,7 +152,6 @@ void RenderFrame(int n, const struct md2_model_t *mdl)
 {
     if(mdl!=NULL)
     {
-        int i, j;
         GLfloat s1, t1, s2, t2, s3, t3;
         vec3_t v1, v2, v3;
         struct md2_frame_t *pframe;
@@ -165,7 +164,7 @@ void RenderFrame(int n, const struct md2_model_t *mdl)
         /* Draw the model */
         glBegin(GL_TRIANGLES);
         /* Draw each triangle */
-        for (i = 0; i < mdl->header.num_tris; ++i)
+        for (int i = 0; i < mdl->header.num_tris; ++i)
         {
             /* Draw each vertex */
             //for (j = 0; j < 3; ++j)

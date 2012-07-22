@@ -11,11 +11,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    i_canvas.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    i_canvas.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    i_canvas.ui
 
 RESOURCES += \
     Icons.qrc

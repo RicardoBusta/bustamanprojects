@@ -1,5 +1,7 @@
 #include "symboltable.h"
 
-SymbolTable::SymbolTable()
+
+void SymbolTable::setValue(std::string id, float val)
 {
+    symbol[id] = val;
 }

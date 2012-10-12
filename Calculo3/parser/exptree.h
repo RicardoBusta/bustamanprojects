@@ -20,7 +20,7 @@ public:
     float value;
 
     ExpNumber(float value):Exp(EXP_NUMBER){ this->value = value; }
-    ~ExpNumber();
+    ~ExpNumber(){}
 };
 
 class ExpVariable:public Exp
@@ -29,7 +29,7 @@ public:
     std::string value;
 
     ExpVariable(std::string value):Exp(EXP_VARIABLE){ this->value = value; }
-    ~ExpVariable();
+    ~ExpVariable(){}
 };
 
 //Generic

@@ -26,7 +26,6 @@ SOURCES += \
     graphics/glvectorfunctions.cpp \
     graphics/glmathelements.cpp \
     parser/parser.cpp \
-    parser/expression.cpp \
     parser/exptree.cpp \
     parser/visitor.cpp \
     parser/symboltable.cpp \
@@ -45,7 +44,6 @@ HEADERS  += \
     graphics/glvectorfunctions.h \
     graphics/glmathelements.h \
     parser/parser.h \
-    parser/expression.h \
     parser/exptree.h \
     parser/visitor.h \
     parser/symboltable.h \

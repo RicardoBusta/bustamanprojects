@@ -7,12 +7,14 @@
 class SymbolTable
 {
 public:
-    SymbolTable();
+    SymbolTable(){}
 
     std::map<std::string,float> symbol;
 
+    void setValue(std::string id, float val);
+
     float lookup(std::string id){
-        if(symbol.at(id)){
+        if(symbol.count(id)>0){
             return symbol.at(id);
         }else{
             return 0;

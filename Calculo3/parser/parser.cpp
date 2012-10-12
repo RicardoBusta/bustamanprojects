@@ -2,6 +2,9 @@
 
 #include "parser/tokens.h"
 #include "parser/exptree.h"
+#include "parser/visitor.h"
+
+#include <cstdio>
 
 #include <iostream>
 using namespace std;
@@ -23,9 +26,8 @@ Parser::Parser()
     fun -> fun( exp )
  */
 
-Exp *Parser::parse(std::string exp) const
+Exp* Parser::parse(std::string exp) const
 {
-
     //-------------------------------------------------
     // Lex
     //-------------------------------------------------
@@ -124,34 +126,117 @@ Exp *Parser::parse(std::string exp) const
     // Exp
     //-------------------------------------------------
 
-    for(std::list<Token*>::iterator it = tokens.begin(); it!= tokens.end(); it++ ){
-        cout << (*it)->value << " " << (*it)->type << endl;
-        delete (*it);
+    //    for(std::list<Token*>::iterator it = tokens.begin(); it!= tokens.end(); it++ ){
+    //        cout << (*it)->value << " " << (*it)->type << endl;
+    //    }
+
+
+    return buildExp(&tokens);
+}
+
+float Parser::eval(Exp *exp, SymbolTable *table)
+{
+    if(exp!=NULL){
+        float ret;
+
+        Visitor *visitor = new EvalVisitor;
+
+        ret = visitor->visit(exp, table);
+
+        delete visitor;
+
+        return ret;
+    }else{
+        cout << "ERROR" << endl;
+        return 0;
     }
 }
 
 Exp *Parser::buildExp(std::list<Token*> *token) const{
-    Expression *newExp;
-    if( token->front() == TOKEN_SIN ){
-        // 'SIN'
-        eat( TOKEN_SIN , token );
-        // '('
-        eat( TOKEN_LPAREN, token );
+    if(token->front() == NULL) return NULL;
+    Exp *newExp;
+    Exp *auxExp, *auxExp2;
+    float f;
 
-        buildExp(token);
-        //continuar aqui
+    switch(token->front()->type){
+    case TOKEN_SIN:
+        // 'SIN'
+        if( !eat( TOKEN_SIN , token ) ) return NULL;
+        // '('
+        if( !eat( TOKEN_LPAREN , token ) ) return NULL;
+
+        // Exp
+        auxExp = buildExp(token);
+        if(auxExp == NULL){ return NULL; }
+        newExp = new ExpSin( auxExp );
 
         // ')'
-        eat( TOKEN_RPAREN, token );
+        if( !eat( TOKEN_RPAREN , token ) ) return NULL;
+        break;
+
+    case TOKEN_LPAREN:
+        // '('
+        if( !eat( TOKEN_LPAREN , token ) ) return NULL;
+
+        auxExp = buildExp(token);
+        if(auxExp == NULL){ return NULL; }
+
+        switch( token->front()->type ){
+        case TOKEN_OPADD:
+            eat(TOKEN_OPADD, token);
+
+            auxExp2 = buildExp(token);
+            if(auxExp2 == NULL){ delete auxExp; return NULL; }
+
+            newExp = new ExpAdd(auxExp,auxExp2);
+
+            break;
+        case TOKEN_OPSUB:
+            eat(TOKEN_OPSUB, token);
+
+            auxExp2 = buildExp(token);
+            if(auxExp2 == NULL){ delete auxExp; return NULL; }
+
+            newExp = new ExpSub(auxExp,auxExp2);
+
+            break;
+        default:
+            //ERROR
+            delete auxExp;
+            return NULL;
+            break;
+        }
+
+        // ')'
+        if( !eat( TOKEN_RPAREN , token ) ) return NULL;
+        break;
+    case TOKEN_NUMBER:
+        sscanf( token->front()->value.c_str() , "%f", &f);
+        newExp = new ExpNumber( f );
+        eat(TOKEN_NUMBER,token);
+        break;
+    case TOKEN_VARIABLE:
+        newExp = new ExpVariable( token->front()->value );
+        eat(TOKEN_VARIABLE,token);
+        break;
+    default:
+        //ERROR
+        return NULL;
+        break;
     }
+
+    return newExp;
 }
 
-bool Parser::eat( TOKEN_TYPE type, std::list<Token*> *token ) const
+bool Parser::eat(int type, std::list<Token*> *token ) const
 {
-    if(token->front() != NULL){
+    if(!token->empty() and (token->front() != NULL) )
+    {
         delete token->front();
+        token->pop_front();
+        return true;
     }
-    token->pop_front();
+    return false;
 }
 
 bool Parser::isChar(char c) const

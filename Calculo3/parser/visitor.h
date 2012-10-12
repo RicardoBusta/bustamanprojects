@@ -15,10 +15,20 @@ public:
 
 class EvalVisitor:public Visitor
 {
-    float visit(Exp *exp, SymbolTable *table) const;
+public:
+    float visit(Exp *exp, SymbolTable *table);
 
     EvalVisitor():Visitor(){}
     ~EvalVisitor(){}
+};
+
+class PrintVisitor:public Visitor
+{
+public:
+    float visit(Exp *exp, SymbolTable *table);
+
+    PrintVisitor():Visitor(){}
+    ~PrintVisitor(){}
 };
 
 #endif // VISITOR_H

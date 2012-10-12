@@ -17,13 +17,15 @@ Parser::Parser()
     Tokens:
     var [a-Z]+
     num [0-9]+.[0-9]+
+    paren ( | )
+    op + | -
 
 
     Grammar:
     exp -> num
     exp -> var
-    op -> ( exp op exp )
-    fun -> fun( exp )
+    op -> paren exp op exp paren
+    fun -> funname paren exp paren
  */
 
 Exp* Parser::parse(std::string exp) const
@@ -60,6 +62,13 @@ Exp* Parser::parse(std::string exp) const
             if( exp.at(it) == 'c' and exp.at(it+1) == 'o' and exp.at(it+2) == 's')
             {
                 tokType = TOKEN_COS;
+                it += 3;
+            }
+
+            // if tan
+            if( exp.at(it) == 't' and exp.at(it+1) == 'a' and exp.at(it+2) == 'n')
+            {
+                tokType = TOKEN_TAN;
                 it += 3;
             }
 
@@ -105,6 +114,24 @@ Exp* Parser::parse(std::string exp) const
         if( exp.at(it) == '-' )
         {
             tokens.push_back( new Token(TOKEN_OPSUB, "-") );
+            it += 1;
+            tokBegin = it;
+        }
+        if( exp.at(it) == '/' )
+        {
+            tokens.push_back( new Token(TOKEN_OPDIV, "-") );
+            it += 1;
+            tokBegin = it;
+        }
+        if( exp.at(it) == '*' )
+        {
+            tokens.push_back( new Token(TOKEN_OPMULT, "-") );
+            it += 1;
+            tokBegin = it;
+        }
+        if( exp.at(it) == '^' )
+        {
+            tokens.push_back( new Token(TOKEN_OPPOW, "-") );
             it += 1;
             tokBegin = it;
         }
@@ -173,6 +200,34 @@ Exp *Parser::buildExp(std::list<Token*> *token) const{
         // ')'
         if( !eat( TOKEN_RPAREN , token ) ) return NULL;
         break;
+    case TOKEN_COS:
+        // 'COS'
+        if( !eat( TOKEN_COS , token ) ) return NULL;
+        // '('
+        if( !eat( TOKEN_LPAREN , token ) ) return NULL;
+
+        // Exp
+        auxExp = buildExp(token);
+        if(auxExp == NULL){ return NULL; }
+        newExp = new ExpCos( auxExp );
+
+        // ')'
+        if( !eat( TOKEN_RPAREN , token ) ) return NULL;
+        break;
+    case TOKEN_TAN:
+        // 'TAN'
+        if( !eat( TOKEN_TAN , token ) ) return NULL;
+        // '('
+        if( !eat( TOKEN_LPAREN , token ) ) return NULL;
+
+        // Exp
+        auxExp = buildExp(token);
+        if(auxExp == NULL){ return NULL; }
+        newExp = new ExpTan( auxExp );
+
+        // ')'
+        if( !eat( TOKEN_RPAREN , token ) ) return NULL;
+        break;
 
     case TOKEN_LPAREN:
         // '('
@@ -198,6 +253,33 @@ Exp *Parser::buildExp(std::list<Token*> *token) const{
             if(auxExp2 == NULL){ delete auxExp; return NULL; }
 
             newExp = new ExpSub(auxExp,auxExp2);
+
+            break;
+        case TOKEN_OPMULT:
+            eat(TOKEN_OPMULT, token);
+
+            auxExp2 = buildExp(token);
+            if(auxExp2 == NULL){ delete auxExp; return NULL; }
+
+            newExp = new ExpMult(auxExp,auxExp2);
+
+            break;
+        case TOKEN_OPDIV:
+            eat(TOKEN_OPDIV, token);
+
+            auxExp2 = buildExp(token);
+            if(auxExp2 == NULL){ delete auxExp; return NULL; }
+
+            newExp = new ExpDiv(auxExp,auxExp2);
+
+            break;
+        case TOKEN_OPPOW:
+            eat(TOKEN_OPPOW, token);
+
+            auxExp2 = buildExp(token);
+            if(auxExp2 == NULL){ delete auxExp; return NULL; }
+
+            newExp = new ExpPow(auxExp,auxExp2);
 
             break;
         default:

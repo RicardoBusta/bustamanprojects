@@ -1,7 +1,7 @@
 #ifndef EXPTREE_H
 #define EXPTREE_H
 
-enum EXP_TYPE{EXP_NUMBER, EXP_VARIABLE, EXP_ADD, EXP_SUB, EXP_SIN, EXP_COS};
+enum EXP_TYPE{EXP_NUMBER, EXP_VARIABLE, EXP_ADD, EXP_SUB, EXP_SIN, EXP_COS, EXP_TAN, EXP_POW, EXP_MULT, EXP_DIV};
 
 #include <string>
 
@@ -76,5 +76,34 @@ class ExpCos:public ExpFun
 public:
 
     ExpCos(Exp *param):ExpFun(param, EXP_COS){}
+};
+
+
+class ExpTan:public ExpFun
+{
+public:
+
+    ExpTan(Exp *param):ExpFun(param, EXP_TAN){}
+};
+
+class ExpPow:public ExpOp
+{
+public:
+
+    ExpPow(Exp *left, Exp *right):ExpOp(left,right, EXP_POW){}
+};
+
+class ExpDiv:public ExpOp
+{
+public:
+
+    ExpDiv(Exp *left, Exp *right):ExpOp(left,right, EXP_DIV){}
+};
+
+class ExpMult:public ExpOp
+{
+public:
+
+    ExpMult(Exp *left, Exp *right):ExpOp(left,right, EXP_MULT){}
 };
 #endif // EXPTREE_H

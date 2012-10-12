@@ -32,6 +32,29 @@ float EvalVisitor::visit(Exp *exp, SymbolTable *table){
         left = visit( ((ExpSin*)exp)->param ,table);
         return sin(left*M_PI/180);
         break;
+    case EXP_COS:
+        left = visit( ((ExpCos*)exp)->param ,table);
+        return cos(left*M_PI/180);
+        break;
+    case EXP_TAN:
+        left = visit( ((ExpTan*)exp)->param ,table);
+        return tan(left*M_PI/180);
+        break;
+    case EXP_POW:
+        left = visit( ((ExpPow*)exp)->left , table );
+        right = visit( ((ExpPow*)exp)->right , table );
+        return (pow(left,right));
+        break;
+    case EXP_DIV:
+        left = visit( ((ExpDiv*)exp)->left , table );
+        right = visit( ((ExpDiv*)exp)->right , table );
+        return (left / right);
+        break;
+    case EXP_MULT:
+        left = visit( ((ExpMult*)exp)->left , table );
+        right = visit( ((ExpMult*)exp)->right , table );
+        return (left * right);
+        break;
     default:
         return 0;
         break;
@@ -62,6 +85,16 @@ float PrintVisitor::visit(Exp *exp, SymbolTable *table){
         break;
     case EXP_SIN:
         cout << "sin( ";
+        visit( ((ExpSin*)exp)->param , table );
+        cout << " )";
+        break;
+    case EXP_COS:
+        cout << "cos( ";
+        visit( ((ExpSin*)exp)->param , table );
+        cout << " )";
+        break;
+    case EXP_TAN:
+        cout << "tan( ";
         visit( ((ExpSin*)exp)->param , table );
         cout << " )";
         break;

@@ -4,6 +4,7 @@
 class Camera;
 class Matrix4f;
 class Material;
+class Curve;
 
 class Scene
 {
@@ -17,6 +18,8 @@ public:
 
     Matrix4f *transformation;
     Material *material;
+
+    Curve *curve;
 
     void draw();
 };

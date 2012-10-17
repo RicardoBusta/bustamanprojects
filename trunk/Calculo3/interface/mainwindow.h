@@ -18,8 +18,11 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    float a, b;
+    int m;
 public slots:
     void eval();
+    float param(int i);
 };
 
 #endif // MAINWINDOW_H

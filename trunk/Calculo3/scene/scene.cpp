@@ -9,6 +9,8 @@
 #include "graphics/glmathelements.h"
 #include "graphics/glvectorfunctions.h"
 
+#include "graphics/curve.h"
+
 #include <QtOpenGL>
 
 Scene::Scene()
@@ -23,6 +25,8 @@ Scene::Scene()
     rotx = 0;
     roty = 0;
 
+    curve = new Curve();
+
     //camera = new Camera();
     //camera->moveUp(200);
     //camera->moveForward(-2000);
@@ -35,6 +39,9 @@ Scene::~Scene()
     }
     if(transformation!=0){
         delete transformation;
+    }
+    if(curve!=0){
+        delete curve;
     }
 }
 
@@ -53,5 +60,6 @@ void Scene::draw()
     //camera->glApply();
 
     GLMathElements::drawAxis(300);
-    GLVectorFunctions::gl();
+    //GLVectorFunctions::gl();
+    curve->gl();
 }

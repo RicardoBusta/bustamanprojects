@@ -11,10 +11,11 @@ public:
     explicit GLFrame(QWidget *parent = 0);
     ~GLFrame();
     
+    GLWidget *glwidget;
 private:
     void resizeEvent(QResizeEvent *);
 
-    GLWidget *glwidget;
+
 signals:
     
 public slots:

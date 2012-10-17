@@ -29,7 +29,8 @@ SOURCES += \
     parser/exptree.cpp \
     parser/visitor.cpp \
     parser/symboltable.cpp \
-    parser/tokens.cpp
+    parser/tokens.cpp \
+    graphics/curve.cpp
 
 HEADERS  += \
     interface/mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS  += \
     parser/exptree.h \
     parser/visitor.h \
     parser/symboltable.h \
-    parser/tokens.h
+    parser/tokens.h \
+    graphics/curve.h
 
 FORMS    += \
         interface/mainwindow.ui

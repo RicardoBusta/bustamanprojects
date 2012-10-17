@@ -20,7 +20,7 @@ public:
     float value;
 
     ExpNumber(float value):Exp(EXP_NUMBER){ this->value = value; }
-    ~ExpNumber(){}
+    virtual ~ExpNumber(){}
 };
 
 class ExpVariable:public Exp
@@ -29,7 +29,7 @@ public:
     std::string value;
 
     ExpVariable(std::string value):Exp(EXP_VARIABLE){ this->value = value; }
-    ~ExpVariable(){}
+    virtual ~ExpVariable(){}
 };
 
 //Generic
@@ -40,6 +40,14 @@ public:
     Exp *right;
 
     ExpOp(Exp *left, Exp *right, EXP_TYPE type):Exp(type){ this->left = left; this->right = right; }
+    virtual ~ExpOp(){
+        if(left != NULL){
+            delete left;
+        }
+        if(right != NULL){
+            delete right;
+        }
+    }
 };
 
 //Generic
@@ -49,6 +57,11 @@ public:
     Exp *param;
 
     ExpFun(Exp *param, EXP_TYPE type):Exp(type){ this->param = param; }
+    virtual ~ExpFun(){
+        if(param!= NULL){
+            delete param;
+        }
+    }
 };
 
 class ExpAdd:public ExpOp

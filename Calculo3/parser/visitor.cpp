@@ -64,10 +64,10 @@ float EvalVisitor::visit(Exp *exp, SymbolTable *table){
 float PrintVisitor::visit(Exp *exp, SymbolTable *table){
     switch (exp->type){
     case EXP_NUMBER:
-        cout << ((ExpNumber*)exp)->value << "x";
+        cout << ((ExpNumber*)exp)->value;
         break;
     case EXP_VARIABLE:
-        cout << table->lookup(((ExpVariable*)exp)->value);
+        cout << ((ExpVariable*)exp)->value;
         break;
     case EXP_ADD:
         cout << "( ";
@@ -96,6 +96,27 @@ float PrintVisitor::visit(Exp *exp, SymbolTable *table){
     case EXP_TAN:
         cout << "tan( ";
         visit( ((ExpSin*)exp)->param , table );
+        cout << " )";
+        break;
+    case EXP_POW:
+        cout << "( ";
+        visit( ((ExpAdd*)exp)->left , table );
+        cout << " ^ ";
+        visit( ((ExpAdd*)exp)->right , table );
+        cout << " )";
+        break;
+    case EXP_DIV:
+        cout << "( ";
+        visit( ((ExpAdd*)exp)->left , table );
+        cout << " / ";
+        visit( ((ExpAdd*)exp)->right , table );
+        cout << " )";
+        break;
+    case EXP_MULT:
+        cout << "( ";
+        visit( ((ExpAdd*)exp)->left , table );
+        cout << " * ";
+        visit( ((ExpAdd*)exp)->right , table );
         cout << " )";
         break;
     default:

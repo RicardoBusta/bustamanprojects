@@ -15,8 +15,9 @@ public:
     explicit GLWidget(QWidget *parent = 0);
     ~GLWidget();
 
-private:
     Scene *scene;
+private:
+
 
     void initializeGL();
     void paintGL();

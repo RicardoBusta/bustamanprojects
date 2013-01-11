@@ -74,7 +74,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>69</width>
-                <height>210</height>
+                <height>157</height>
                </rect>
               </property>
              </widget>
@@ -349,8 +349,8 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_001.bmp</normaloff>:/icons/icons/icon_001.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_001.bmp</normaloff>:/icons/icon_001.bmp</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -358,8 +358,8 @@
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_002.bmp</normaloff>:/icons/icons/icon_002.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_002.bmp</normaloff>:/icons/icon_002.bmp</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -372,8 +372,8 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_003.bmp</normaloff>:/icons/icons/icon_003.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_003.bmp</normaloff>:/icons/icon_003.bmp</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -396,8 +396,8 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_004.bmp</normaloff>:/icons/icons/icon_004.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_004.bmp</normaloff>:/icons/icon_004.bmp</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -405,8 +405,8 @@
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_005.bmp</normaloff>:/icons/icons/icon_005.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_005.bmp</normaloff>:/icons/icon_005.bmp</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -414,8 +414,8 @@
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_006.bmp</normaloff>:/icons/icons/icon_006.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_006.bmp</normaloff>:/icons/icon_006.bmp</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -423,8 +423,8 @@
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_007.bmp</normaloff>:/icons/icons/icon_007.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_007.bmp</normaloff>:/icons/icon_007.bmp</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -432,8 +432,8 @@
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_008.bmp</normaloff>:/icons/icons/icon_008.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_008.bmp</normaloff>:/icons/icon_008.bmp</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -451,8 +451,8 @@
   </action>
   <action name="actionAdd_Text">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_009.bmp</normaloff>:/icons/icons/icon_009.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_009.bmp</normaloff>:/icons/icon_009.bmp</iconset>
    </property>
    <property name="text">
     <string>Add Text</string>
@@ -465,8 +465,8 @@
   </action>
   <action name="actionTile_Size">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_010.bmp</normaloff>:/icons/icons/icon_010.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_010.bmp</normaloff>:/icons/icon_010.bmp</iconset>
    </property>
    <property name="text">
     <string>Tile Size</string>
@@ -474,8 +474,8 @@
   </action>
   <action name="actionShow_Grid">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_011.bmp</normaloff>:/icons/icons/icon_011.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_011.bmp</normaloff>:/icons/icon_011.bmp</iconset>
    </property>
    <property name="text">
     <string>Show Grid</string>
@@ -483,8 +483,8 @@
   </action>
   <action name="actionShow_Divisions">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_012.bmp</normaloff>:/icons/icons/icon_012.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_012.bmp</normaloff>:/icons/icon_012.bmp</iconset>
    </property>
    <property name="text">
     <string>Show Divisions</string>
@@ -492,8 +492,8 @@
   </action>
   <action name="actionZoom_x1">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_013.bmp</normaloff>:/icons/icons/icon_013.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_013.bmp</normaloff>:/icons/icon_013.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x1</string>
@@ -501,8 +501,8 @@
   </action>
   <action name="actionZoom_x2">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_014.bmp</normaloff>:/icons/icons/icon_014.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_014.bmp</normaloff>:/icons/icon_014.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x2</string>
@@ -510,8 +510,8 @@
   </action>
   <action name="actionZoom_x4">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_015.bmp</normaloff>:/icons/icons/icon_015.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_015.bmp</normaloff>:/icons/icon_015.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x4</string>
@@ -519,8 +519,8 @@
   </action>
   <action name="actionZoom_x6">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_016.bmp</normaloff>:/icons/icons/icon_016.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_016.bmp</normaloff>:/icons/icon_016.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x6</string>
@@ -528,8 +528,8 @@
   </action>
   <action name="actionZoom_x8">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_017.bmp</normaloff>:/icons/icons/icon_017.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_017.bmp</normaloff>:/icons/icon_017.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x8</string>
@@ -537,8 +537,8 @@
   </action>
   <action name="actionZoom_x12">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_018.bmp</normaloff>:/icons/icons/icon_018.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_018.bmp</normaloff>:/icons/icon_018.bmp</iconset>
    </property>
    <property name="text">
     <string>Zoom x12</string>
@@ -546,8 +546,8 @@
   </action>
   <action name="actionAnimation">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_019.bmp</normaloff>:/icons/icons/icon_019.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_019.bmp</normaloff>:/icons/icon_019.bmp</iconset>
    </property>
    <property name="text">
     <string>Animation</string>
@@ -555,8 +555,8 @@
   </action>
   <action name="actionImage_Size">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_020.bmp</normaloff>:/icons/icons/icon_020.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_020.bmp</normaloff>:/icons/icon_020.bmp</iconset>
    </property>
    <property name="text">
     <string>Image Size</string>
@@ -629,8 +629,8 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset resource="Icons.qrc">
-     <normaloff>:/icons/icons/icon_021.bmp</normaloff>:/icons/icons/icon_021.bmp</iconset>
+    <iconset resource="../icons/Icons.qrc">
+     <normaloff>:/icons/icon_021.bmp</normaloff>:/icons/icon_021.bmp</iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -639,7 +639,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../icons/Icons.qrc"/>
  </resources>
  <connections/>
 </ui>

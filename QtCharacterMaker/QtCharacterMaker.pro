@@ -10,15 +10,18 @@ TARGET = QtCharacterMaker
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    i_canvas.cpp
+SOURCES += \
+    view/mainwindow.cpp \
+    view/i_canvas.cpp \
+    main.cpp
 
-HEADERS  += mainwindow.h \
-    i_canvas.h
+HEADERS  += \
+    view/mainwindow.h \
+    view/i_canvas.h
 
-FORMS    += mainwindow.ui \
-    i_canvas.ui
+FORMS    += \
+    view/mainwindow.ui \
+    view/i_canvas.ui
 
 RESOURCES += \
-    Icons.qrc
+    icons/Icons.qrc

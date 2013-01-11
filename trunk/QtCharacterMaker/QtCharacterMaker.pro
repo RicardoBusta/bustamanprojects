@@ -13,11 +13,13 @@ TEMPLATE = app
 SOURCES += \
     view/mainwindow.cpp \
     view/i_canvas.cpp \
-    main.cpp
+    main.cpp \
+    view/canvaswidget.cpp
 
 HEADERS  += \
     view/mainwindow.h \
-    view/i_canvas.h
+    view/i_canvas.h \
+    view/canvaswidget.h
 
 FORMS    += \
     view/mainwindow.ui \

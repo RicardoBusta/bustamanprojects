@@ -203,7 +203,23 @@
         </item>
        </layout>
       </widget>
-      <widget class="QMdiArea" name="mdiArea"/>
+      <widget class="QMdiArea" name="mdiArea">
+       <widget class="QWidget" name="subwindow">
+        <property name="windowTitle">
+         <string>Subwindow</string>
+        </property>
+        <widget class="CanvasWidget" name="widget_3" native="true">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>20</y>
+           <width>120</width>
+           <height>80</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -638,6 +654,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CanvasWidget</class>
+   <extends>QWidget</extends>
+   <header>view/canvaswidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../icons/Icons.qrc"/>
  </resources>

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,8 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        interface/mainwindow.cpp \
+    interface/glwidget.cpp \
+    particle/particle.cpp \
+    particle/particlespawner.cpp \
+    math/point3f.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += interface/mainwindow.h \
+    interface/glwidget.h \
+    particle/particle.h \
+    particle/particlespawner.h \
+    math/point3f.h
 
-FORMS    += mainwindow.ui
+FORMS    += interface/mainwindow.ui

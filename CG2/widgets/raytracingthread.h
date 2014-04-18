@@ -12,7 +12,7 @@ class RayTracingThread : public QObject
 {
   Q_OBJECT
 public:
-  explicit RayTracingThread(const QRect &rect, const int &id, const float &prop_x, const float &prop_y, const float &val_x, const float &val_y, const Scene &scene, QObject *parent=0);
+  explicit RayTracingThread(const QRect &rect, const int &id, const float &prop_x, const float &prop_y, const float &val_x, const float &val_y, const Scene *scene, QObject *parent=0);
   virtual ~RayTracingThread();
 
   const QRect rect;
@@ -21,9 +21,9 @@ public:
   const float val_x;
   const float val_y;
   const int id;
-  const Scene &scene_;
+  const Scene *scene_;
 
-  bool stop;
+  bool aborted;
 
   QImage image_;
 

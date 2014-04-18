@@ -8,7 +8,7 @@ class SceneObject;
 class TriangleFace{
 public:
   TriangleFace();
-  TriangleFace(const Ric::Vector &v0_, const Ric::Vector &v1_, const Ric::Vector &v2_, const Ric::Material &material_, bool reflect);
+  TriangleFace(const Ric::Vector &v0_, const Ric::Vector &v1_, const Ric::Vector &v2_, const Ric::Material &material_);
 
   Ric::Material material() const;
   void setMaterial(const Ric::Material &material);
@@ -31,7 +31,6 @@ public:
   void scale(double s);
   void move(Ric::Vector m);
 
-  bool reflect;
 private:
   Ric::Material material_;
   Ric::Vector v0_;

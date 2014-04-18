@@ -16,7 +16,7 @@
 
 // FoV
 
-GLWidget::GLWidget(Scene &scene, QWidget *parent) :
+GLWidget::GLWidget(Scene *scene, QWidget *parent) :
   QGLWidget(parent),
   scene_(scene)
 {
@@ -27,29 +27,30 @@ void GLWidget::paintGL()
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   glPushAttrib(GL_ALL_ATTRIB_BITS);//2
-  glDisable(GL_LIGHTING);
+//  glDisable(GL_LIGHTING);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  Frustum(scene_.fov,scene_.ratio,scene_.near_plane_z,scene_.far_plane_z);
+  Frustum(scene_->fov,scene_->ratio,scene_->near_plane_z,scene_->far_plane_z);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  foreach(SceneObject o,scene_.transformed_object_){
-    o.GlDraw(true,scene_.draw_bounding_box_);
+  foreach(SceneObject o,scene_->transformed_object_){
+//    glEnable(GL_LIGHTING);
+    o.GlDraw(true,scene_->draw_bounding_box_);
   }
 
   glPointSize(10);
   glDisable(GL_DEPTH_TEST);
   glBegin(GL_POINTS);//3
-  foreach(SceneLight l,scene_.transformed_light){
+  foreach(SceneLight l,scene_->transformed_light){
     glColor3f(1,1,1);
     Gl::Vertex3f(l.position);
   }
   glEnd();//3
   glPointSize(6);
   glBegin(GL_POINTS);//4
-  foreach(SceneLight l,scene_.transformed_light){
+  foreach(SceneLight l,scene_->transformed_light){
     Gl::Color3f(l.material.diffuse());
     Gl::Vertex3f(l.position);
   }
@@ -114,31 +115,20 @@ void GLWidget::Frustum(const float &fov, const float &ratio, const float &n, con
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
-//  last_pos_ = event->pos();
-//  emit Moving(true);
   emit MousePressed(event);
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-//  Q_UNUSED(event);
-//  emit Moving(false);
   emit MouseReleased(event);
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-//  QPoint delta = event->pos()-last_pos_;
-//  last_pos_ = event->pos();
-//  scene_.rotx += float(delta.y())/2.0;
-//  scene_.roty += float(delta.x())/2.0;
-//  emit Changed();
   emit MouseMoved(event);
 }
 
 void GLWidget::wheelEvent(QWheelEvent *event)
 {
-//  scene_.distz+=float(event->delta())/100.0f;
-//  emit Changed();
   emit Wheel(event);
 }

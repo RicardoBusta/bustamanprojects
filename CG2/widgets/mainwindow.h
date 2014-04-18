@@ -17,10 +17,10 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
 public:
-  explicit MainWindow(Scene &scene, QWidget *parent = 0);
+  explicit MainWindow(Scene *scene, QWidget *parent = 0);
   ~MainWindow();
 
-  Scene &scene_;
+  Scene *scene_;
 
   GLWidget *gl_widget_;
   OuterViewWidget *outer_view_widget_;
@@ -41,8 +41,7 @@ public slots:
   void SetLight(const bool value);
   void SetTrackRay(const bool value);
 
-  void LoadScene1();
-  void LoadScene2();
+  void LoadScene(int);
 
   void FinalRender();
 private:

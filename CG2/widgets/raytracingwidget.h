@@ -9,13 +9,13 @@ class RayTracingWidget:public QWidget
 {
   Q_OBJECT
 public:
-  explicit RayTracingWidget(Scene &scene, QWidget *parent=0);
+  explicit RayTracingWidget(Scene *scene_, QWidget *parent=0);
   ~RayTracingWidget();
 
   QImage image_;
   QImage quick_image_;
 
-  Scene &scene;
+  Scene *scene_;
 
   bool moving_;
 

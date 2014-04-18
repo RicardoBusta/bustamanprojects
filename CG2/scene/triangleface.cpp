@@ -6,14 +6,13 @@ TriangleFace::TriangleFace()
 {
 }
 
-TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const Ric::Vector &v2, const Ric::Material &material, bool reflect)
+TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const Ric::Vector &v2, const Ric::Material &material)
   : material_(material),
     v0_(v0),
     v1_(v1),
     v2_(v2),
     fc_((v0+v1+v2)/3),
-    n_(((v1-v0)^(v2-v0)).Normalized()),
-    reflect(reflect)
+    n_(((v1-v0)^(v2-v0)).Normalized())
 {
 }
 Ric::Material TriangleFace::material() const

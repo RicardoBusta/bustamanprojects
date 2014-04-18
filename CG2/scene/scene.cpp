@@ -127,23 +127,41 @@ void Scene::loadDefaultScene1()
       }
 }
 
-#ifdef _WIN32
-  const QString kObjFileName = "D:/Dropbox/Mestrado/CG2/models/one_crystal.obj";
-  const QString kMtlFileName = "D:/Dropbox/Mestrado/CG2/models/one_crystal.mtl";
-#else defined( __GNUC__ )
-  const QString kObjFileName = "/home/ricardo/Dropbox/Mestrado/CG2/models/one_crystal.obj";
-  const QString kMtlFileName = "/home/ricardo/Dropbox/Mestrado/CG2/models/one_crystal.mtl";
-#endif
-
 void Scene::loadDefaultScene2()
 {
-  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl(kMtlFileName);
-  object.push_back( ObjLoader::LoadObj(kObjFileName,&material) );
+  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/one_crystal.mtl");
+  object.push_back( ObjLoader::LoadObj("://models/one_crystal.obj",&material) );
+  qDebug() << "one crystal loaded";
   object.push_back(object.last());
   object[object.size()-1].move(Ric::Vector(5,0,0));
   object[object.size()-2].move(Ric::Vector(-5,0,0));
 
 //  qDebug() << object.last().child_objects_.size();
+
+  createBox(true);
+  object.last().scale(-15);
+
+  const int light_size = 1;
+  const float light_spread = 0.5f;
+  for(int i=0;i<light_size;i++)
+    for(int j=0;j<light_size;j++)
+      for(int k=0;k<light_size;k++){
+        light.push_back(SceneLight(
+                          Ric::Vector(0+float(i)*light_spread,10+float(j)*light_spread,0+float(k)*light_spread),
+                          Ric::LightComponent(
+                            /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                            /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                            /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
+                            ),
+                          30.0
+                          ));
+      }
+}
+
+void Scene::loadDefaultScene3()
+{
+  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/car.mtl");
+  object.push_back( ObjLoader::LoadObj("://models/car.obj",&material) );
 
   createBox(true);
   object.last().scale(-15);
@@ -184,23 +202,23 @@ void Scene::createBox(bool reflect)
   Ric::Vector p7 = Ric::Vector(-1,+1,-1);
 
   object.push_back(SceneObject());
-  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xff800000),reflect));
-  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffff0101),reflect));
+  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xff800000)));
+  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffff0101)));
 
-  object.last().faces_.push_back(TriangleFace(p4,p6,p5,Ric::Material::Create(0xff808000),reflect));
-  object.last().faces_.push_back(TriangleFace(p4,p7,p6,Ric::Material::Create(0xffffff00),reflect));
+  object.last().faces_.push_back(TriangleFace(p4,p6,p5,Ric::Material::Create(0xff808000)));
+  object.last().faces_.push_back(TriangleFace(p4,p7,p6,Ric::Material::Create(0xffffff00)));
 
-  object.last().faces_.push_back(TriangleFace(p0,p3,p7,Ric::Material::Create(0xff008000),reflect));
-  object.last().faces_.push_back(TriangleFace(p0,p7,p4,Ric::Material::Create(0xff00ff00),reflect));
+  object.last().faces_.push_back(TriangleFace(p0,p3,p7,Ric::Material::Create(0xff008000)));
+  object.last().faces_.push_back(TriangleFace(p0,p7,p4,Ric::Material::Create(0xff00ff00)));
 
-  object.last().faces_.push_back(TriangleFace(p1,p5,p6,Ric::Material::Create(0xff008080),reflect));
-  object.last().faces_.push_back(TriangleFace(p1,p6,p2,Ric::Material::Create(0xff00ffff),reflect));
+  object.last().faces_.push_back(TriangleFace(p1,p5,p6,Ric::Material::Create(0xff008080)));
+  object.last().faces_.push_back(TriangleFace(p1,p6,p2,Ric::Material::Create(0xff00ffff)));
 
-  object.last().faces_.push_back(TriangleFace(p1,p0,p4,Ric::Material::Create(0xff000080),reflect));
-  object.last().faces_.push_back(TriangleFace(p1,p4,p5,Ric::Material::Create(0xff0000ff),reflect));
+  object.last().faces_.push_back(TriangleFace(p1,p0,p4,Ric::Material::Create(0xff000080)));
+  object.last().faces_.push_back(TriangleFace(p1,p4,p5,Ric::Material::Create(0xff0000ff)));
 
-  object.last().faces_.push_back(TriangleFace(p3,p2,p6,Ric::Material::Create(0xff800080),reflect));
-  object.last().faces_.push_back(TriangleFace(p3,p6,p7,Ric::Material::Create(0xffff00ff),reflect));
+  object.last().faces_.push_back(TriangleFace(p3,p2,p6,Ric::Material::Create(0xff800080)));
+  object.last().faces_.push_back(TriangleFace(p3,p6,p7,Ric::Material::Create(0xffff00ff)));
 }
 
 void Scene::createWall(bool reflect)
@@ -211,9 +229,9 @@ void Scene::createWall(bool reflect)
   Ric::Vector p3 = Ric::Vector(-1,+1,0);
 
   object.push_back(SceneObject());
-  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff),reflect));
-  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff),reflect));
+  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff)));
+  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff)));
 
-  object.last().faces_.push_back(TriangleFace(p0,p2,p1,Ric::Material::Create(0xffffffff),reflect));
-  object.last().faces_.push_back(TriangleFace(p0,p3,p2,Ric::Material::Create(0xffffffff),reflect));
+  object.last().faces_.push_back(TriangleFace(p0,p2,p1,Ric::Material::Create(0xffffffff)));
+  object.last().faces_.push_back(TriangleFace(p0,p3,p2,Ric::Material::Create(0xffffffff)));
 }

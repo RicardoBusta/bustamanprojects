@@ -11,7 +11,7 @@
 
 const int kThreadCount = QThread::idealThreadCount();
 
-RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene &scene, const QSize &img_size, QWidget *parent)
+RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, QWidget *parent)
   : QDialog(parent),
     ui(new Ui::RayTracingResultViewerWidget),
     scene_(scene),
@@ -38,9 +38,9 @@ RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene &scene, c
 
   for(int i=0;i<kThreadCount;i++){
     thread[i] = new QThread();
-    rtt[i] = new RayTracingThread(QRect(i*(image_.width()/4),0,(image_.width()/4),image_.height()),i,prop_x,prop_y,val_x,val_y,scene_);
+    rtt[i] = new RayTracingThread(QRect(i*(image_.width()/kThreadCount),0,(image_.width()/kThreadCount),image_.height()),i,prop_x,prop_y,val_x,val_y,scene_);
     rtt[i]->moveToThread(thread[i]);
-    connect(thread[i],SIGNAL(finished()),rtt[i],SLOT(deleteLater()));
+//    connect(thread[i],SIGNAL(finished()),rtt[i],SLOT(deleteLater()));
     connect(this,SIGNAL(StartWork()),rtt[i],SLOT(Work()));
     thread[i]->start();
   }
@@ -57,6 +57,8 @@ RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene &scene, c
 
   connect(&auto_update_timer,SIGNAL(timeout()),this,SLOT(UpdateImage()));
 
+  connect(this,SIGNAL(finished(int)),this,SLOT(CancelExecution()));
+
 
   auto_update_timer.start(10);
   this->showMaximized();
@@ -64,26 +66,43 @@ RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene &scene, c
 
 RayTracingResultViewerWidget::~RayTracingResultViewerWidget()
 {
-  for(int i=0;i<kThreadCount;i++){
-    rtt[i]->stop=true;
-  }
-  for(int i=0;i<kThreadCount;i++){
-    thread[i]->quit();
-    thread[i]->wait();
-  }
+//  for(int i=0;i<kThreadCount;i++){
+//    rtt[i]->aborted=true;
+//  }
+//  for(int i=0;i<kThreadCount;i++){
+//    thread[i]->quit();
+//    thread[i]->wait();
+//  }
   delete ui;
 }
 
 void RayTracingResultViewerWidget::UpdateImage()
 {
   //  qDebug() << "Hm" << x << y << QColor(rgb);
-  //image_.setPixel(x,y,rgb);
-//  QPainter painter(&image_);
-//  for(int i=0;i<rtt.size();i++){
-//    QImage img = rtt[i]->image_;
-//    QRect rect = rtt[i]->rect;
-//    painter.drawImage(rect,img);
-//  }
-//  painter.end();
+//  image_.setPixel(x,y,rgb);
+  QPainter painter(&image_);
+  for(int i=0;i<rtt.size();i++){
+    QImage img = rtt[i]->image_;
+    QRect rect = rtt[i]->rect;
+    painter.drawImage(rect,img);
+  }
+  painter.end();
   ui->label->setPixmap(QPixmap::fromImage(image_.mirrored(false,true)));
+}
+
+void RayTracingResultViewerWidget::CancelExecution()
+{
+  for(int i=0;i<thread.size();i++){
+    rtt[i]->aborted = true;
+    thread[i]->terminate();
+
+    while(!thread[i]->isFinished()){}
+
+    if(!thread[i]->isRunning()){
+      qDebug() << "thread" << i << "stopped";
+    }
+
+    rtt[i]->deleteLater();
+    thread[i]->deleteLater();
+  }
 }

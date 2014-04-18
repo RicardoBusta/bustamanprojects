@@ -16,13 +16,13 @@ class RayTracingResultViewerWidget : public QDialog
 {
   Q_OBJECT
 public:
-  explicit RayTracingResultViewerWidget(const Scene &scene, const QSize &img_size, QWidget *parent = 0);
+  explicit RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, QWidget *parent = 0);
   ~RayTracingResultViewerWidget();
 
 private:
   Ui::RayTracingResultViewerWidget *ui;
 
-  const Scene &scene_;
+  const Scene *scene_;
 
   QImage image_;
 
@@ -32,9 +32,11 @@ private:
 
   QVector<RayTracingThread*> rtt;
   QVector<QThread*> thread;
+
 private slots:
 //  void RayTracingStep();
   void UpdateImage();
+  void CancelExecution();
 signals:
   void StartWork();
 };

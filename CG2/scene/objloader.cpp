@@ -6,9 +6,11 @@
 #include <QFile>
 #include <QDebug>
 #include <limits>
+#include <QStringList>
 
 const float kMaxFloat = std::numeric_limits<float>::max();
 const float kMinFloat = -kMaxFloat;
+
 
 ObjLoader::ObjLoader()
 {
@@ -17,6 +19,8 @@ ObjLoader::ObjLoader()
 SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *mtl_map)
 {
   SceneObject object;
+
+  qDebug() << "load start" << filename;
 
   QVector3D max_v = QVector3D(kMinFloat,kMinFloat,kMinFloat);
   QVector3D min_v = QVector3D(kMaxFloat,kMaxFloat,kMaxFloat);
@@ -41,11 +45,11 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
     if(line.startsWith("o "))
       // A new object appeared. Will clear up the previous one and start again.
     {
-      //      qDebug() << "o ";
+      //            qDebug() << "o ";
       if( obj!=NULL ){
-
+        //        qDebug() << "mip" << __LINE__;
       }
-
+      //    qDebug() << "mip" << __LINE__;
       fail = false;
       //      v.clear();
       //      vt.clear();
@@ -61,7 +65,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       if(s.size()==4){
         v.push_back(QVector3D(s[1].toFloat(),s[2].toFloat(),s[3].toFloat()));
         UpdateMaxAndMin(max_v,min_v,v.last());
-        //        qDebug() << "v[" << v.size()-1 << "]" << v.last();
+        //                qDebug() << "v[" << v.size()-1 << "]" << v.last();
       }else{
         fail = true;
       }
@@ -71,7 +75,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==3){
         vt.push_back(QVector2D(s[1].toFloat(),s[2].toFloat()));
-        //        qDebug() << "vt[" << vt.size()-1 << "]" << vt.last();
+        //                qDebug() << "vt[" << vt.size()-1 << "]" << vt.last();
       }else
       {
         fail = true;
@@ -82,7 +86,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==4){
         vn.push_back(QVector3D(s[1].toFloat(),s[2].toFloat(),s[3].toFloat()));
-        //        qDebug() << "vn[" << vn.size()-1 << "]" << vn.last();
+        //                qDebug() << "vn[" << vn.size()-1 << "]" << vn.last();
       }else{
         fail = true;
       }
@@ -95,17 +99,17 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
         QStringList s1 = s[1].split("/",QString::KeepEmptyParts);
         QStringList s2 = s[2].split("/",QString::KeepEmptyParts);
         QStringList s3 = s[3].split("/",QString::KeepEmptyParts);
-        if(s1.size()>=1 && s2.size()>=1 && s3.size()>=1)
-          if(s1.size()<=3 && s2.size()<=3 && s3.size()<=3){
-            Ric::Vector v0(v[s1[0].toInt()-1]);
-            Ric::Vector v1(v[s2[0].toInt()-1]);
-            Ric::Vector v2(v[s3[0].toInt()-1]);
-            //            qDebug() << "f " << s1[0].toInt() << s2[0].toInt() << s1[0].toInt();
-            obj->faces_.push_back(TriangleFace(v0,v1,v2,obj->material_,false));
-            //            qDebug() << obj->faces_.last().v0();
-          }else{
-            fail = true;
-          }
+        if( (s1.size()>=1 && s2.size()>=1 && s3.size()>=1) &&
+            (s1.size()<=3 && s2.size()<=3 && s3.size()<=3) ){
+          Ric::Vector v0(v[s1[0].toInt()-1]);
+          Ric::Vector v1(v[s2[0].toInt()-1]);
+          Ric::Vector v2(v[s3[0].toInt()-1]);
+          //                        qDebug() << "f " << s1[0].toInt() << s2[0].toInt() << s1[0].toInt();
+          obj->faces_.push_back(TriangleFace(v0,v1,v2,obj->material_));
+          //            qDebug() << obj->faces_.last().v0();
+        }else{
+          fail = true;
+        }
       }else{
         fail = true;
       }
@@ -128,6 +132,8 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
   //  qDebug() << "built_scene_size" << object.child_objects_.size();
 
   // Create bounding box
+
+  qDebug() << "mip" << __LINE__;
 
   object.faces_ += CreateBoundingBox(min_v,max_v);
 
@@ -163,32 +169,35 @@ QMap<QString, Ric::Material> ObjLoader::LoadMtl(QString filename)
     }else if(fail == true){
       // do nothing
     }else if(line.startsWith("Ka ")){
-//      qDebug() << line;
+      //      qDebug() << line;
       QStringList s = line.split(" ");
       if(s.size()==4){
         mtl->SetAmbient(s[1].toFloat(),s[2].toFloat(),s[3].toFloat());
-//        qDebug() << mtl->ambient();
+        //        qDebug() << mtl->ambient();
       }else{
         fail = true;
       }
     }else if(line.startsWith("Kd ")){
-//      qDebug() << line;
+      //      qDebug() << line;
       QStringList s = line.split(" ");
       if(s.size()==4){
         mtl->SetDiffuse(s[1].toFloat(),s[2].toFloat(),s[3].toFloat());
-//        qDebug() << mtl->diffuse();
+        //        qDebug() << mtl->diffuse();
       }else{
         fail = true;
       }
     }else if(line.startsWith("Ks ")){
-//      qDebug() << line;
+      //      qDebug() << line;
       QStringList s = line.split(" ");
       if(s.size()==4){
         mtl->SetSpecular(s[1].toFloat(),s[2].toFloat(),s[3].toFloat());
-//        qDebug() << mtl->specular();
+        //        qDebug() << mtl->specular();
       }else{
         fail = true;
       }
+
+    }else if(line.startsWith("Ni ")){
+    }else if(line.startsWith("Tr ") || line.startsWith("d ")){
     }else{
 
     }
@@ -256,23 +265,23 @@ QVector<TriangleFace> ObjLoader::CreateBoundingBox(const QVector3D &min_v, const
   //  Ric::Vector p6 = Ric::Vector(+10,+1,-1);
   //  Ric::Vector p7 = Ric::Vector(-10,+1,-1);
 
-  faces.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff)));
 
-  faces.push_back(TriangleFace(p4,p6,p5,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p4,p7,p6,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p4,p6,p5,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p4,p7,p6,Ric::Material::Create(0xffffffff)));
 
-  faces.push_back(TriangleFace(p0,p3,p7,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p0,p7,p4,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p0,p3,p7,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p0,p7,p4,Ric::Material::Create(0xffffffff)));
 
-  faces.push_back(TriangleFace(p1,p5,p6,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p1,p6,p2,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p1,p5,p6,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p1,p6,p2,Ric::Material::Create(0xffffffff)));
 
-  faces.push_back(TriangleFace(p1,p0,p4,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p1,p4,p5,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p1,p0,p4,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p1,p4,p5,Ric::Material::Create(0xffffffff)));
 
-  faces.push_back(TriangleFace(p3,p2,p6,Ric::Material::Create(0xffffffff),false));
-  faces.push_back(TriangleFace(p3,p6,p7,Ric::Material::Create(0xffffffff),false));
+  faces.push_back(TriangleFace(p3,p2,p6,Ric::Material::Create(0xffffffff)));
+  faces.push_back(TriangleFace(p3,p6,p7,Ric::Material::Create(0xffffffff)));
 
   //  qDebug() << "faces_size" << faces.size();
 

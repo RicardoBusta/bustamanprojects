@@ -1,7 +1,11 @@
 #include "openglauxfunctions.h"
 
 #include "structures.h"
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 #include <GL/gl.h>
+//#include <QtOpenGL>
 
 namespace Gl{
 

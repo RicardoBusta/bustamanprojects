@@ -16,9 +16,9 @@ public:
   Ray();
   Ray(Ric::Vector o, Ric::Vector d, double far_length, double near_length, Ric::Color c);
 
-  const TriangleFace *cast(const Scene &s);
-  const TriangleFace *cast(const SceneObject &o);
-  void calc(const TriangleFace *f, const Scene &scene, const unsigned int &level, const bool &adv_light);
+  const TriangleFace *cast(const Scene *s);
+  const TriangleFace *cast(const SceneObject *o);
+  void calc(const TriangleFace *f, const Scene *scene, const unsigned int &level, const bool &adv_light);
 
   // Getters and Setters
   bool hit() const;

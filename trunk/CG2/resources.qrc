@@ -2,5 +2,13 @@
     <qresource prefix="/">
         <file>resources/arrow.png</file>
         <file>resources/arrow.svg</file>
+        <file>models/car.mtl</file>
+        <file>models/car.obj</file>
+        <file>models/crystal_formations.mtl</file>
+        <file>models/crystal_formations.obj</file>
+        <file>models/cube.mtl</file>
+        <file>models/cube.obj</file>
+        <file>models/one_crystal.mtl</file>
+        <file>models/one_crystal.obj</file>
     </qresource>
 </RCC>

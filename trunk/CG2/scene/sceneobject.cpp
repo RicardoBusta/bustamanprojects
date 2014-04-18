@@ -1,5 +1,9 @@
 #include "sceneobject.h"
 
+//#include <QtOpenGL>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 #include <GL/gl.h>
 
 #include "scene/triangleface.h"
@@ -17,8 +21,7 @@ SceneObject::SceneObject(const SceneObject *object, const Ric::Matrix4x4 *transf
             Ric::Vector::transformv(f.v0(),*transform),
             Ric::Vector::transformv(f.v1(),*transform),
             Ric::Vector::transformv(f.v2(),*transform),
-            f.material(),
-            f.reflect
+            f.material()
             )
           );
   }

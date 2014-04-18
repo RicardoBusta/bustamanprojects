@@ -18,8 +18,8 @@ public:
 private:
   Scene scene_;
   MainWindow *main_window_;
-  OpenClLoader *opencl_loader_;
-  OpenClRayTracing *opencl_raytracing_;
+//  OpenClLoader *opencl_loader_;
+//  OpenClRayTracing *opencl_raytracing_;
 signals:
 
 public slots:

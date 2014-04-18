@@ -28,15 +28,15 @@ Ray::Ray(Ric::Vector o, Ric::Vector d, double far_length, double near_length, Ri
     color_(c)
 {}
 
-const TriangleFace *Ray::cast(const Scene &s)
+const TriangleFace *Ray::cast(const Scene *s)
 {
   hit_ = false;
   t_ = far_length_;
   const TriangleFace *hit_face = NULL;
   QVector<SceneObject>::const_iterator transformed_object_it;
 
-  for(transformed_object_it = s.transformed_object_.begin();transformed_object_it!=s.transformed_object_.end();transformed_object_it++){
-    const TriangleFace *hit = cast((*transformed_object_it));
+  for(transformed_object_it = s->transformed_object_.begin();transformed_object_it!=s->transformed_object_.end();transformed_object_it++){
+    const TriangleFace *hit = cast(&(*transformed_object_it));
     if(hit != NULL){
       hit_face = hit;
     }
@@ -44,15 +44,15 @@ const TriangleFace *Ray::cast(const Scene &s)
   return hit_face;
 }
 
-const TriangleFace *Ray::cast(const SceneObject &o)
+const TriangleFace *Ray::cast(const SceneObject *o)
 {
   // TODO fazer o cast com um scene object. Caso o objeto seja composto, chamar recursivamente para cada sub objeto caso seja true para a "bounding area".
   const TriangleFace *hit_face = NULL;
   QVector<TriangleFace>::const_iterator faces_it;
-  for(faces_it=o.faces_.begin();faces_it!=o.faces_.end();faces_it++){
+  for(faces_it=o->faces_.begin();faces_it!=o->faces_.end();faces_it++){
     const TriangleFace &f = (*faces_it);
     double vD = f.n()*d_;
-    if(vD < 0 || !o.child_objects_.isEmpty()){
+    if(vD < 0 || !o->child_objects_.isEmpty()){
       float vO = -(f.n()*o_)+(f.n()*f.v0());
       float new_t = vO/vD;
       if(new_t<t_ && new_t>near_length_){
@@ -61,7 +61,7 @@ const TriangleFace *Ray::cast(const SceneObject &o)
         Ric::Vector d2 = (f.v2()-f.v1())^(new_p-f.v1());
         Ric::Vector d3 = (f.v0()-f.v2())^(new_p-f.v2());
         if((d1*f.n() >= 0) && (d2*f.n() >= 0) && (d3*f.n() >= 0)){
-          if(o.child_objects_.isEmpty())
+          if(o->child_objects_.isEmpty())
             // Object is an actual object.
           {
             hit_face = &f;
@@ -70,9 +70,9 @@ const TriangleFace *Ray::cast(const SceneObject &o)
             p_ = new_p;
             n_ = f.n();
           }else{
-            for(int i=0;i<o.child_objects_.size();i++){
+            for(int i=0;i<o->child_objects_.size();i++){
               const TriangleFace *hit = NULL;
-              hit = cast((o.child_objects_[i]));
+              hit = cast(&(o->child_objects_[i]));
               if(hit != NULL){
                 hit_face = hit;
               }
@@ -86,9 +86,11 @@ const TriangleFace *Ray::cast(const SceneObject &o)
   return hit_face;
 }
 
-void Ray::calc(const TriangleFace *f, const Scene &scene, const unsigned int &level, const bool &adv_light)
+void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &level, const bool &adv_light)
 {
   color_ = default_color_;
+
+  if(NULL == f) return;
 
   if(!adv_light){
     color_ = (f->material().diffuse());
@@ -97,7 +99,7 @@ void Ray::calc(const TriangleFace *f, const Scene &scene, const unsigned int &le
 
   v_ = (o_-p_).Normalized();
 
-  foreach(SceneLight light, scene.transformed_light){
+  foreach(SceneLight light, scene->transformed_light){
     l_ = (light.position-p_).Normalized();
     r_ = ((2*(l_*n_)*n_)-l_).Normalized();
     Ray shadow = Ray(p_,l_,(light.position-p_).Length(),near_length_,default_color_);
@@ -117,7 +119,7 @@ void Ray::calc(const TriangleFace *f, const Scene &scene, const unsigned int &le
     }
     AddColor( ((a + (d+(s^h)).Cap()).Cap()) );
   }
-  if(level>0 && f->reflect){
+  if(level>0){
     Ric::Vector ref_dir = ((2*(v_*n_)*n_)-v_).Normalized();
     Ray recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
     recursive.calc(recursive.cast(scene),scene,level-1,adv_light);

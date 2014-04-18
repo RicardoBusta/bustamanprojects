@@ -14,7 +14,7 @@ class GLWidget : public QGLWidget
 {
   Q_OBJECT
 public:
-  explicit GLWidget(Scene &scene, QWidget *parent = 0);
+  explicit GLWidget(Scene *scene, QWidget *parent = 0);
 
   void paintGL();
   void initializeGL();
@@ -28,13 +28,10 @@ public:
 
   void Frustum( const float &fov, const float &ratio, const float &n, const float &f );
 
-  Scene &scene_;
+  Scene *scene_;
 
   QPoint last_pos_;
 signals:
-//  void Moving(bool);
-//  void Changed();
-
   void MouseMoved(QMouseEvent*);
   void MousePressed(QMouseEvent*);
   void MouseReleased(QMouseEvent*);

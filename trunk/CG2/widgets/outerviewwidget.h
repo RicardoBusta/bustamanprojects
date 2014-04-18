@@ -11,7 +11,7 @@ class OuterViewWidget : public QGLWidget
 {
   Q_OBJECT
 public:
-  explicit OuterViewWidget(Scene &scene, QWidget *parent = 0);
+  explicit OuterViewWidget(Scene *scene_, QWidget *parent = 0);
 
   void paintGL();
   void initializeGL();
@@ -26,7 +26,7 @@ public:
 
   void drawFrustum();
 
-  Scene &scene;
+  Scene *scene_;
 
   float rotx, roty, distz;
 

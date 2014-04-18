@@ -9,9 +9,9 @@
 
 #include "scene/triangleface.h"
 
-OuterViewWidget::OuterViewWidget(Scene &scene,QWidget *parent)
+OuterViewWidget::OuterViewWidget(Scene *scene,QWidget *parent)
   : QGLWidget(parent),
-    scene(scene),
+    scene_(scene),
     rotx(45),
     roty(-45),
     distz(-30)
@@ -33,30 +33,30 @@ void OuterViewWidget::paintGL()
   glRotatef(rotx,1,0,0);
   glRotatef(roty,0,1,0);
 
-  foreach(SceneObject o,scene.object){
+  foreach(SceneObject o,scene_->object){
     glDisable(GL_LIGHTING);
-    o.GlDraw(false,scene.draw_bounding_box_);
+    o.GlDraw(false,scene_->draw_bounding_box_);
   }
 
-  const float propx = (1.0f/float(scene.selected_image_size-1));
-  const float propy = (1.0f/float(scene.selected_image_size-1));
-  float x = (float(scene.specialx)*propx);
-  float y = (float(scene.specialy)*propy);
+  const float propx = (1.0f/float(scene_->selected_image_size-1));
+  const float propy = (1.0f/float(scene_->selected_image_size-1));
+  float x = (float(scene_->specialx)*propx);
+  float y = (float(scene_->specialy)*propy);
   Ric::Vector observer(0,0,0);
-  Ric::Vector vfx1 = ((1-x)*scene.frustum[8]) + ((x)*scene.frustum[7]);
-  Ric::Vector vfx2 = ((1-x)*scene.frustum[5]) + ((x)*scene.frustum[6]);
-  Ric::Vector vnx1 = ((1-x)*scene.frustum[4]) + ((x)*scene.frustum[3]);
-  Ric::Vector vnx2 = ((1-x)*scene.frustum[1]) + ((x)*scene.frustum[2]);
+  Ric::Vector vfx1 = ((1-x)*scene_->frustum[8]) + ((x)*scene_->frustum[7]);
+  Ric::Vector vfx2 = ((1-x)*scene_->frustum[5]) + ((x)*scene_->frustum[6]);
+  Ric::Vector vnx1 = ((1-x)*scene_->frustum[4]) + ((x)*scene_->frustum[3]);
+  Ric::Vector vnx2 = ((1-x)*scene_->frustum[1]) + ((x)*scene_->frustum[2]);
   Ric::Vector far_plane = (y*vfx1)+((1-y)*vfx2);
   Ric::Vector near_plane = (y*vnx1)+((1-y)*vnx2);
 
   Ray ray(observer,far_plane.Normalized(),far_plane.Length(), near_plane.Length(),Ric::Color(0xff000000));
-  ray.calc(ray.cast(scene),scene,0,true);
+  ray.calc(ray.cast(scene_),scene_,0,true);
 
   Ray shadow;
-  if(scene.light.size()>0){
-    shadow = Ray(ray.p(),ray.l(),(scene.light[0].position-ray.p()).Length(),near_plane.Length(),Ric::Color(0xff000000));
-    shadow.cast(scene);
+  if(scene_->light.size()>0){
+    shadow = Ray(ray.p(),ray.l(),(scene_->light[0].position-ray.p()).Length(),near_plane.Length(),Ric::Color(0xff000000));
+    shadow.cast(scene_);
   }
 
   // Calculate the points to draw ray interactions based on ray collisions.
@@ -71,7 +71,7 @@ void OuterViewWidget::paintGL()
   const int vo_size = 6;
   for(int i=0;i<vo_size;i++){
     vo[i].setW( 1 );
-    vo[i] = scene.ipvm*vo[i];
+    vo[i] = scene_->ipvm*vo[i];
     vo[i] = vo[i].Affine();
   }
 
@@ -79,7 +79,7 @@ void OuterViewWidget::paintGL()
   glDisable(GL_LIGHTING);
   glLineWidth(5);
 
-  if(scene.track_one_ray && ray.hit()){
+  if(scene_->track_one_ray && ray.hit()){
 
     glBegin(GL_LINES);//3
     color3f(ray.color());
@@ -111,14 +111,14 @@ void OuterViewWidget::paintGL()
   glPointSize(10);
   glDisable(GL_DEPTH_TEST);
   glBegin(GL_POINTS);//5
-  foreach(SceneLight l,scene.light){
+  foreach(SceneLight l,scene_->light){
     glColor3f(1,1,1);
     vertex3f(l.position);
   }
   glEnd();//5
   glPointSize(6);
   glBegin(GL_POINTS);//4
-  foreach(SceneLight l,scene.light){
+  foreach(SceneLight l,scene_->light){
     color3f(l.material.diffuse());
     vertex3f(l.position);
   }
@@ -134,21 +134,21 @@ void OuterViewWidget::paintGL()
   glDisable(GL_LIGHTING);
   glBegin(GL_TRIANGLES);
   glColor4f(1,1,1,1);
-  vertex3f(scene.transformed_frustum[0]);
-  vertex3f(scene.transformed_frustum[1]);
-  vertex3f(scene.transformed_frustum[2]);
+  vertex3f(scene_->transformed_frustum[0]);
+  vertex3f(scene_->transformed_frustum[1]);
+  vertex3f(scene_->transformed_frustum[2]);
 
-  vertex3f(scene.transformed_frustum[0]);
-  vertex3f(scene.transformed_frustum[2]);
-  vertex3f(scene.transformed_frustum[3]);
+  vertex3f(scene_->transformed_frustum[0]);
+  vertex3f(scene_->transformed_frustum[2]);
+  vertex3f(scene_->transformed_frustum[3]);
 
-  vertex3f(scene.transformed_frustum[0]);
-  vertex3f(scene.transformed_frustum[3]);
-  vertex3f(scene.transformed_frustum[4]);
+  vertex3f(scene_->transformed_frustum[0]);
+  vertex3f(scene_->transformed_frustum[3]);
+  vertex3f(scene_->transformed_frustum[4]);
 
-  vertex3f(scene.transformed_frustum[0]);
-  vertex3f(scene.transformed_frustum[4]);
-  vertex3f(scene.transformed_frustum[1]);
+  vertex3f(scene_->transformed_frustum[0]);
+  vertex3f(scene_->transformed_frustum[4]);
+  vertex3f(scene_->transformed_frustum[1]);
   glEnd();
   glBegin(GL_QUADS);
   drawFrustum();
@@ -232,40 +232,40 @@ void OuterViewWidget::frustum(float fov, float ratio, float n, float f)
 void OuterViewWidget::drawFrustum()
 {
   //near face
-  vertex3f(scene.transformed_frustum[1]);
-  vertex3f(scene.transformed_frustum[2]);
-  vertex3f(scene.transformed_frustum[3]);
-  vertex3f(scene.transformed_frustum[4]);
+  vertex3f(scene_->transformed_frustum[1]);
+  vertex3f(scene_->transformed_frustum[2]);
+  vertex3f(scene_->transformed_frustum[3]);
+  vertex3f(scene_->transformed_frustum[4]);
 
   //top face
-  vertex3f(scene.transformed_frustum[4]);
-  vertex3f(scene.transformed_frustum[3]);
-  vertex3f(scene.transformed_frustum[7]);
-  vertex3f(scene.transformed_frustum[8]);
+  vertex3f(scene_->transformed_frustum[4]);
+  vertex3f(scene_->transformed_frustum[3]);
+  vertex3f(scene_->transformed_frustum[7]);
+  vertex3f(scene_->transformed_frustum[8]);
 
   //bot face
-  vertex3f(scene.transformed_frustum[1]);
-  vertex3f(scene.transformed_frustum[5]);
-  vertex3f(scene.transformed_frustum[6]);
-  vertex3f(scene.transformed_frustum[2]);
+  vertex3f(scene_->transformed_frustum[1]);
+  vertex3f(scene_->transformed_frustum[5]);
+  vertex3f(scene_->transformed_frustum[6]);
+  vertex3f(scene_->transformed_frustum[2]);
 
   //right face
-  vertex3f(scene.transformed_frustum[2]);
-  vertex3f(scene.transformed_frustum[6]);
-  vertex3f(scene.transformed_frustum[7]);
-  vertex3f(scene.transformed_frustum[3]);
+  vertex3f(scene_->transformed_frustum[2]);
+  vertex3f(scene_->transformed_frustum[6]);
+  vertex3f(scene_->transformed_frustum[7]);
+  vertex3f(scene_->transformed_frustum[3]);
 
   //left face
-  vertex3f(scene.transformed_frustum[1]);
-  vertex3f(scene.transformed_frustum[4]);
-  vertex3f(scene.transformed_frustum[8]);
-  vertex3f(scene.transformed_frustum[5]);
+  vertex3f(scene_->transformed_frustum[1]);
+  vertex3f(scene_->transformed_frustum[4]);
+  vertex3f(scene_->transformed_frustum[8]);
+  vertex3f(scene_->transformed_frustum[5]);
 
   //far face
-  vertex3f(scene.transformed_frustum[5]);
-  vertex3f(scene.transformed_frustum[8]);
-  vertex3f(scene.transformed_frustum[7]);
-  vertex3f(scene.transformed_frustum[6]);
+  vertex3f(scene_->transformed_frustum[5]);
+  vertex3f(scene_->transformed_frustum[8]);
+  vertex3f(scene_->transformed_frustum[7]);
+  vertex3f(scene_->transformed_frustum[6]);
 }
 
 void OuterViewWidget::mousePressEvent(QMouseEvent *event)

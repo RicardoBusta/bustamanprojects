@@ -1,5 +1,8 @@
 #include "material.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 #include <GL/gl.h>
 #include <QDebug>
 
@@ -67,6 +70,7 @@ Material Material::operator=(Material m)
   this->specular_ = m.specular_;
   this->shininess_ = m.shininess_;
   this->transparency_ = m.transparency_;
+  return *this;
 }
 
 void Material::GlSet()
@@ -127,6 +131,7 @@ LightComponent LightComponent::operator=(LightComponent l)
   this->diffuse_ = l.diffuse_;
   this->specular_ = l.specular_;
   this->ambient_ = l.ambient_;
+  return *this;
 }
 
 

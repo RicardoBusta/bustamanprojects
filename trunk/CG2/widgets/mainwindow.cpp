@@ -13,7 +13,7 @@
 #include "widgets/outerviewwidget.h"
 #include "widgets/raytracingresultviewerwidget.h"
 
-MainWindow::MainWindow(Scene &scene, QWidget *parent) :
+MainWindow::MainWindow(Scene *scene, QWidget *parent) :
   QMainWindow(parent),
   ui_(new Ui::MainWindow),
   scene_(scene)
@@ -22,7 +22,7 @@ MainWindow::MainWindow(Scene &scene, QWidget *parent) :
 
   gl_widget_ = new GLWidget(scene_);
   ui_->opengl_box->layout()->addWidget(gl_widget_);
-//  connect(gl_widget_,SIGNAL(Changed()),this,SLOT(SceneChanged()));
+  //  connect(gl_widget_,SIGNAL(Changed()),this,SLOT(SceneChanged()));
 
   outer_view_widget_ = new OuterViewWidget(scene_);
   ui_->outerview_box->layout()->addWidget(outer_view_widget_);
@@ -47,15 +47,16 @@ MainWindow::MainWindow(Scene &scene, QWidget *parent) :
   SetTrackRay(ui_->track_ray_check->isChecked());
   connect(ui_->fast_render_check,SIGNAL(toggled(bool)),ray_tracing_widget_,SLOT(ToggleFastRenderOnly(bool)));
   ray_tracing_widget_->ToggleFastRenderOnly(ui_->fast_render_check->isChecked());
-//  connect(ui_->image_size_comboBox,SIGNAL(currentIndexChanged(int)),ray_tracing_widget_,SLOT(SelectImageSize(int)));
-//  ray_tracing_widget_->SelectImageSize(ui_->image_size_comboBox->currentIndex());
+  //  connect(ui_->image_size_comboBox,SIGNAL(currentIndexChanged(int)),ray_tracing_widget_,SLOT(SelectImageSize(int)));
+  //  ray_tracing_widget_->SelectImageSize(ui_->image_size_comboBox->currentIndex());
 
-  connect(ui_->load1_pushButton,SIGNAL(clicked()),this,SLOT(LoadScene1()));
-  connect(ui_->load2_pushButton_2,SIGNAL(clicked()),this,SLOT(LoadScene2()));
+  connect(ui_->scene_comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(LoadScene(int)));
+      //  connect(ui_->load1_pushButton,SIGNAL(clicked()),this,SLOT(LoadScene1()));
+      //  connect(ui_->load2_pushButton_2,SIGNAL(clicked()),this,SLOT(LoadScene2()));
 
-//  connect(gl_widget_,SIGNAL(Moving(bool)),ray_tracing_widget_,SLOT(SetMoving(bool)));
+      //  connect(gl_widget_,SIGNAL(Moving(bool)),ray_tracing_widget_,SLOT(SetMoving(bool)));
 
-  connect(gl_widget_,SIGNAL(MouseMoved(QMouseEvent*)),ray_tracing_widget_,SLOT(MouseMoved(QMouseEvent*)));
+      connect(gl_widget_,SIGNAL(MouseMoved(QMouseEvent*)),ray_tracing_widget_,SLOT(MouseMoved(QMouseEvent*)));
   connect(gl_widget_,SIGNAL(MousePressed(QMouseEvent*)),ray_tracing_widget_,SLOT(MousePressed(QMouseEvent*)));
   connect(gl_widget_,SIGNAL(MouseReleased(QMouseEvent*)),ray_tracing_widget_,SLOT(MouseReleased(QMouseEvent*)));
   connect(gl_widget_,SIGNAL(Wheel(QWheelEvent*)),ray_tracing_widget_,SLOT(Wheel(QWheelEvent*)));
@@ -94,7 +95,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 void MainWindow::SceneChanged()
 {
-  scene_.calcMatrixes();
+  scene_->calcMatrixes();
 
   ray_tracing_widget_->TryUpdate();
   outer_view_widget_->updateGL();
@@ -103,9 +104,9 @@ void MainWindow::SceneChanged()
   //  this->resize(800,800);
 
 
-  ui_->fov_label->setText(QString::number(scene_.fov)+"º");
-  ui_->near_label->setText(QString::number(scene_.near_plane_z));
-  ui_->far_label->setText(QString::number(scene_.far_plane_z));
+  ui_->fov_label->setText(QString::number(scene_->fov)+"º");
+  ui_->near_label->setText(QString::number(scene_->near_plane_z));
+  ui_->far_label->setText(QString::number(scene_->far_plane_z));
   //qDebug() << "=====";
   //  qDebug() << scene_->modelview_matrix[0] << scene_->modelview_matrix[1] << scene_->modelview_matrix[2] << scene_->modelview_matrix[3];
   //  qDebug() << scene_->modelview_matrix[4] << scene_->modelview_matrix[5] << scene_->modelview_matrix[6] << scene_->modelview_matrix[7];
@@ -115,48 +116,53 @@ void MainWindow::SceneChanged()
 
 void MainWindow::SetFov(const int value)
 {
-  scene_.fov = ((kMaxFov-kMinFov)*(float(value)/100.0f))+kMinFov;
-  scene_.calcFrustum();
+  scene_->fov = ((kMaxFov-kMinFov)*(float(value)/100.0f))+kMinFov;
+  scene_->calcFrustum();
   SceneChanged();
 }
 
 void MainWindow::SetNear(const int value)
 {
-  scene_.near_plane_z = ((kMaxNear-kMinNear)*(float(value)/100.0f))+kMinNear;
-  scene_.calcFrustum();
+  scene_->near_plane_z = ((kMaxNear-kMinNear)*(float(value)/100.0f))+kMinNear;
+  scene_->calcFrustum();
   SceneChanged();
 }
 
 void MainWindow::SetFar(const int value)
 {
-  scene_.far_plane_z = ((kMaxFar-kMinFar)*(float(value)/100.0f))+kMinFar;
-  scene_.calcFrustum();
+  scene_->far_plane_z = ((kMaxFar-kMinFar)*(float(value)/100.0f))+kMinFar;
+  scene_->calcFrustum();
   SceneChanged();
 }
 
 void MainWindow::SetLight(const bool value)
 {
-  scene_.calculate_advanced_light = value;
+  scene_->calculate_advanced_light = value;
   SceneChanged();
 }
 
 void MainWindow::SetTrackRay(const bool value)
 {
-  scene_.track_one_ray = value;
+  scene_->track_one_ray = value;
   SceneChanged();
 }
 
-void MainWindow::LoadScene1()
+void MainWindow::LoadScene(int s)
 {
-  scene_.clearScene();
-  scene_.loadDefaultScene1();
-  SceneChanged();
-}
-
-void MainWindow::LoadScene2()
-{
-  scene_.clearScene();
-  scene_.loadDefaultScene2();
+  scene_->clearScene();
+  switch(s){
+  case 1:
+    scene_->loadDefaultScene1();
+    break;
+  case 2:
+    scene_->loadDefaultScene2();
+    break;
+  case 3:
+    scene_->loadDefaultScene3();
+    break;
+  default:
+    break;
+  }
   SceneChanged();
 }
 
@@ -169,6 +175,7 @@ void MainWindow::FinalRender()
 
   RayTracingResultViewerWidget *wid = new RayTracingResultViewerWidget(scene_,size);
   wid->setStyleSheet(this->styleSheet());
+  wid->setModal(true);
   wid->exec();
   delete wid;
 }

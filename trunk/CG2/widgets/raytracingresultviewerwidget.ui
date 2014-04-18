@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>170</width>
+    <width>180</width>
     <height>63</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Trabalho CG2 - Ricardo Bustamante</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">

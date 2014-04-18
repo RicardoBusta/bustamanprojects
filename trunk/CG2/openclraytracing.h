@@ -3,16 +3,16 @@
 
 #include "openclloader.h"
 
-class OpenClRayTracing
-{
-public:
-  OpenClRayTracing(OpenClLoader *loader);
+//class OpenClRayTracing
+//{
+//public:
+//  OpenClRayTracing(OpenClLoader *loader);
 
-  bool fail_;
+//  bool fail_;
 
-  cl_device_id device_id_;
+//  cl_device_id device_id_;
 
-  cl_context context_;
-};
+//  cl_context context_;
+//};
 
 #endif // OPENCLRAYTRACING_H

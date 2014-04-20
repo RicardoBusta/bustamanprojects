@@ -9,9 +9,18 @@ class TriangleFace{
 public:
   TriangleFace();
   TriangleFace(const Ric::Vector &v0_, const Ric::Vector &v1_, const Ric::Vector &v2_, const Ric::Material &material_);
+  TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transform);
 
   void setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2);
   void setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2);
+
+  Ric::Vector vt0() const;
+  Ric::Vector vt1() const;
+  Ric::Vector vt2() const;
+
+  Ric::Vector vn0() const;
+  Ric::Vector vn1() const;
+  Ric::Vector vn2() const;
 
   Ric::Material material() const;
   void setMaterial(const Ric::Material &material);
@@ -42,10 +51,12 @@ private:
   Ric::Vector fc_;
   Ric::Vector n_;
 
+  bool vertex_texture_coord;
   Ric::Vector vt0_;
   Ric::Vector vt1_;
   Ric::Vector vt2_;
 
+  bool vertex_normal;
   Ric::Vector vn0_;
   Ric::Vector vn1_;
   Ric::Vector vn2_;

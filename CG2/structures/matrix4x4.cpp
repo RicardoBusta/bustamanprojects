@@ -117,7 +117,7 @@ namespace Ric{
     *this = (*this)*scaled;
   }
 
-  Matrix4x4 Matrix4x4::Inverted()
+  Matrix4x4 Matrix4x4::Inverted() const
   {
     Matrix4x4 out;
 
@@ -249,7 +249,7 @@ namespace Ric{
     return out;// true;
   }
 
-  Matrix4x4 Matrix4x4::Transposed()
+  Matrix4x4 Matrix4x4::Transposed() const
   {
     Matrix4x4 out;
     out.data_[ 0] = data_[ 0]; out.data_[ 1] = data_[ 4]; out.data_[ 2] = data_[ 8]; out.data_[ 3] = data_[12];

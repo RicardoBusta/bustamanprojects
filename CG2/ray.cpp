@@ -60,7 +60,12 @@ const TriangleFace *Ray::cast(const SceneObject *o)
         Ric::Vector d1 = (f.v1()-f.v0())^(new_p-f.v0());
         Ric::Vector d2 = (f.v2()-f.v1())^(new_p-f.v1());
         Ric::Vector d3 = (f.v0()-f.v2())^(new_p-f.v2());
-        if((d1*f.n() >= 0) && (d2*f.n() >= 0) && (d3*f.n() >= 0)){
+
+        float l1 = d1*f.n();
+        float l2 = d2*f.n();
+        float l3 = d3*f.n();
+        if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
+//          qDebug() << "val l:" << l1 << l2 << l3 << l1+l2+l3;
           if(o->child_objects_.isEmpty())
             // Object is an actual object.
           {
@@ -105,7 +110,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     Ray shadow = Ray(p_,l_,(light.position-p_).Length(),near_length_,default_color_);
     shadow.cast(scene);
 
-    Ric::Color a,d,s;
+    Ric::Color a,d,s,e;
     // Ambient Lighting for each light source.
     a = f->material().ambient() * light.material.ambient();
     double h = f->material().shininess();

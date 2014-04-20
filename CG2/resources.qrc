@@ -12,5 +12,6 @@
         <file>models/one_crystal.obj</file>
         <file>models/cubes.mtl</file>
         <file>models/cubes.obj</file>
+        <file>models/cubes.png</file>
     </qresource>
 </RCC>

@@ -16,14 +16,7 @@ SceneObject::SceneObject()
 SceneObject::SceneObject(const SceneObject *object, const Ric::Matrix4x4 *transform)
 {
   foreach(TriangleFace f,object->faces_){
-    this->faces_.push_back(
-          TriangleFace(
-            Ric::Vector::transformv(f.v0(),*transform),
-            Ric::Vector::transformv(f.v1(),*transform),
-            Ric::Vector::transformv(f.v2(),*transform),
-            f.material()
-            )
-          );
+    this->faces_.push_back(TriangleFace(f,transform));
   }
   for(int i=0;i<object->child_objects_.size();i++){
     child_objects_.push_back(SceneObject(&object->child_objects_[i],transform));
@@ -76,10 +69,17 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
     foreach(TriangleFace f,faces_){
       f.material().GlSet();
       glBegin(GL_TRIANGLES);
-      //    Gl::Color3f(f.material().diffuse());
       Gl::Normal3f( f.n() );
+//      qDebug() << f.vt0();
+//      qDebug() << f.vn0();
+      Gl::TexCoord( f.vt0() );
+//      Gl::Normal3f( f.vn0() );
       Gl::Vertex3f( f.v0() );
+      Gl::TexCoord( f.vt1() );
+//      Gl::Normal3f( f.vn1() );
       Gl::Vertex3f( f.v1() );
+      Gl::TexCoord( f.vt2() );
+//      Gl::Normal3f( f.vn2() );
       Gl::Vertex3f( f.v2() );
       glEnd();
     }

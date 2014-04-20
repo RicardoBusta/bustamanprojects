@@ -10,6 +10,9 @@ public:
   TriangleFace();
   TriangleFace(const Ric::Vector &v0_, const Ric::Vector &v1_, const Ric::Vector &v2_, const Ric::Material &material_);
 
+  void setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2);
+  void setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2);
+
   Ric::Material material() const;
   void setMaterial(const Ric::Material &material);
 
@@ -38,6 +41,14 @@ private:
   Ric::Vector v2_;
   Ric::Vector fc_;
   Ric::Vector n_;
+
+  Ric::Vector vt0_;
+  Ric::Vector vt1_;
+  Ric::Vector vt2_;
+
+  Ric::Vector vn0_;
+  Ric::Vector vn1_;
+  Ric::Vector vn2_;
 //  SceneObject *object_;
 };
 

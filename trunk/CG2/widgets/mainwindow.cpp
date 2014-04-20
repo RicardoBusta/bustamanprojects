@@ -160,6 +160,9 @@ void MainWindow::LoadScene(int s)
   case 3:
     scene_->loadDefaultScene3();
     break;
+  case 4:
+    scene_->loadDefaultScene4();
+    break;
   default:
     break;
   }

@@ -106,11 +106,14 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     shadow.cast(scene);
 
     Ric::Color a,d,s;
+    // Ambient Lighting for each light source.
     a = f->material().ambient() * light.material.ambient();
     double h = f->material().shininess();
     double f_att = (light.position-p_).Length();
     f_att = qMin(light.radius/(f_att*f_att),1.0);
+    //if the point of the object can't see the light source, it will not consider the direct influence of it.
     if(!shadow.hit_){
+
       d = f_att*( f->material().diffuse() * light.material.diffuse() * (l()*n()) );
       s = f_att*( (f->material().specular() * light.material.specular() * (r()*v())).Cap() );
     }else{
@@ -123,7 +126,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     Ric::Vector ref_dir = ((2*(v_*n_)*n_)-v_).Normalized();
     Ray recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
     recursive.calc(recursive.cast(scene),scene,level-1,adv_light);
-    AddColor( recursive.color()*0.5 );
+    AddColor( recursive.color()*f->material().specular() );
   }else{
 
   }

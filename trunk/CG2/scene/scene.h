@@ -53,6 +53,7 @@ public:
   void loadDefaultScene1();
   void loadDefaultScene2();
   void loadDefaultScene3();
+  void loadDefaultScene4();
   void clearScene();
   void createBox(bool reflect);
   void createWall(bool reflect);

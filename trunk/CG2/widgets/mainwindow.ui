@@ -424,6 +424,11 @@ QPushButton::hover{
            <string>Cars</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>Cubes</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>

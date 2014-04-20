@@ -77,6 +77,9 @@ OTHER_FILES += \
     models/one_crystal.obj \
     models/car.mtl \
     models/car.obj \
+    models/cubes.mtl \
+    models/cubes.obj \
+    models/cubes.png \
 
 unix:!macx:LIBS+= -ldl
 

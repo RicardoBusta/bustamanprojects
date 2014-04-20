@@ -14,6 +14,8 @@
 #include "scene/triangleface.h"
 #include "constants.h"
 
+const QImage texture("://models/cubes.png");
+
 // FoV
 
 GLWidget::GLWidget(Scene *scene, QWidget *parent) :
@@ -27,7 +29,7 @@ void GLWidget::paintGL()
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   glPushAttrib(GL_ALL_ATTRIB_BITS);//2
-//  glDisable(GL_LIGHTING);
+  //  glDisable(GL_LIGHTING);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -36,7 +38,7 @@ void GLWidget::paintGL()
   glLoadIdentity();
 
   foreach(SceneObject o,scene_->transformed_object_){
-//    glEnable(GL_LIGHTING);
+    //    glEnable(GL_LIGHTING);
     o.GlDraw(true,scene_->draw_bounding_box_);
   }
 
@@ -74,19 +76,26 @@ void GLWidget::initializeGL()
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_COLOR_MATERIAL);
 
-//  GLfloat position[] = {0.0f,0.0f,0.0f};
-//  GLfloat ambient[] = {0.2f,0.2f,0.2f,1.0f};
-//  GLfloat diffuse[] = {1.0f,1.0f,1.0f,1.0f};
-//  GLfloat specular[] = {1.0f,1.0f,1.0f,1.0f};
+  glEnable(GL_TEXTURE_2D);
+  bindTexture(texture,GL_TEXTURE_2D);
+
+  //  GLfloat position[] = {0.0f,0.0f,0.0f};
+  //  GLfloat ambient[] = {0.2f,0.2f,0.2f,1.0f};
+  //  GLfloat diffuse[] = {1.0f,1.0f,1.0f,1.0f};
+  //  GLfloat specular[] = {1.0f,1.0f,1.0f,1.0f};
 
   glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
 
-//  glLightfv(GL_LIGHT0,GL_POSITION,position);
-//  glLightfv(GL_LIGHT0,GL_AMBIENT,ambient);
-//  glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
-//  glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
+  //  glLightfv(GL_LIGHT0,GL_POSITION,position);
+  //  glLightfv(GL_LIGHT0,GL_AMBIENT,ambient);
+  //  glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
+  //  glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
 
   glFlush();
+
+
+
+
 }
 
 void GLWidget::resizeGL(int w, int h)

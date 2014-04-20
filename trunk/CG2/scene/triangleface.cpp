@@ -18,6 +18,27 @@ TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const R
 {
 }
 
+TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transform)
+{
+  this->v0_ = Ric::Vector::transformv(f.v0_,*transform);
+  this->v1_ = Ric::Vector::transformv(f.v1_,*transform);
+  this->v2_ = Ric::Vector::transformv(f.v2_,*transform);
+  this->fc_ = (v0_+v1_+v2_)/3;
+  this->n_  = ((v1_-v0_)^(v2_-v0_)).Normalized();
+  this->material_ = f.material();
+
+  this->vt0_ = f.vt0_;
+  this->vt1_ = f.vt1_;
+  this->vt2_ = f.vt2_;
+
+  // change
+
+  Ric::Matrix4x4 t = transform->Inverted();
+  this->vn0_ = Ric::Vector::transformv(f.vn0_,t);
+  this->vn1_ = Ric::Vector::transformv(f.vn1_,t);
+  this->vn2_ = Ric::Vector::transformv(f.vn2_,t);
+}
+
 void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2)
 {
   vertex_texture_coord = true;
@@ -34,6 +55,36 @@ void TriangleFace::setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, co
   vn0_ = vn0;
   vn1_ = vn1;
   vn2_ = vn2;
+}
+
+Ric::Vector TriangleFace::vt0() const
+{
+  return vt0_;
+}
+
+Ric::Vector TriangleFace::vt1() const
+{
+  return vt1_;
+}
+
+Ric::Vector TriangleFace::vt2() const
+{
+  return vt2_;
+}
+
+Ric::Vector TriangleFace::vn0() const
+{
+  return vn0_;
+}
+
+Ric::Vector TriangleFace::vn1() const
+{
+  return vn1_;
+}
+
+Ric::Vector TriangleFace::vn2() const
+{
+  return vn2_;
 }
 Ric::Material TriangleFace::material() const
 {

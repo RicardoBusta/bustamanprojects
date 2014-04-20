@@ -24,4 +24,9 @@ void Color3f(const Ric::Color &c)
   glColor3d(c.r(), c.g(), c.b());
 }
 
+void TexCoord(const Ric::Vector &v)
+{
+  glTexCoord2f(v.x(),v.y());
+}
+
 }

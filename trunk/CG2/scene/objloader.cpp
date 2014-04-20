@@ -74,6 +74,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
     {
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==3){
+//        qDebug() << s[1].toFloat() << s[2].toFloat();
         vt.push_back(QVector2D(s[1].toFloat(),s[2].toFloat()));
         //                qDebug() << "vt[" << vt.size()-1 << "]" << vt.last();
       }else
@@ -106,6 +107,21 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
           Ric::Vector v2(v[s3[0].toInt()-1]);
           //                        qDebug() << "f " << s1[0].toInt() << s2[0].toInt() << s1[0].toInt();
           obj->faces_.push_back(TriangleFace(v0,v1,v2,obj->material_));
+
+          if(s1[2]!="" && s2[2]!="" && s3[2]!=""){
+            Ric::Vector vn0(vn[s1[2].toInt()-1]);
+            Ric::Vector vn1(vn[s2[2].toInt()-1]);
+            Ric::Vector vn2(vn[s3[2].toInt()-1]);
+            obj->faces_.last().setNormals(vn0,vn1,vn2);
+          }
+
+          if(s1[1]!="" && s2[1]!="" && s3[1]!=""){
+//          qDebug() << vt.size() << s1[2].toInt()-1;
+            Ric::Vector vt0(vt[s1[1].toInt()-1]);
+            Ric::Vector vt1(vt[s2[1].toInt()-1]);
+            Ric::Vector vt2(vt[s3[1].toInt()-1]);
+            obj->faces_.last().setTexCoords(vt0,vt1,vt2);
+          }
           //            qDebug() << obj->faces_.last().v0();
         }else{
           fail = true;
@@ -133,7 +149,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
 
   // Create bounding box
 
-  qDebug() << "mip" << __LINE__;
+//  qDebug() << "mip" << __LINE__;
 
   object.faces_ += CreateBoundingBox(min_v,max_v);
 

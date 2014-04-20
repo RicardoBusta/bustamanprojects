@@ -31,8 +31,8 @@ namespace Ric{
     void Scale(double sx,double sy, double sz);
 
     // Etc
-    Matrix4x4 Inverted();
-    Matrix4x4 Transposed();
+    Matrix4x4 Inverted() const;
+    Matrix4x4 Transposed() const;
 
     Matrix4x4 operator=(const Matrix4x4 &m2);
 

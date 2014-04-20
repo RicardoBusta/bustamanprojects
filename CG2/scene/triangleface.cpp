@@ -12,8 +12,28 @@ TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const R
     v1_(v1),
     v2_(v2),
     fc_((v0+v1+v2)/3),
-    n_(((v1-v0)^(v2-v0)).Normalized())
+    n_(((v1-v0)^(v2-v0)).Normalized()),
+    vertex_texture_coord(false),
+    vertex_normal(false)
 {
+}
+
+void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2)
+{
+  vertex_texture_coord = true;
+
+  vt0_ = vt0;
+  vt1_ = vt1;
+  vt2_ = vt2;
+}
+
+void TriangleFace::setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2)
+{
+  vertex_normal = true;
+
+  vn0_ = vn0;
+  vn1_ = vn1;
+  vn2_ = vn2;
 }
 Ric::Material TriangleFace::material() const
 {

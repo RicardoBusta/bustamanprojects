@@ -13,5 +13,7 @@
         <file>models/cubes.mtl</file>
         <file>models/cubes.obj</file>
         <file>models/cubes.png</file>
+        <file>models/spheres.mtl</file>
+        <file>models/spheres.obj</file>
     </qresource>
 </RCC>

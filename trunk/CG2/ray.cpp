@@ -48,6 +48,11 @@ const TriangleFace *Ray::cast(const SceneObject *o)
 {
   // TODO fazer o cast com um scene object. Caso o objeto seja composto, chamar recursivamente para cada sub objeto caso seja true para a "bounding area".
   const TriangleFace *hit_face = NULL;
+
+  if(o->bounding_worthy_){
+
+  }
+
   QVector<TriangleFace>::const_iterator faces_it;
   for(faces_it=o->faces_.begin();faces_it!=o->faces_.end();faces_it++){
     const TriangleFace &f = (*faces_it);

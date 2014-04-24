@@ -5,12 +5,7 @@
 #include <QVector2D>
 #include <QFile>
 #include <QDebug>
-#include <limits>
 #include <QStringList>
-
-const float kMaxFloat = std::numeric_limits<float>::max();
-const float kMinFloat = -kMaxFloat;
-
 
 ObjLoader::ObjLoader()
 {
@@ -21,9 +16,6 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
   SceneObject object;
 
   qDebug() << "load start" << filename;
-
-  QVector3D max_v = QVector3D(kMinFloat,kMinFloat,kMinFloat);
-  QVector3D min_v = QVector3D(kMaxFloat,kMaxFloat,kMaxFloat);
 
   QFile file(filename);
   if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -45,7 +37,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
     if(line.startsWith("o "))
       // A new object appeared. Will clear up the previous one and start again.
     {
-      //            qDebug() << "o ";
+                  qDebug() << line;
       if( obj!=NULL ){
         //        qDebug() << "mip" << __LINE__;
       }
@@ -64,7 +56,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==4){
         v.push_back(QVector3D(s[1].toFloat(),s[2].toFloat(),s[3].toFloat()));
-        UpdateMaxAndMin(max_v,min_v,v.last());
+//        UpdateMaxAndMin(max_v,min_v,v.last());
         //                qDebug() << "v[" << v.size()-1 << "]" << v.last();
       }else{
         fail = true;
@@ -151,7 +143,9 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
 
 //  qDebug() << "mip" << __LINE__;
 
-  object.faces_ += CreateBoundingBox(min_v,max_v);
+  //object.faces_ += CreateBoundingBox(min_v,max_v);
+  qDebug() << "generate?";
+  object.GenerateBoundingVolumeRec();
 
   return object;
 }
@@ -230,7 +224,7 @@ QString ObjLoader::ReadValidLine(QTextStream &in)
   return out;
 }
 
-void ObjLoader::UpdateMaxAndMin(QVector3D &max, QVector3D &min, const QVector3D &v)
+void ObjLoader::UpdateMaxAndMin(QVector3D &max, QVector3D &min, const Ric::Vector &v)
 {
   if(max.x() < v.x()){
     max.setX(v.x());

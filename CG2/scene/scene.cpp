@@ -20,7 +20,7 @@ Scene::Scene()
     specialy(20),
     calculate_advanced_light(false),
     track_one_ray(false),
-    draw_bounding_box_(false)
+    draw_bounding_box_(true)
   //    valid_(false)
 {
   frustum.resize(9);
@@ -160,11 +160,11 @@ void Scene::loadDefaultScene2()
 
 void Scene::loadDefaultScene3()
 {
-  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/car.mtl");
-  object.push_back( ObjLoader::LoadObj("://models/car.obj",&material) );
+  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/spheres.mtl");
+  object.push_back( ObjLoader::LoadObj("://models/spheres.obj",&material) );
 
-  createBox(true);
-  object.last().scale(-15);
+//  createBox(true);
+//  object.last().scale(-15);
 
   const int light_size = 1;
   const float light_spread = 0.5f;

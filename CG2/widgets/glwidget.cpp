@@ -76,7 +76,7 @@ void GLWidget::initializeGL()
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_COLOR_MATERIAL);
 
-  glEnable(GL_TEXTURE_2D);
+//  glEnable(GL_TEXTURE_2D);
   bindTexture(texture,GL_TEXTURE_2D);
 
   //  GLfloat position[] = {0.0f,0.0f,0.0f};

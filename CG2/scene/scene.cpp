@@ -131,7 +131,7 @@ void Scene::loadDefaultScene2()
 {
   QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/one_crystal.mtl");
   object.push_back( ObjLoader::LoadObj("://models/one_crystal.obj",&material) );
-  qDebug() << "one crystal loaded";
+//  qDebug() << "one crystal loaded";
   object.push_back(object.last());
   object[object.size()-1].move(Ric::Vector(5,0,0));
   object[object.size()-2].move(Ric::Vector(-5,0,0));
@@ -211,6 +211,8 @@ void Scene::clearScene()
   light.clear();
 }
 
+static int name_id = 0;
+
 void Scene::createBox(bool reflect)
 {
   Ric::Vector p0 = Ric::Vector(-1,-1,1);
@@ -224,6 +226,10 @@ void Scene::createBox(bool reflect)
   Ric::Vector p7 = Ric::Vector(-1,+1,-1);
 
   object.push_back(SceneObject());
+
+
+  object.last().name = QString("Box%1").arg(name_id++);
+
   object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xff800000)));
   object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffff0101)));
 
@@ -251,6 +257,8 @@ void Scene::createWall(bool reflect)
   Ric::Vector p3 = Ric::Vector(-1,+1,0);
 
   object.push_back(SceneObject());
+  object.last().name = QString("Wall%1").arg(name_id++);
+
   object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff)));
   object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff)));
 

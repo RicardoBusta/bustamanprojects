@@ -48,6 +48,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       //      vn.clear();
       object.child_objects_.push_back(SceneObject());
       obj = & (object.child_objects_.last());
+      obj->name = line.split(" ")[1];
     }else if(fail == true){
       // skip this line, object already failed. wait for next "o"
     }else if(line.startsWith("v "))

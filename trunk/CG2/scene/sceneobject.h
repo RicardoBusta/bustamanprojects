@@ -13,6 +13,9 @@ public:
   SceneObject();
   SceneObject(const SceneObject* object, const Ric::Matrix4x4 *transform);
   virtual ~SceneObject();
+
+  QString name;
+
   QVector<TriangleFace> faces_;
   QVector<TriangleFace> bounding_volume_;
   bool bounding_worthy_;

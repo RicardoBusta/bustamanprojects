@@ -49,8 +49,55 @@ const TriangleFace *Ray::cast(const SceneObject *o)
   // TODO fazer o cast com um scene object. Caso o objeto seja composto, chamar recursivamente para cada sub objeto caso seja true para a "bounding area".
   const TriangleFace *hit_face = NULL;
 
+  //  qDebug() << "cast";
   if(o->bounding_worthy_){
+    //    qDebug() << "bounding worthy";
+    bool hit = false;
+    QVector<TriangleFace>::const_iterator bounding_faces_it;
+    for(bounding_faces_it=o->bounding_volume_.begin();bounding_faces_it!=o->bounding_volume_.end();bounding_faces_it++){
+      const TriangleFace &f = (*bounding_faces_it);
+      double vD = f.n()*d_;
+      if(vD != 0){
+        float vO = -(f.n()*o_)+(f.n()*f.v0());
+        float new_t = vO/vD;
+        if(new_t<t_ && new_t>near_length_){
+          Ric::Vector new_p = (o_+(d_*new_t));
+          Ric::Vector d1 = (f.v1()-f.v0())^(new_p-f.v0());
+          Ric::Vector d2 = (f.v2()-f.v1())^(new_p-f.v1());
+          Ric::Vector d3 = (f.v0()-f.v2())^(new_p-f.v2());
 
+          float l1 = d1*f.n();
+          float l2 = d2*f.n();
+          float l3 = d3*f.n();
+          if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
+            hit = true;
+
+            // DEBUG, draw boundingbox
+            //            hit_face = &f;
+            //            hit_ = true;
+            //            t_ = new_t;
+            //            p_ = new_p;
+            //            n_ = f.n();
+            //            return hit_face;
+
+            break;
+          }
+        }
+      }
+    }
+
+    if( false == hit ){
+      return NULL;
+    }
+  }
+  //  qDebug() << "break";
+
+  for(int i=0;i<o->child_objects_.size();i++){
+    const TriangleFace *hit = NULL;
+    hit = cast(&(o->child_objects_[i]));
+    if(hit != NULL){
+      hit_face = hit;
+    }
   }
 
   QVector<TriangleFace>::const_iterator faces_it;
@@ -70,25 +117,12 @@ const TriangleFace *Ray::cast(const SceneObject *o)
         float l2 = d2*f.n();
         float l3 = d3*f.n();
         if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
-//          qDebug() << "val l:" << l1 << l2 << l3 << l1+l2+l3;
-          if(o->child_objects_.isEmpty())
-            // Object is an actual object.
-          {
-            hit_face = &f;
-            hit_ = true;
-            t_ = new_t;
-            p_ = new_p;
-            n_ = f.n();
-          }else{
-            for(int i=0;i<o->child_objects_.size();i++){
-              const TriangleFace *hit = NULL;
-              hit = cast(&(o->child_objects_[i]));
-              if(hit != NULL){
-                hit_face = hit;
-              }
-            }
-            return hit_face;
-          }
+          hit_face = &f;
+          hit_ = true;
+          t_ = new_t;
+          p_ = new_p;
+          n_ = f.n();
+          return hit_face;
         }
       }
     }

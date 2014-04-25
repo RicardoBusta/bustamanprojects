@@ -16,16 +16,22 @@ const float kMaxFloat = std::numeric_limits<float>::max();
 const float kMinFloat = -kMaxFloat;
 
 SceneObject::SceneObject()
-  : bounding_worthy_(false)
+  : bounding_worthy_(false),
+    name("none")
 {
 }
 
 SceneObject::SceneObject(const SceneObject *object, const Ric::Matrix4x4 *transform)
-  : bounding_worthy_(false)
+  : bounding_worthy_(object->bounding_worthy_),
+    name(object->name)
 {
   foreach(TriangleFace f,object->faces_){
     this->faces_.push_back(TriangleFace(f,transform));
   }
+  foreach(TriangleFace f,object->bounding_volume_){
+    this->bounding_volume_.push_back(TriangleFace(f,transform));
+  }
+
   for(int i=0;i<object->child_objects_.size();i++){
     child_objects_.push_back(SceneObject(&object->child_objects_[i],transform));
   }
@@ -60,6 +66,7 @@ void SceneObject::scale(double s)
 
 void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
 {
+  qDebug() << "Drawing" << name;
   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
   if(draw_bounding_box){
@@ -91,19 +98,34 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
     }
     foreach(TriangleFace f,faces_){
       f.material().GlSet();
+      if(lighting){
+        glEnable(GL_LIGHTING);
+      }
       glBegin(GL_TRIANGLES);
       Gl::Normal3f( f.n() );
-      //      qDebug() << f.vt0();
-      //      qDebug() << f.vn0();
+//      qDebug() << f.vt0();
+//      qDebug() << f.vn0();
       Gl::TexCoord( f.vt0() );
-      //      Gl::Normal3f( f.vn0() );
+      Gl::Normal3f( f.vn0() );
       Gl::Vertex3f( f.v0() );
       Gl::TexCoord( f.vt1() );
-      //      Gl::Normal3f( f.vn1() );
+      Gl::Normal3f( f.vn1() );
       Gl::Vertex3f( f.v1() );
       Gl::TexCoord( f.vt2() );
-      //      Gl::Normal3f( f.vn2() );
+      Gl::Normal3f( f.vn2() );
       Gl::Vertex3f( f.v2() );
+      glEnd();
+      if(lighting){
+        glDisable(GL_LIGHTING);
+      }
+      glBegin(GL_LINES);
+      Gl::Vertex3f( f.vn0() );
+//      qDebug() << "normal:" << f.vn0() << f.v0() << f.v0()+f.vn0();
+      Gl::Vertex3f( f.v0()+f.n() );
+//      Gl::Vertex3f( f.v1() );
+//      Gl::Vertex3f( f.v1()+f.n() );
+//      Gl::Vertex3f( f.v2() );
+//      Gl::Vertex3f( f.v2()+f.n() );
       glEnd();
     }
   }else{
@@ -128,7 +150,7 @@ void SceneObject::GenerateBoundingVolumeRec()
 
     bounding_volume_.clear();
     bounding_volume_ += ObjLoader::CreateBoundingBox(min_v,max_v);
-    qDebug() << bounding_volume_.size();
+    //    qDebug() << bounding_volume_.size();
   }else{
     for(int i=0;i<child_objects_.size();i++){
       child_objects_[i].GenerateBoundingVolumeRec();
@@ -140,8 +162,8 @@ void SceneObject::GenerateBoundingVolumeRec()
     }
     bounding_volume_.clear();
     bounding_volume_ += ObjLoader::CreateBoundingBox(min_v,max_v);
-    qDebug() << bounding_volume_.size();
+    //    qDebug() << bounding_volume_.size();
   }
 
-  bounding_worthy_ = !(child_objects_.isEmpty() && bounding_volume_.size()>faces_.size());
+  bounding_worthy_ = (child_objects_.size()>=1 || bounding_volume_.size()<faces_.size());
 }

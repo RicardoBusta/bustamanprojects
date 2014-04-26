@@ -47,6 +47,8 @@ private:
   Ric::Vector r_;//< Light Reflection.
   Ric::Vector v_;//< Viewer Direction.
   Ric::Vector p_; //< Hit Point.
+
+  Ric::Vector tc_; //< Texture Coords.
 };
 
 

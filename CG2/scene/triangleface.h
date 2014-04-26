@@ -40,6 +40,8 @@ public:
   Ric::Vector n() const;
   void setN(const Ric::Vector &n);
 
+  double area() const;
+
   void scale(double s);
   void move(Ric::Vector m);
 
@@ -50,6 +52,7 @@ private:
   Ric::Vector v2_;
   Ric::Vector fc_;
   Ric::Vector n_;
+  double area_;
 
   bool vertex_texture_coord;
   Ric::Vector vt0_;

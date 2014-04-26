@@ -13,6 +13,7 @@ TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const R
     v2_(v2),
     fc_((v0+v1+v2)/3),
     n_(((v1-v0)^(v2-v0)).Normalized()),
+    area_(((v1-v0)^(v2-v0)).Length()),
     vertex_texture_coord(false),
     vertex_normal(false)
 {
@@ -25,7 +26,9 @@ TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transfor
   this->v1_ = Ric::Vector::transformv(f.v1_,*transform);
   this->v2_ = Ric::Vector::transformv(f.v2_,*transform);
   this->fc_ = (v0_+v1_+v2_)/3;
-  this->n_  = ((v1_-v0_)^(v2_-v0_)).Normalized();
+  Ric::Vector normal = ((v1_-v0_)^(v2_-v0_));
+  this->n_ = normal.Normalized();
+  this->area_ = normal.Length();
   this->material_ = f.material();
 
   this->vt0_ = f.vt0_;
@@ -159,6 +162,11 @@ Ric::Vector TriangleFace::n() const
 void TriangleFace::setN(const Ric::Vector &n)
 {
   n_ = n;
+}
+
+double TriangleFace::area() const
+{
+  return area_;
 }
 
 //Ric::Material TriangleFace::material()

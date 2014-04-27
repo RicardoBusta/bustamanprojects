@@ -37,10 +37,14 @@ TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transfor
 
   // change
 
+//  this->vn0_ = f.vn0_;
+//  this->vn1_ = f.vn1_;
+//  this->vn2_ = f.vn2_;
+
 //  Ric::Matrix4x4 t = transform->Inverted();
-  this->vn0_ = (v0_+Ric::Vector::transformv(f.vn0_-f.v0_,*transform)).Normalized();
-  this->vn1_ = (v1_+Ric::Vector::transformv(f.vn1_-f.v1_,*transform)).Normalized();
-  this->vn2_ = (v2_+Ric::Vector::transformv(f.vn2_-f.v2_,*transform)).Normalized();
+  this->vn0_ = (Ric::Vector::transformv(f.vn0_+f.v0_,*transform)-v0_).Normalized();
+  this->vn1_ = (Ric::Vector::transformv(f.vn1_+f.v1_,*transform)-v1_).Normalized();
+  this->vn2_ = (Ric::Vector::transformv(f.vn2_+f.v2_,*transform)-v2_).Normalized();
 }
 
 void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2)

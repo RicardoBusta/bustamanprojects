@@ -66,7 +66,7 @@ void SceneObject::scale(double s)
 
 void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
 {
-  qDebug() << "Drawing" << name;
+//  qDebug() << "Drawing" << name;
   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
   if(draw_bounding_box){
@@ -105,13 +105,13 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
       Gl::Normal3f( f.n() );
 //      qDebug() << f.vt0();
 //      qDebug() << f.vn0();
-      Gl::TexCoord( f.vt0() );
+//      Gl::TexCoord( f.vt0() );
       Gl::Normal3f( f.vn0() );
       Gl::Vertex3f( f.v0() );
-      Gl::TexCoord( f.vt1() );
+//      Gl::TexCoord( f.vt1() );
       Gl::Normal3f( f.vn1() );
       Gl::Vertex3f( f.v1() );
-      Gl::TexCoord( f.vt2() );
+//      Gl::TexCoord( f.vt2() );
       Gl::Normal3f( f.vn2() );
       Gl::Vertex3f( f.v2() );
       glEnd();
@@ -119,13 +119,14 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
         glDisable(GL_LIGHTING);
       }
       glBegin(GL_LINES);
-      Gl::Vertex3f( f.vn0() );
+      Gl::Vertex3f( f.v0() );
 //      qDebug() << "normal:" << f.vn0() << f.v0() << f.v0()+f.vn0();
-      Gl::Vertex3f( f.v0()+f.n() );
-//      Gl::Vertex3f( f.v1() );
-//      Gl::Vertex3f( f.v1()+f.n() );
-//      Gl::Vertex3f( f.v2() );
-//      Gl::Vertex3f( f.v2()+f.n() );
+      Gl::Vertex3f( f.v0()+f.vn0() );
+
+      Gl::Vertex3f( f.v1() );
+      Gl::Vertex3f( f.v1()+f.vn1() );
+      Gl::Vertex3f( f.v2() );
+      Gl::Vertex3f( f.v2()+f.vn2() );
       glEnd();
     }
   }else{

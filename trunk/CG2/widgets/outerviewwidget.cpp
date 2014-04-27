@@ -34,8 +34,8 @@ void OuterViewWidget::paintGL()
   glRotatef(roty,0,1,0);
 
   foreach(SceneObject o,scene_->object){
-    glDisable(GL_LIGHTING);
-    o.GlDraw(false,scene_->draw_bounding_box_);
+    glEnable(GL_LIGHTING);
+    o.GlDraw(true,scene_->draw_bounding_box_);
   }
 
   const float propx = (1.0f/float(scene_->selected_image_size-1));

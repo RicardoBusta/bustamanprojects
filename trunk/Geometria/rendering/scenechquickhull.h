@@ -53,7 +53,7 @@ public:
 
   QVector<QHPoly> t_list;
 
-  QVector<int> v_s;
+//  QVector<int> v_s;
 
   void DrawObject(const float &spread, const float &shrink, const bool user_color, const unsigned int current_frame) const;
   void Clear();
@@ -61,6 +61,13 @@ public:
   void Delete();
 
   void RunAlgorithm();
+
+  bool StepAlgorithm();
+  int step_count_;
+
+  QVector<int> v_max;
+  QVector<int> v_3_sel;
+
 };
 
 #endif // SCENECHQUICKHULL_H

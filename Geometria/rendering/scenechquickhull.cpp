@@ -309,7 +309,7 @@ bool SceneCHQuickHull::StepAlgorithm()
     // find out 3 sets: the points on both sides, and coplanar points.
     // points on each side will be added to the respective polygon list, and the coplanar will be considered for the 2D convex hull algorithm to find the starting face.
 
-    step_count++;
+    step_count_++;
     return true;
   default:
     return false;

@@ -2,24 +2,35 @@
 #include "ui_objectcontrolwidget.h"
 
 #include "rendering/sceneobject.h"
+#include "rendering/scenepointcloud.h"
+#include "rendering/scene.h"
 
 const QString kStringColorButtonStyle = "QPushButton{\n	background-color: %1;\n  border: 1px solid #999;\n	font: bold;\n color: %2;}\n\nQPushButton::hover{\n	border: 1px solid white;\n}";
 
-ObjectControlWidget::ObjectControlWidget(SceneObject *object, QWidget *parent)
+ObjectControlWidget::ObjectControlWidget(Scene *scene, SceneObject *object, QWidget *parent)
   : QWidget(parent),
     ui_(new Ui::ObjectControlWidget),
-    object_(object)
+    object_(object),
+    scene_(scene)
 {
   ui_->setupUi(this);
 
-  if( NULL != object ){
-    ui_->name_label->setText(object_->name_);
-    QColor c2 = object_->color_.lightnessF()>0.5?QColor(0,0,0):QColor(255,255,255);
-    ui_->color_button->setStyleSheet(kStringColorButtonStyle.arg(object_->color_.name()).arg(c2.name()));
-  }
-  connect(ui_->visible_check,SIGNAL(toggled(bool)),this,SLOT(ToggleVisible(bool)));
   connect(ui_->delete_button,SIGNAL(clicked()),this,SLOT(DeleteObject()));
+  if( NULL == object ){
+    ui_->name_label->setText("ERROR");
+  }
+  ui_->name_label->setText(object_->name_);
+  QColor c2 = object_->color_.lightnessF()>0.5?QColor(0,0,0):QColor(255,255,255);
+  ui_->color_button->setStyleSheet(kStringColorButtonStyle.arg(object_->color_.name()).arg(c2.name()));
+  connect(ui_->visible_check,SIGNAL(toggled(bool)),this,SLOT(ToggleVisible(bool)));
   connect(ui_->color_button,SIGNAL(clicked()),this,SLOT(SelectColor()));
+
+  ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
+  if(NULL == spc){
+    ui_->hull_button->hide();
+  }else{
+    connect(ui_->hull_button,SIGNAL(clicked()),this,SLOT(CreateHullObject()));
+  }
 }
 
 ObjectControlWidget::~ObjectControlWidget()
@@ -37,7 +48,9 @@ void ObjectControlWidget::ToggleVisible(bool value)
 
 void ObjectControlWidget::DeleteObject()
 {
-  object_->Delete();
+  if(NULL != object_){
+    object_->Delete();
+  }
   emit ObjectDeleted();
 }
 
@@ -49,5 +62,12 @@ void ObjectControlWidget::SelectColor()
     QColor c2 = c.lightnessF()>0.5?QColor(0,0,0):QColor(255,255,255);
     ui_->color_button->setStyleSheet(kStringColorButtonStyle.arg(object_->color_.name()).arg(c2.name()));
     emit VisibilityChanged();
+  }
+}
+
+void ObjectControlWidget::CreateHullObject()
+{
+  if( NULL != scene_ && NULL != object_ ){
+    scene_->StartNewHullAlgorithm(object_);
   }
 }

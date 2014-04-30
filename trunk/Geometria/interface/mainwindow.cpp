@@ -56,7 +56,7 @@ void MainWindow::SceneChanged()
   }
   for(int i=0;i<scene_->objects_.size();i++){
     if( scene_->objects_[i]->deleted_ ) continue;
-    ObjectControlWidget *widget = new ObjectControlWidget(scene_->objects_[i]);
+    ObjectControlWidget *widget = new ObjectControlWidget(scene_,scene_->objects_[i]);
     QListWidgetItem *item = new QListWidgetItem;
     item->setSizeHint(widget->size());
     ui_->listWidget->addItem(item);

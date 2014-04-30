@@ -44,6 +44,7 @@ public:
   void LoadTetra(QTextStream &in, const bool is3d);
 
 //  void SaveFile(QString filename);
+  void StartNewHullAlgorithm(SceneObject *object);
 private:
 
 public slots:
@@ -55,6 +56,8 @@ public slots:
   void Colorize();
 
   void CalculateConvexHullClicked();
+
+
 
 signals:
   void Repaint();

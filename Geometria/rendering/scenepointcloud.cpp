@@ -21,8 +21,7 @@ void ScenePointCloud::DrawObject(const float &spread, const float &shrink, const
     glColor3f(color_.redF(),color_.greenF(),color_.blueF());
   }
 
-  int cf = current_frame%points_.size();
-  foreach(QVector3D point, points_[cf]){
+  foreach(QVector3D point, points_){
     Vertex(point+(point*spread));
   }
 

@@ -12,7 +12,7 @@ public:
   SceneTetrahedrons(const QString &name, const QString &owner, const double &spread, const QString &color);
   ~SceneTetrahedrons();
 
-  QVector< QVector<Tetrahedron*> > tetrahedrons_;
+  QVector<Tetrahedron*> tetrahedrons_;
 
   void DrawObject(const float &spread, const float &shrink, const bool user_color, const unsigned int current_frame) const;
   void Colorize();

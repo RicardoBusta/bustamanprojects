@@ -19,7 +19,7 @@ void SceneTetrahedrons::DrawObject(const float &spread, const float &shrink, con
     glColor3f(color_.redF(),color_.greenF(),color_.blueF());
   }
   int cf = current_frame%tetrahedrons_.size();
-  foreach(Tetrahedron *tetrahedron, tetrahedrons_[cf]){
+  foreach(Tetrahedron *tetrahedron, tetrahedrons_){
     if(tetrahedron!=NULL){
       tetrahedron->Draw(spread,shrink,user_color);
     }
@@ -29,12 +29,9 @@ void SceneTetrahedrons::DrawObject(const float &spread, const float &shrink, con
 void SceneTetrahedrons::ClearTetrahedrons()
 {
   while(!tetrahedrons_.isEmpty()){
-    while(!tetrahedrons_.first().isEmpty()){
-      Tetrahedron* tetrahedron = tetrahedrons_.first().first();
-      tetrahedrons_.first().pop_front();
-      if(tetrahedron!=NULL){
-        delete tetrahedron;
-      }
+    Tetrahedron* tetrahedron = tetrahedrons_.first();
+    if(tetrahedron!=NULL){
+      delete tetrahedron;
     }
     tetrahedrons_.pop_front();
   }
@@ -42,15 +39,15 @@ void SceneTetrahedrons::ClearTetrahedrons()
 
 void SceneTetrahedrons::Colorize()
 {
-  foreach(QVector<Tetrahedron*> tetrahedrons, tetrahedrons_){
-    foreach(Tetrahedron *tetrahedron, tetrahedrons){
+//  foreach(QVector<Tetrahedron*> tetrahedrons, tetrahedrons_){
+    foreach(Tetrahedron *tetrahedron, tetrahedrons_){
       int r,g,b;
       r = Ric::rand(256);
       g = Ric::rand(256);
       b = Ric::rand(256);
       tetrahedron->SetColor(QColor(r,g,b));
     }
-  }
+//  }
 }
 
 void SceneTetrahedrons::Delete()

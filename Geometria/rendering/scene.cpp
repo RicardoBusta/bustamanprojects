@@ -36,14 +36,14 @@ Scene::Scene(QObject *parent):
   rot_z_(0),
   wireframe_(false),
   zoom_(0.3),
-    user_color_(true),
+  user_color_(true),
   current_frame_(0),
   frame_delay_count_(0),
   frame_delay_(0)
 {
-//  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/INPUT3D.txt");
-//  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/HULL3D.txt");
-//  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/TETRA3D.txt");
+  //  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/INPUT3D.txt");
+  //  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/HULL3D.txt");
+  //  LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/TETRA3D.txt");
 #ifdef __GNUC__
   LoadFile("/home/ricardo/Dropbox/Mestrado/Geometria/INPUT_RICARDO.txt");
 #else defined(_WIN32)
@@ -137,8 +137,8 @@ void Scene::LoadInput(QTextStream &in, const bool is3d)
 
     // For Each Frame Block
     spc->points_.resize(object_frame_count);
-    for(int f=0;f<object_frame_count;f++){
-      spc->points_[f].resize(object_vertex_count);
+//    for(int f=0;f<object_frame_count;f++){
+      spc->points_.resize(object_vertex_count);
 
       // Read Vertex Block
       for(int v=0;v<object_vertex_count;v++){
@@ -150,10 +150,10 @@ void Scene::LoadInput(QTextStream &in, const bool is3d)
         }else{
           z = 0.0;
         }
-        spc->points_[f][v] = QVector3D(x,y,z);
+        spc->points_[v] = QVector3D(x,y,z);
       }
       // End Vertex Block
-    }
+//    }
     // End Frame Block
     spc->Colorize();
   }
@@ -288,9 +288,9 @@ void Scene::LoadTetra(QTextStream &in, const bool is3d)
         int v3_index = Interval(ReadValidLine(in).toInt(),0,object_vertex_count-1);
         if(is3d){
           int v4_index = Interval(ReadValidLine(in).toInt(),0,object_vertex_count-1);
-          sth->tetrahedrons_[f].push_back(new Tetrahedron(points[v1_index],points[v2_index],points[v3_index],points[v4_index]));
+          sth->tetrahedrons_.push_back(new Tetrahedron(points[v1_index],points[v2_index],points[v3_index],points[v4_index]));
         }else{
-          sth->tetrahedrons_[f].push_back(new Tetrahedron(points[v1_index],points[v2_index],points[v3_index]));
+          sth->tetrahedrons_.push_back(new Tetrahedron(points[v1_index],points[v2_index],points[v3_index]));
         }
       }
       // End Tetra Block
@@ -355,17 +355,39 @@ void Scene::Colorize()
 void Scene::CalculateConvexHullClicked()
 {
   foreach(SceneObject *object, objects_){
-    ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
-    if( NULL == spc ) continue;
+    SceneCHQuickHull *sqh = dynamic_cast<SceneCHQuickHull*>(object);
+    if( NULL == sqh ) continue;
 
-    qDebug() << "Run algorithm on:" << spc->name_;
-    SceneCHQuickHull *quick_hull = new SceneCHQuickHull("NEW OUTPUT CH",spc->owner_,spc->scale_,spc->color_.name());
-    qDebug() << spc->color_.name();
-    objects_.push_back(quick_hull);
-
-    quick_hull->points_ += spc->points_;
-
-    quick_hull->RunAlgorithm();
+    sqh->RunAlgorithm();
   }
+
+  //  foreach(SceneObject *object, objects_){
+  //    ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
+  //    if( NULL == spc ) continue;
+
+  //    qDebug() << "Run algorithm on:" << spc->name_;
+  //    SceneCHQuickHull *quick_hull = new SceneCHQuickHull("NEW OUTPUT CH",spc->owner_,spc->scale_,spc->color_.name());
+  //    qDebug() << spc->color_.name();
+  //    objects_.push_back(quick_hull);
+
+  //    quick_hull->points_ += spc->points_;
+  //    quick_hull->RunAlgorithm();
+  //  }
+  //  emit SceneChanged();
+}
+
+void Scene::StartNewHullAlgorithm(SceneObject *object)
+{
+  ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
+  if( NULL == spc ){
+    return;
+  }
+
+  SceneCHQuickHull *quick_hull = new SceneCHQuickHull("NEW OUTPUT CH",spc->owner_,spc->scale_,spc->color_.name());
+  objects_.push_back(quick_hull);
+  quick_hull->points_ += spc->points_;
+
   emit SceneChanged();
 }
+
+

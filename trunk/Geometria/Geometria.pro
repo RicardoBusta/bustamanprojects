@@ -28,7 +28,8 @@ SOURCES += \
     ric.cpp \
     rendering/scenechquickhull.cpp \
     algorithm/qh_face.cpp \
-    algorithm/qh_quickhull.cpp
+    algorithm/qh_quickhull.cpp \
+    rendering/qhpoly.cpp
 
 HEADERS  += \
     rendering/scene.h \
@@ -45,7 +46,8 @@ HEADERS  += \
     ric.h \
     rendering/scenechquickhull.h \
     algorithm/qh_face.h \
-    algorithm/qh_quickhull.h
+    algorithm/qh_quickhull.h \
+    rendering/qhpoly.h
 
 FORMS    += \
     interface/mainwindow.ui \

@@ -47,12 +47,19 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
 
   glEnable(GL_LIGHTING);
 
-  glColor3f(1,1,1);
+
   foreach(QHPoly poly, todo_poly_list){
+    glColor3f(1,1,1);
+    Normal( poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     foreach(int index, poly.face_v_){
       Vertex( points_[index]);
     }
+    glEnd();
+    glColor3f(1,0,0);
+    glBegin(GL_LINES);
+      Vertex( poly.c_ );
+      Vertex( poly.c_+poly.n_ );
     glEnd();
   }
 
@@ -118,8 +125,9 @@ void SceneCHQuickHull::Delete()
 void SceneCHQuickHull::RunAlgorithm()
 {
 //  while(StepAlgorithm()){
-    StepAlgorithm();
-    qDebug() << step_count_;
+    if(StepAlgorithm()){
+      qDebug() << step_count_;
+    }
 //  }
   //  if(points_.size()<1){
   //    return;
@@ -281,7 +289,7 @@ bool SceneCHQuickHull::StepAlgorithm()
         v_max[5] = i;
       }
     }
-    step_count_++;
+    step_count_=1;
     return true;
   case 1:
     // find the 3 starting points of the set to begin the hull creation
@@ -318,20 +326,28 @@ bool SceneCHQuickHull::StepAlgorithm()
       }
     }
     v_3_sel[2] = v_max[max_k];
-    step_count_++;
+    step_count_=2;
     return true;
   case 2:
     // find out 3 sets: the points on both sides, and coplanar points.
     // points on each side will be added to the respective polygon list, and the coplanar will be considered for the 2D convex hull algorithm to find the starting face.
 
-    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[1],v_3_sel[2],points_,NULL));
+    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[1],v_3_sel[2],&points_,NULL));
     pcw = &todo_poly_list.last();
-    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],points_,NULL));
-    pccw = &todo_poly_list.last();
+//    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],points_,NULL));
+//    pccw = &todo_poly_list.last();
 
-//    for(int i=0;i<points_)
+    for(int i=0;i<points_.size();i++){
+      float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
+      if(f==0){
+        pcw->face_v_.push_back(i);
+//        pccw->face_v_.push_back(i);
+      }
+    }
 
-    step_count_++;
+    pcw->CalcHull2D();
+
+    step_count_=3;
     return true;
   default:
     return false;

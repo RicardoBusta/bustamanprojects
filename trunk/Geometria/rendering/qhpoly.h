@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <QVector3D>
+#include <QColor>
 
 class QHPoly{
 public:
@@ -17,6 +18,7 @@ public:
   QVector3D c_;
   QVector<int> subset_v_;
   const QVector<QVector3D> *vs_;
+  QColor debug_color;
 };
 
 #endif // QHPOLY_H

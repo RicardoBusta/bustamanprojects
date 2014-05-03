@@ -33,7 +33,7 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   glPointSize(10);
   glBegin(GL_POINTS);
   foreach(int index, v_max){
-    Vertex( points_[index] );
+    Vertex( points_[index]+(points_[index]*spread) );
   }
   glEnd();
 
@@ -41,7 +41,7 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   glPointSize(14);
   glBegin(GL_POINTS);
   foreach(int index, v_3_sel){
-    Vertex( points_[index] );
+    Vertex( points_[index]+(points_[index]*spread) );
   }
   glEnd();
 
@@ -52,57 +52,45 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     glColor3f(1,1,1);
     Normal( poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
-    foreach(int index, poly.face_v_){
-      Vertex( points_[index]);
+    for(int i=0; i<poly.face_v_.size(); i++){
+      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+    }
+    glEnd();
+    Normal( -poly.n_ );
+    glBegin(GL_TRIANGLE_FAN);
+    for(int i=poly.face_v_.size()-1; i>=0; i--){
+      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
     }
     glEnd();
     glColor3f(1,0,0);
     glBegin(GL_LINES);
-      Vertex( poly.c_ );
-      Vertex( poly.c_+poly.n_ );
+    Vertex( poly.c_ );
+    Vertex( poly.c_+poly.n_ );
     glEnd();
   }
 
-
-
-  //  glColor3f(1,0,0);
-  //  glPointSize(15-14*shrink);
-  //  glBegin(GL_POINTS);
-  //  for(int i=0;i<v_s.size();i++){
-  //    Vertex(points_[v_s[i]]*(1+spread));
-  //  }
-  //  glEnd();
-
-  //  glColor3f(0,0,1);
-  //  glPointSize(11-10*shrink);
-  //  glBegin(GL_POINTS);
-  //  for(int i=0;i<t_list[0].v_index.size();i++){
-  //    Vertex(points_[t_list[0].v_index[i]]);
-  //  }
-  //  glEnd();
-
-  //  glColor3f(1,1,0);
-
-
-
-  //  glBegin(GL_TRIANGLES);
-
-  //  if(triangles_.size()>=1){
-
-  //    foreach(QHPoly t,triangles_[0]){
-  //      Normal(t.n_);
-  //      for(int i=0;i<t.v_.size();i++){
-  //        Vertex(points_[t.v_[i]]+(t.n_*spread));
-  //      }
-
-  //      Normal(-t.n_);
-  //      for(int i=t.v_.size()-1;i<=0;i--){
-  //        Vertex(points_[t.v_[i]]+(t.n_*spread));
-  //      }
-  //    }
-
-  //  }
-  //  glEnd();
+  foreach(QHPoly poly, poly_){
+    if(user_color){
+      glColor3f(color_.redF(),color_.greenF(),color_.blueF());
+    }
+    Normal( poly.n_ );
+    glBegin(GL_TRIANGLE_FAN);
+    for(int i=0; i<poly.face_v_.size(); i++){
+      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+    }
+    glEnd();
+    Normal( -poly.n_ );
+    glBegin(GL_TRIANGLE_FAN);
+    for(int i=poly.face_v_.size()-1; i>=0; i--){
+      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+    }
+    glEnd();
+    glColor3f(1,0,0);
+    glBegin(GL_LINES);
+    Vertex( poly.c_ );
+    Vertex( poly.c_+poly.n_ );
+    glEnd();
+  }
 
   glPopAttrib();
 }
@@ -124,11 +112,11 @@ void SceneCHQuickHull::Delete()
 
 void SceneCHQuickHull::RunAlgorithm()
 {
-//  while(StepAlgorithm()){
-    if(StepAlgorithm()){
-      qDebug() << step_count_;
-    }
-//  }
+  //  while(StepAlgorithm()){
+  if(StepAlgorithm()){
+    qDebug() << step_count_;
+  }
+  //  }
   //  if(points_.size()<1){
   //    return;
   //  }
@@ -334,20 +322,66 @@ bool SceneCHQuickHull::StepAlgorithm()
 
     todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[1],v_3_sel[2],&points_,NULL));
     pcw = &todo_poly_list.last();
-//    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],points_,NULL));
-//    pccw = &todo_poly_list.last();
+    pcw->debug_color = QColor(255,0,0);
+    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],&points_,NULL));
+    pccw = &todo_poly_list.last();
+    pccw->debug_color = QColor(0,0,255);
 
     for(int i=0;i<points_.size();i++){
       float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
-      if(f==0){
-        pcw->face_v_.push_back(i);
-//        pccw->face_v_.push_back(i);
+      if(f>=0){
+        pcw->subset_v_.push_back(i);
       }
+      if(f<=0){
+        pccw->subset_v_.push_back(i);
+      }
+      //      if(f==0){
+      //        pcw->face_v_.push_back(i);
+      //        pccw->face_v_.push_back(i);
+      //      }
     }
 
-    pcw->CalcHull2D();
+    //    pcw->CalcHull2D();
+
+    v_3_sel.clear();
+    v_max.clear();
 
     step_count_=3;
+    return true;
+  case 3:
+    if(todo_poly_list.size()>0){
+
+      if(todo_poly_list.first().subset_v_.size() <= 0){
+        poly_.push_back(QHPoly(todo_poly_list.first(),false));
+      }else{
+        // If does, build the next 3 iteration triangles and remove self.
+        double max_dist = 0;
+        int max_i = 0;
+        for(int i=0;i<todo_poly_list.first().subset_v_.size();i++){
+          double new_dist = (points_[todo_poly_list.first().subset_v_[i]].distanceToPlane(points_[todo_poly_list.first().face_v_[0]],points_[todo_poly_list.first().face_v_[1]],points_[todo_poly_list.first().face_v_[2]]));
+          if(new_dist > max_dist){
+            max_dist = new_dist;
+            max_i = i;
+          }
+        }
+        for(int i=0;i<todo_poly_list.first().face_v_.size();i++){
+          qDebug() << "adding face" << todo_poly_list.first().face_v_.size();
+          todo_poly_list.push_back(QHPoly(
+                                     todo_poly_list.first().face_v_[i],
+                                     todo_poly_list.first().face_v_[(i+1)%todo_poly_list.first().face_v_.size()],
+                                     todo_poly_list.first().subset_v_[max_i],
+                                     &points_,
+                                     &todo_poly_list.first()));
+        }
+        //      t_list.push_back(QHTriangle(t_list.first().v0_,t_list.first().v1_,t_list.first().v2_,points_));
+      }
+      todo_poly_list.pop_front();
+
+      step_count_=3;
+    }else{
+      step_count_=100;
+    }
+
     return true;
   default:
     return false;

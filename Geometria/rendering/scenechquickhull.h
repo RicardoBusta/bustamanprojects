@@ -12,7 +12,7 @@ public:
   ~SceneCHQuickHull();
 
   QVector<QVector3D> points_;
-  QVector<QHPoly> triangles_;
+  QVector<QHPoly> poly_;
 
 //  QVector<QHPoly> t_list;
 

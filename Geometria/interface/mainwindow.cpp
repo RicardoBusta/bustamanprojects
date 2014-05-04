@@ -69,7 +69,7 @@ void MainWindow::SceneChanged()
 
 void MainWindow::LoadFile()
 {
-  QStringList file_names = QFileDialog::getOpenFileNames(this,"Load File",".","Text File (*.txt, *.obj);;Input File (*.input, *.hull, *tetra);;All Files (*.*)");
+  QStringList file_names = QFileDialog::getOpenFileNames(this,"Load File",".","Text File (*.txt *.obj);;Input File (*.input *.hull *tetra);;All Files (*.*)");
 
   for(int i=0;i<file_names.size();i++){
     scene_->LoadFile(file_names[i]);

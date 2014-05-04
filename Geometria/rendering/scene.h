@@ -42,6 +42,7 @@ public:
   void LoadInput(QTextStream &in, const bool is3d);
   void LoadHull(QTextStream &in, const bool is3d);
   void LoadTetra(QTextStream &in, const bool is3d);
+  void LoadObj(QTextStream &in);
 
 //  void SaveFile(QString filename);
   void StartNewHullAlgorithm(SceneObject *object);

@@ -12,6 +12,7 @@ public:
   ~SceneCHQuickHull();
 
   QVector<QVector3D> points_;
+  QVector<bool> points_valid_;
   QVector<QHPoly> poly_;
 
 //  QVector<QHPoly> t_list;
@@ -31,6 +32,8 @@ public:
   QVector<int> v_max;
   QVector<int> v_3_sel;
   QVector<QHPoly> todo_poly_list;
+  QVector<int> horizon_ridge_faces;
+  int max_dist_vert;
 
   float DistanceSquaredBetweenPoints(const QVector3D &p1, const QVector3D &p2) const;
 };

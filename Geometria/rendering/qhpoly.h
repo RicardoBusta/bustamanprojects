@@ -18,6 +18,7 @@ public:
   QVector3D c_;
   QVector<int> subset_v_;
   const QVector<QVector3D> *vs_;
+  const QVector<int> neighbor_faces_;
   QColor debug_color;
 };
 

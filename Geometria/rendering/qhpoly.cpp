@@ -17,7 +17,7 @@ QHPoly::QHPoly()
 QHPoly::QHPoly(const int &v0, const int &v1, const int &v2, const QVector<QVector3D> *vs, const QHPoly *parent)
   :vs_(vs)
 {
-  qDebug() << "asd";
+//  qDebug() << "asd";
   face_v_.resize(3);
   face_v_[0] = v0;
   face_v_[1] = v1;

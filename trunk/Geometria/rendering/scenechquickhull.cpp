@@ -48,8 +48,13 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   glEnable(GL_LIGHTING);
 
 
-  foreach(QHPoly poly, todo_poly_list){
-    glColor3f(1,1,1);
+  for(int i=0;i<todo_poly_list.size();i++){
+    const QHPoly &poly = todo_poly_list[i];
+    if(i==0){
+      glColor3f(1,0,0);
+    }else{
+      glColor3f(1,1,1);
+    }
     Normal( poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     for(int i=0; i<poly.face_v_.size(); i++){

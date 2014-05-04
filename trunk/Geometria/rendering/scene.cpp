@@ -99,7 +99,14 @@ void Scene::LoadFile(const QString &filename)
 
   QTextStream in(&file);
 
+  if(filename.endsWith(".obj")){
+    qDebug() << "Opening .obj";
+    LoadObj(in);
+    return;
+  }
+
   QString line = ReadValidLine(in);
+
 
   if( line.startsWith(kInputString) ){
     LoadInput(in,line.endsWith(k3DString));
@@ -305,6 +312,28 @@ void Scene::LoadTetra(QTextStream &in, const bool is3d)
       SceneObject *object = objects.first();
       objects.pop_front();
       delete object;
+    }
+  }
+}
+
+void Scene::LoadObj(QTextStream &in)
+{
+  QString line;
+
+  ScenePointCloud *spc = NULL;
+
+  while(!in.atEnd()){
+    line = in.readLine();
+    if(line.startsWith("v ")){
+      if(spc != NULL){
+        QStringList list = line.split(" ");
+        if(list.size()==4){
+          spc->points_.push_back(QVector3D(list[1].toFloat(),list[2].toFloat(),list[3].toFloat()));
+        }
+      }
+    }else if(line.startsWith("o ")){
+      spc = new ScenePointCloud(line.right(line.length()-2),"Blender",1,"ffff00");
+      objects_.push_back(spc);
     }
   }
 }

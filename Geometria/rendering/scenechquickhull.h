@@ -33,6 +33,8 @@ public:
   QVector<int> v_3_sel;
   QVector<QHPoly> todo_poly_list;
   QVector<int> horizon_ridge_faces;
+  QVector<int> horizon_ridge;
+//  QVector<int> horizon_not_ridge;
   int max_dist_vert;
 
   float DistanceSquaredBetweenPoints(const QVector3D &p1, const QVector3D &p2) const;

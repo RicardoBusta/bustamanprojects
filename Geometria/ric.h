@@ -10,7 +10,7 @@ namespace Ric{
   int rand(int a);
   int rand(int a, int b);
 
-  void MinAndMax(QVector3D &vmin, QVector3D &vmax, const QVector<QVector3D> v);
+//  void MinAndMax(QVector3D &vmin, QVector3D &vmax, const QVector<QVector3D> v);
 }
 
 #endif // RANDOM_H

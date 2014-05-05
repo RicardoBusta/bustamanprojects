@@ -13,13 +13,15 @@ public:
 
   void CalcHull2D();
 
+  bool dead;
   QVector<int> face_v_;
   QVector3D n_;
   QVector3D c_;
   QVector<int> subset_v_;
   const QVector<QVector3D> *vs_;
-  const QVector<int> neighbor_faces_;
   QColor debug_color;
+
+  bool GetRidge(const QHPoly &poly, QVector<int> &ridge);
 };
 
 #endif // QHPOLY_H

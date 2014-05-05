@@ -50,6 +50,9 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
 
   for(int i=0;i<todo_poly_list.size();i++){
     const QHPoly &poly = todo_poly_list[i];
+
+    if(poly.dead) continue;
+
     if(horizon_ridge_faces.contains(i)){
       glColor3f(0,0,1);
     }else if(i==0){
@@ -60,13 +63,13 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     Normal( poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     for(int i=0; i<poly.face_v_.size(); i++){
-      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+      Vertex( points_[poly.face_v_[i]]+((poly.c_+poly.n_)*spread) );
     }
     glEnd();
     Normal( -poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     for(int i=poly.face_v_.size()-1; i>=0; i--){
-      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+      Vertex( points_[poly.face_v_[i]]+((poly.c_+poly.n_)*spread) );
     }
     glEnd();
     glColor3f(1,0,0);
@@ -83,13 +86,13 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     Normal( poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     for(int i=0; i<poly.face_v_.size(); i++){
-      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+      Vertex( points_[poly.face_v_[i]]+((poly.c_+poly.n_)*spread) );
     }
     glEnd();
     Normal( -poly.n_ );
     glBegin(GL_TRIANGLE_FAN);
     for(int i=poly.face_v_.size()-1; i>=0; i--){
-      Vertex( points_[poly.face_v_[i]]+(poly.c_*spread) );
+      Vertex( points_[poly.face_v_[i]]+((poly.c_+poly.n_)*spread) );
     }
     glEnd();
     glColor3f(1,0,0);
@@ -113,6 +116,22 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     }
     glEnd();
   }
+
+  glColor3f(0,1,0);
+  glLineWidth(5);
+  glBegin(GL_LINES);
+  foreach(int index, horizon_ridge){
+    Vertex(points_[index]);
+  }
+  glEnd();
+
+  //  glColor3f(1,0,0);
+  //  glLineWidth(5);
+  //  glBegin(GL_LINES);
+  //    foreach(int index, horizon_not_ridge){
+  //      Vertex(points_[index]);
+  //    }
+  //  glEnd();
 
   glPopAttrib();
 }
@@ -148,7 +167,7 @@ bool SceneCHQuickHull::StepAlgorithm()
   // case 2
   QHPoly *pcw, *pccw;
 
-  horizon_ridge_faces.clear();
+  //  horizon_not_ridge.clear();
 
   switch(step_count_){
   case 0:
@@ -241,9 +260,6 @@ bool SceneCHQuickHull::StepAlgorithm()
     pccw = &todo_poly_list.last();
     pccw->debug_color = QColor(0,0,255);
 
-    pcw->neighbor_faces_.push_back(pccw);
-    pccw->neighbor_faces_.push_back(pcw);
-
     for(int i=0;i<points_.size();i++){
       float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
       if(f>=0){
@@ -282,14 +298,35 @@ bool SceneCHQuickHull::StepAlgorithm()
           }
         }
 
+        // Will detect the horizon ridge faces
         if(max_dist_vert!=-1){
-        for(int i=0;i<todo_poly_list.size();i++){
-          double dist = points_[max_dist_vert].distanceToPlane(todo_poly_list[i].c_,todo_poly_list[i].n_);
-          if(0 < dist){
-            qDebug() << i << dist;
-            horizon_ridge_faces.push_back(i);
+          for(int i=0;i<todo_poly_list.size();i++){
+            double dist = points_[max_dist_vert].distanceToPlane(todo_poly_list[i].c_,todo_poly_list[i].n_);
+            if(0 < dist){
+              qDebug() << i << dist;
+              horizon_ridge_faces.push_back(i);
+            }
           }
-        }
+
+          // Will try to find the polygon that makes the ridge. Hardest part will be orientation.
+          for(int i=0;i<horizon_ridge_faces.size();i++){
+            QHPoly &poly1 = todo_poly_list[horizon_ridge_faces[i]];
+
+            for(int j=0;j<todo_poly_list.size();j++){
+              if(horizon_ridge_faces.contains(j)) continue;
+
+              QHPoly &poly2 = todo_poly_list[j];
+
+              poly1.GetRidge(poly2,horizon_ridge);
+            }
+            for(int j=0;j<poly_.size();j++){
+              QHPoly &poly2 = poly_[j];
+
+              poly1.GetRidge(poly2,horizon_ridge);
+            }
+          }
+
+          // Ok.
         }
       }
       step_count_=4;
@@ -300,18 +337,42 @@ bool SceneCHQuickHull::StepAlgorithm()
     return true;
   case 4:
     if(max_dist_vert!=-1){
-      // If does, build the next 3 iteration triangles and remove self.
-      for(int i=0;i<todo_poly_list.first().face_v_.size();i++){
-        qDebug() << "adding face" << todo_poly_list.first().face_v_.size();
+      //       If does, build the next 3 iteration triangles and remove self.
+      //      for(int i=0;i<todo_poly_list.first().face_v_.size();i++){
+      //        qDebug() << "adding face" << todo_poly_list.first().face_v_.size();
+      //        todo_poly_list.push_back(QHPoly(
+      //                                   todo_poly_list.first().face_v_[i],
+      //                                   todo_poly_list.first().face_v_[(i+1)%todo_poly_list.first().face_v_.size()],
+      //                                 max_dist_vert,
+      //                                 &points_,
+      //                                 &todo_poly_list.first()));
+      //      }
+      for(int i=0;i<horizon_ridge_faces.size();i++){
+        todo_poly_list[horizon_ridge_faces[i]].dead = true;
+      }
+
+      for(int i=0;i<todo_poly_list.size();){
+        if(todo_poly_list[i].dead){
+          todo_poly_list.removeAt(i);
+        }else{
+          i++;
+        }
+      }
+
+      for(int i=0;i<horizon_ridge.size();i+=2){
         todo_poly_list.push_back(QHPoly(
-                                   todo_poly_list.first().face_v_[i],
-                                   todo_poly_list.first().face_v_[(i+1)%todo_poly_list.first().face_v_.size()],
+                                   horizon_ridge[i],
+                                   horizon_ridge[i+1],
                                  max_dist_vert,
                                  &points_,
-                                 &todo_poly_list.first()));
+                                 (todo_poly_list.isEmpty())?NULL:(&todo_poly_list.first())
+                                                          ));
       }
-      todo_poly_list.pop_front();
     }
+
+
+    horizon_ridge_faces.clear();
+    horizon_ridge.clear();
 
     step_count_ = 3;
     return true;

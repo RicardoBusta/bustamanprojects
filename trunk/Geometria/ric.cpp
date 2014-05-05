@@ -20,9 +20,9 @@ void init()
   qsrand(QTime::currentTime().second());
 }
 
-void MinAndMax(QVector3D &vmin, QVector3D &vmax, const QVector<QVector3D> v)
-{
+//void MinAndMax(QVector3D &vmin, QVector3D &vmax, const QVector<QVector3D> v)
+//{
 
-}
+//}
 
 }

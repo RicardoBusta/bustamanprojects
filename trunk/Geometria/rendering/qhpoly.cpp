@@ -15,9 +15,10 @@ QHPoly::QHPoly()
 }
 
 QHPoly::QHPoly(const int &v0, const int &v1, const int &v2, const QVector<QVector3D> *vs, const QHPoly *parent)
-  :vs_(vs)
+  : vs_(vs),
+    dead(false)
 {
-//  qDebug() << "asd";
+  //  qDebug() << "asd";
   face_v_.resize(3);
   face_v_[0] = v0;
   face_v_[1] = v1;
@@ -26,29 +27,30 @@ QHPoly::QHPoly(const int &v0, const int &v1, const int &v2, const QVector<QVecto
   n_ = QVector3D::crossProduct(vs_->at(v1)-vs_->at(v0),vs_->at(v2)-vs_->at(v0)).normalized();
   c_ = (vs->at(v1)+vs->at(v0)+vs->at(v2))/3;
 
-//  if( NULL == parent ){
-    for(int i=0;i<vs_->size();i++){
-      if( QVector3D::dotProduct(n_,vs_->at(i)-vs_->at(face_v_[0])) > 0 ){
-        subset_v_.push_back(i);
-      }
+  //  if( NULL == parent ){
+  for(int i=0;i<vs_->size();i++){
+    if( QVector3D::dotProduct(n_,vs_->at(i)-vs_->at(face_v_[0])) > 0 ){
+      subset_v_.push_back(i);
     }
-//  }else{
-//    for(int i=0;i<vs_->size();i++){
-//      if( parent->subset_v_.contains(i) ){
-//        double dot = QVector3D::dotProduct(n_,vs_->at(i)-vs_->at(face_v_[0]));
-//        if(dot > 0){
-//          subset_v_.push_back(i);
-//        }else if( dot == 0){
-//          face_v_.push_back(i);
-//        }
-//      }
-//    }
-//  }
+  }
+  //  }else{
+  //    for(int i=0;i<vs_->size();i++){
+  //      if( parent->subset_v_.contains(i) ){
+  //        double dot = QVector3D::dotProduct(n_,vs_->at(i)-vs_->at(face_v_[0]));
+  //        if(dot > 0){
+  //          subset_v_.push_back(i);
+  //        }else if( dot == 0){
+  //          face_v_.push_back(i);
+  //        }
+  //      }
+  //    }
+  //  }
   //    qDebug() << v_.size();
 }
 
 QHPoly::QHPoly( const QHPoly &poly, const bool inverse )
-  :vs_(poly.vs_)
+  : vs_(poly.vs_),
+    dead(false)
 {
   face_v_ = poly.face_v_;
   n_ = poly.n_;
@@ -93,7 +95,7 @@ void QHPoly::CalcHull2D()
 
 
   PendingLine p;
-//  p.p1 =
+  //  p.p1 =
   if(difx > dify && difx > difz){
     p.p1 = minx;
     p.p2 = maxx;
@@ -105,4 +107,20 @@ void QHPoly::CalcHull2D()
     p.p2 = maxz;
   }
 
+}
+
+bool QHPoly::GetRidge(const QHPoly &poly, QVector<int> &ridge/*,QVector<int> &not_ridge*/)
+{
+  for(int i=0;i<this->face_v_.size();i++){
+    if(poly.face_v_.contains(face_v_[i]) && poly.face_v_.contains(face_v_[(i+1)%face_v_.size()])){
+      ridge.push_back(face_v_[i]);
+      ridge.push_back(face_v_[(i+1)%face_v_.size()]);
+      qDebug() << "ridge!";
+    }/*else{
+      not_ridge.push_back(face_v_[i]);
+      not_ridge.push_back(face_v_[(i+1)%face_v_.size()]);
+    }*/
+  }
+
+  return false;
 }

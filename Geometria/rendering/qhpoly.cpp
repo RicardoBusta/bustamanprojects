@@ -27,12 +27,16 @@ QHPoly::QHPoly(const int &v0, const int &v1, const int &v2, const QVector<QVecto
   n_ = QVector3D::crossProduct(vs_->at(v1)-vs_->at(v0),vs_->at(v2)-vs_->at(v0)).normalized();
   c_ = (vs->at(v1)+vs->at(v0)+vs->at(v2))/3;
 
+//  subset_v_.clear();
+
   //  if( NULL == parent ){
   for(int i=0;i<vs_->size();i++){
     if( QVector3D::dotProduct(n_,vs_->at(i)-vs_->at(face_v_[0])) > 0 ){
       subset_v_.push_back(i);
     }
   }
+
+  qDebug() << "size" << subset_v_.size();
   //  }else{
   //    for(int i=0;i<vs_->size();i++){
   //      if( parent->subset_v_.contains(i) ){
@@ -55,7 +59,9 @@ QHPoly::QHPoly( const QHPoly &poly, const bool inverse )
   face_v_ = poly.face_v_;
   n_ = poly.n_;
   c_ = poly.c_;
+//  subset_v_.clear();
   subset_v_ = poly.subset_v_;
+  qDebug() << "size" << subset_v_.size();
 }
 
 void QHPoly::CalcHull2D()

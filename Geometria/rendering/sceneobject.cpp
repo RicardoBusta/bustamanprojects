@@ -39,3 +39,18 @@ void SceneObject::Color(const QColor &c) const
 {
   glColor4f(c.redF(),c.greenF(),c.blueF(),c.alphaF());
 }
+
+bool SceneObject::IsAlgorithm()
+{
+  return is_algorithm_;
+}
+
+void SceneObject::RunAlgorithm()
+{
+
+}
+
+bool SceneObject::StepAlgorithm()
+{
+  return false;
+}

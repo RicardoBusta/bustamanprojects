@@ -12,6 +12,8 @@ SceneCHQuickHull::~SceneCHQuickHull()
 
 void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, const bool user_color, const unsigned int current_frame) const
 {
+  Q_UNUSED(shrink)
+  Q_UNUSED(current_frame)
   if(points_.size() <= 0) return;
 
   glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -106,7 +108,11 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   if(todo_poly_list.size()>0){
     glPointSize(10);
     glBegin(GL_POINTS);
-    foreach(int index, todo_poly_list.first().subset_v_){
+    qDebug() << "size" << todo_poly_list.first().subset_v_.size();
+    for(int i=0;i<todo_poly_list.first().subset_v_.size();i++){
+    //foreach(int index, todo_poly_list.first().subset_v_){
+      int index = todo_poly_list.first().subset_v_.at(i);
+      qDebug() << "index" << index;
       if(index == max_dist_vert){
         glColor3f(0,1,0);
       }else{
@@ -273,6 +279,8 @@ bool SceneCHQuickHull::StepAlgorithm()
       //        pccw->face_v_.push_back(i);
       //      }
     }
+    qDebug() << "pcw subset" << pcw->subset_v_.size();
+    qDebug() << "pccw subset" << pccw->subset_v_.size();
 
     //    pcw->CalcHull2D();
 
@@ -284,6 +292,7 @@ bool SceneCHQuickHull::StepAlgorithm()
   case 3:
     if(todo_poly_list.size()>0){
       max_dist_vert = -1;
+      qDebug() << todo_poly_list.first().subset_v_.size();
       if(todo_poly_list.first().subset_v_.size() <= 0){
         poly_.push_back(QHPoly(todo_poly_list.first(),false));
         todo_poly_list.pop_front();

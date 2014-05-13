@@ -2,6 +2,7 @@
 #define QHPOLY_H
 
 #include <QVector>
+#include <QList>
 #include <QVector3D>
 #include <QColor>
 
@@ -17,7 +18,7 @@ public:
   QVector<int> face_v_;
   QVector3D n_;
   QVector3D c_;
-  QVector<int> subset_v_;
+  QList<int> subset_v_;
   const QVector<QVector3D> *vs_;
   QColor debug_color;
 

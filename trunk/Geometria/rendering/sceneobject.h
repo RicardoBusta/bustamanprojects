@@ -26,6 +26,10 @@ public:
   virtual void Vertex(const QVector3D &v) const;
   virtual void Normal(const QVector3D &v) const;
   virtual void Color(const QColor &c) const;
+
+  bool IsAlgorithm();
+  virtual void RunAlgorithm();
+  virtual bool StepAlgorithm();
 protected:
   virtual void DrawObject(const float &spread, const float &shrink, const bool user_color, const unsigned int current_frame) const =0 ;
 };

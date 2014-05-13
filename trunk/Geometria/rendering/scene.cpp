@@ -384,10 +384,9 @@ void Scene::Colorize()
 void Scene::CalculateConvexHullClicked()
 {
   foreach(SceneObject *object, objects_){
-    SceneCHQuickHull *sqh = dynamic_cast<SceneCHQuickHull*>(object);
-    if( NULL == sqh ) continue;
-
-    sqh->RunAlgorithm();
+    if(object->IsAlgorithm()){
+      object->RunAlgorithm();
+    }
   }
 
   //  foreach(SceneObject *object, objects_){

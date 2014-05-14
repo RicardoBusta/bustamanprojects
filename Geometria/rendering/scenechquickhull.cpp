@@ -21,18 +21,18 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
 
   glDisable(GL_LIGHTING);
   //glPointSize(6-5*shrink);
-  if(user_color){
-    glColor3f(color_.redF(),color_.greenF(),color_.blueF());
-  }
-  glPointSize(6);
-  glBegin(GL_POINTS);
-  foreach(QVector3D point, points_){
-    Vertex(point+(point*spread));
-  }
-  glEnd();
+//  if(user_color){
+//    glColor3f(color_.redF(),color_.greenF(),color_.blueF());
+//  }
+//  glPointSize(6);
+//  glBegin(GL_POINTS);
+//  foreach(QVector3D point, points_){
+//    Vertex(point+(point*spread));
+//  }
+//  glEnd();
 
   glColor3f(1,0,0);
-  glPointSize(10);
+  glPointSize(11-10*shrink);
   glBegin(GL_POINTS);
   foreach(int index, v_max){
     Vertex( points_[index]+(points_[index]*spread) );
@@ -40,7 +40,7 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   glEnd();
 
   glColor3f(0,0,1);
-  glPointSize(14);
+  glPointSize(15-14*shrink);
   glBegin(GL_POINTS);
   foreach(int index, v_3_sel){
     Vertex( points_[index]+(points_[index]*spread) );
@@ -76,8 +76,8 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     glEnd();
     glColor3f(1,0,0);
     glBegin(GL_LINES);
-    Vertex( poly.c_ );
-    Vertex( poly.c_+poly.n_ );
+    Vertex( poly.c_ + ((poly.c_+poly.n_)*spread));
+    Vertex( poly.c_+poly.n_ + ((poly.c_+poly.n_)*spread) );
     glEnd();
   }
 
@@ -99,20 +99,18 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
     glEnd();
     glColor3f(1,0,0);
     glBegin(GL_LINES);
-    Vertex( poly.c_ );
-    Vertex( poly.c_+poly.n_ );
+    Vertex( poly.c_ + ((poly.c_+poly.n_)*spread));
+    Vertex( poly.c_+poly.n_ + ((poly.c_+poly.n_)*spread) );
     glEnd();
   }
 
   glDisable(GL_LIGHTING);
   if(todo_poly_list.size()>0){
-    glPointSize(10);
+    glPointSize(11-10*shrink);
     glBegin(GL_POINTS);
-    qDebug() << "size" << todo_poly_list.first().subset_v_.size();
     for(int i=0;i<todo_poly_list.first().subset_v_.size();i++){
     //foreach(int index, todo_poly_list.first().subset_v_){
       int index = todo_poly_list.first().subset_v_.at(i);
-      qDebug() << "index" << index;
       if(index == max_dist_vert){
         glColor3f(0,1,0);
       }else{
@@ -124,10 +122,10 @@ void SceneCHQuickHull::DrawObject(const float &spread, const float &shrink, cons
   }
 
   glColor3f(0,1,0);
-  glLineWidth(5);
+  glLineWidth(5-4*shrink);
   glBegin(GL_LINES);
   foreach(int index, horizon_ridge){
-    Vertex(points_[index]);
+    Vertex(points_[index]+(points_[index]*spread));
   }
   glEnd();
 
@@ -260,27 +258,45 @@ bool SceneCHQuickHull::StepAlgorithm()
     // points on each side will be added to the respective polygon list, and the coplanar will be considered for the 2D convex hull algorithm to find the starting face.
 
     todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[1],v_3_sel[2],&points_,NULL));
-    pcw = &todo_poly_list.last();
-    pcw->debug_color = QColor(255,0,0);
-    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],&points_,NULL));
-    pccw = &todo_poly_list.last();
-    pccw->debug_color = QColor(0,0,255);
+    //pcw = &todo_poly_list.last();
+    //pcw->debug_color = QColor(255,0,0);
+    todo_poly_list.last().debug_color = QColor(255,0,0);
 
     for(int i=0;i<points_.size();i++){
       float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
       if(f>=0){
-        pcw->subset_v_.push_back(i);
+        todo_poly_list.last().subset_v_.push_back(i);
       }
-      if(f<=0){
-        pccw->subset_v_.push_back(i);
-      }
-      //      if(f==0){
-      //        pcw->face_v_.push_back(i);
-      //        pccw->face_v_.push_back(i);
-      //      }
     }
-    qDebug() << "pcw subset" << pcw->subset_v_.size();
-    qDebug() << "pccw subset" << pccw->subset_v_.size();
+
+    todo_poly_list.push_back(QHPoly(v_3_sel[0],v_3_sel[2],v_3_sel[1],&points_,NULL));
+    //pccw = &todo_poly_list.last();
+    //pccw->debug_color = QColor(0,0,255);
+
+    todo_poly_list.last().debug_color = QColor(0,0,255);
+
+    for(int i=0;i<points_.size();i++){
+      float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
+      if(f>=0){
+        todo_poly_list.last().subset_v_.push_back(i);
+      }
+    }
+
+//    for(int i=0;i<points_.size();i++){
+//      float f = points_[i].distanceToPlane(points_[v_3_sel[0]],points_[v_3_sel[1]],points_[v_3_sel[2]]);
+//      if(f>=0){
+//        pcw->subset_v_.push_back(i);
+//      }
+//      if(f<=0){
+//        pccw->subset_v_.push_back(i);
+//      }
+//      //      if(f==0){
+//      //        pcw->face_v_.push_back(i);
+//      //        pccw->face_v_.push_back(i);
+//      //      }
+//    }
+//    qDebug() << "pcw subset" << pcw->subset_v_.size();
+//    qDebug() << "pccw subset" << pccw->subset_v_.size();
 
     //    pcw->CalcHull2D();
 
@@ -376,6 +392,9 @@ bool SceneCHQuickHull::StepAlgorithm()
                                  &points_,
                                  (todo_poly_list.isEmpty())?NULL:(&todo_poly_list.first())
                                                           ));
+        if(todo_poly_list.last().subset_v_.isEmpty()){
+          poly_.push_back(QHPoly());
+        }
       }
     }
 

@@ -1,7 +1,7 @@
 #include "scenetetraalgorithm.h"
 
 SceneTetraAlgorithm::SceneTetraAlgorithm(const QString &name, const QString &owner, const double &spread, const QString &color)
-  : SceneObject(name,owbner,scale,color,true)
+  : SceneObject(name,owner,spread,color,true)
 {
 }
 

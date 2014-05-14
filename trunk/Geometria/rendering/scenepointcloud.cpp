@@ -14,7 +14,7 @@ void ScenePointCloud::DrawObject(const float &spread, const float &shrink, const
 {
   glPushAttrib(GL_ALL_ATTRIB_BITS);
   glDisable(GL_LIGHTING);
-  glPointSize(11-10*shrink);
+  glPointSize(6-5*shrink);
   glBegin(GL_POINTS);
 
   if(user_color){

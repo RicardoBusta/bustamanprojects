@@ -14,7 +14,8 @@ const float kArrowSize = kAxisSize+0.1;
 
 GLWidget::GLWidget(QWidget *parent) :
   QGLWidget(parent),
-  scene_(NULL)
+  scene_(NULL),
+  ortho_(false)
 {
   connect(&auto_paint_timer_,SIGNAL(timeout()),this,SLOT(AutoPaint()));
 
@@ -54,13 +55,7 @@ void GLWidget::resizeGL(int w, int h)
   int size = qMax(w,h);
   glViewport((w-size)/2.0,(h-size)/2.0,size,size);
 
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-//  glOrtho(-1,1,-1,1,-50,50);
-  glFrustum(-.1,.1,-.1,.1,0.1,1000);
-  glTranslatef(0,0,-1);
-
-  glMatrixMode(GL_MODELVIEW);
+  ToggleOrtho(ortho_);
 }
 
 void GLWidget::paintGL()
@@ -94,10 +89,10 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 
   if(delta_.manhattanLength() > 5){
     auto_delta_ = delta_/5;
-//    auto_paint_timer_.start(1000/60);
+    //    auto_paint_timer_.start(1000/60);
   }else{
     auto_delta_ = QPoint(0,0);
-//    auto_paint_timer_.stop();
+    //    auto_paint_timer_.stop();
   }
   event->accept();
 }
@@ -218,4 +213,22 @@ void GLWidget::TryRepaint()
   if(!auto_paint_timer_.isActive()){
     repaint();
   }
+}
+
+void GLWidget::ToggleOrtho(bool o)
+{
+  ortho_ = o;
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  if(ortho_){
+    glOrtho(-1,1,-1,1,-50,50);
+  }else{
+    glFrustum(-.1,.1,-.1,.1,0.1,1000);
+    glTranslatef(0,0,-1);
+  }
+
+  glMatrixMode(GL_MODELVIEW);
+
+  repaint();
 }

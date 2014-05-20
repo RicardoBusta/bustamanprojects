@@ -8,6 +8,7 @@
 #include "rendering/scenetetrahedrons.h"
 #include "rendering/scenechquickhull.h"
 #include "rendering/scenetext.h"
+#include "rendering/scenetetradelaunay.h"
 
 const QString kInputString = "INPUT";
 const QString kHullString = "HULL";
@@ -414,6 +415,20 @@ void Scene::StartNewHullAlgorithm(SceneObject *object)
   SceneCHQuickHull *quick_hull = new SceneCHQuickHull("NEW OUTPUT CH",spc->owner_,spc->scale_,spc->color_.name());
   objects_.push_back(quick_hull);
   quick_hull->points_ += spc->points_;
+
+  emit SceneChanged();
+}
+
+void Scene::StartNewTetraAlgorithm(SceneObject *object)
+{
+  ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
+  if( NULL == spc ){
+    return;
+  }
+
+  SceneTetraDelaunay *del_tetra = new SceneTetraDelaunay("NEW OUTPUT TETRA",spc->owner_,spc->scale_,spc->color_.name());
+  objects_.push_back(del_tetra);
+  del_tetra->points_ += spc->points_;
 
   emit SceneChanged();
 }

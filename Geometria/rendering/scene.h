@@ -46,6 +46,7 @@ public:
 
 //  void SaveFile(QString filename);
   void StartNewHullAlgorithm(SceneObject *object);
+  void StartNewTetraAlgorithm(SceneObject *object);
 private:
 
 public slots:

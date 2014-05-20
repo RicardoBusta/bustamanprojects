@@ -34,6 +34,8 @@ protected:
   QPoint delta_;
   QPoint auto_delta_;
 
+  bool ortho_;
+
   QTimer auto_paint_timer_;
 
   QImage text_font_;
@@ -42,6 +44,7 @@ signals:
 public slots:
   void AutoPaint();
   void TryRepaint();
+  void ToggleOrtho(bool o);
 };
 
 #endif // GLWIDGET_H

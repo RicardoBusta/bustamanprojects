@@ -29,6 +29,7 @@ private slots:
   void DeleteObject();
   void SelectColor();
   void CreateHullObject();
+  void CreateTetraObject();
 signals:
   void VisibilityChanged();
   void ObjectDeleted();

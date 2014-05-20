@@ -38,6 +38,8 @@ MainWindow::MainWindow(Scene *scene, QWidget *parent) :
   connect(ui_->run_convexhull_button,SIGNAL(clicked()),scene_,SLOT(CalculateConvexHullClicked()));
   connect(scene_,SIGNAL(SceneChanged()),this,SLOT(SceneChanged()));
 
+  connect(ui_->ortho_check,SIGNAL(toggled(bool)),ui_->glwidget,SLOT(ToggleOrtho(bool)));
+
   SceneChanged();
 }
 

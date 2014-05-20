@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>112</width>
+    <width>152</width>
     <height>45</height>
    </rect>
   </property>
@@ -178,6 +178,41 @@ QPushButton::checked{
        </property>
        <property name="text">
         <string>HULL</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="simplex_button">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>16</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+	border: 1px solid #999;
+	background-color: white;
+	font: bold;
+	color: black;
+	width: 15px;
+	height: 15px;
+}</string>
+       </property>
+       <property name="text">
+        <string>SIMP</string>
        </property>
       </widget>
      </item>

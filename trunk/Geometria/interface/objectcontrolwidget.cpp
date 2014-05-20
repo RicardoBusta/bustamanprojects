@@ -28,8 +28,10 @@ ObjectControlWidget::ObjectControlWidget(Scene *scene, SceneObject *object, QWid
   ScenePointCloud *spc = dynamic_cast<ScenePointCloud*>(object);
   if(NULL == spc){
     ui_->hull_button->hide();
+    ui_->simplex_button->hide();
   }else{
     connect(ui_->hull_button,SIGNAL(clicked()),this,SLOT(CreateHullObject()));
+    connect(ui_->simplex_button,SIGNAL(clicked()),this,SLOT(CreateTetraObject()));
   }
 }
 
@@ -69,5 +71,12 @@ void ObjectControlWidget::CreateHullObject()
 {
   if( NULL != scene_ && NULL != object_ ){
     scene_->StartNewHullAlgorithm(object_);
+  }
+}
+
+void ObjectControlWidget::CreateTetraObject()
+{
+  if( NULL != scene_ && NULL != object_ ){
+    scene_->StartNewTetraAlgorithm(object_);
   }
 }

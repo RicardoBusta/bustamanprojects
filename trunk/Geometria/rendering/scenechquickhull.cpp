@@ -1,9 +1,9 @@
 #include "scenechquickhull.h"
 
 SceneCHQuickHull::SceneCHQuickHull(const QString &name, const QString &owner, const double &spread, const QString &color):
-  SceneObject(name,owner,spread,color,true)
+  SceneObject(name,owner,spread,color,true),
+  step_count_(0)
 {
-  step_count_ = 0;
 }
 
 SceneCHQuickHull::~SceneCHQuickHull()
@@ -159,7 +159,7 @@ void SceneCHQuickHull::RunAlgorithm()
 {
   //  while(StepAlgorithm()){
   if(StepAlgorithm()){
-    qDebug() << step_count_;
+    qDebug() << QString("step quickhull: %1 (%2)").arg(step_count_).arg(name_);
   }
 }
 

@@ -50,6 +50,7 @@ public:
   void calcMatrixes();
   void calcFrustum();
 
+  void loadScene(QString s);
   void loadDefaultScene1();
   void loadDefaultScene2();
   void loadDefaultScene3();

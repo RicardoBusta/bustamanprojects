@@ -116,12 +116,14 @@ const TriangleFace *Ray::cast(const SceneObject *o)
         float l1 = d1*f.n();
         float l2 = d2*f.n();
         float l3 = d3*f.n();
+
         if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
           hit_face = &f;
           hit_ = true;
           t_ = new_t;
           p_ = new_p;
           n_ = f.n();
+          b_ = Ric::Vector(l2/f.area(),l3/f.area(),l1/f.area());
           return hit_face;
         }
       }
@@ -143,9 +145,18 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
 
   v_ = (o_-p_).Normalized();
 
+  Ric::Vector n_b;
+//  if(f->vertex_normal()){
+    n_b = f->n_b(b_);
+//  }else{
+//    n_b = n_;
+//  }
+
+  // For lighting calculations, do not use the actual face normal, but an interpolation of the vertex normals.
+
   foreach(SceneLight light, scene->transformed_light){
     l_ = (light.position-p_).Normalized();
-    r_ = ((2*(l_*n_)*n_)-l_).Normalized();
+    r_ = ((2*(l_*n_b)*n_b)-l_).Normalized();
     Ray shadow = Ray(p_,l_,(light.position-p_).Length(),near_length_,default_color_);
     shadow.cast(scene);
 
@@ -158,7 +169,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     //if the point of the object can't see the light source, it will not consider the direct influence of it.
     if(!shadow.hit_){
 
-      d = f_att*( f->material().diffuse() * light.material.diffuse() * (l()*n()) );
+      d = f_att*( f->material().diffuse() * light.material.diffuse() * (l()*n_b) );
       s = f_att*( (f->material().specular() * light.material.specular() * (r()*v())).Cap() );
     }else{
       d = Ric::Color(0x00);
@@ -167,7 +178,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     AddColor( ((a + (d+(s^h)).Cap()).Cap()) );
   }
   if(level>0){
-    Ric::Vector ref_dir = ((2*(v_*n_)*n_)-v_).Normalized();
+    Ric::Vector ref_dir = ((2*(v_*n_b)*n_b)-v_).Normalized();
     Ray recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
     recursive.calc(recursive.cast(scene),scene,level-1,adv_light);
     AddColor( recursive.color()*f->material().specular() );
@@ -220,39 +231,13 @@ Ric::Vector Ray::p() const
   return p_;
 }
 
+Ric::Vector Ray::b() const
+{
+  return b_;
+}
+
 void Ray::AddColor(const Ric::Color &color)
 {
   color_ += color;
 }
-
-//void Ray::calcColor(RAY_TYPE ray_type, Scene &scene, Ric::Vector &viewer)
-//{
-//  if(!(scene.calculate_advanced_light) || ray_type==RAY_FAST){
-//    color = material.dif;
-//    return;
-//  }
-
-//  v = (viewer-point).normalized();
-
-//  foreach(SceneLight light, scene.transformed_light){
-//    l = (light.position-point).normalized();
-//    r = ((2*(l*n)*n)-l).normalized();
-
-//    Ray shadow = Ray(p_,l,(light.position-point).length(),near_length,default_color);
-//    shadow.cast(scene,RAY_SHADOW);
-
-//    Ric::Color a,d,s;
-//    a = material.amb * light.material.amb;
-//    if(!shadow.hit_){
-//      d = material.dif * light.material.dif * (l*n);
-//      s = (material.spe * light.material.spe * (r*v)).cap();
-//    }else{
-//      d = Ric::Color(0x00);
-//      s = Ric::Color(0x00);
-//    }
-//    double h = material.shi;
-
-//    color += (a + (d+(s^h)).cap()).cap();
-//  }
-//}
 

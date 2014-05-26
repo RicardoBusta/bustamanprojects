@@ -82,6 +82,8 @@ OTHER_FILES += \
     models/cubes.png \
     models/spheres.obj \
     models/spheres.mtl \
+    models/pyramid.obj \
+    models/pyramid.mtl \
 
 unix:!macx:LIBS+= -ldl
 

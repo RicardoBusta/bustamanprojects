@@ -157,13 +157,8 @@ void MainWindow::LoadScene(int s)
   case 2:
     scene_->loadDefaultScene2();
     break;
-  case 3:
-    scene_->loadDefaultScene3();
-    break;
-  case 4:
-    scene_->loadDefaultScene4();
-    break;
   default:
+    scene_->loadScene(ui_->scene_comboBox->currentText());
     break;
   }
   SceneChanged();

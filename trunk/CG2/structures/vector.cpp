@@ -133,4 +133,12 @@ namespace Ric{
     return *this;
   }
 
+  bool Vector::operator==(const Vector &v)
+  {
+    if(x_ != v.x() || y_ != v.y() || z_ != v.z()){
+      return false;
+    }
+    return true;
+  }
+
 } // namespace

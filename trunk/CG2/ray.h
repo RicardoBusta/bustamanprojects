@@ -31,6 +31,8 @@ public:
   Ric::Vector v() const;
   Ric::Vector p() const;
 
+  Ric::Vector b() const;
+
   void AddColor(const Ric::Color &color);
 
 private:
@@ -47,6 +49,8 @@ private:
   Ric::Vector r_;//< Light Reflection.
   Ric::Vector v_;//< Viewer Direction.
   Ric::Vector p_; //< Hit Point.
+
+  Ric::Vector b_; //< Barycentric Coords of the hit point
 
   Ric::Vector tc_; //< Texture Coords.
 };

@@ -15,7 +15,7 @@ TriangleFace::TriangleFace(const Ric::Vector &v0, const Ric::Vector &v1, const R
     n_(((v1-v0)^(v2-v0)).Normalized()),
     area_(((v1-v0)^(v2-v0)).Length()),
     vertex_texture_coord(false),
-    vertex_normal(false)
+    vertex_normal_(false)
 {
   setNormals(n_,n_,n_);
 }
@@ -45,6 +45,12 @@ TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transfor
   this->vn0_ = (Ric::Vector::transformv(f.vn0_+f.v0_,*transform)-v0_).Normalized();
   this->vn1_ = (Ric::Vector::transformv(f.vn1_+f.v1_,*transform)-v1_).Normalized();
   this->vn2_ = (Ric::Vector::transformv(f.vn2_+f.v2_,*transform)-v2_).Normalized();
+
+  if( vn0_ == vn1_ && vn1_ == vn2_ ){
+    vertex_normal_ = true;
+  }else{
+    vertex_normal_ = false;
+  }
 }
 
 void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2)
@@ -58,11 +64,15 @@ void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, 
 
 void TriangleFace::setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2)
 {
-  vertex_normal = true;
-
   vn0_ = vn0;
   vn1_ = vn1;
   vn2_ = vn2;
+
+  if( vn0_ == vn1_ && vn1_ == vn2_ ){
+    vertex_normal_ = true;
+  }else{
+    vertex_normal_ = false;
+  }
 }
 
 Ric::Vector TriangleFace::vt0() const
@@ -166,6 +176,22 @@ Ric::Vector TriangleFace::n() const
 void TriangleFace::setN(const Ric::Vector &n)
 {
   n_ = n;
+}
+
+bool TriangleFace::vertex_normal() const
+{
+  return vertex_normal_;
+}
+
+Ric::Vector TriangleFace::n_b(const Ric::Vector &b) const
+{
+  Ric::Vector output;
+
+//  qDebug() << b.x() << b.y()<< b.z() << (b.x()+b.y()+b.z());
+  output = ((vn0_*b.x())+(vn1_*b.y())+(vn2_*b.z())).Normalized();
+//  output = vn0_;
+
+  return output;
 }
 
 double TriangleFace::area() const

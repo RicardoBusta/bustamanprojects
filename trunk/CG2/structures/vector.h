@@ -37,6 +37,8 @@ public:
 
   Vector operator=(const QVector2D &v);
   Vector operator=(const QVector3D &v);
+
+  bool operator==(const Ric::Vector &v);
 private:
   double x_;
   double y_;

@@ -37,7 +37,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
     if(line.startsWith("o "))
       // A new object appeared. Will clear up the previous one and start again.
     {
-                  qDebug() << line;
+      qDebug() << line;
       if( obj!=NULL ){
         //        qDebug() << "mip" << __LINE__;
       }
@@ -57,7 +57,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==4){
         v.push_back(QVector3D(s[1].toFloat(),s[2].toFloat(),s[3].toFloat()));
-//        UpdateMaxAndMin(max_v,min_v,v.last());
+        //        UpdateMaxAndMin(max_v,min_v,v.last());
         //                qDebug() << "v[" << v.size()-1 << "]" << v.last();
       }else{
         fail = true;
@@ -67,7 +67,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
     {
       QStringList s = line.split(' ',QString::KeepEmptyParts);
       if(s.size()==3){
-//        qDebug() << s[1].toFloat() << s[2].toFloat();
+        //        qDebug() << s[1].toFloat() << s[2].toFloat();
         vt.push_back(QVector2D(s[1].toFloat(),s[2].toFloat()));
         //                qDebug() << "vt[" << vt.size()-1 << "]" << vt.last();
       }else
@@ -109,7 +109,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
           }
 
           if(s1[1]!="" && s2[1]!="" && s3[1]!=""){
-//          qDebug() << vt.size() << s1[2].toInt()-1;
+            //          qDebug() << vt.size() << s1[2].toInt()-1;
             Ric::Vector vt0(vt[s1[1].toInt()-1]);
             Ric::Vector vt1(vt[s2[1].toInt()-1]);
             Ric::Vector vt2(vt[s3[1].toInt()-1]);
@@ -142,7 +142,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
 
   // Create bounding box
 
-//  qDebug() << "mip" << __LINE__;
+  //  qDebug() << "mip" << __LINE__;
 
   //object.faces_ += CreateBoundingBox(min_v,max_v);
   qDebug() << "generate?";
@@ -209,6 +209,9 @@ QMap<QString, Ric::Material> ObjLoader::LoadMtl(QString filename)
 
     }else if(line.startsWith("Ni ")){
     }else if(line.startsWith("Tr ") || line.startsWith("d ")){
+    }else if(line.startsWith("map_Kd ")){
+      qDebug() << line << line.mid(QString("map_Kd ").size());
+      mtl->SetDifTexture(line.mid(QString("map_Kd ").size()).toStdString());
     }else{
 
     }

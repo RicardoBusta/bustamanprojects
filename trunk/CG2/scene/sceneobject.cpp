@@ -101,6 +101,7 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
       if(lighting){
         glEnable(GL_LIGHTING);
       }
+      glEnable(GL_TEXTURE_2D);
       glBegin(GL_TRIANGLES);
       Gl::Normal3f( f.n() );
 //      qDebug() << f.vt0();

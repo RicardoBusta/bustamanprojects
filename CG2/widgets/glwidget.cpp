@@ -76,7 +76,9 @@ void GLWidget::initializeGL()
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_COLOR_MATERIAL);
 
-//  glEnable(GL_TEXTURE_2D);
+  qDebug() << texture.isNull();
+
+  glEnable(GL_TEXTURE_2D);
   bindTexture(texture,GL_TEXTURE_2D);
 
   //  GLfloat position[] = {0.0f,0.0f,0.0f};
@@ -92,10 +94,6 @@ void GLWidget::initializeGL()
   //  glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
 
   glFlush();
-
-
-
-
 }
 
 void GLWidget::resizeGL(int w, int h)

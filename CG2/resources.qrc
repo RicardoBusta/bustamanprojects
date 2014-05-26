@@ -19,5 +19,9 @@
         <file>models/pyramid.obj</file>
         <file>models/plane.mtl</file>
         <file>models/plane.obj</file>
+        <file>models/cornell.mtl</file>
+        <file>models/cornell.obj</file>
+        <file>models/textured.mtl</file>
+        <file>models/textured.obj</file>
     </qresource>
 </RCC>

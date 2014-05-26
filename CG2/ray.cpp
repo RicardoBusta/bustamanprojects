@@ -8,6 +8,8 @@
 #include "structures.h"
 #include "scene/triangleface.h"
 
+QImage texture = QImage("://models/cubes.png");
+
 Ray::Ray()
   : hit_(false),
     near_length_(0),
@@ -152,6 +154,19 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
 //    n_b = n_;
 //  }
 
+    Ric::Vector v_b;
+
+    Ric::Color diffuse;
+
+    if(f->material().has_texture()){
+      v_b = f->v_b(b_);
+//    qDebug() << v_b << f->material().has_texture();
+      diffuse =  texture.pixel(v_b.x()*texture.width(),v_b.y()*texture.height());
+//      qDebug() << "has texture";
+    }else{
+      diffuse = f->material().diffuse();
+    }
+
   // For lighting calculations, do not use the actual face normal, but an interpolation of the vertex normals.
 
   foreach(SceneLight light, scene->transformed_light){
@@ -169,7 +184,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     //if the point of the object can't see the light source, it will not consider the direct influence of it.
     if(!shadow.hit_){
 
-      d = f_att*( f->material().diffuse() * light.material.diffuse() * (l()*n_b) );
+      d = f_att*( diffuse * light.material.diffuse() * (l()*n_b) );
       s = f_att*( (f->material().specular() * light.material.specular() * (r()*v())).Cap() );
     }else{
       d = Ric::Color(0x00);

@@ -168,6 +168,8 @@ void TriangleFace::setFc(const Ric::Vector &value)
 {
   fc_ = value;
 }
+
+
 Ric::Vector TriangleFace::n() const
 {
   return n_;
@@ -192,6 +194,14 @@ Ric::Vector TriangleFace::n_b(const Ric::Vector &b) const
 //  output = vn0_;
 
   return output;
+}
+
+Ric::Vector TriangleFace::v_b(const Ric::Vector &b) const
+{
+    Ric::Vector output;
+    output = ((vt0_*b.x()) + (vt1_ * b.y()) + ( vt2_ * b.z() ));
+//    qDebug() << "v_b: " << vt0_ << vt1_ << vt2_ << output;
+    return output;
 }
 
 double TriangleFace::area() const

@@ -44,6 +44,8 @@ public:
   bool vertex_normal() const;
   Ric::Vector n_b(const Ric::Vector &b) const;
 
+  Ric::Vector v_b(const Ric::Vector &b) const;
+
   double area() const;
 
   void scale(double s);

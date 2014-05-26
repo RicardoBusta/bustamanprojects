@@ -2,6 +2,7 @@
 #define MATERIAL_H
 
 #include "color.h"
+#include "string"
 
 namespace Ric{
 
@@ -36,11 +37,15 @@ public:
   Ric::Color transmitted() const;
   double shininess() const;
 
+  bool has_texture() const;
+
   void SetAmbient(double r, double g, double b);
   void SetDiffuse(double r, double g, double b);
   void SetSpecular(double r, double g, double b);
 
   Material operator=(Material m);
+
+  void SetDifTexture(const std::string &diffuse_texture);
 
   void GlSet();
 
@@ -51,6 +56,9 @@ private:
   double shininess_; //< shininess
 
   double transparency_; //< dissolve or transparency
+
+  bool has_texture_;
+  std::string diffuse_texture_;
 };
 
 } // namespace

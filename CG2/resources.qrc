@@ -15,5 +15,9 @@
         <file>models/cubes.png</file>
         <file>models/spheres.mtl</file>
         <file>models/spheres.obj</file>
+        <file>models/pyramid.mtl</file>
+        <file>models/pyramid.obj</file>
+        <file>models/plane.mtl</file>
+        <file>models/plane.obj</file>
     </qresource>
 </RCC>

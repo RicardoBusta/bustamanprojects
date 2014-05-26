@@ -40,6 +40,10 @@ public:
   Ric::Vector n() const;
   void setN(const Ric::Vector &n);
 
+  // Given Barycentric Coords, return the interpolated normal on that point.
+  bool vertex_normal() const;
+  Ric::Vector n_b(const Ric::Vector &b) const;
+
   double area() const;
 
   void scale(double s);
@@ -59,7 +63,7 @@ private:
   Ric::Vector vt1_;
   Ric::Vector vt2_;
 
-  bool vertex_normal;
+  bool vertex_normal_;
   Ric::Vector vn0_;
   Ric::Vector vn1_;
   Ric::Vector vn2_;

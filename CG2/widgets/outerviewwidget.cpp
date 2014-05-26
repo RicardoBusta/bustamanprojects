@@ -8,6 +8,7 @@
 #include "constants.h"
 
 #include "scene/triangleface.h"
+#include "scene/openglauxfunctions.h"
 
 OuterViewWidget::OuterViewWidget(Scene *scene,QWidget *parent)
   : QGLWidget(parent),
@@ -40,8 +41,8 @@ void OuterViewWidget::paintGL()
 
   const float propx = (1.0f/float(scene_->selected_image_size-1));
   const float propy = (1.0f/float(scene_->selected_image_size-1));
-  float x = (float(scene_->specialx)*propx);
-  float y = (float(scene_->specialy)*propy);
+  float x = 0.5;//(float(scene_->specialx)*propx);
+  float y = 0.5;//(float(scene_->specialy)*propy);
   Ric::Vector observer(0,0,0);
   Ric::Vector vfx1 = ((1-x)*scene_->frustum[8]) + ((x)*scene_->frustum[7]);
   Ric::Vector vfx2 = ((1-x)*scene_->frustum[5]) + ((x)*scene_->frustum[6]);
@@ -51,7 +52,14 @@ void OuterViewWidget::paintGL()
   Ric::Vector near_plane = (y*vnx1)+((1-y)*vnx2);
 
   Ray ray(observer,far_plane.Normalized(),far_plane.Length(), near_plane.Length(),Ric::Color(0xff000000));
-  ray.calc(ray.cast(scene_),scene_,0,true);
+  const TriangleFace *f = ray.cast(scene_);
+  ray.calc(f,scene_,0,true);
+
+  Ric::Vector n_b;
+
+  if(f!=NULL){
+  n_b = f->n_b(ray.b());
+  }
 
   Ray shadow;
   if(scene_->light.size()>0){
@@ -66,9 +74,10 @@ void OuterViewWidget::paintGL()
     ray.p() + (ray.n()*3), //ray normal
     ray.p() + (ray.l()*3),
     ray.p() + (ray.r()*3),
-    shadow.p()
+    shadow.p(),
+    ray.p() + ((n_b)*3)
   };
-  const int vo_size = 6;
+  const int vo_size = 7;
   for(int i=0;i<vo_size;i++){
     vo[i].setW( 1 );
     vo[i] = scene_->ipvm*vo[i];
@@ -103,6 +112,10 @@ void OuterViewWidget::paintGL()
     glColor3f(0,0,0);
     vertex3f(vo[1]);
     vertex3f(vo[5]);
+
+    glColor3f(1,1,0);
+    vertex3f(vo[1]);
+    vertex3f(vo[6]);
 
     glEnd();//3
 
@@ -169,6 +182,61 @@ void OuterViewWidget::paintGL()
   drawFrustum();
   glEnd();
   glDisable(GL_BLEND);
+
+
+//  Ric::Vector p1(-1,1,0);
+//  Ric::Vector v1(-1,1,1);
+//  v1 = v1.Normalized()*10;
+
+//  Ric::Vector p2(1,1,0);
+//  Ric::Vector v2(1,1,1);
+//  v2 = v2.Normalized()*10;
+
+//  Ric::Vector p3(-1,-1,0);
+//  Ric::Vector v3(-1,-1,1);
+//  v3 = v3.Normalized()*10;
+
+//  Ric::Vector p4(1,-1,0);
+//  Ric::Vector v4(1,-1,1);
+//  v4 = v4.Normalized()*10;
+
+//  glColor3f(1,1,1);
+//  glDisable(GL_LIGHTING);
+//  glBegin(GL_LINES);
+//  Gl::Vertex3f(p1);
+//  Gl::Vertex3f(p1+v1);
+
+//  Gl::Vertex3f(p2);
+//  Gl::Vertex3f(p2+v2);
+
+//  Gl::Vertex3f(p3);
+//  Gl::Vertex3f(p3+v3);
+
+//  Gl::Vertex3f(p4);
+//  Gl::Vertex3f(p4+v4);
+
+//  const int xv = 10;
+//  const int yv = 10;
+
+//  for(int i=0;i<=xv;i++){
+//    float percx = (float(i)/float(xv));
+
+//    Ric::Vector p12 = percx*p1 + (1.0-percx)*p2;
+//    Ric::Vector v12 = (percx*v1 + (1.0-percx)*v2).Normalized()*10;
+
+//    Ric::Vector p34 = percx*p3 + (1.0-percx)*p4;
+//    Ric::Vector v34 = (percx*v3 + (1.0-percx)*v4).Normalized()*10;
+//    for(int j=0;j<=yv;j++){
+//      float percy = (float(j)/float(yv));
+
+//      Ric::Vector p1234 = percy*p12 + (1.0-percy)*p34;
+//      Ric::Vector v1234 = (percy*v12 + (1.0-percy)*v34).Normalized()*10;
+//      Gl::Vertex3f(p1234);
+//      Gl::Vertex3f(p1234+v1234);
+//    }
+//  }
+//  glEnd();
+
   glPopAttrib();
 
   glFlush();

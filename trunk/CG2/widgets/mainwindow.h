@@ -15,7 +15,8 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
-
+private:
+  Ui::MainWindow *ui_;
 public:
   explicit MainWindow(Scene *scene, QWidget *parent = 0);
   ~MainWindow();
@@ -44,8 +45,7 @@ public slots:
   void LoadScene(int);
 
   void FinalRender();
-private:
-  Ui::MainWindow *ui_;
+
 };
 
 #endif // MAINWINDOW_H

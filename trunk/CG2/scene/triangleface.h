@@ -44,7 +44,7 @@ public:
   bool vertex_normal() const;
   Ric::Vector n_b(const Ric::Vector &b) const;
 
-  Ric::Vector v_b(const Ric::Vector &b) const;
+  Ric::Color t_b(const Ric::Vector &b, const QImage *img) const;
 
   double area() const;
 

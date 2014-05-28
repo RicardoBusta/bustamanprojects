@@ -16,8 +16,8 @@ const float kMaxFloat = std::numeric_limits<float>::max();
 const float kMinFloat = -kMaxFloat;
 
 SceneObject::SceneObject()
-  : bounding_worthy_(false),
-    name("none")
+  : name("none"),
+    bounding_worthy_(false)
 {
 }
 
@@ -66,7 +66,7 @@ void SceneObject::scale(double s)
 
 void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
 {
-//  qDebug() << "Drawing" << name;
+  //  qDebug() << "Drawing" << name;
   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
   if(draw_bounding_box){
@@ -104,15 +104,15 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
       glEnable(GL_TEXTURE_2D);
       glBegin(GL_TRIANGLES);
       Gl::Normal3f( f.n() );
-//      qDebug() << f.vt0();
-//      qDebug() << f.vn0();
-//      Gl::TexCoord( f.vt0() );
+      //      qDebug() << f.vt0();
+      //      qDebug() << f.vn0();
+      //      Gl::TexCoord( f.vt0() );
       Gl::Normal3f( f.vn0() );
       Gl::Vertex3f( f.v0() );
-//      Gl::TexCoord( f.vt1() );
+      //      Gl::TexCoord( f.vt1() );
       Gl::Normal3f( f.vn1() );
       Gl::Vertex3f( f.v1() );
-//      Gl::TexCoord( f.vt2() );
+      //      Gl::TexCoord( f.vt2() );
       Gl::Normal3f( f.vn2() );
       Gl::Vertex3f( f.v2() );
       glEnd();
@@ -121,7 +121,7 @@ void SceneObject::GlDraw(bool lighting,bool draw_bounding_box)
       }
       glBegin(GL_LINES);
       Gl::Vertex3f( f.v0() );
-//      qDebug() << "normal:" << f.vn0() << f.v0() << f.v0()+f.vn0();
+      //      qDebug() << "normal:" << f.vn0() << f.v0() << f.v0()+f.vn0();
       Gl::Vertex3f( f.v0()+f.vn0() );
 
       Gl::Vertex3f( f.v1() );

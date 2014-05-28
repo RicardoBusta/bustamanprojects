@@ -23,5 +23,8 @@
         <file>models/cornell.obj</file>
         <file>models/textured.mtl</file>
         <file>models/textured.obj</file>
+        <file>resources/mario_brick.png</file>
+        <file>models/tr_and_ref.obj</file>
+        <file>models/tr_and_ref.mtl</file>
     </qresource>
 </RCC>

@@ -208,7 +208,23 @@ QMap<QString, Ric::Material> ObjLoader::LoadMtl(QString filename)
       }
 
     }else if(line.startsWith("Ni ")){
+      QStringList s = line.split(" ");
+      if(s.size()==2){
+        mtl->SetRefraction(s[1].toDouble());
+        qDebug() << "mtl_refraction" << mtl->refraction();
+      }
+    }else if(line.startsWith("r ")){
+      QStringList s = line.split(" ");
+      if(s.size()==2){
+        mtl->SetReflection(s[1].toDouble());
+        qDebug() << "mtl_reflection" << mtl->reflection();
+      }
     }else if(line.startsWith("Tr ") || line.startsWith("d ")){
+      QStringList s = line.split(" ");
+      if(s.size()==2){
+        mtl->SetTransparency(1.0-s[1].toDouble());
+        qDebug() << "mtl_transparency" << mtl->transparency();
+      }
     }else if(line.startsWith("map_Kd ")){
       qDebug() << line << line.mid(QString("map_Kd ").size());
       mtl->SetDifTexture(line.mid(QString("map_Kd ").size()).toStdString());

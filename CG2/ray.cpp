@@ -314,9 +314,10 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     Ray tr_recursive;
     if(f->material().transparency() > 0){
       double ref = 1.0/f->material().refraction();
-      double cost = v_*n_b;
-//      Ric::Vector tr_dir = -ref*v_ + (ref*(cost) - ref*ref*(1-cost*cost) )*n_b; /*(-(1/f->material().refraction())*v_-(v_*n_b - (1/f->material().refraction()))*n_b).Normalized();*/
-      tr_recursive = Ray(p_,d_,far_length_,near_length_,default_color_);
+      double cost1 = v_*n_b;
+      double cost2 = sqrt(1-ref*ref*(1-cost1*cost1));
+      Ric::Vector tr_dir = -ref*v_ + (ref*cost1-cost2)*n_b;
+      tr_recursive = Ray(p_,tr_dir,far_length_,near_length_,default_color_);
       tr_recursive.calc(tr_recursive.cast(scene),scene,level-1,adv_light);
     }
 //    AddColor( rf_recursive.color()*f->material().specular() );

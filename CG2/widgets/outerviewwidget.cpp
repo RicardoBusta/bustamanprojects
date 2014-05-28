@@ -109,7 +109,11 @@ void OuterViewWidget::paintGL()
     vertex3f(vo[1]);
     vertex3f(vo[4]);
 
+    if(shadow.hit()){
+    glColor3f(1,1,1);
+    }else{
     glColor3f(0,0,0);
+    }
     vertex3f(vo[1]);
     vertex3f(vo[5]);
 

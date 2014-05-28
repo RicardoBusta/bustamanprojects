@@ -459,6 +459,11 @@ QPushButton::hover{
            <string>cube</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>tr_and_ref</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>

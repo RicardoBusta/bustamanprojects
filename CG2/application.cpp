@@ -1,5 +1,7 @@
 #include "application.h"
 
+#include "structures/texturecontainer.h"
+
 Application::Application(int &argc, char **argv) :
   QApplication(argc,argv)
 {  
@@ -12,5 +14,6 @@ Application::Application(int &argc, char **argv) :
 
 Application::~Application()
 {
+  TextureContainer::instance()->Clear();
 //  delete opencl_loader_;
 }

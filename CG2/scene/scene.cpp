@@ -105,7 +105,7 @@ void Scene::loadScene(QString s)
 //  qDebug() << object.last().child_objects_.size();
 
 //  createBox(true);
-//  object.last().scale(-15);
+//  object.last().scale(-14);
 
   const int light_size = 1;
   const float light_spread = 0.5f;
@@ -113,7 +113,16 @@ void Scene::loadScene(QString s)
     for(int j=0;j<light_size;j++)
       for(int k=0;k<light_size;k++){
         light.push_back(SceneLight(
-                          Ric::Vector(0+float(i)*light_spread,10+float(j)*light_spread,0+float(k)*light_spread),
+                          Ric::Vector(10+float(i)*light_spread,10+float(j)*light_spread,0+float(k)*light_spread),
+                          Ric::LightComponent(
+                            /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                            /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                            /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
+                            ),
+                          30.0
+                          ));
+        light.push_back(SceneLight(
+                          Ric::Vector(-10-float(i)*light_spread,-10+float(j)*light_spread,0+float(k)*light_spread),
                           Ric::LightComponent(
                             /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
                             /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),

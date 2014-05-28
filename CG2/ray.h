@@ -8,6 +8,8 @@ class Scene;
 class TriangleFace;
 class SceneObject;
 
+#include <QImage>
+
 enum RAY_TYPE{ RAY_NORMAL, RAY_FAST, RAY_SHADOW };
 
 class Ray
@@ -15,9 +17,12 @@ class Ray
 public:
   Ray();
   Ray(Ric::Vector o, Ric::Vector d, double far_length, double near_length, Ric::Color c);
+  virtual ~Ray();
 
   const TriangleFace *cast(const Scene *s);
   const TriangleFace *cast(const SceneObject *o);
+  bool shadowCast(const Scene *s);
+  bool shadowCast(const SceneObject *o);
   void calc(const TriangleFace *f, const Scene *scene, const unsigned int &level, const bool &adv_light);
 
   // Getters and Setters
@@ -34,6 +39,7 @@ public:
   Ric::Vector b() const;
 
   void AddColor(const Ric::Color &color);
+  void AddTransparencyAndReflection(const float &tr, const Ric::Color &tr_color, const float &rf, const Ric::Color &rf_color);
 
 private:
   bool hit_; //< If the ray hit any object.

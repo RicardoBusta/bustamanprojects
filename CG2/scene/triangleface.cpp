@@ -2,6 +2,9 @@
 
 #include "scene/sceneobject.h"
 
+#include <QImage>
+#include <cmath>
+
 TriangleFace::TriangleFace()
 {
 }
@@ -196,11 +199,31 @@ Ric::Vector TriangleFace::n_b(const Ric::Vector &b) const
   return output;
 }
 
-Ric::Vector TriangleFace::v_b(const Ric::Vector &b) const
+Ric::Color TriangleFace::t_b(const Ric::Vector &b, const QImage *img) const
 {
-    Ric::Vector output;
-    output = ((vt0_*b.x()) + (vt1_ * b.y()) + ( vt2_ * b.z() ));
-//    qDebug() << "v_b: " << vt0_ << vt1_ << vt2_ << output;
+    Ric::Color output;
+
+    bool interp = true;
+
+    if(!img->isNull()){
+
+      Ric::Vector coord = ((vt0_*b.x()) + (vt1_ * b.y()) + ( vt2_ * b.z() ));
+
+      if(interp){
+        int cx = ceil( coord.x() * (img->width()-1) );
+        int fx = floor( coord.x() * (img->width()-1) );
+        int cy = ceil( coord.y() * (img->height()-1) );
+        int fy = floor( coord.y() * (img->height()-1) );
+        float difx = (cx-fx);
+        float dify = (cy-fy);
+        output = img->pixel( (difx)*fx + (1-difx)*cx , img->height() - ((dify)*fy + (1-dify)*cy) );
+      }else{
+        output = img->pixel( (int)(coord.x()*img->width())%img->width(), img->height() - (int)(coord.y()*img->height())%img->height() );
+      }
+    }else{
+      qDebug() << "image null";
+    }
+
     return output;
 }
 

@@ -9,8 +9,8 @@ SceneLight::SceneLight()
 
 SceneLight::SceneLight(Ric::Vector p, Ric::LightComponent c, double radius):
   position(p),
-  material(c),
-  radius(radius)
+  radius(radius),
+  material(c)
 {
 
 }

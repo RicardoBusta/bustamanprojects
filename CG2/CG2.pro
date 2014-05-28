@@ -34,7 +34,8 @@ SOURCES += \
     scene/objloader.cpp \
     scene/openglauxfunctions.cpp \
     widgets/raytracingresultviewerwidget.cpp \
-    widgets/raytracingthread.cpp
+    widgets/raytracingthread.cpp \
+    structures/texturecontainer.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -59,7 +60,8 @@ HEADERS  += \
     scene/objloader.h \
     scene/openglauxfunctions.h \
     widgets/raytracingresultviewerwidget.h \
-    widgets/raytracingthread.h
+    widgets/raytracingthread.h \
+    structures/texturecontainer.h
 
 FORMS    += \
     widgets/mainwindow.ui \

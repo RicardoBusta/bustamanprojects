@@ -13,6 +13,9 @@ Material::Material(const Color &diffuse, const Color &specular, const Color &amb
     specular_(specular),
     ambient_(ambient),
     shininess_(shininess),
+    refraction_(1),
+    transparency_(0),
+    reflection_(0),
     has_texture_(false)
 {
 }
@@ -44,6 +47,21 @@ Ric::Color Material::ambient() const
   return ambient_;
 }
 
+double Material::transparency() const
+{
+  return transparency_;
+}
+
+double Material::reflection() const
+{
+  return reflection_;
+}
+
+double Material::refraction() const
+{
+  return refraction_;
+}
+
 double Material::shininess() const
 {
   return shininess_;
@@ -69,6 +87,21 @@ void Material::SetSpecular(double r, double g, double b)
   specular_ = Ric::Color(r,g,b);
 }
 
+void Material::SetReflection(double r)
+{
+  reflection_ = r;
+}
+
+void Material::SetTransparency(double t)
+{
+  transparency_ = t;
+}
+
+void Material::SetRefraction(double r)
+{
+  refraction_ = r;
+}
+
 Material Material::operator=(Material m)
 {
   this->ambient_ = m.ambient_;
@@ -77,6 +110,9 @@ Material Material::operator=(Material m)
   this->shininess_ = m.shininess_;
   this->transparency_ = m.transparency_;
   this->has_texture_ = m.has_texture_;
+  this->diffuse_texture_ = m.diffuse_texture_;
+  this->reflection_ = m.reflection_;
+  this->refraction_ = m.refraction_;
   return *this;
 }
 
@@ -84,6 +120,11 @@ void Material::SetDifTexture( const std::string &diffuse_texture)
 {
   has_texture_ = true;
   diffuse_texture_ = diffuse_texture;
+}
+
+std::string Material::GetDifTexture() const
+{
+  return diffuse_texture_;
 }
 
 void Material::GlSet()

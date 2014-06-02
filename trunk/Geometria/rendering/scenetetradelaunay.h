@@ -2,6 +2,8 @@
 #define SCENETETRADELAUNAY_H
 
 #include "rendering/sceneobject.h"
+#include "rendering/qhpoly.h"
+#include "rendering/deltetra.h"
 
 class SceneTetraDelaunay : public SceneObject
 {
@@ -23,6 +25,23 @@ public:
 
   // Algorithm step structures
   QVector<QVector3D> marked_points_;
+
+  //first face
+  QVector<int> v_max;
+  QVector<int> v_3_sel;
+  QVector<QHPoly> todo_poly_list;
+  QVector<int> horizon_ridge_faces;
+  QVector<int> horizon_ridge;
+  int max_dist_vert;
+  QVector<bool> points_valid_;
+  QVector<QHPoly> poly_;
+  bool FindFirstFace();
+
+  //tetra
+  QVector<DelTetra> tetra_;
+  QVector<bool> dead_points_;
+
+  float DistanceSquaredBetweenPoints(const QVector3D &p1, const QVector3D &p2) const;
 };
 
 #endif // SCENETETRADELAUNAY_H

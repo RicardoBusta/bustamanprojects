@@ -38,6 +38,15 @@ QhFace::QhFace(const QVector<QVector3D> &v, const QColor &color)
   n_ = QVector3D::crossProduct(a,b);
 }
 
+QhFace::QhFace(const QhFace *f)
+{
+  v_ = f->v_;
+  n_ = f->n_;
+  center_ = f->center_;
+  color_ = f->color_;
+  valid_ = f->valid_;
+}
+
 QhFace::QhFace(const QVector3D &v0, const QVector3D &v1, const QVector3D &v2)
   : valid_(true)
 {
@@ -118,6 +127,15 @@ void QhFace::SetColor(const QColor &color)
   color_ = color;
 }
 
+QhFace QhFace::operator=(const QhFace &f)
+{
+  v_ = f.v_;
+  n_ = f.n_;
+  center_ = f.center_;
+  color_ = f.color_;
+  valid_ = f.valid_;
+}
+
 //2D
 Tetrahedron::Tetrahedron(const QVector3D &v0, const QVector3D &v1, const QVector3D &v2)
 {
@@ -183,4 +201,16 @@ void Tetrahedron::SetColor(const QColor &color)
       f[i]->SetColor(color);
     }
   }
+}
+
+Tetrahedron Tetrahedron::operator=(const Tetrahedron &t)
+{
+ face_count_ = t.face_count_;
+
+ f[0] = new QhFace(t.f[0]);
+ f[1] = new QhFace(t.f[1]);
+ f[2] = new QhFace(t.f[2]);
+ f[3] = new QhFace(t.f[3]);
+
+ center_ = t.center_;
 }

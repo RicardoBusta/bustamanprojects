@@ -393,7 +393,14 @@ bool SceneCHQuickHull::StepAlgorithm()
                                  (todo_poly_list.isEmpty())?NULL:(&todo_poly_list.first())
                                                           ));
         if(todo_poly_list.last().subset_v_.isEmpty()){
-          poly_.push_back(QHPoly());
+          poly_.push_back(QHPoly(
+                            horizon_ridge[i],
+                            horizon_ridge[i+1],
+                          max_dist_vert,
+                          &points_,
+                          NULL
+                          ));
+          todo_poly_list.pop_back();
         }
       }
     }

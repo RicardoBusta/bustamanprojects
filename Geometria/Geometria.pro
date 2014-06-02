@@ -30,7 +30,8 @@ SOURCES += \
     algorithm/qh_face.cpp \
     algorithm/qh_quickhull.cpp \
     rendering/qhpoly.cpp \
-    rendering/scenetetradelaunay.cpp
+    rendering/scenetetradelaunay.cpp \
+    rendering/deltetra.cpp
 
 HEADERS  += \
     rendering/scene.h \
@@ -49,7 +50,8 @@ HEADERS  += \
     algorithm/qh_face.h \
     algorithm/qh_quickhull.h \
     rendering/qhpoly.h \
-    rendering/scenetetradelaunay.h
+    rendering/scenetetradelaunay.h \
+    rendering/deltetra.h
 
 FORMS    += \
     interface/mainwindow.ui \

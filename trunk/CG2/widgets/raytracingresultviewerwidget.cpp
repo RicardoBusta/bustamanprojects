@@ -11,11 +11,12 @@
 
 const int kThreadCount = QThread::idealThreadCount();
 
-RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, QWidget *parent)
+RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, const int &level, QWidget *parent)
   : QDialog(parent),
     ui(new Ui::RayTracingResultViewerWidget),
     scene_(scene),
-    auto_update_steps(1000)
+    auto_update_steps(1000),
+    level_(level)
 {
   ui->setupUi(this);
 
@@ -39,6 +40,7 @@ RayTracingResultViewerWidget::RayTracingResultViewerWidget(const Scene *scene, c
   for(int i=0;i<kThreadCount;i++){
     thread[i] = new QThread();
     rtt[i] = new RayTracingThread(QRect(i*(image_.width()/kThreadCount),0,(image_.width()/kThreadCount),image_.height()),i,prop_x,prop_y,val_x,val_y,scene_);
+    rtt[i]->level_ = this->level_;
     rtt[i]->moveToThread(thread[i]);
 //    connect(thread[i],SIGNAL(finished()),rtt[i],SLOT(deleteLater()));
     connect(this,SIGNAL(StartWork()),rtt[i],SLOT(Work()));

@@ -27,6 +27,8 @@ public:
 
   QImage image_;
 
+  int level_;
+
 private:
   static int id_count;
 signals:

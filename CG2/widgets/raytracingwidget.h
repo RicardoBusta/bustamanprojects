@@ -41,6 +41,8 @@ public:
 
   bool fast_render_only;
 
+  int recursion_level_;
+
 signals:
   void Changed();
 public slots:
@@ -56,6 +58,7 @@ public slots:
   void Wheel(QWheelEvent *e);
 private slots:
   void UpdateStep();
+  void RayTracingLevel(int);
 };
 
 #endif // RAY_TRACING_WIDGET_H

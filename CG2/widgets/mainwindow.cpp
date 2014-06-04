@@ -31,6 +31,7 @@ MainWindow::MainWindow(Scene *scene, QWidget *parent) :
   ray_tracing_widget_ = new RayTracingWidget(scene_);
   ui_->raytracing_box->layout()->addWidget(ray_tracing_widget_);
   connect(ray_tracing_widget_,SIGNAL(Changed()),this,SLOT(SceneChanged()));
+  connect(ui_->recursion_spinBox,SIGNAL(valueChanged(int)),ray_tracing_widget_,SLOT(RayTracingLevel(int)));
 
   const int default_fov_slider = ((100*(kDefaultFov-kMinFov))/(kMaxFov-kMinFov));
   ui_->fov_slider->setValue(default_fov_slider);
@@ -166,12 +167,10 @@ void MainWindow::LoadScene(int s)
 
 void MainWindow::FinalRender()
 {
-
-
   QStringList val = ui_->image_size->currentText().split("x");
   QSize size(val[0].toInt(),val[1].toInt());
 
-  RayTracingResultViewerWidget *wid = new RayTracingResultViewerWidget(scene_,size);
+  RayTracingResultViewerWidget *wid = new RayTracingResultViewerWidget(scene_,size,ui_->recursion_spinBox->value());
   wid->setStyleSheet(this->styleSheet());
   wid->setModal(true);
   wid->exec();

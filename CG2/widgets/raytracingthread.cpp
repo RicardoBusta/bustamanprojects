@@ -15,7 +15,8 @@ RayTracingThread::RayTracingThread(const QRect &rect, const int &id, const float
     val_y(val_y),
     scene_(scene),
     id(id),
-    aborted(false)
+    aborted(false),
+    level_(0)
 {
   image_ = QImage(rect.size(),QImage::Format_ARGB32);
   image_.fill(Qt::black);
@@ -49,7 +50,7 @@ void RayTracingThread::Work()
             Ric::Vector near_plane = (y*vnx1)+((1-y)*vnx2);
 
             Ray ray(scene_->frustum[0],far_plane.Normalized(),far_plane.Length(),near_plane.Length(),Ric::Color(0xff000000));
-            ray.calc(ray.cast(scene_),scene_,1,true);
+            ray.calc(ray.cast(scene_),scene_,level_,true);
 
             image_.setPixel(i,j,ray.color().Argb());
     }

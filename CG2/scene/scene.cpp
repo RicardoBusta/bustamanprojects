@@ -121,7 +121,21 @@ void Scene::loadScene(QString s)
     light_objects += findLightObjects( (*object_it) );
   }
 
-  if(light_objects.empty()) return;
+  if(light_objects.empty()){
+    for(int i=0;i<light_size;i++)
+      for(int j=0;j<light_size;j++)
+        for(int k=0;k<light_size;k++){
+          light.push_back(SceneLight(
+                            Ric::Vector(float(i)*light_spread,float(j)*light_spread,float(k)*light_spread)+Ric::Vector(10,10,0),
+                            Ric::LightComponent(
+                              /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                              /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                              /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
+                              ),
+                            30.0
+                            ));
+        }
+  }else{
   QVector<SceneObject>::iterator light_it = light_objects.begin();
   const SceneObject &obj = ((SceneObject)(*light_it));
   for(;light_it!=light_objects.end();light_it++)
@@ -138,7 +152,7 @@ void Scene::loadScene(QString s)
                             30.0
                             ));
         }
-
+  }
 }
 
 QVector<SceneObject> Scene::findLightObjects(SceneObject &obj)
@@ -283,8 +297,12 @@ void Scene::createWall(bool reflect)
   object.last().name = QString("Wall%1").arg(name_id++);
 
   object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff)));
+  object.last().material_.SetReflection(reflect?1.0:0.0);
   object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff)));
+  object.last().material_.SetReflection(reflect?1.0:0.0);
 
   object.last().faces_.push_back(TriangleFace(p0,p2,p1,Ric::Material::Create(0xffffffff)));
+  object.last().material_.SetReflection(reflect?1.0:0.0);
   object.last().faces_.push_back(TriangleFace(p0,p3,p2,Ric::Material::Create(0xffffffff)));
+  object.last().material_.SetReflection(reflect?1.0:0.0);
 }

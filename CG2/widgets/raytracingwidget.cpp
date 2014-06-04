@@ -14,7 +14,8 @@ RayTracingWidget::RayTracingWidget(Scene *scene_, QWidget *parent):
   scene_(scene_),
   moving_(false),
   auto_update_timer(new QTimer(this)),
-  fast_render_only(true)
+  fast_render_only(true),
+  recursion_level_(0)
 {
   if(image_.isNull()){
     image_ = QImage(kImageMovingSize,kImageMovingSize,QImage::Format_ARGB32);
@@ -155,7 +156,7 @@ void RayTracingWidget::UpdateStep()
     Ric::Vector near_plane = (y*vnx1)+((1-y)*vnx2);
 
     Ray ray(scene_->frustum[0],far_plane.Normalized(),far_plane.Length(),near_plane.Length(),Ric::Color(0xff000000));
-    ray.calc(ray.cast(scene_),scene_,1,scene_->calculate_advanced_light);
+    ray.calc(ray.cast(scene_),scene_,recursion_level_,scene_->calculate_advanced_light);
 
     image_.setPixel(auto_update_i,auto_update_j,ray.color().Argb());
 
@@ -163,6 +164,11 @@ void RayTracingWidget::UpdateStep()
   }
 
   repaint();
+}
+
+void RayTracingWidget::RayTracingLevel(int l)
+{
+  recursion_level_ = l;
 }
 
 void RayTracingWidget::SetMoving(bool moving)

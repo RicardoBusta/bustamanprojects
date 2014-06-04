@@ -16,7 +16,7 @@ class RayTracingResultViewerWidget : public QDialog
 {
   Q_OBJECT
 public:
-  explicit RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, QWidget *parent = 0);
+  explicit RayTracingResultViewerWidget(const Scene *scene, const QSize &img_size, const int &level, QWidget *parent = 0);
   ~RayTracingResultViewerWidget();
 
 private:
@@ -33,12 +33,14 @@ private:
   QVector<RayTracingThread*> rtt;
   QVector<QThread*> thread;
 
+  int level_;
 private slots:
 //  void RayTracingStep();
   void UpdateImage();
   void CancelExecution();
+
 signals:
-  void StartWork();
+  void StartWork();  
 };
 
 #endif // RAYTRACINGRESULTVIEWERWIDGET_H

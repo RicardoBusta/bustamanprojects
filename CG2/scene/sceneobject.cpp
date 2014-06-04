@@ -169,3 +169,17 @@ void SceneObject::GenerateBoundingVolumeRec()
 
   bounding_worthy_ = (child_objects_.size()>=1 || bounding_volume_.size()<faces_.size());
 }
+
+SceneObject SceneObject::operator=(const SceneObject &o)
+{
+  name = o.name;
+
+  faces_ = o.faces_;
+  bounding_volume_ = o.bounding_volume_;
+  center_ = o.center_;
+  bounding_worthy_ = o.bounding_worthy_;
+  material_ = o.material_;
+  child_objects_ = o.child_objects_;
+
+  return *this;
+}

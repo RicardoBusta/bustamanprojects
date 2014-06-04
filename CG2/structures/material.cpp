@@ -16,7 +16,10 @@ Material::Material(const Color &diffuse, const Color &specular, const Color &amb
     refraction_(1),
     transparency_(0),
     reflection_(0),
-    has_texture_(false)
+    has_texture_(false),
+    environment_map_(false),
+    environment_(false),
+    isLight_(false)
 {
 }
 
@@ -72,34 +75,70 @@ bool Material::has_texture() const
   return has_texture_;
 }
 
-void Material::SetAmbient(double r, double g, double b)
+bool Material::has_normal_map() const
+{
+  return true;
+}
+
+bool Material::environment() const
+{
+  return environment_;
+}
+
+bool Material::environment_map() const
+{
+  return environment_map_;
+}
+
+bool Material::isLight() const
+{
+  return isLight_;
+}
+
+void Material::SetAmbient(const double &r, const double &g, const double &b)
 {
   ambient_ = Ric::Color(r,g,b);
 }
 
-void Material::SetDiffuse(double r, double g, double b)
+void Material::SetDiffuse(const double &r, const double &g, const double &b)
 {
   diffuse_ = Ric::Color(r,g,b);
 }
 
-void Material::SetSpecular(double r, double g, double b)
+void Material::SetSpecular(const double &r, const double &g, const double &b)
 {
   specular_ = Ric::Color(r,g,b);
 }
 
-void Material::SetReflection(double r)
+void Material::SetReflection(const double &r)
 {
   reflection_ = r;
 }
 
-void Material::SetTransparency(double t)
+void Material::SetTransparency(const double &t)
 {
   transparency_ = t;
 }
 
-void Material::SetRefraction(double r)
+void Material::SetRefraction(const double &r)
 {
   refraction_ = r;
+}
+
+void Material::SetEnviro(const bool &b)
+{
+  qDebug() << "set_enviro";
+  environment_ = b;
+}
+
+void Material::SetEnviroMap(const bool &b)
+{
+  environment_map_ = b;
+}
+
+void Material::SetIsLight(const bool &b)
+{
+  isLight_ = b;
 }
 
 Material Material::operator=(Material m)
@@ -113,6 +152,9 @@ Material Material::operator=(Material m)
   this->diffuse_texture_ = m.diffuse_texture_;
   this->reflection_ = m.reflection_;
   this->refraction_ = m.refraction_;
+  this->environment_map_ = m.environment_map_;
+  this->environment_= m.environment_;
+  this->isLight_ = m.isLight_;
   return *this;
 }
 

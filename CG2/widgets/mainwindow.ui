@@ -464,6 +464,21 @@ QPushButton::hover{
            <string>tr_and_ref</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>environment</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>enviro_monkey</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>enviro_ball</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>

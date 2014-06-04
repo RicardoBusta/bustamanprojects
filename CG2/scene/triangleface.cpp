@@ -5,6 +5,8 @@
 #include <QImage>
 #include <cmath>
 
+#include "structures/texturecontainer.h"
+
 TriangleFace::TriangleFace()
 {
 }
@@ -34,10 +36,6 @@ TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transfor
   this->area_ = normal.Length();
   this->material_ = f.material();
 
-  this->vt0_ = f.vt0_;
-  this->vt1_ = f.vt1_;
-  this->vt2_ = f.vt2_;
-
   // change
 
 //  this->vn0_ = f.vn0_;
@@ -54,6 +52,13 @@ TriangleFace::TriangleFace(const TriangleFace &f, const Ric::Matrix4x4 *transfor
   }else{
     vertex_normal_ = false;
   }
+
+  vt0_ = f.vt0_;
+  vt1_ = f.vt1_;
+  vt2_ = f.vt2_;
+
+//  setTexCoords(f.vt0_,f.vt1_,f.vt2_);
+  TBN_ = (*transform).Inverted().Transposed()*f.TBN_.Transposed();
 }
 
 void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2)
@@ -63,6 +68,19 @@ void TriangleFace::setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, 
   vt0_ = vt0;
   vt1_ = vt1;
   vt2_ = vt2;
+
+  // http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
+  // Edges of the triangle
+  Ric::Vector deltaPos1 = v1_ - v0_;
+  Ric::Vector deltaPos2 = v2_ - v0_;
+  Ric::Vector deltaUV1 = vt1_ - vt0_;
+  Ric::Vector deltaUV2 = vt2_ - vt0_;
+
+  float r = 1.0f / (deltaUV1.x() * deltaUV2.y() - deltaUV1.y() * deltaUV2.x());
+  tangent_ = ( deltaPos1 * deltaUV2.y() - deltaPos2 * deltaUV1.y() )*r;
+  bitangent_ = ( deltaPos2 * deltaUV1.x() - deltaPos1 * deltaUV2.x() )*r;
+
+  TBN_ = Ric::Matrix4x4(tangent_,bitangent_,n_);
 }
 
 void TriangleFace::setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2)
@@ -77,6 +95,7 @@ void TriangleFace::setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, co
     vertex_normal_ = false;
   }
 }
+
 
 Ric::Vector TriangleFace::vt0() const
 {
@@ -193,35 +212,41 @@ Ric::Vector TriangleFace::n_b(const Ric::Vector &b) const
   Ric::Vector output;
 
 //  qDebug() << b.x() << b.y()<< b.z() << (b.x()+b.y()+b.z());
-  output = ((vn0_*b.x())+(vn1_*b.y())+(vn2_*b.z())).Normalized();
+//  if(material().has_normal_map()){
+//    output = Ric::Vector::transformv(Ric::Vector(0,0,1),TBN_);
+//  }else{
+    output = ((vn0_*b.x())+(vn1_*b.y())+(vn2_*b.z())).Normalized();
+//  }
 //  output = vn0_;
 
   return output;
 }
 
-Ric::Color TriangleFace::t_b(const Ric::Vector &b, const QImage *img) const
+Ric::Color TriangleFace::t_b(const Ric::Vector &b) const
 {
     Ric::Color output;
 
     bool interp = true;
 
-    if(!img->isNull()){
+    const QImage *texture = (TextureContainer::instance()->get( QString::fromStdString(material().GetDifTexture())) );
 
+    if(texture != NULL && material().has_texture() && !texture->isNull()){
       Ric::Vector coord = ((vt0_*b.x()) + (vt1_ * b.y()) + ( vt2_ * b.z() ));
 
       if(interp){
-        int cx = ceil( coord.x() * (img->width()-1) );
-        int fx = floor( coord.x() * (img->width()-1) );
-        int cy = ceil( coord.y() * (img->height()-1) );
-        int fy = floor( coord.y() * (img->height()-1) );
+        int cx = ceil( coord.x() * (texture->width()-1) );
+        int fx = floor( coord.x() * (texture->width()-1) );
+        int cy = ceil( coord.y() * (texture->height()-1) );
+        int fy = floor( coord.y() * (texture->height()-1) );
         float difx = (cx-fx);
         float dify = (cy-fy);
-        output = img->pixel( (difx)*fx + (1-difx)*cx , img->height() - ((dify)*fy + (1-dify)*cy) );
+        output = texture->pixel( (difx)*fx + (1-difx)*cx , texture->height() - ((dify)*fy + (1-dify)*cy) );
       }else{
-        output = img->pixel( (int)(coord.x()*img->width())%img->width(), img->height() - (int)(coord.y()*img->height())%img->height() );
+        output = texture->pixel( (int)(coord.x()*texture->width())%texture->width(), texture->height() - (int)(coord.y()*texture->height())%texture->height() );
       }
     }else{
-      qDebug() << "image null";
+//      qDebug() << "image null";
+      output = material().diffuse();
     }
 
     return output;

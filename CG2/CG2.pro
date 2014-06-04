@@ -86,6 +86,12 @@ OTHER_FILES += \
     models/spheres.mtl \
     models/pyramid.obj \
     models/pyramid.mtl \
+    models/environment.obj \
+    models/environment.mtl \
+    models/enviro_monkey.obj \
+    models/enviro_monkey.mtl \
+    models/enviro_ball.obj \
+    models/enviro_ball.mtl
 
 unix:!macx:LIBS+= -ldl
 

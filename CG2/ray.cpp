@@ -19,9 +19,9 @@ Ray::Ray()
     default_color_(0x00000000),
     color_(0x00000000)
 {
-//  qDebug() << "loading texture:";
-//  qDebug() << (texture.load("://models/cubes.png"));
-//  qDebug() << !texture.isNull();
+  //  qDebug() << "loading texture:";
+  //  qDebug() << (texture.load("://models/cubes.png"));
+  //  qDebug() << !texture.isNull();
 }
 
 Ray::Ray(Ric::Vector o, Ric::Vector d, double far_length, double near_length, Ric::Color c)
@@ -36,9 +36,9 @@ Ray::Ray(Ric::Vector o, Ric::Vector d, double far_length, double near_length, Ri
 
 Ray::~Ray()
 {
-//  if(texture != NULL){
-//    delete texture;
-//  }
+  //  if(texture != NULL){
+  //    delete texture;
+  //  }
 }
 
 const TriangleFace *Ray::cast(const Scene *s)
@@ -146,6 +146,19 @@ const TriangleFace *Ray::cast(const SceneObject *o)
   return hit_face;
 }
 
+const TriangleFace *Ray::envCast(const Scene *s)
+{
+  hit_ = false;
+  t_ = far_length_;
+  const TriangleFace *hit_face = NULL;
+
+  const TriangleFace *hit = cast(&s->environment);
+  if(hit != NULL){
+    hit_face = hit;
+  }
+  return hit_face;
+}
+
 bool Ray::shadowCast(const Scene *s)
 {
   hit_ = false;
@@ -164,41 +177,41 @@ bool Ray::shadowCast(const Scene *s)
 bool Ray::shadowCast(const SceneObject *o)
 {
   // TODO fazer o cast com um scene object. Caso o objeto seja composto, chamar recursivamente para cada sub objeto caso seja true para a "bounding area".
-//  const TriangleFace *hit_face = NULL;
+  //  const TriangleFace *hit_face = NULL;
 
   //  qDebug() << "cast";
 
-  bool bounding_hit = false;
+  //  bool bounding_hit = false;
 
-  QVector<TriangleFace>::const_iterator bounding_faces_it;
-  for(bounding_faces_it=o->bounding_volume_.begin();bounding_faces_it!=o->bounding_volume_.end();bounding_faces_it++){
-    const TriangleFace &f = (*bounding_faces_it);
-    double vD = f.n()*d_;
+  //  QVector<TriangleFace>::const_iterator bounding_faces_it;
+  //  for(bounding_faces_it=o->bounding_volume_.begin();bounding_faces_it!=o->bounding_volume_.end();bounding_faces_it++){
+  //    const TriangleFace &f = (*bounding_faces_it);
+  //    double vD = f.n()*d_;
 
-    if(vD != 0){
-      float vO = -(f.n()*o_)+(f.n()*f.v0());
-      float new_t = vO/vD;
-      if(new_t<t_ && new_t>near_length_){
-        Ric::Vector new_p = (o_+(d_*new_t));
-        Ric::Vector d1 = (f.v1()-f.v0())^(new_p-f.v0());
-        Ric::Vector d2 = (f.v2()-f.v1())^(new_p-f.v1());
-        Ric::Vector d3 = (f.v0()-f.v2())^(new_p-f.v2());
+  //    if(vD != 0){
+  //      float vO = -(f.n()*o_)+(f.n()*f.v0());
+  //      float new_t = vO/vD;
+  //      if(new_t<t_ && new_t>near_length_){
+  //        Ric::Vector new_p = (o_+(d_*new_t));
+  //        Ric::Vector d1 = (f.v1()-f.v0())^(new_p-f.v0());
+  //        Ric::Vector d2 = (f.v2()-f.v1())^(new_p-f.v1());
+  //        Ric::Vector d3 = (f.v0()-f.v2())^(new_p-f.v2());
 
-        float l1 = d1*f.n();
-        float l2 = d2*f.n();
-        float l3 = d3*f.n();
+  //        float l1 = d1*f.n();
+  //        float l2 = d2*f.n();
+  //        float l3 = d3*f.n();
 
-        if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
-//          hit_face = &f;
-//          hit_ = true;
-          bounding_hit = true;
-          break;
-        }
-      }
-    }
-  }
+  //        if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
+  ////          hit_face = &f;
+  ////          hit_ = true;
+  //          bounding_hit = true;
+  //          break;
+  //        }
+  //      }
+  //    }
+  //  }
 
-  if(!bounding_hit) return false;
+  //  if(!bounding_hit) return false;
 
   for(int i=0;i<o->child_objects_.size();i++){
     bool hit = false;
@@ -228,7 +241,7 @@ bool Ray::shadowCast(const SceneObject *o)
         float l3 = d3*f.n();
 
         if((l1 >= 0) && (l2 >= 0) && (l3 >= 0)){
-//          hit_face = &f;
+          //          hit_face = &f;
           hit_ = true;
           return true;
         }
@@ -252,30 +265,38 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
   v_ = (o_-p_).Normalized();
 
   Ric::Vector n_b;
-//  if(f->vertex_normal()){
-    n_b = f->n_b(b_);
-//  }else{
-//    n_b = n_;
-//  }
+  //  if(f->vertex_normal()){
+  n_b = f->n_b(b_);
+  //  }else{
+  //    n_b = n_;
+  //  }
+  //  n_b = f->n
 
-    Ric::Color tex_dif;
+  Ric::Color tex_dif;
 
-    Ric::Color diffuse;
+  Ric::Color diffuse;
 
-//    qDebug() << "textre" << texture.isNull();
+  //    qDebug() << "textre" << texture.isNull();
 
-    const QImage *texture = (TextureContainer::instance()->get( QString::fromStdString(f->material().GetDifTexture())) );
+  //    const QImage *texture = (TextureContainer::instance()->get( QString::fromStdString(f->material().GetDifTexture())) );
 
-    if(texture != NULL && f->material().has_texture() && !texture->isNull()){
-      tex_dif = f->t_b(b_,texture);
-//    qDebug() << v_b << f->material().has_texture();
-      diffuse =  tex_dif;
-//      qDebug() << "has texture";
-//      diffuse = f->material().diffuse();
-    }else{
-//      qDebug() << "just diffuse";
-      diffuse = f->material().diffuse();
-    }
+  //    if(texture != NULL && f->material().has_texture() && !texture->isNull()){
+  //      tex_dif = f->t_b(b_,texture);
+  //    qDebug() << v_b << f->material().has_texture();
+  diffuse =  f->t_b(b_);/*tex_dif;*/
+  //      qDebug() << "has texture";
+  //      diffuse = f->material().diffuse();
+  //    }else{
+  //      qDebug() << "just diffuse";
+  //      diffuse = f->material().diffuse();
+  //    }
+
+  //  qDebug() << "hm";
+  if(f->material().environment()){
+    //    qDebug() << "ENVIRO";
+    color_ = diffuse;
+    return;
+  }
 
   // For lighting calculations, do not use the actual face normal, but an interpolation of the vertex normals.
 
@@ -284,7 +305,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     r_ = ((2*(l_*n_b)*n_b)-l_).Normalized();
     Ray shadow = Ray(p_,l_,(light.position-p_).Length(),near_length_,default_color_);
     bool shadow_hit = shadow.shadowCast(scene);
-//    qDebug() << "shadow cast";
+    //    qDebug() << "shadow cast";
     Ric::Color a,d,s,e;
     // Ambient Lighting for each light source.
     a = f->material().ambient() * light.material.ambient();
@@ -297,21 +318,28 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
       d = f_att*( diffuse * light.material.diffuse() * (l()*n_b) );
       s = f_att*( (f->material().specular() * light.material.specular() * (r()*v())).Cap() );
     }else{
-//      qDebug() << "shadow hit";
+      //      qDebug() << "shadow hit";
       d = Ric::Color(0x00);
       s = Ric::Color(0x00);
     }
     AddColor( ((a + (d+(s^h)).Cap()).Cap()) );
   }
-  if(level>0){
+  if(f->material().environment_map()){
+    Ric::Vector ref_dir = ((2*(v_*n_b)*n_b)-v_).Normalized();
+    Ray env_recursive;
+    env_recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
+    env_recursive.calc(env_recursive.envCast(scene),scene,level-1,adv_light);
+    color_ = env_recursive.color();
+  }else if(level>0 && !f->material().environment()){
     Ray rf_recursive;
+    Ray tr_recursive;
+
     if(f->material().reflection() > 0){
       Ric::Vector ref_dir = ((2*(v_*n_b)*n_b)-v_).Normalized();
       qDebug() << f->material().reflection();
       rf_recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
       rf_recursive.calc(rf_recursive.cast(scene),scene,level-1,adv_light);
     }
-    Ray tr_recursive;
     if(f->material().transparency() > 0){
       double ref = 1.0/f->material().refraction();
       double cost1 = v_*n_b;
@@ -320,7 +348,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
       tr_recursive = Ray(p_,tr_dir,far_length_,near_length_,default_color_);
       tr_recursive.calc(tr_recursive.cast(scene),scene,level-1,adv_light);
     }
-//    AddColor( rf_recursive.color()*f->material().specular() );
+
     AddTransparencyAndReflection(f->material().transparency(),tr_recursive.color(),f->material().reflection(),rf_recursive.color());
   }else{
 
@@ -384,6 +412,6 @@ void Ray::AddColor(const Ric::Color &color)
 void Ray::AddTransparencyAndReflection(const float &tr, const Ric::Color &tr_color, const float &rf, const Ric::Color &rf_color)
 {
   color_ = (tr*tr_color) + (rf*rf_color) + ((1-tr-rf)*color_);
-//  color_ = /*(tr*tr_color) + */(*rf_color) + ((0.0)*color_);
+  //  color_ = /*(tr*tr_color) + */(*rf_color) + ((0.0)*color_);
 }
 

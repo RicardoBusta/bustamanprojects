@@ -13,6 +13,7 @@ public:
 
   void setTexCoords(const Ric::Vector &vt0, const Ric::Vector &vt1, const Ric::Vector &vt2);
   void setNormals(const Ric::Vector &vn0, const Ric::Vector &vn1, const Ric::Vector &vn2);
+  void calculateTangents();
 
   Ric::Vector vt0() const;
   Ric::Vector vt1() const;
@@ -44,7 +45,7 @@ public:
   bool vertex_normal() const;
   Ric::Vector n_b(const Ric::Vector &b) const;
 
-  Ric::Color t_b(const Ric::Vector &b, const QImage *img) const;
+  Ric::Color t_b(const Ric::Vector &b) const;
 
   double area() const;
 
@@ -69,6 +70,10 @@ private:
   Ric::Vector vn0_;
   Ric::Vector vn1_;
   Ric::Vector vn2_;
+
+  Ric::Vector tangent_;
+  Ric::Vector bitangent_;
+  Ric::Matrix4x4 TBN_;
 //  SceneObject *object_;
 };
 

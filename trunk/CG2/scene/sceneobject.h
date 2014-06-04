@@ -18,6 +18,7 @@ public:
 
   QVector<TriangleFace> faces_;
   QVector<TriangleFace> bounding_volume_;
+  QVector3D center_;
   bool bounding_worthy_;
 
   void move(Ric::Vector m);
@@ -30,6 +31,8 @@ public:
   QVector<SceneObject> child_objects_;
 
   void GenerateBoundingVolumeRec();
+
+  SceneObject operator=(const SceneObject &o);
 };
 
 #endif // SCENEOBJECT_H

@@ -15,6 +15,8 @@ public:
   QVector<SceneObject> object;
   QVector<SceneObject> transformed_object_;
 
+  SceneObject environment;
+
   QVector<SceneLight> light;
   QVector<SceneLight> transformed_light;
 
@@ -51,10 +53,10 @@ public:
   void calcFrustum();
 
   void loadScene(QString s);
+  QVector<SceneObject> findLightObjects(SceneObject &obj);
   void loadDefaultScene1();
   void loadDefaultScene2();
-  void loadDefaultScene3();
-  void loadDefaultScene4();
+  void loadEnvironmentScene();
   void clearScene();
   void createBox(bool reflect);
   void createWall(bool reflect);

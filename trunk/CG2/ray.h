@@ -21,6 +21,7 @@ public:
 
   const TriangleFace *cast(const Scene *s);
   const TriangleFace *cast(const SceneObject *o);
+  const TriangleFace *envCast(const Scene *s);
   bool shadowCast(const Scene *s);
   bool shadowCast(const SceneObject *o);
   void calc(const TriangleFace *f, const Scene *scene, const unsigned int &level, const bool &adv_light);

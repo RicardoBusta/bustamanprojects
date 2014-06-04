@@ -31,6 +31,7 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
   QVector<QVector3D> vn;
   bool fail = false;
 
+  int vert_count = 0;
   SceneObject *obj = NULL;
   while(!in.atEnd()){
     QString line = ReadValidLine(in);
@@ -38,7 +39,8 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       // A new object appeared. Will clear up the previous one and start again.
     {
       qDebug() << line;
-      if( obj!=NULL ){
+      if( obj!=NULL && vert_count > 0 ){
+        obj->center_/=vert_count;
         //        qDebug() << "mip" << __LINE__;
       }
       //    qDebug() << "mip" << __LINE__;
@@ -48,7 +50,9 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
       //      vn.clear();
       object.child_objects_.push_back(SceneObject());
       obj = & (object.child_objects_.last());
-      obj->name = line.split(" ")[1];
+      obj->name = line.mid(2);
+      vert_count = 0;
+      obj->center_ = QVector3D(0,0,0);
     }else if(fail == true){
       // skip this line, object already failed. wait for next "o"
     }else if(line.startsWith("v "))
@@ -59,6 +63,8 @@ SceneObject ObjLoader::LoadObj(QString filename, QMap<QString, Ric::Material> *m
         v.push_back(QVector3D(s[1].toFloat(),s[2].toFloat(),s[3].toFloat()));
         //        UpdateMaxAndMin(max_v,min_v,v.last());
         //                qDebug() << "v[" << v.size()-1 << "]" << v.last();
+        obj->center_ += v.last();
+        vert_count++;
       }else{
         fail = true;
       }
@@ -228,6 +234,15 @@ QMap<QString, Ric::Material> ObjLoader::LoadMtl(QString filename)
     }else if(line.startsWith("map_Kd ")){
       qDebug() << line << line.mid(QString("map_Kd ").size());
       mtl->SetDifTexture(line.mid(QString("map_Kd ").size()).toStdString());
+    }else if(line.startsWith("enviro_map")){
+      qDebug() << "ENVIRO_MAP";
+      mtl->SetEnviroMap(true);
+    }else if(line.startsWith("enviro")){
+      qDebug() << "ENVIRO";
+      mtl->SetEnviro(true);
+    }else if(line.startsWith("islight")){
+      qDebug() << "ISLIGHT";
+      mtl->SetIsLight(true);
     }else{
 
     }

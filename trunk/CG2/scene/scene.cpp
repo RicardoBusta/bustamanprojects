@@ -27,6 +27,8 @@ Scene::Scene()
 
   //  loadDefaultScene1();
 
+  loadEnvironmentScene();
+
   calcFrustum();
 }
 
@@ -97,40 +99,61 @@ void Scene::loadScene(QString s)
 {
   QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/"+s+".mtl");
   object.push_back( ObjLoader::LoadObj("://models/"+s+".obj",&material) );
-//  qDebug() << "one crystal loaded";
+  //  qDebug() << "one crystal loaded";
   object.push_back(object.last());
-//  object[object.size()-1].move(Ric::Vector(5,0,0));
-//  object[object.size()-2].move(Ric::Vector(-5,0,0));
+  //  object[object.size()-1].move(Ric::Vector(5,0,0));
+  //  object[object.size()-2].move(Ric::Vector(-5,0,0));
 
-//  qDebug() << object.last().child_objects_.size();
+  //  qDebug() << object.last().child_objects_.size();
 
-//  createBox(true);
-//  object.last().scale(-14);
+  //  createBox(true);
+  //  object.last().scale(-14);
 
-  const int light_size = 1;
-  const float light_spread = 0.5f;
-  for(int i=0;i<light_size;i++)
-    for(int j=0;j<light_size;j++)
-      for(int k=0;k<light_size;k++){
-        light.push_back(SceneLight(
-                          Ric::Vector(10+float(i)*light_spread,10+float(j)*light_spread,0+float(k)*light_spread),
-                          Ric::LightComponent(
-                            /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
-                            /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
-                            /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
-                            ),
-                          30.0
-                          ));
-        light.push_back(SceneLight(
-                          Ric::Vector(-10-float(i)*light_spread,-10+float(j)*light_spread,0+float(k)*light_spread),
-                          Ric::LightComponent(
-                            /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
-                            /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
-                            /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
-                            ),
-                          30.0
-                          ));
-      }
+  int light_size = 1;
+  float light_spread = 0.5;
+
+  QVector<SceneObject> light_objects;
+
+
+
+  QVector<SceneObject>::iterator object_it = object.begin();
+  for(;object_it!=object.end();object_it++){
+    light_objects += findLightObjects( (*object_it) );
+  }
+
+  if(light_objects.empty()) return;
+  QVector<SceneObject>::iterator light_it = light_objects.begin();
+  const SceneObject &obj = ((SceneObject)(*light_it));
+  for(;light_it!=light_objects.end();light_it++)
+    for(int i=0;i<light_size;i++)
+      for(int j=0;j<light_size;j++)
+        for(int k=0;k<light_size;k++){
+          light.push_back(SceneLight(
+                            Ric::Vector(float(i)*light_spread,float(j)*light_spread,float(k)*light_spread)+Ric::Vector((*light_it).center_),
+                            Ric::LightComponent(
+                              /*dif*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                              /*spe*/ Ric::Color(0xffffffff)/(light_size*light_size*light_size),
+                              /*amb*/ Ric::Color(0xff151515)/(light_size*light_size*light_size)
+                              ),
+                            30.0
+                            ));
+        }
+
+}
+
+QVector<SceneObject> Scene::findLightObjects(SceneObject &obj)
+{
+  QVector<SceneObject> light_objects;
+  QVector<SceneObject>::iterator object_it = obj.child_objects_.begin();
+  for(;object_it!=obj.child_objects_.end();object_it++){
+    if( (*object_it).material_.isLight() ){
+      light_objects.push_back( (*object_it) );
+      obj.child_objects_.erase(object_it);
+    }else{
+      light_objects += findLightObjects(*object_it);
+    }
+  }
+  return light_objects;
 }
 
 void Scene::loadDefaultScene1()
@@ -171,12 +194,12 @@ void Scene::loadDefaultScene2()
 {
   QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/one_crystal.mtl");
   object.push_back( ObjLoader::LoadObj("://models/one_crystal.obj",&material) );
-//  qDebug() << "one crystal loaded";
+  //  qDebug() << "one crystal loaded";
   object.push_back(object.last());
   object[object.size()-1].move(Ric::Vector(5,0,0));
   object[object.size()-2].move(Ric::Vector(-5,0,0));
 
-//  qDebug() << object.last().child_objects_.size();
+  //  qDebug() << object.last().child_objects_.size();
 
   createBox(true);
   object.last().scale(-15);
@@ -196,6 +219,13 @@ void Scene::loadDefaultScene2()
                           30.0
                           ));
       }
+}
+
+void Scene::loadEnvironmentScene()
+{
+  qDebug() << "load enviro scene";
+  QMap<QString,Ric::Material> material = ObjLoader::LoadMtl("://models/environment.mtl");
+  environment = ObjLoader::LoadObj("://models/environment.obj",&material);
 }
 
 void Scene::clearScene()

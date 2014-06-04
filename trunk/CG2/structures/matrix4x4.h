@@ -5,6 +5,7 @@
 
 namespace Ric{
 
+  class Vector;
   class Matrix4x4;
   Matrix4x4 operator*(const Matrix4x4 &m1, const Matrix4x4 &m2);
 
@@ -17,6 +18,7 @@ namespace Ric{
         double m31, double m32, double m33, double m34,
         double m41, double m42, double m43, double m44
         );
+    Matrix4x4(Ric::Vector r1,Ric::Vector r2,Ric::Vector r3);
 
     void SetToIdentity();
 

@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "constants.h"
+#include "vector.h"
 
 namespace Ric{
 
@@ -21,6 +22,14 @@ namespace Ric{
     data_[1] = m21; data_[5] = m22; data_[9] = m23; data_[13] = m24;
     data_[2] = m31; data_[6] = m32; data_[10] = m33; data_[14] = m34;
     data_[3] = m41; data_[7] = m42; data_[11] = m43; data_[15] = m44;
+  }
+
+  Matrix4x4::Matrix4x4(Vector r1, Vector r2, Vector r3)
+  {
+    data_[0] = r1.x(); data_[4] = r1.y(); data_[8] = r1.z(); data_[12] = 0;
+    data_[1] = r2.x(); data_[5] = r2.y(); data_[9] = r2.z(); data_[13] = 0;
+    data_[2] = r3.x(); data_[6] = r3.y(); data_[10] = r3.z(); data_[14] = 0;
+    data_[3] = 0; data_[7] = 0; data_[11] = 0; data_[15] = 1;
   }
 
   void Matrix4x4::SetToIdentity()

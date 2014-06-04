@@ -26,5 +26,13 @@
         <file>resources/mario_brick.png</file>
         <file>models/tr_and_ref.obj</file>
         <file>models/tr_and_ref.mtl</file>
+        <file>resources/example_cube_map_environment.png</file>
+        <file>resources/example_cube_map_environment_2.png</file>
+        <file>models/environment.obj</file>
+        <file>models/environment.mtl</file>
+        <file>models/enviro_monkey.mtl</file>
+        <file>models/enviro_monkey.obj</file>
+        <file>models/enviro_ball.obj</file>
+        <file>models/enviro_ball.mtl</file>
     </qresource>
 </RCC>

@@ -41,13 +41,22 @@ public:
   double shininess() const;
 
   bool has_texture() const;
+  bool has_normal_map() const;
 
-  void SetAmbient(double r, double g, double b);
-  void SetDiffuse(double r, double g, double b);
-  void SetSpecular(double r, double g, double b);
-  void SetReflection(double r);
-  void SetTransparency(double t);
-  void SetRefraction(double r);
+  bool environment() const;
+  bool environment_map() const;
+
+  bool isLight() const;
+
+  void SetAmbient(const double &r, const double &g, const double &b);
+  void SetDiffuse(const double &r, const double &g, const double &b);
+  void SetSpecular(const double &r, const double &g, const double &b);
+  void SetReflection(const double &r);
+  void SetTransparency(const double &t);
+  void SetRefraction(const double &r);
+  void SetEnviro(const bool &b);
+  void SetEnviroMap(const bool &b);
+  void SetIsLight(const bool &b);
 
   Material operator=(Material m);
 
@@ -69,6 +78,10 @@ private:
 
   bool has_texture_;
   std::string diffuse_texture_;
+  bool environment_map_;
+  bool environment_;
+
+  bool isLight_;
 };
 
 } // namespace

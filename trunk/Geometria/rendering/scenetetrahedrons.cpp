@@ -37,6 +37,7 @@ void SceneTetrahedrons::ClearTetrahedrons()
   }
 }
 
+
 void SceneTetrahedrons::Colorize()
 {
 //  foreach(QVector<Tetrahedron*> tetrahedrons, tetrahedrons_){

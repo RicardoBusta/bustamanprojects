@@ -39,7 +39,13 @@ public:
 
   //tetra
   QVector<DelTetra> tetra_;
-  QVector<bool> dead_points_;
+//  QVector<bool> dead_points_;
+
+  double OrientedSolidAngle(const QVector3D &p, const QHPoly &face);
+
+  bool Intersection(const QHPoly &poly, const QVector3D &v1, const QVector3D &v2);
+  bool Intersection(const QHPoly &poly, const QHPoly &face);
+  bool Intersection(const QHPoly &poly, const DelTetra &tetra);
 
   float DistanceSquaredBetweenPoints(const QVector3D &p1, const QVector3D &p2) const;
 };

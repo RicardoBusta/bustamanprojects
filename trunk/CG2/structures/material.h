@@ -29,6 +29,7 @@ public:
   Material(const Color &diffuse = Ric::Color(), const Color &specular = Ric::Color(), const Color &ambient = Ric::Color(), const double &shininess = 100);
 
   static Material Create(const unsigned int &color);
+  static Material CreateWithReflection(const unsigned int &color,const unsigned int &ref);
 
   Ric::Color diffuse() const;
   Ric::Color specular() const;

@@ -296,13 +296,13 @@ void Scene::createWall(bool reflect)
   object.push_back(SceneObject());
   object.last().name = QString("Wall%1").arg(name_id++);
 
-  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::Create(0xffffffff)));
-  object.last().material_.SetReflection(reflect?1.0:0.0);
-  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::Create(0xffffffff)));
-  object.last().material_.SetReflection(reflect?1.0:0.0);
+  object.last().faces_.push_back(TriangleFace(p0,p1,p2,Ric::Material::CreateWithReflection(0xffffffff,1.0)));
+  object.last().material_.SetReflection(0.4);
+  object.last().faces_.push_back(TriangleFace(p0,p2,p3,Ric::Material::CreateWithReflection(0xffffffff,1.0)));
+  object.last().material_.SetReflection(0.4);
 
-  object.last().faces_.push_back(TriangleFace(p0,p2,p1,Ric::Material::Create(0xffffffff)));
-  object.last().material_.SetReflection(reflect?1.0:0.0);
-  object.last().faces_.push_back(TriangleFace(p0,p3,p2,Ric::Material::Create(0xffffffff)));
-  object.last().material_.SetReflection(reflect?1.0:0.0);
+  object.last().faces_.push_back(TriangleFace(p0,p2,p1,Ric::Material::CreateWithReflection(0xffffffff,1.0)));
+  object.last().material_.SetReflection(0.4);
+  object.last().faces_.push_back(TriangleFace(p0,p3,p2,Ric::Material::CreateWithReflection(0xffffffff,1.0)));
+  object.last().material_.SetReflection(0.4);
 }

@@ -334,12 +334,14 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
     Ray rf_recursive;
     Ray tr_recursive;
 
+    qDebug() << f->material().reflection();
     if(f->material().reflection() > 0){
       Ric::Vector ref_dir = ((2*(v_*n_b)*n_b)-v_).Normalized();
       qDebug() << f->material().reflection();
       rf_recursive = Ray(p_,ref_dir,far_length_,near_length_,default_color_);
       rf_recursive.calc(rf_recursive.cast(scene),scene,level-1,adv_light);
     }
+    qDebug() << f->material().transparency();
     if(f->material().transparency() > 0){
       double ref = 1.0/f->material().refraction();
       double cost1 = v_*n_b;
@@ -349,6 +351,7 @@ void Ray::calc(const TriangleFace *f, const Scene *scene, const unsigned int &le
       tr_recursive.calc(tr_recursive.cast(scene),scene,level-1,adv_light);
     }
 
+    qDebug() << "Add Transparency";
     AddTransparencyAndReflection(f->material().transparency(),tr_recursive.color(),f->material().reflection(),rf_recursive.color());
   }else{
 

@@ -33,6 +33,19 @@ Material Material::Create(const unsigned int &color)
         );
 }
 
+Material Material::CreateWithReflection(const unsigned int &color,const unsigned int &ref)
+{
+  Material m(
+        Ric::Color(color),
+        Ric::Color(0xffffffff),
+        Ric::Color(color),
+        100
+        );
+  m.SetReflection(ref);
+
+  return m;
+}
+
 Ric::Color Material::diffuse() const
 {
   return diffuse_;

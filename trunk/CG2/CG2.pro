@@ -91,7 +91,9 @@ OTHER_FILES += \
     models/enviro_monkey.obj \
     models/enviro_monkey.mtl \
     models/enviro_ball.obj \
-    models/enviro_ball.mtl
+    models/enviro_ball.mtl \
+    models/textured.obj \
+    models/textured.mtl
 
 unix:!macx:LIBS+= -ldl
 

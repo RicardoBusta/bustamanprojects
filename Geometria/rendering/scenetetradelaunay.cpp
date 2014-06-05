@@ -21,7 +21,7 @@ void SceneTetraDelaunay::DrawObject(const float &spread, const float &shrink, co
   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
   foreach(DelTetra tetrahedron, tetra_){
-      tetrahedron.Draw(spread,shrink,user_color);
+    tetrahedron.Draw(spread,shrink,user_color);
   }
 
   glDisable(GL_LIGHTING);
@@ -188,12 +188,12 @@ bool SceneTetraDelaunay::StepAlgorithm()
 
   switch(step_count_){
   case 100:
-    dead_points_.fill(false,points_.size());
+    //    dead_points_.fill(false,points_.size());
     step_count_ = 101;
 
   case 101:
     min_dist_vert = -1;
-    min_dist = 0;
+    min_dist = 99999;
 
     qDebug() << "poly_size" << poly_.size();
 
@@ -203,26 +203,27 @@ bool SceneTetraDelaunay::StepAlgorithm()
     }
 
     p = poly_.first();
-    dead_points_[p.face_v_[0]] = true;
-    dead_points_[p.face_v_[1]] = true;
-    dead_points_[p.face_v_[2]] = true;
+    //    dead_points_[p.face_v_[0]] = true;
+    //    dead_points_[p.face_v_[1]] = true;
+    //    dead_points_[p.face_v_[2]] = true;
 
     for(int i=0;i<points_.size();i++){
-      if(dead_points_[i] == false){
-        d = points_[i].distanceToPlane(points_[p.face_v_.at(0)],points_[p.face_v_.at(1)],points_[p.face_v_.at(2)]);
-        if(d == 0) continue;
-        d = (d<0?-1.0:1.0)/(d*d);
-        if(d>min_dist){
-          min_dist = d;
-          min_dist_vert = i;
-        }
+      //      if(dead_points_[i] == false){
+      d = OrientedSolidAngle(points_[i],p);/*points_[i].distanceToPlane(points_[p.face_v_.at(0)],points_[p.face_v_.at(1)],points_[p.face_v_.at(2)]);*/
+      qDebug() << "d" << d;
+      if(d <= 0) continue;
+      //        d = (d<0?-1.0:1.0)/(d*d);
+      if(d<min_dist){
+        min_dist = d;
+        min_dist_vert = i;
       }
+      //      }
     }
 
     qDebug() << min_dist_vert;
 
     if(min_dist_vert != -1){
-      dead_points_[p.face_v_[max_dist_vert]] = true;
+      //      dead_points_[p.face_v_[max_dist_vert]] = true;
       poly_.push_back(QHPoly(p.face_v_.at(0),p.face_v_.at(1),min_dist_vert,&points_,&p));
       poly_.push_back(QHPoly(p.face_v_.at(1),p.face_v_.at(2),min_dist_vert,&points_,&p));
       poly_.push_back(QHPoly(p.face_v_.at(2),p.face_v_.at(0),min_dist_vert,&points_,&p));
@@ -496,6 +497,117 @@ bool SceneTetraDelaunay::FindFirstFace()
   }
 }
 
+double SceneTetraDelaunay::OrientedSolidAngle(const QVector3D &p, const QHPoly &face)
+{
+  QVector3D p0 = face.vs_->at(face.face_v_[0]);
+  QVector3D p1 = face.vs_->at(face.face_v_[1]);
+  QVector3D p2 = face.vs_->at(face.face_v_[2]);
+
+  QVector3D a(p0 - p);
+  QVector3D b(p1 - p);
+  QVector3D c(p2 - p);
+
+  double al = a.length();
+  double bl = b.length();
+  double cl = c.length();
+
+  double d = al*bl*cl + QVector3D::dotProduct(a,b)*cl + QVector3D::dotProduct(b,c)*al + QVector3D::dotProduct(c,a)*bl;
+
+  if( d < 0.0001 && d > -0.0001 ){
+    return 0.0;
+  }
+
+  double num = a.QVector3D::dotProduct(a,QVector3D::crossProduct(c,b));
+  double ang = 2.0*atan2(num,d);
+
+  if(ang < 0.0001 && ang > -0.0001){
+    ang = 0.0;
+  }
+
+  QVector3D n = (QVector3D::crossProduct((p1-p0),(p2-p0))).normalized();
+  QVector3D v = (p-p0).normalized();
+
+  bool an = (QVector3D::dotProduct(n,v) < 0.0001);
+
+  ang = an?
+        ((ang < 0.0) ?  2.0*M_PI + ang : ang):
+        ((ang > 0.0) ? -2.0*M_PI + ang : ang);
+
+  return -ang;
+}
+
+bool SceneTetraDelaunay::Intersection(const QHPoly &poly, const QVector3D &v1, const QVector3D &v2)
+{
+  QVector3D p0 = poly.vs_->at(poly.face_v_[0]);
+  QVector3D p1 = poly.vs_->at(poly.face_v_[1]);
+  QVector3D p2 = poly.vs_->at(poly.face_v_[2]);
+
+  QVector3D d = QVector3D(v2-v1);
+  double dnorm = d.length();
+  d.normalize();
+  QVector3D e1 = QVector3D(p1-p0);
+  QVector3D e2 = QVector3D(p2-p0);
+
+  QVector3D p = QVector3D::crossProduct(d,e2);
+  double m = QVector3D::dotProduct(p,e1);
+
+  if(fabs(m) < 0.0001){
+    return false;
+  }
+
+  m = 1.0/m;
+
+  QVector3D s(v1 - p0);
+
+  double u = m*QVector3D::dotProduct(s,p);
+
+  if ((u < 0.0001) || (u > (1.0 - 0.0001)))
+  {
+    return false;
+  }
+
+  QVector3D q = QVector3D::crossProduct(s,e1);
+
+  double v = m*QVector3D::dotProduct(d,q);
+
+  if ((v < 0.0001) || (v > (1.0 - 0.0001)))
+  {
+    return false;
+  }
+
+  if ((u + v) > (1.0 - 0.0001))
+  {
+    return false;
+  }
+
+  double t = m*QVector3D::dotProduct(e2,q);
+
+  if ((t < 0.0001) || (t > dnorm - 0.0001))
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool SceneTetraDelaunay::Intersection(const QHPoly &poly, const QHPoly &face)
+{
+  bool res = Intersection(poly,face.vs_->at(face.face_v_[0]),face.vs_->at(face.face_v_[1])) ||
+  Intersection(poly,face.vs_->at(face.face_v_[1]),face.vs_->at(face.face_v_[2])) ||
+  Intersection(poly,face.vs_->at(face.face_v_[2]),face.vs_->at(face.face_v_[0]))||
+
+  Intersection(face,poly.vs_->at(poly.face_v_[0]),poly.vs_->at(poly.face_v_[1])) ||
+  Intersection(face,poly.vs_->at(poly.face_v_[1]),poly.vs_->at(poly.face_v_[2])) ||
+  Intersection(face,poly.vs_->at(poly.face_v_[2]),poly.vs_->at(poly.face_v_[0]));
+
+  return res;
+}
+
+bool SceneTetraDelaunay::Intersection(const QHPoly &poly, const DelTetra &tetra)
+{
+  QHPoly();
+  return false;
+}
 
 float SceneTetraDelaunay::DistanceSquaredBetweenPoints(const QVector3D &p1, const QVector3D &p2) const
 {

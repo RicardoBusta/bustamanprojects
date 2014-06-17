@@ -1,11 +1,8 @@
-#include <QtGui/QApplication>
-#include "view/mainwindow.h"
+#include "qtcharactermaker.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QtCharacterMaker a(argc, argv);
     
     return a.exec();
 }

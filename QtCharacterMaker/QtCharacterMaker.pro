@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets
 
 TARGET = QtCharacterMaker
 TEMPLATE = app
@@ -12,18 +12,17 @@ TEMPLATE = app
 
 SOURCES += \
     view/mainwindow.cpp \
-    view/i_canvas.cpp \
     main.cpp \
-    view/canvaswidget.cpp
+    view/canvaswidget.cpp \
+    qtcharactermaker.cpp
 
 HEADERS  += \
     view/mainwindow.h \
-    view/i_canvas.h \
-    view/canvaswidget.h
+    view/canvaswidget.h \
+    qtcharactermaker.h
 
 FORMS    += \
-    view/mainwindow.ui \
-    view/i_canvas.ui
+    view/mainwindow.ui
 
 RESOURCES += \
     icons/Icons.qrc

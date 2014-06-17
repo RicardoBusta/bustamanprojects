@@ -14,12 +14,14 @@ SOURCES += \
     view/mainwindow.cpp \
     main.cpp \
     view/canvaswidget.cpp \
-    qtcharactermaker.cpp
+    qtcharactermaker.cpp \
+    view/actions.cpp
 
 HEADERS  += \
     view/mainwindow.h \
     view/canvaswidget.h \
-    qtcharactermaker.h
+    qtcharactermaker.h \
+    view/actions.h
 
 FORMS    += \
     view/mainwindow.ui

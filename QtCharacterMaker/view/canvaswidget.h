@@ -12,17 +12,20 @@ public:
 
 //    int cursor_x_;
 //    int cursor_y_;
-    QRect cursor_;
-
-    QImage image_;
-
     void SetImage(const QImage &image);
 protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+private:
+    QRect cursor_;
+    QImage image_;
 
+    bool anchor_down_;
+    QRect anchor_;
+
+    QRect PosToGrid(QPoint pos);
 signals:
     void SendPick(QImage);
 };

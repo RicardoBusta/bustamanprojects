@@ -17,4 +17,5 @@ void EditImageWidget::SetImage(QImage image)
 {
   image_ = image;
   this->setFixedSize(image_.size());
+  update();
 }

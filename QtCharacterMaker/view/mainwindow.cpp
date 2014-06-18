@@ -52,6 +52,7 @@ void MainWindow::OpenImageCanvas(QString file_name)
   canvas_widget_container->setWindowTitle(file_name);
   canvas_widget_container->show();
 
+  connect(canvas_widget_container->canvas_widget(),SIGNAL(SendPick(QImage)),ui->edit_image_widget,SLOT(SetImage(QImage)));
 }
 
 void MainWindow::PopMessage(QString message)

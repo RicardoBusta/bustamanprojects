@@ -4,15 +4,15 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+#include "view/options.h"
+
+#include <QDebug>
+
 CanvasWidget::CanvasWidget(QWidget *parent):QWidget(parent)
 {
     setMouseTracking(true);
 
-    //x = 0;
-    //y = 0;
-
-    sx = 32;
-    sy = 32;
+    cursor_.setSize(QSize(32,32));
 
     this->setFixedSize(640,480);
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
@@ -22,32 +22,53 @@ CanvasWidget::~CanvasWidget()
 {
 }
 
+void CanvasWidget::SetImage(const QImage &image)
+{
+  image_ = image;
+  qDebug() << "image:" <<  image_.isNull();
+  this->setFixedSize(image_.size());
+}
+
 void CanvasWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
-    painter.setBrush(palette().background().color());
-    painter.setPen(palette().foreground().color());
-    painter.drawRect(0,0,width()-1,height()-1);
+//    painter.setBrush(palette().background().color());
+//    painter.setPen(palette().foreground().color());
+//    painter.drawRect(0,0,width()-1,height()-1);
+    painter.drawImage(image_.rect(),image_);
 
-    painter.setBrush(QColor(255,255,255));
-    painter.drawRect(x,y,sx-1,sy-1);
+    painter.setPen(Qt::yellow);
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(cursor_);
+
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setStyle(Qt::DashLine);
+    painter.setPen(pen);
+    painter.drawRect(cursor_);
 
     painter.end();
 }
 
 void CanvasWidget::mousePressEvent(QMouseEvent *event)
 {
-    this->x = event->pos().x();
-    this->y = event->pos().y();
+//    this->cursor_.setTopLeft( event->pos() );
+//  cursor_.setSize(QSize(32,32));
 
-    update();
+//  update();
+}
+
+void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+  emit SendPick(image_.copy(cursor_));
 }
 
 void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    this->x = (event->pos().x()/sx)*sx;
-    this->y = (event->pos().y()/sy)*sy;
+    this->cursor_.setLeft( (event->pos().x()/Options::instance()->selection_width_)*Options::instance()->selection_width_ );
+    this->cursor_.setTop( (event->pos().y()/Options::instance()->selection_height_)*Options::instance()->selection_height_ );
+    cursor_.setSize(QSize(32,32));
 
     update();
 }

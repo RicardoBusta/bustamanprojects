@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>tokens_enus.qm</file>
+        <file>tokens_ptbr.qm</file>
+    </qresource>
+</RCC>

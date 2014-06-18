@@ -17,6 +17,12 @@ public:
     
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    void OpenImage();
+    void OpenImageCanvas(QString file_name);
+
+    void PopMessage(QString message);
 };
 
 #endif // MAINWINDOW_H

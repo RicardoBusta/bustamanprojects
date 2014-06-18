@@ -1,12 +1,16 @@
 #include "qtcharactermaker.h"
 
 #include "view/mainwindow.h"
-#include "view/actions.h"
+
+#include <QTranslator>
 
 QtCharacterMaker::QtCharacterMaker(int argc, char *argv[]) :
   QApplication(argc, argv)
 {
-  actions_ = new Actions();
+  QTranslator translator;
+  translator.load("://tokens_ptbr");
+
+  installTranslator(&translator);
 
   main_window_ = new MainWindow();
   main_window_->show();
@@ -15,9 +19,4 @@ QtCharacterMaker::QtCharacterMaker(int argc, char *argv[]) :
 MainWindow *QtCharacterMaker::main_window()
 {
   return main_window_;
-}
-
-Actions *QtCharacterMaker::actions()
-{
-  return actions_;
 }

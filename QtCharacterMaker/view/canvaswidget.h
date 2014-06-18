@@ -10,15 +10,21 @@ public:
     explicit CanvasWidget(QWidget *parent=0);
     virtual ~CanvasWidget();
 
-    int x;
-    int y;
+//    int cursor_x_;
+//    int cursor_y_;
+    QRect cursor_;
 
-    int sx;
-    int sy;
+    QImage image_;
+
+    void SetImage(const QImage &image);
 protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+
+signals:
+    void SendPick(QImage);
 };
 
 #endif // CANVASWIDGET_H

@@ -15,16 +15,29 @@ SOURCES += \
     main.cpp \
     view/canvaswidget.cpp \
     qtcharactermaker.cpp \
-    view/actions.cpp
+    view/actions.cpp \
+    view/options.cpp \
+    view/canvaswidgetcontainer.cpp \
+    view/editimagewidget.cpp
 
 HEADERS  += \
     view/mainwindow.h \
     view/canvaswidget.h \
     qtcharactermaker.h \
-    view/actions.h
+    view/actions.h \
+    view/options.h \
+    translations/tokens.h \
+    view/canvaswidgetcontainer.h \
+    view/editimagewidget.h
 
 FORMS    += \
     view/mainwindow.ui
 
+TRANSLATIONS += \
+    translations/tokens_enus.ts \
+    translations/tokens_ptbr.ts
+
 RESOURCES += \
-    icons/Icons.qrc
+    translations/translations.qrc \
+    icons/icons.qrc
+

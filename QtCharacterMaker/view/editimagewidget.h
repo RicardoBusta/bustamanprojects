@@ -14,8 +14,10 @@ protected:
 private:
   QImage image_;
 signals:
+  void SendPick(QImage);
 public slots:
   void SetImage(QImage image);
+  void PickRequest();
 };
 
 #endif // EDITIMAGEWIDGET_H

@@ -19,7 +19,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
 private:
-    QRect cursor_;
+    friend class CanvasWidgetContainer;
     QImage image_;
 
     bool anchor_down_;
@@ -28,6 +28,9 @@ private:
     QRect PosToGrid(QPoint pos);
 signals:
     void SendPick(QImage);
+    void GetPickRequest();
+public slots:
+    void SetPick(QImage pick);
 };
 
 #endif // CANVASWIDGET_H

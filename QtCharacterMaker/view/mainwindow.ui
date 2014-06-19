@@ -20,7 +20,7 @@
    </size>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_5">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -37,182 +37,10 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QMdiArea" name="mdiArea">
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QSplitter" name="splitter_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <widget class="QSplitter" name="splitter_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QSplitter" name="splitter_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <widget class="QSplitter" name="splitter_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <widget class="QWidget" name="widget" native="true"/>
-             <widget class="QWidget" name="gridLayoutWidget">
-              <layout class="QGridLayout" name="gridLayout">
-               <item row="0" column="0">
-                <widget class="QToolButton" name="toolButton_2">
-                 <property name="text">
-                  <string>...</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </widget>
-            <widget class="QScrollArea" name="scrollArea">
-             <property name="widgetResizable">
-              <bool>true</bool>
-             </property>
-             <widget class="EditImageWidget" name="edit_image_widget">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>68</width>
-                <height>230</height>
-               </rect>
-              </property>
-             </widget>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="verticalLayoutWidget_2">
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="QToolButton" name="toolButton">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-          <widget class="QSplitter" name="splitter_6">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QSplitter" name="splitter_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <widget class="QWidget" name="verticalLayoutWidget_3">
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QToolButton" name="toolButton_4">
-                <property name="text">
-                 <string>...</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="widget_2" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="palette">
-              <palette>
-               <active>
-                <colorrole role="Base">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>255</red>
-                   <green>255</green>
-                   <blue>255</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-                <colorrole role="Window">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>0</red>
-                   <green>0</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </active>
-               <inactive>
-                <colorrole role="Base">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>255</red>
-                   <green>255</green>
-                   <blue>255</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-                <colorrole role="Window">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>0</red>
-                   <green>0</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </inactive>
-               <disabled>
-                <colorrole role="Base">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>0</red>
-                   <green>0</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-                <colorrole role="Window">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>0</red>
-                   <green>0</green>
-                   <blue>0</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </disabled>
-              </palette>
-             </property>
-             <property name="autoFillBackground">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="verticalLayoutWidget_4">
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QToolButton" name="toolButton_3">
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QMdiArea" name="mdiArea"/>
      </widget>
     </item>
    </layout>
@@ -223,7 +51,7 @@
      <x>0</x>
      <y>0</y>
      <width>1025</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -356,36 +184,235 @@
    <addaction name="actionAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="features">
+    <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QToolButton" name="toolButton_2">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/images/lines_background_color.png);</string>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="EditImageWidget" name="edit_image_widget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>78</width>
+          <height>339</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QToolButton" name="toolButton">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QSplitter" name="splitter_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="autoFillBackground">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_001.bmp</normaloff>:/icons/icon_001.bmp</iconset>
    </property>
    <property name="text">
     <string>New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_002.bmp</normaloff>:/icons/icon_002.bmp</iconset>
    </property>
    <property name="text">
     <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionReopen">
    <property name="text">
     <string>Reopen</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_003.bmp</normaloff>:/icons/icon_003.bmp</iconset>
    </property>
    <property name="text">
     <string>Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionSave_as">
@@ -397,6 +424,9 @@
    <property name="text">
     <string>Close</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F4</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
@@ -405,47 +435,62 @@
   </action>
   <action name="actionUndo">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_004.bmp</normaloff>:/icons/icon_004.bmp</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
   </action>
   <action name="actionRedo">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_005.bmp</normaloff>:/icons/icon_005.bmp</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
   </action>
   <action name="actionCut">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_006.bmp</normaloff>:/icons/icon_006.bmp</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
   </action>
   <action name="actionCopy">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_007.bmp</normaloff>:/icons/icon_007.bmp</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="actionPaste">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_008.bmp</normaloff>:/icons/icon_008.bmp</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="actionDelete">
@@ -460,7 +505,7 @@
   </action>
   <action name="actionAdd_Text">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_009.bmp</normaloff>:/icons/icon_009.bmp</iconset>
    </property>
    <property name="text">
@@ -474,7 +519,7 @@
   </action>
   <action name="actionTile_Size">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_010.bmp</normaloff>:/icons/icon_010.bmp</iconset>
    </property>
    <property name="text">
@@ -483,7 +528,7 @@
   </action>
   <action name="actionShow_Grid">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_011.bmp</normaloff>:/icons/icon_011.bmp</iconset>
    </property>
    <property name="text">
@@ -492,7 +537,7 @@
   </action>
   <action name="actionShow_Divisions">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_012.bmp</normaloff>:/icons/icon_012.bmp</iconset>
    </property>
    <property name="text">
@@ -501,7 +546,7 @@
   </action>
   <action name="actionZoom_x1">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_013.bmp</normaloff>:/icons/icon_013.bmp</iconset>
    </property>
    <property name="text">
@@ -510,7 +555,7 @@
   </action>
   <action name="actionZoom_x2">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_014.bmp</normaloff>:/icons/icon_014.bmp</iconset>
    </property>
    <property name="text">
@@ -519,7 +564,7 @@
   </action>
   <action name="actionZoom_x4">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_015.bmp</normaloff>:/icons/icon_015.bmp</iconset>
    </property>
    <property name="text">
@@ -528,7 +573,7 @@
   </action>
   <action name="actionZoom_x6">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_016.bmp</normaloff>:/icons/icon_016.bmp</iconset>
    </property>
    <property name="text">
@@ -537,7 +582,7 @@
   </action>
   <action name="actionZoom_x8">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_017.bmp</normaloff>:/icons/icon_017.bmp</iconset>
    </property>
    <property name="text">
@@ -546,7 +591,7 @@
   </action>
   <action name="actionZoom_x12">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_018.bmp</normaloff>:/icons/icon_018.bmp</iconset>
    </property>
    <property name="text">
@@ -555,7 +600,7 @@
   </action>
   <action name="actionAnimation">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_019.bmp</normaloff>:/icons/icon_019.bmp</iconset>
    </property>
    <property name="text">
@@ -564,7 +609,7 @@
   </action>
   <action name="actionImage_Size">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_020.bmp</normaloff>:/icons/icon_020.bmp</iconset>
    </property>
    <property name="text">
@@ -638,7 +683,7 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset>
+    <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_021.bmp</normaloff>:/icons/icon_021.bmp</iconset>
    </property>
    <property name="text">
@@ -655,6 +700,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

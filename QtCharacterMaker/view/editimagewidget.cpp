@@ -19,3 +19,8 @@ void EditImageWidget::SetImage(QImage image)
   this->setFixedSize(image_.size());
   update();
 }
+
+void EditImageWidget::PickRequest()
+{
+  emit SendPick(image_);
+}

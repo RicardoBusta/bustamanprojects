@@ -14,10 +14,7 @@ CanvasWidget::CanvasWidget(QWidget *parent):
 {
   setMouseTracking(true);
 
-  cursor_.setSize(QSize(32,32));
-
-  this->setFixedSize(640,480);
-  setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+  Options::instance()->selection_.setSize(Options::instance()->selection_size_);
 }
 
 CanvasWidget::~CanvasWidget()
@@ -27,7 +24,7 @@ CanvasWidget::~CanvasWidget()
 void CanvasWidget::SetImage(const QImage &image)
 {
   image_ = image;
-  qDebug() << "image:" <<  image_.isNull();
+  //  qDebug() << "image:" <<  image_.isNull();
   this->setFixedSize(image_.size());
 }
 
@@ -35,27 +32,27 @@ void CanvasWidget::paintEvent(QPaintEvent *event)
 {
   QPainter painter(this);
 
-  //    painter.setBrush(palette().background().color());
-  //    painter.setPen(palette().foreground().color());
-  //    painter.drawRect(0,0,width()-1,height()-1);
   painter.drawImage(image_.rect(),image_);
 
   painter.setPen(Qt::yellow);
   painter.setBrush(Qt::NoBrush);
-  painter.drawRect(cursor_);
+  painter.drawRect(Options::instance()->selection_);
+
+  QVector<qreal> dashes;
+  dashes << 2 << 2;
 
   QPen pen;
   pen.setColor(Qt::red);
-  pen.setStyle(Qt::DashLine);
+  pen.setDashPattern(dashes);
   painter.setPen(pen);
-  painter.drawRect(cursor_);
+  painter.drawRect(Options::instance()->selection_);
 
   painter.setPen(Qt::yellow);
   painter.setBrush(Qt::NoBrush);
   painter.drawRect(anchor_);
 
   pen.setColor(Qt::blue);
-  pen.setStyle(Qt::DashLine);
+  pen.setDashPattern(dashes);
   painter.setPen(pen);
   painter.drawRect(anchor_);
 
@@ -67,7 +64,7 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
   if(event->button() == Qt::RightButton){
     anchor_down_ = true;
     anchor_ = PosToGrid(event->pos());
-    cursor_ = anchor_;
+    Options::instance()->selection_ = anchor_;
     update();
   }
 }
@@ -75,8 +72,11 @@ void CanvasWidget::mousePressEvent(QMouseEvent *event)
 void CanvasWidget::mouseReleaseEvent(QMouseEvent *event)
 {
   anchor_down_ = false;
-
-  emit SendPick(image_.copy(cursor_));
+  if(event->button() == Qt::RightButton){
+    emit SendPick(image_.copy(Options::instance()->selection_));
+  }else{
+    emit GetPickRequest();
+  }
 }
 
 void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
@@ -84,21 +84,35 @@ void CanvasWidget::mouseMoveEvent(QMouseEvent *event)
   if(anchor_down_){
     QRect current_cursor = PosToGrid(event->pos());
 
-    cursor_ = current_cursor.united(anchor_);
-//    cursor_.setLeft( qMin(current_cursor.left(),anchor_.left()) );
-//    cursor_.setRight( qMax(current_cursor.right(),anchor_.right()) );
-//    cursor_.setTop( qMin(current_cursor.top(),anchor_.top()) );
-//    cursor_.setBottom( qMax(current_cursor.bottom(),anchor_.bottom()) );
+    Options::instance()->selection_ = current_cursor.united(anchor_);
   }else{
-    cursor_.moveTopLeft( PosToGrid(event->pos()).topLeft() );
+    Options::instance()->selection_.moveTopLeft( PosToGrid(event->pos()).topLeft() );
   }
   update();
 }
 
 QRect CanvasWidget::PosToGrid(QPoint pos)
 {
-  int left = (pos.x()/Options::instance()->selection_width_)*Options::instance()->selection_width_;
-  int top = (pos.y()/Options::instance()->selection_height_)*Options::instance()->selection_height_;
+  QPoint top_left = QPoint(
+                      (pos.x()/Options::instance()->cursor_size_.width())*Options::instance()->cursor_size_.width(),
+                      (pos.y()/Options::instance()->cursor_size_.height())*Options::instance()->cursor_size_.height()
+                      );
 
-  return QRect(left,top,Options::instance()->selection_width_,Options::instance()->selection_height_);
+  return QRect(top_left,Options::instance()->cursor_size_);
+}
+
+void CanvasWidget::SetPick(QImage pick)
+{
+  QImage paste_image;
+  if(image_.format() == QImage::Format_Indexed8){
+    paste_image = image_.convertToFormat(QImage::Format_ARGB32);
+    QPainter painter(&paste_image);
+    painter.drawImage(Options::instance()->selection_,pick);
+
+    image_ = paste_image.convertToFormat(image_.format());
+  }else{
+    QPainter painter(&image_);
+    painter.drawImage(Options::instance()->selection_,pick);
+  }
+  update();
 }

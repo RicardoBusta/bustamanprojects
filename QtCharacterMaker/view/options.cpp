@@ -14,6 +14,7 @@ Options *Options::instance()
 Options::Options(QObject *parent) :
   QObject(parent)
 {
-  selection_width_ = 32;
-  selection_height_ = 32;
+  cursor_size_ = QSize(32,32);
+  selection_size_ = cursor_size_;
+  selection_ = QRect(0,0,0,0);
 }

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/translations">
         <file>tokens_enus.qm</file>
         <file>tokens_ptbr.qm</file>
     </qresource>

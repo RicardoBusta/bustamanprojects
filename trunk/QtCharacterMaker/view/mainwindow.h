@@ -22,6 +22,8 @@ private slots:
     void OpenImage();
     void OpenImageCanvas(QString file_name);
 
+    void SaveImage();
+
     void PopMessage(QString message);
 };
 

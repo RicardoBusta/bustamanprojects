@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMdiSubWindow>
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(OpenImage()));
+  connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(SaveImage()));
 }
 
 MainWindow::~MainWindow()
@@ -27,7 +29,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::OpenImage()
 {
-  qDebug() << "Open Image" ;
+//  qDebug() << "Open Image" ;
   QStringList open_files = QFileDialog::getOpenFileNames(this,kTranslationOpenImageFile);
 
   QStringList::iterator open_files_it = open_files.begin();
@@ -46,13 +48,20 @@ void MainWindow::OpenImageCanvas(QString file_name)
     PopMessage("Fail");
     return;
   }
-  CanvasWidgetContainer *canvas_widget_container = new CanvasWidgetContainer();
-  canvas_widget_container->canvas_widget()->SetImage(img);
+  CanvasWidgetContainer *canvas_widget_container = new CanvasWidgetContainer(file_name,img,ui->edit_image_widget);
   ui->mdiArea->addSubWindow(canvas_widget_container);
-  canvas_widget_container->setWindowTitle(file_name);
   canvas_widget_container->show();
+}
 
-  connect(canvas_widget_container->canvas_widget(),SIGNAL(SendPick(QImage)),ui->edit_image_widget,SLOT(SetImage(QImage)));
+void MainWindow::SaveImage()
+{
+  QMdiSubWindow *win = ui->mdiArea->currentSubWindow();
+  if(win != NULL){
+    CanvasWidgetContainer *wid = dynamic_cast<CanvasWidgetContainer*>(win->widget());
+    if(wid != NULL){
+      wid->SaveImage();
+    }
+  }
 }
 
 void MainWindow::PopMessage(QString message)

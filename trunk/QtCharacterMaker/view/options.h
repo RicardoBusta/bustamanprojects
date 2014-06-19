@@ -2,6 +2,8 @@
 #define OPTIONS_H
 
 #include <QObject>
+#include <QSize>
+#include <QRect>
 
 #define myOptions (Actions::instance())
 
@@ -11,8 +13,9 @@ class Options : public QObject
 public:
   static Options *instance();
 
-  int selection_height_;
-  int selection_width_;
+  QSize selection_size_;
+  QSize cursor_size_;
+  QRect selection_;
 private:
   explicit Options(QObject *parent = 0);
 signals:

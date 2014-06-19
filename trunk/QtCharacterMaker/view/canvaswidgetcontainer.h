@@ -9,11 +9,15 @@ class CanvasWidgetContainer : public QScrollArea
 {
   Q_OBJECT
 public:
-  explicit CanvasWidgetContainer(QWidget *parent = 0);
+  explicit CanvasWidgetContainer(const QString &file_name, const QImage &image, QWidget *image_widget, QWidget *parent = 0);
+  virtual ~CanvasWidgetContainer();
 
-  CanvasWidget *canvas_widget();
+  void SaveImage();
+  void SaveImageAs(QString path);
 private:
   CanvasWidget *canvas_widget_;
+
+  QString file_name_;
 signals:
 
 public slots:

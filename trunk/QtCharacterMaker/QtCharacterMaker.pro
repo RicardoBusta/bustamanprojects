@@ -39,5 +39,6 @@ TRANSLATIONS += \
 
 RESOURCES += \
     translations/translations.qrc \
-    icons/icons.qrc
+    icons/icons.qrc \
+    images/images.qrc
 

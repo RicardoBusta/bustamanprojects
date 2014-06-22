@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icon_001.bmp</file>
-        <file>icon_002.bmp</file>
         <file>icon_003.bmp</file>
         <file>icon_004.bmp</file>
         <file>icon_005.bmp</file>
@@ -12,12 +10,6 @@
         <file>icon_010.bmp</file>
         <file>icon_011.bmp</file>
         <file>icon_012.bmp</file>
-        <file>icon_013.bmp</file>
-        <file>icon_014.bmp</file>
-        <file>icon_015.bmp</file>
-        <file>icon_016.bmp</file>
-        <file>icon_017.bmp</file>
-        <file>icon_018.bmp</file>
         <file>icon_019.bmp</file>
         <file>icon_020.bmp</file>
         <file>icon_021.bmp</file>
@@ -63,5 +55,16 @@
         <file>icon_061.bmp</file>
         <file>icon_062.bmp</file>
         <file>icon_063.bmp</file>
+        <file>app_icon.svg</file>
+        <file>new_file.png</file>
+        <file>open_file.png</file>
+        <file>app_icons_edit.svg</file>
+        <file>zoom_x1.png</file>
+        <file>zoom_x2.png</file>
+        <file>zoom_x4.png</file>
+        <file>zoom_x8.png</file>
+        <file>zoom_x12.png</file>
+        <file>zoom_x6.png</file>
+        <file>save_file.png</file>
     </qresource>
 </RCC>

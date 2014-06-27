@@ -13,8 +13,6 @@ CanvasWidget::CanvasWidget(QWidget *parent):
   anchor_down_(false)
 {
   setMouseTracking(true);
-
-  Options::instance()->selection_.setSize(Options::instance()->selection_size_);
 }
 
 CanvasWidget::~CanvasWidget()
@@ -47,14 +45,14 @@ void CanvasWidget::paintEvent(QPaintEvent *event)
   painter.setPen(pen);
   painter.drawRect(Options::instance()->selection_);
 
-  painter.setPen(Qt::yellow);
-  painter.setBrush(Qt::NoBrush);
-  painter.drawRect(anchor_);
+//  painter.setPen(Qt::yellow);
+//  painter.setBrush(Qt::NoBrush);
+//  painter.drawRect(anchor_);
 
-  pen.setColor(Qt::blue);
-  pen.setDashPattern(dashes);
-  painter.setPen(pen);
-  painter.drawRect(anchor_);
+//  pen.setColor(Qt::blue);
+//  pen.setDashPattern(dashes);
+//  painter.setPen(pen);
+//  painter.drawRect(anchor_);
 
   painter.end();
 }

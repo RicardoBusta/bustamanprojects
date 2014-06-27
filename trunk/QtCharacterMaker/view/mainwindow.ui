@@ -174,12 +174,9 @@
    <addaction name="actionShow_Grid"/>
    <addaction name="actionShow_Divisions"/>
    <addaction name="separator"/>
-   <addaction name="actionZoom_x1"/>
-   <addaction name="actionZoom_x2"/>
-   <addaction name="actionZoom_x4"/>
-   <addaction name="actionZoom_x6"/>
-   <addaction name="actionZoom_x8"/>
-   <addaction name="actionZoom_x12"/>
+   <addaction name="actionEditModeImage"/>
+   <addaction name="actionEditModeGrid"/>
+   <addaction name="actionEditModeVoxel"/>
    <addaction name="separator"/>
    <addaction name="actionAnimation"/>
    <addaction name="separator"/>
@@ -189,428 +186,70 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidget">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Paint Area</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>0</number>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="styleSheet">
+        <string notr="true">background-image: url(:/images/lines_background_color.png);</string>
        </property>
-       <property name="leftMargin">
-        <number>0</number>
+       <property name="widgetResizable">
+        <bool>true</bool>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="EditImageWidget" name="edit_image_widget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>77</width>
+          <height>416</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="bottomMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
-       <item>
-        <widget class="QWidget" name="widget" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="0">
-          <widget class="QToolButton" name="toolButton_4">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QToolButton" name="toolButton_5">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QToolButton" name="toolButton_6">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="toolButton_3">
-           <property name="text">
-            <string>...</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../icons/icons.qrc">
-             <normaloff>:/icons/icon_043.bmp</normaloff>:/icons/icon_043.bmp</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QToolButton" name="toolButton_2">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="toolButton_7">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QToolButton" name="toolButton_8">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QToolButton" name="toolButton_9">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QToolButton" name="toolButton_10">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QToolButton" name="toolButton_11">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QToolButton" name="toolButton_12">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QToolButton" name="toolButton_13">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="1">
-          <widget class="QToolButton" name="toolButton_15">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="toolButton_16">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QToolButton" name="toolButton_14">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QToolButton" name="toolButton_19">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QToolButton" name="toolButton_20">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QToolButton" name="toolButton_21">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QToolButton" name="toolButton_22">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QToolButton" name="toolButton_23">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QToolButton" name="toolButton_24">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QToolButton" name="toolButton_18">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_17">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="styleSheet">
-          <string notr="true">background-image: url(:/images/lines_background_color.png);</string>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <widget class="EditImageWidget" name="edit_image_widget">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>112</width>
-            <height>439</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSplitter" name="splitter_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <widget class="QWidget" name="widget_2" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="palette">
-           <palette>
-            <active>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-             <colorrole role="Window">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
-          </property>
-          <property name="autoFillBackground">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QToolButton" name="toolButton_27">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_26">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton_25">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="toolButton">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionSelection_Tool"/>
+   <addaction name="actionZoom_Tool"/>
+   <addaction name="actionFill_Tool"/>
+   <addaction name="actionPencil_Tool"/>
+   <addaction name="actionLine_Tool"/>
+   <addaction name="actionRectangle_Tool"/>
+   <addaction name="actionElipse_Tool"/>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -675,9 +314,12 @@
    </property>
   </action>
   <action name="actionUndo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_004.bmp</normaloff>:/icons/icon_004.bmp</iconset>
+     <normaloff>:/icons/undo.png</normaloff>:/icons/undo.png</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -687,9 +329,12 @@
    </property>
   </action>
   <action name="actionRedo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_005.bmp</normaloff>:/icons/icon_005.bmp</iconset>
+     <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -699,9 +344,12 @@
    </property>
   </action>
   <action name="actionCut">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_006.bmp</normaloff>:/icons/icon_006.bmp</iconset>
+     <normaloff>:/icons/cut.png</normaloff>:/icons/cut.png</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -711,9 +359,12 @@
    </property>
   </action>
   <action name="actionCopy">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_007.bmp</normaloff>:/icons/icon_007.bmp</iconset>
+     <normaloff>:/icons/copy.png</normaloff>:/icons/copy.png</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -723,9 +374,12 @@
    </property>
   </action>
   <action name="actionPaste">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_008.bmp</normaloff>:/icons/icon_008.bmp</iconset>
+     <normaloff>:/icons/paste.png</normaloff>:/icons/paste.png</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -751,9 +405,12 @@
    </property>
   </action>
   <action name="actionAdd_Text">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_009.bmp</normaloff>:/icons/icon_009.bmp</iconset>
+     <normaloff>:/icons/text_edit.png</normaloff>:/icons/text_edit.png</iconset>
    </property>
    <property name="text">
     <string>Add Text</string>
@@ -765,6 +422,9 @@
    </property>
   </action>
   <action name="actionTile_Size">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_010.bmp</normaloff>:/icons/icon_010.bmp</iconset>
@@ -774,6 +434,9 @@
    </property>
   </action>
   <action name="actionShow_Grid">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_011.bmp</normaloff>:/icons/icon_011.bmp</iconset>
@@ -783,6 +446,9 @@
    </property>
   </action>
   <action name="actionShow_Divisions">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_012.bmp</normaloff>:/icons/icon_012.bmp</iconset>
@@ -846,9 +512,12 @@
    </property>
   </action>
   <action name="actionAnimation">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_019.bmp</normaloff>:/icons/icon_019.bmp</iconset>
+     <normaloff>:/icons/animation.png</normaloff>:/icons/animation.png</iconset>
    </property>
    <property name="text">
     <string>Animation</string>
@@ -857,7 +526,7 @@
   <action name="actionImage_Size">
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_020.bmp</normaloff>:/icons/icon_020.bmp</iconset>
+     <normaloff>:/icons/resize.png</normaloff>:/icons/resize.png</iconset>
    </property>
    <property name="text">
     <string>Image Size</string>
@@ -929,12 +598,120 @@
    </property>
   </action>
   <action name="actionAbout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_021.bmp</normaloff>:/icons/icon_021.bmp</iconset>
+     <normaloff>:/icons/help.png</normaloff>:/icons/help.png</iconset>
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionEditModeImage">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/edit_mode_img.png</normaloff>:/icons/edit_mode_img.png</iconset>
+   </property>
+   <property name="text">
+    <string>EditModeImage</string>
+   </property>
+  </action>
+  <action name="actionEditModeGrid">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/edit_mode_grid.png</normaloff>:/icons/edit_mode_grid.png</iconset>
+   </property>
+   <property name="text">
+    <string>EditModeGrid</string>
+   </property>
+  </action>
+  <action name="actionEditModeVoxel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/edit_mode_voxel.png</normaloff>:/icons/edit_mode_voxel.png</iconset>
+   </property>
+   <property name="text">
+    <string>EditModeVoxel</string>
+   </property>
+  </action>
+  <action name="actionSelection_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_043.bmp</normaloff>:/icons/icon_043.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Selection Tool</string>
+   </property>
+  </action>
+  <action name="actionZoom_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_044.bmp</normaloff>:/icons/icon_044.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Tool</string>
+   </property>
+  </action>
+  <action name="actionFill_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_045.bmp</normaloff>:/icons/icon_045.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Fill Tool</string>
+   </property>
+  </action>
+  <action name="actionPencil_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_046.bmp</normaloff>:/icons/icon_046.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Pencil Tool</string>
+   </property>
+  </action>
+  <action name="actionLine_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_048.bmp</normaloff>:/icons/icon_048.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Line Tool</string>
+   </property>
+  </action>
+  <action name="actionRectangle_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_052.bmp</normaloff>:/icons/icon_052.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle Tool</string>
+   </property>
+  </action>
+  <action name="actionElipse_Tool">
+   <property name="icon">
+    <iconset resource="../icons/icons.qrc">
+     <normaloff>:/icons/icon_054.bmp</normaloff>:/icons/icon_054.bmp</iconset>
+   </property>
+   <property name="text">
+    <string>Elipse Tool</string>
    </property>
   </action>
  </widget>

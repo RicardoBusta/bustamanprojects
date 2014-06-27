@@ -18,7 +18,8 @@ SOURCES += \
     view/actions.cpp \
     view/options.cpp \
     view/canvaswidgetcontainer.cpp \
-    view/editimagewidget.cpp
+    view/editimagewidget.cpp \
+    view/setcursorsizedialog.cpp
 
 HEADERS  += \
     view/mainwindow.h \
@@ -28,10 +29,12 @@ HEADERS  += \
     view/options.h \
     translations/tokens.h \
     view/canvaswidgetcontainer.h \
-    view/editimagewidget.h
+    view/editimagewidget.h \
+    view/setcursorsizedialog.h
 
 FORMS    += \
-    view/mainwindow.ui
+    view/mainwindow.ui \
+    view/setcursorsizedialog.ui
 
 TRANSLATIONS += \
     translations/tokens_enus.ts \

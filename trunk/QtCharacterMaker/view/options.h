@@ -7,15 +7,18 @@
 
 #define myOptions (Actions::instance())
 
+enum EDIT_MODE{EDIT_MODE_IMAGE,EDIT_MODE_GRID,EDIT_MODE_VOXEL};
+
 class Options : public QObject
 {
   Q_OBJECT
 public:
   static Options *instance();
 
-  QSize selection_size_;
   QSize cursor_size_;
   QRect selection_;
+  EDIT_MODE current_edit_mode_;
+
 private:
   explicit Options(QObject *parent = 0);
 signals:

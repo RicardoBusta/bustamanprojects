@@ -2,12 +2,15 @@
 #include "ui_setcursorsizedialog.h"
 
 #include "view/options.h"
+#include "translations/tokens.h"
 
 SetCursorSizeDialog::SetCursorSizeDialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::SetCursorSizeDialog)
 {
   ui->setupUi(this);
+
+  setWindowTitle(kTranslationCursorOptionsTitle);
 
   ui->width_comboBox->setCurrentText(QString::number(Options::instance()->cursor_size_.width()));
   ui->width_comboBox_2->setCurrentText(QString::number(Options::instance()->cursor_size_.height()));

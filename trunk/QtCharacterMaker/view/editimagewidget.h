@@ -11,8 +11,11 @@ public:
 
 protected:
   void paintEvent(QPaintEvent *e);
+  void mousePressEvent(QMouseEvent *e);
+
 private:
   QImage image_;
+  int scale_;
 signals:
   void SendPick(QImage);
 public slots:

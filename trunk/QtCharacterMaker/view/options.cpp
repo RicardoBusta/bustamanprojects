@@ -20,4 +20,5 @@ Options::Options(QObject *parent) :
   cursor_size_ = QSize(kInitialCursorWidth,kInitialCursorHeight);
   selection_ = QRect(0,0,kInitialCursorWidth,kInitialCursorHeight);
   current_edit_mode_ = EDIT_MODE_GRID;
+  current_tool_ = TOOL_SELECTION;
 }

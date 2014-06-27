@@ -24,6 +24,8 @@ private slots:
 
     void SaveImage();
 
+    void SetCursorSize();
+
     void PopMessage(QString message);
 };
 

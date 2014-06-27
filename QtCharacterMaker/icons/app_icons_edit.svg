@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1000"
@@ -26,10 +25,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568542"
-     inkscape:cx="42.984758"
-     inkscape:cy="7.8255208"
+     inkscape:cx="141.74854"
+     inkscape:cy="47.148151"
      inkscape:document-units="px"
-     inkscape:current-layer="g3837"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1440"
      inkscape:window-height="838"
@@ -240,13 +239,6 @@
          d="m 357.85714,-692.63781 5.875,-5.875 -5.875,0 0,5.875 z"
          style="fill:#2a7fff;fill-opacity:1;stroke:none" />
     </g>
-    <image
-       y="119.36218"
-       x="85.982147"
-       id="image3820"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAA3NCSVQICAjb4U/gAAAAoUlEQVQo kZ1SSwoCMQxNW/AM3maYawmatIW5gxvvoitxJYqXKUzqIjKGLurELsKjvE+S1j3vV7Acx8zr2a/H LSCiT9mN59Fd+hWHYXs8eQAgqkTuZ5UQEfR4uaBgLeh5L45rExbHPxOAmYFiKBUoElCDCSiUKliY wMya17D1jQi+M8xTCrvDPKX+DOYE8wyfLelOmq72m2h7B71f82/1Kb8BtaERv6HduucAAAAASUVO RK5CYII= "
-       height="16"
-       width="16" />
     <g
        id="g3836"
        transform="translate(18.875,0)" />
@@ -262,19 +254,26 @@
          width="16"
          height="16"
          x="49.10714"
-         y="156.36218" />
+         y="156.36218"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\open_file.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
       <g
          id="g3884"
-         transform="translate(-307.125,861.87499)">
+         transform="translate(-307.125,861.87499)"
+         style="fill:#ffcc00"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\open_file.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90">
         <rect
            y="-701.51282"
            x="356.23215"
            height="10"
            width="13.086329"
            id="rect3854"
-           style="fill:#ffe680;fill-opacity:1;stroke:none" />
+           style="fill:#ffcc00;fill-opacity:1;stroke:none" />
         <rect
-           style="fill:#ffe680;fill-opacity:1;stroke:none"
+           style="fill:#ffcc00;fill-opacity:1;stroke:none"
            id="rect3856"
            width="7"
            height="10"
@@ -282,7 +281,7 @@
            y="-703.51282" />
         <rect
            transform="matrix(1,0,-0.36302817,0.93177816,0,0)"
-           style="fill:#ffcc00;fill-opacity:1;stroke:none"
+           style="fill:#ffe680;fill-opacity:1;stroke:none"
            id="rect3858"
            width="13.086329"
            height="6.439301"
@@ -293,161 +292,416 @@
     <g
        id="g3016">
       <g
+         id="g3794"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90">
+        <rect
+           y="157.36218"
+           x="68.85714"
+           height="15"
+           width="15"
+           id="rect3014"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3012"
+           width="15"
+           height="15"
+           x="67.85714"
+           y="156.36218"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           y="157.36218"
+           x="68.85714"
+           height="13"
+           width="13"
+           id="rect3788"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <text
+           sodipodi:linespacing="125%"
+           id="text3790"
+           y="167.79613"
+           x="70.148743"
+           style="font-size:10.78543854px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           xml:space="preserve"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma"
+             y="167.79613"
+             x="70.148743"
+             id="tspan3792"
+             sodipodi:role="line">x1</tspan></text>
+      </g>
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x2.png"
+         id="g3801"
+         transform="translate(18,0)">
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           id="rect3803"
+           width="15"
+           height="15"
+           x="68.85714"
+           y="157.36218" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           y="156.36218"
+           x="67.85714"
+           height="15"
+           width="15"
+           id="rect3805"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           id="rect3807"
+           width="13"
+           height="13"
+           x="68.85714"
+           y="157.36218" />
+        <text
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           xml:space="preserve"
+           style="font-size:10.78543854px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           x="70.148743"
+           y="167.79613"
+           id="text3809"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3811"
+             x="70.148743"
+             y="167.79613"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x2</tspan></text>
+      </g>
+      <g
+         transform="translate(38,0)"
+         id="g3813"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x4.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90">
+        <rect
+           y="157.36218"
+           x="68.85714"
+           height="15"
+           width="15"
+           id="rect3815"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect3817"
+           width="15"
+           height="15"
+           x="67.85714"
+           y="156.36218"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           y="157.36218"
+           x="68.85714"
+           height="13"
+           width="13"
+           id="rect3819"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <text
+           sodipodi:linespacing="125%"
+           id="text3821"
+           y="167.79613"
+           x="70.148743"
+           style="font-size:10.78543854px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           xml:space="preserve"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma"
+             y="167.79613"
+             x="70.148743"
+             id="tspan3823"
+             sodipodi:role="line">x4</tspan></text>
+      </g>
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x8.png"
+         id="g3825"
+         transform="translate(58,0)">
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           id="rect3827"
+           width="15"
+           height="15"
+           x="68.85714"
+           y="157.36218" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           y="156.36218"
+           x="67.85714"
+           height="15"
+           width="15"
+           id="rect3829"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           id="rect3831"
+           width="13"
+           height="13"
+           x="68.85714"
+           y="157.36218" />
+        <text
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           xml:space="preserve"
+           style="font-size:10.78543854px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           x="70.148743"
+           y="167.79613"
+           id="text3833"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3835"
+             x="70.148743"
+             y="167.79613"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x8</tspan></text>
+      </g>
+      <g
          transform="translate(78,0)"
          id="g3837"
          inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
          inkscape:export-xdpi="90"
-         inkscape:export-ydpi="90">
-        <g
-           id="g3849">
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             style="fill:#000000;fill-opacity:0.58823529;stroke:none"
-             id="rect3839"
-             width="15"
-             height="15"
-             x="68.85714"
-             y="157.36218" />
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             y="156.36218"
-             x="67.85714"
-             height="15"
-             width="15"
-             id="rect3841"
-             style="fill:#ffffff;fill-opacity:1;stroke:none" />
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             style="fill:#442178;fill-opacity:1;stroke:none"
-             id="rect3843"
-             width="13"
-             height="13"
-             x="68.85714"
-             y="157.36218" />
-          <text
-             transform="scale(0.71567904,1.3972744)"
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             xml:space="preserve"
-             style="font-size:9.29620743px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
-             x="98.09095"
-             y="120.7225"
-             id="text3845"
-             sodipodi:linespacing="125%"><tspan
-               sodipodi:role="line"
-               id="tspan3847"
-               x="98.09095"
-               y="120.7225"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x12</tspan></text>
-        </g>
-        <g
-           id="g3856"
-           transform="translate(-17.500893,0)">
-          <rect
-             y="157.36218"
-             x="68.85714"
-             height="15"
-             width="15"
-             id="rect3859"
-             style="fill:#000000;fill-opacity:0.58823529;stroke:none"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             inkscape:export-xdpi="90"
-             inkscape:export-ydpi="90" />
-          <rect
-             style="fill:#ffffff;fill-opacity:1;stroke:none"
-             id="rect3861"
-             width="15"
-             height="15"
-             x="67.85714"
-             y="156.36218"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             inkscape:export-xdpi="90"
-             inkscape:export-ydpi="90" />
-          <rect
-             y="157.36218"
-             x="68.85714"
-             height="13"
-             width="13"
-             id="rect3863"
-             style="fill:#442178;fill-opacity:1;stroke:none"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             inkscape:export-xdpi="90"
-             inkscape:export-ydpi="90" />
-          <text
-             sodipodi:linespacing="125%"
-             id="text3865"
-             y="120.7225"
-             x="98.09095"
-             style="font-size:9.29620743px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
-             xml:space="preserve"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             inkscape:export-xdpi="90"
-             inkscape:export-ydpi="90"
-             transform="scale(0.71567904,1.3972744)"><tspan
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma"
-               y="120.7225"
-               x="98.09095"
-               id="tspan3867"
-               sodipodi:role="line">x12</tspan></text>
-        </g>
-        <g
-           transform="translate(-17.500893,0)"
-           id="g3869">
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             style="fill:#000000;fill-opacity:0.58823529;stroke:none"
-             id="rect3871"
-             width="15"
-             height="15"
-             x="68.85714"
-             y="157.36218" />
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             y="156.36218"
-             x="67.85714"
-             height="15"
-             width="15"
-             id="rect3873"
-             style="fill:#ffffff;fill-opacity:1;stroke:none" />
-          <rect
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             style="fill:#442178;fill-opacity:1;stroke:none"
-             id="rect3875"
-             width="13"
-             height="13"
-             x="68.85714"
-             y="157.36218" />
-          <text
-             transform="scale(0.71567904,1.3972744)"
-             inkscape:export-ydpi="90"
-             inkscape:export-xdpi="90"
-             inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
-             xml:space="preserve"
-             style="font-size:9.29620743px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
-             x="98.09095"
-             y="120.7225"
-             id="text3877"
-             sodipodi:linespacing="125%"><tspan
-               sodipodi:role="line"
-               id="tspan3879"
-               x="98.09095"
-               y="120.7225"
-               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x12</tspan></text>
-        </g>
+         inkscape:export-ydpi="90" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         id="g3905"
+         transform="translate(77.958523,0)" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x12.png"
+         id="g3921"
+         transform="translate(77.074639,0)">
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           id="rect3923"
+           width="15"
+           height="15"
+           x="68.85714"
+           y="157.36218" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           y="156.36218"
+           x="67.85714"
+           height="15"
+           width="15"
+           id="rect3925"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           id="rect3927"
+           width="13"
+           height="13"
+           x="68.85714"
+           y="157.36218" />
+        <text
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           xml:space="preserve"
+           style="font-size:8.49773979px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           x="89.059013"
+           y="132.2049"
+           id="text3929"
+           sodipodi:linespacing="125%"
+           transform="scale(0.78789006,1.2692126)"><tspan
+             sodipodi:role="line"
+             id="tspan3931"
+             x="89.059013"
+             y="132.2049"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x12</tspan></text>
       </g>
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x6.png"
+         id="g3933"
+         transform="translate(38,-18.5)">
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           id="rect3935"
+           width="15"
+           height="15"
+           x="68.85714"
+           y="157.36218" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           y="156.36218"
+           x="67.85714"
+           height="15"
+           width="15"
+           id="rect3937"
+           style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        <rect
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           id="rect3939"
+           width="13"
+           height="13"
+           x="68.85714"
+           y="157.36218" />
+        <text
+           inkscape:export-ydpi="90"
+           inkscape:export-xdpi="90"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           xml:space="preserve"
+           style="font-size:10.78543854px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#b380ff;fill-opacity:1;stroke:none;font-family:Sans"
+           x="70.148743"
+           y="167.79613"
+           id="text3941"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan3943"
+             x="70.148743"
+             y="167.79613"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#b380ff;font-family:Tahoma;-inkscape-font-specification:Tahoma">x6</tspan></text>
+      </g>
+    </g>
+    <g
+       transform="translate(-180.25,820)"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\save_file.png"
+       id="g3978">
+      <rect
+         style="fill:#2a7fff;fill-opacity:0;stroke:none"
+         id="rect3980"
+         width="16"
+         height="16"
+         x="349.73215"
+         y="-710.76282" />
+      <g
+         id="g4018"
+         transform="translate(-7.1249928,0)">
+        <path
+           id="rect3945"
+           d="m 356.85714,-710.76281 0,14 1,0 0,1 14,0 0,-15 -15,0 z"
+           style="fill:#6f7c91;fill-opacity:1;stroke:none"
+           inkscape:connector-curvature="0" />
+        <path
+           id="rect3947"
+           d="m 359.85714,-700.76281 0,5 9,0 0,-5 -9,0 z m 1,1 2,0 0,3 -2,0 0,-3 z"
+           style="fill:#b7bec8;fill-opacity:1;stroke:none"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       id="g3861"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\edit_mode_img.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="translate(-157.25,820)">
+      <rect
+         y="-710.45032"
+         x="349.73215"
+         height="16"
+         width="16"
+         id="rect3863"
+         style="fill:#2a7fff;fill-opacity:0;stroke:none" />
+      <rect
+         style="fill:#87de87;fill-opacity:1;stroke:none"
+         id="rect3828"
+         width="14"
+         height="14"
+         x="350.73215"
+         y="-709.45032" />
+    </g>
+    <g
+       transform="translate(-137.25,820)"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\edit_mode_grid.png"
+       id="g3891">
+      <rect
+         style="fill:#2a7fff;fill-opacity:0;stroke:none"
+         id="rect3893"
+         width="16"
+         height="16"
+         x="349.73215"
+         y="-710.45032" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#87aade;fill-opacity:1;stroke:none"
+         d="m 350.73215,-709.45032 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z m -10,5 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z m -10,5 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z m 5,0 0,4 4,0 0,-4 -4,0 z"
+         id="rect3830" />
+    </g>
+    <g
+       id="g3897"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\edit_mode_voxel.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="translate(-119.125,818.375)">
+      <rect
+         y="-709.10657"
+         x="350.67746"
+         height="16"
+         width="16"
+         id="rect3899"
+         style="fill:#2a7fff;fill-opacity:0;stroke:none" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#80e5ff;fill-opacity:1;stroke:none"
+         d="m 358.66187,-708.10656 -5.71875,3.2812 5.71875,3.3125 5.6875,-3.3125 -5.6875,-3.2812 z m -6.125,4.125 0,6.5937 5.6875,3.2813 0.0312,-6.5938 -5.71875,-3.2812 z m 12.28125,0 -5.6875,3.2812 0,6.5938 5.6875,-3.2813 0,-6.5937 z"
+         id="rect3851" />
     </g>
   </g>
 </svg>

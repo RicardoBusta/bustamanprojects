@@ -1,18 +1,9 @@
 <RCC>
     <qresource prefix="/icons">
         <file>icon_003.bmp</file>
-        <file>icon_004.bmp</file>
-        <file>icon_005.bmp</file>
-        <file>icon_006.bmp</file>
-        <file>icon_007.bmp</file>
-        <file>icon_008.bmp</file>
-        <file>icon_009.bmp</file>
         <file>icon_010.bmp</file>
         <file>icon_011.bmp</file>
         <file>icon_012.bmp</file>
-        <file>icon_019.bmp</file>
-        <file>icon_020.bmp</file>
-        <file>icon_021.bmp</file>
         <file>icon_022.bmp</file>
         <file>icon_023.bmp</file>
         <file>icon_024.bmp</file>
@@ -66,5 +57,17 @@
         <file>zoom_x12.png</file>
         <file>zoom_x6.png</file>
         <file>save_file.png</file>
+        <file>edit_mode_grid.png</file>
+        <file>edit_mode_img.png</file>
+        <file>edit_mode_voxel.png</file>
+        <file>text_edit.png</file>
+        <file>animation.png</file>
+        <file>help.png</file>
+        <file>redo.png</file>
+        <file>undo.png</file>
+        <file>copy.png</file>
+        <file>cut.png</file>
+        <file>paste.png</file>
+        <file>resize.png</file>
     </qresource>
 </RCC>

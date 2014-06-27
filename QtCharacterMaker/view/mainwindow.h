@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <QMap>
+
 namespace Ui {
 class MainWindow;
 }
@@ -18,10 +20,13 @@ public:
 private:
     Ui::MainWindow *ui;
 
+    QMap<int,QAction*> tool_buttons_;
+    QMap<int,QAction*> edit_mode_buttons_;
 private slots:
     void OpenImage();
     void OpenImageCanvas(QString file_name);
 
+    void NewImage();
     void SaveImage();
 
     void SetCursorSize();

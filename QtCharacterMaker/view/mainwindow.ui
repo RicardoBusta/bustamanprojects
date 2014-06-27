@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>1025</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -216,8 +216,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>77</width>
-          <height>416</height>
+          <width>68</width>
+          <height>413</height>
          </rect>
         </property>
        </widget>
@@ -241,7 +241,7 @@
     <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionSelection_Tool"/>
    <addaction name="actionZoom_Tool"/>
@@ -652,6 +652,9 @@
    </property>
   </action>
   <action name="actionSelection_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_043.bmp</normaloff>:/icons/icon_043.bmp</iconset>
@@ -661,6 +664,9 @@
    </property>
   </action>
   <action name="actionZoom_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_044.bmp</normaloff>:/icons/icon_044.bmp</iconset>
@@ -670,6 +676,9 @@
    </property>
   </action>
   <action name="actionFill_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_045.bmp</normaloff>:/icons/icon_045.bmp</iconset>
@@ -679,6 +688,9 @@
    </property>
   </action>
   <action name="actionPencil_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_046.bmp</normaloff>:/icons/icon_046.bmp</iconset>
@@ -688,6 +700,9 @@
    </property>
   </action>
   <action name="actionLine_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_048.bmp</normaloff>:/icons/icon_048.bmp</iconset>
@@ -697,6 +712,9 @@
    </property>
   </action>
   <action name="actionRectangle_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_052.bmp</normaloff>:/icons/icon_052.bmp</iconset>
@@ -706,6 +724,9 @@
    </property>
   </action>
   <action name="actionElipse_Tool">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/icon_054.bmp</normaloff>:/icons/icon_054.bmp</iconset>

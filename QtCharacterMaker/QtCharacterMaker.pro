@@ -20,7 +20,8 @@ SOURCES += \
     view/canvaswidgetcontainer.cpp \
     view/editimagewidget.cpp \
     view/setcursorsizedialog.cpp \
-    view/newimagefiledialog.cpp
+    view/newimagefiledialog.cpp \
+    view/colorpalettewidget.cpp
 
 HEADERS  += \
     view/mainwindow.h \
@@ -32,7 +33,8 @@ HEADERS  += \
     view/canvaswidgetcontainer.h \
     view/editimagewidget.h \
     view/setcursorsizedialog.h \
-    view/newimagefiledialog.h
+    view/newimagefiledialog.h \
+    view/colorpalettewidget.h
 
 FORMS    += \
     view/mainwindow.ui \

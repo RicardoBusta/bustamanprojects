@@ -17,7 +17,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
-  ui(new Ui::MainWindow)
+  ui(new Ui::MainWindow),
+  last_mdi_window_selected_(NULL)
 {
   ui->setupUi(this);
 
@@ -45,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(SaveImage()));
   connect(ui->actionTile_Size,SIGNAL(triggered()),this,SLOT(SetCursorSize()));
   connect(ui->actionNew,SIGNAL(triggered()),this,SLOT(NewImage()));
+  connect(ui->mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(CurrentWindowChanged(QMdiSubWindow*)));
 }
 
 MainWindow::~MainWindow()
@@ -73,7 +75,8 @@ void MainWindow::OpenImageCanvas(QString file_name)
     PopMessage("Fail");
     return;
   }
-  CanvasWidgetContainer *canvas_widget_container = new CanvasWidgetContainer(file_name,img,ui->edit_image_widget);
+  CanvasWidgetContainer *canvas_widget_container = new CanvasWidgetContainer(file_name,img);
+  canvas_widget_container->ConnectWidgets(ui->edit_image_widget);
   ui->mdiArea->addSubWindow(canvas_widget_container);
   canvas_widget_container->show();
 }
@@ -107,4 +110,24 @@ void MainWindow::PopMessage(QString message)
   msg->setText(message);
   msg->exec();
   delete msg;
+}
+
+void MainWindow::CurrentWindowChanged(QMdiSubWindow *w)
+{
+  if(last_mdi_window_selected_ != NULL){
+    last_mdi_window_selected_->disconnect(ui->edit_image_widget);
+    ui->edit_image_widget->disconnect(last_mdi_window_selected_);
+  }
+
+  if( w != NULL ){
+    CanvasWidgetContainer *canvas = dynamic_cast<CanvasWidgetContainer*>(w->widget());
+    if( canvas != NULL ){
+      qDebug() << canvas->file_name();
+      ui->color_palette_widget->SetImagePalette(canvas->GetImagePalette());
+      ui->edit_image_widget->SetImagePalette(canvas->GetImagePalette());
+      ui->color_palette_widget->update();
+    }
+  }
+
+  last_mdi_window_selected_ = w;
 }

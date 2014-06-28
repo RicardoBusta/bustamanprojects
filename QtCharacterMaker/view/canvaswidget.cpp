@@ -103,11 +103,21 @@ void CanvasWidget::SetPick(QImage pick)
 {
   QImage paste_image;
   if(image_.format() == QImage::Format_Indexed8){
-    paste_image = image_.convertToFormat(QImage::Format_ARGB32);
-    QPainter painter(&paste_image);
-    painter.drawImage(Options::instance()->selection_,pick);
+    QRect selection = Options::instance()->selection_;
+    for(int i=selection.left();i<=selection.right();i++){
+      int i2 = i-selection.left();
+      for(int j=selection.top();j<=selection.bottom();j++){
+        int j2 = j-selection.top();
+        if(image_.rect().contains(i,j) && pick.rect().contains(i2,j2)){
+          image_.setPixel(i,j,pick.pixelIndex(i-selection.left(),j-selection.top()));
+        }
+      }
+    }
+//    paste_image = image_.convertToFormat(QImage::Format_ARGB32);
+//    QPainter painter(&paste_image);
+//    painter.drawImage(Options::instance()->selection_,pick);
 
-    image_ = paste_image.convertToFormat(image_.format());
+//    image_ = paste_image.convertToFormat(image_.format());
   }else{
     QPainter painter(&image_);
     painter.drawImage(Options::instance()->selection_,pick);

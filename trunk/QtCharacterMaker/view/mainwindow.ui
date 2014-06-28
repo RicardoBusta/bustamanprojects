@@ -217,7 +217,7 @@
           <x>0</x>
           <y>0</y>
           <width>258</width>
-          <height>195</height>
+          <height>115</height>
          </rect>
         </property>
        </widget>
@@ -455,7 +455,7 @@
    </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_010.bmp</normaloff>:/icons/icon_010.bmp</iconset>
+     <normaloff>:/icons/tile_size.png</normaloff>:/icons/tile_size.png</iconset>
    </property>
    <property name="text">
     <string>Tile Size</string>
@@ -467,7 +467,7 @@
    </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_011.bmp</normaloff>:/icons/icon_011.bmp</iconset>
+     <normaloff>:/icons/show_grid.png</normaloff>:/icons/show_grid.png</iconset>
    </property>
    <property name="text">
     <string>Show Grid</string>
@@ -479,7 +479,7 @@
    </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_012.bmp</normaloff>:/icons/icon_012.bmp</iconset>
+     <normaloff>:/icons/show_divisions.png</normaloff>:/icons/show_divisions.png</iconset>
    </property>
    <property name="text">
     <string>Show Divisions</string>
@@ -552,6 +552,9 @@
    </property>
   </action>
   <action name="actionImage_Size">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
      <normaloff>:/icons/resize.png</normaloff>:/icons/resize.png</iconset>
@@ -685,7 +688,7 @@
    </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_043.bmp</normaloff>:/icons/icon_043.bmp</iconset>
+     <normaloff>:/icons/selection_tool.png</normaloff>:/icons/selection_tool.png</iconset>
    </property>
    <property name="text">
     <string>Selection Tool</string>
@@ -695,9 +698,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_044.bmp</normaloff>:/icons/icon_044.bmp</iconset>
+     <normaloff>:/icons/zoom_tool.png</normaloff>:/icons/zoom_tool.png</iconset>
    </property>
    <property name="text">
     <string>Zoom Tool</string>
@@ -707,9 +713,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_045.bmp</normaloff>:/icons/icon_045.bmp</iconset>
+     <normaloff>:/icons/fill_tool.png</normaloff>:/icons/fill_tool.png</iconset>
    </property>
    <property name="text">
     <string>Fill Tool</string>
@@ -721,7 +730,7 @@
    </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_046.bmp</normaloff>:/icons/icon_046.bmp</iconset>
+     <normaloff>:/icons/pencil_tool.png</normaloff>:/icons/pencil_tool.png</iconset>
    </property>
    <property name="text">
     <string>Pencil Tool</string>
@@ -731,9 +740,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_048.bmp</normaloff>:/icons/icon_048.bmp</iconset>
+     <normaloff>:/icons/line_tool.png</normaloff>:/icons/line_tool.png</iconset>
    </property>
    <property name="text">
     <string>Line Tool</string>
@@ -743,9 +755,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_052.bmp</normaloff>:/icons/icon_052.bmp</iconset>
+     <normaloff>:/icons/rectangle_tool.png</normaloff>:/icons/rectangle_tool.png</iconset>
    </property>
    <property name="text">
     <string>Rectangle Tool</string>
@@ -755,9 +770,12 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="../icons/icons.qrc">
-     <normaloff>:/icons/icon_054.bmp</normaloff>:/icons/icon_054.bmp</iconset>
+     <normaloff>:/icons/elipse_tool.png</normaloff>:/icons/elipse_tool.png</iconset>
    </property>
    <property name="text">
     <string>Elipse Tool</string>

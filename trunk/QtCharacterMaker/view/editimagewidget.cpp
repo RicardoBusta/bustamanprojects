@@ -12,9 +12,10 @@ EditImageWidget::EditImageWidget(QWidget *parent) :
 
 void EditImageWidget::SetImagePalette(const QVector<QRgb> &color_table)
 {
-  qDebug() << "setting?";
-  image_.setColorTable(color_table);
-  repaint();
+  if(!color_table.empty()){
+    image_.setColorTable(color_table);
+    repaint();
+  }
 }
 
 void EditImageWidget::paintEvent(QPaintEvent *e)

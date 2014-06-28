@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>1025</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -216,8 +216,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>68</width>
-          <height>413</height>
+          <width>258</width>
+          <height>195</height>
          </rect>
         </property>
        </widget>
@@ -250,6 +250,34 @@
    <addaction name="actionLine_Tool"/>
    <addaction name="actionRectangle_Tool"/>
    <addaction name="actionElipse_Tool"/>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="windowTitle">
+    <string>Color Palette</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="ColorPaletteWidget" name="color_palette_widget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>260</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>260</width>
+         <height>180</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <action name="actionNew">
    <property name="icon">
@@ -742,6 +770,12 @@
    <class>EditImageWidget</class>
    <extends>QWidget</extends>
    <header>view/editimagewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ColorPaletteWidget</class>
+   <extends>QWidget</extends>
+   <header>view/colorpalettewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

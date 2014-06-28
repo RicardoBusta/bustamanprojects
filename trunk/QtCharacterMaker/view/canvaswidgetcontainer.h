@@ -9,11 +9,17 @@ class CanvasWidgetContainer : public QScrollArea
 {
   Q_OBJECT
 public:
-  explicit CanvasWidgetContainer(const QString &file_name, const QImage &image, QWidget *image_widget, QWidget *parent = 0);
+  explicit CanvasWidgetContainer(const QString &file_name, const QImage &image, QWidget *parent = 0);
   virtual ~CanvasWidgetContainer();
 
   void SaveImage();
   void SaveImageAs(QString path);
+
+  QString file_name() const;
+
+  QVector<QRgb> GetImagePalette() const;
+
+  void ConnectWidgets(QWidget *image_edit_widget);
 private:
   CanvasWidget *canvas_widget_;
 

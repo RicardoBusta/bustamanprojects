@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icon_003.bmp</file>
-        <file>icon_010.bmp</file>
-        <file>icon_011.bmp</file>
-        <file>icon_012.bmp</file>
         <file>icon_022.bmp</file>
         <file>icon_023.bmp</file>
         <file>icon_024.bmp</file>
@@ -25,26 +21,6 @@
         <file>icon_040.bmp</file>
         <file>icon_041.bmp</file>
         <file>icon_042.bmp</file>
-        <file>icon_043.bmp</file>
-        <file>icon_044.bmp</file>
-        <file>icon_045.bmp</file>
-        <file>icon_046.bmp</file>
-        <file>icon_047.bmp</file>
-        <file>icon_048.bmp</file>
-        <file>icon_049.bmp</file>
-        <file>icon_050.bmp</file>
-        <file>icon_051.bmp</file>
-        <file>icon_052.bmp</file>
-        <file>icon_053.bmp</file>
-        <file>icon_054.bmp</file>
-        <file>icon_055.bmp</file>
-        <file>icon_056.bmp</file>
-        <file>icon_057.bmp</file>
-        <file>icon_058.bmp</file>
-        <file>icon_059.bmp</file>
-        <file>icon_060.bmp</file>
-        <file>icon_061.bmp</file>
-        <file>icon_062.bmp</file>
         <file>icon_063.bmp</file>
         <file>app_icon.svg</file>
         <file>new_file.png</file>
@@ -69,5 +45,15 @@
         <file>cut.png</file>
         <file>paste.png</file>
         <file>resize.png</file>
+        <file>elipse_tool.png</file>
+        <file>line_tool.png</file>
+        <file>rectangle_tool.png</file>
+        <file>selection_tool.png</file>
+        <file>zoom_tool.png</file>
+        <file>pencil_tool.png</file>
+        <file>fill_tool.png</file>
+        <file>tile_size.png</file>
+        <file>show_divisions.png</file>
+        <file>show_grid.png</file>
     </qresource>
 </RCC>

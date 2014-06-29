@@ -44,12 +44,19 @@ QVector<QRgb> CanvasWidgetContainer::GetImagePalette() const
   return canvas_widget_->image_.colorTable();
 }
 
-void CanvasWidgetContainer::ConnectWidgets(QWidget *image_edit_widget)
+void CanvasWidgetContainer::SetAsActiveWidget(QWidget *image_edit_widget)
+{
+  connect(canvas_widget_,SIGNAL(SendPick(QImage)),image_edit_widget,SLOT(SetImage(QImage)));
+  connect(canvas_widget_,SIGNAL(GetPickRequest()),image_edit_widget,SLOT(PickRequest()));
+  connect(image_edit_widget,SIGNAL(SendPick(QImage)),canvas_widget_,SLOT(SetPick(QImage)));
+
+  canvas_widget_->active_ = true;
+}
+
+void CanvasWidgetContainer::RemoveAsActiveWidget(QWidget *image_edit_widget)
 {
   disconnect(canvas_widget_,0,image_edit_widget,0);
   disconnect(image_edit_widget,0,canvas_widget_,0);
 
-  connect(canvas_widget_,SIGNAL(SendPick(QImage)),image_edit_widget,SLOT(SetImage(QImage)));
-  connect(canvas_widget_,SIGNAL(GetPickRequest()),image_edit_widget,SLOT(PickRequest()));
-  connect(image_edit_widget,SIGNAL(SendPick(QImage)),canvas_widget_,SLOT(SetPick(QImage)));
+  canvas_widget_->active_ = false;
 }

@@ -18,7 +18,7 @@
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow),
-  last_mdi_window_selected_(NULL)
+  last_canvas_selected_(NULL)
 {
   ui->setupUi(this);
 
@@ -42,10 +42,16 @@ MainWindow::MainWindow(QWidget *parent) :
     tool_buttons_[Options::instance()->current_tool_]->toggle();
   }
 
+  // Menu Actions
   connect(ui->actionOpen,SIGNAL(triggered()),this,SLOT(OpenImage()));
   connect(ui->actionSave,SIGNAL(triggered()),this,SLOT(SaveImage()));
   connect(ui->actionTile_Size,SIGNAL(triggered()),this,SLOT(SetCursorSize()));
   connect(ui->actionNew,SIGNAL(triggered()),this,SLOT(NewImage()));
+
+  // Tool Actions
+  connect(ui->actionSelection_Tool,SIGNAL(triggered()),this,SLOT(SelectSelectionTool()));
+  connect(ui->actionPencil_Tool,SIGNAL(triggered()),this,SLOT(SelectSelectionTool()));
+
   connect(ui->mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(CurrentWindowChanged(QMdiSubWindow*)));
 }
 
@@ -76,7 +82,6 @@ void MainWindow::OpenImageCanvas(QString file_name)
     return;
   }
   CanvasWidgetContainer *canvas_widget_container = new CanvasWidgetContainer(file_name,img);
-  canvas_widget_container->ConnectWidgets(ui->edit_image_widget);
   ui->mdiArea->addSubWindow(canvas_widget_container);
   canvas_widget_container->show();
 }
@@ -104,6 +109,19 @@ void MainWindow::SetCursorSize()
   cursor_dialog.exec();
 }
 
+void MainWindow::SelectSelectionTool()
+{
+  QMap<int,QAction*>::iterator it = tool_buttons_.begin();
+  for(;it!=tool_buttons_.end();it++){
+924959
+  }
+}
+
+void MainWindow::SelectPencilTool()
+{
+
+}
+
 void MainWindow::PopMessage(QString message)
 {
   QMessageBox *msg = new QMessageBox(this);
@@ -114,20 +132,23 @@ void MainWindow::PopMessage(QString message)
 
 void MainWindow::CurrentWindowChanged(QMdiSubWindow *w)
 {
-  if(last_mdi_window_selected_ != NULL){
-    last_mdi_window_selected_->disconnect(ui->edit_image_widget);
-    ui->edit_image_widget->disconnect(last_mdi_window_selected_);
+  if(last_canvas_selected_ != NULL){
+    last_canvas_selected_->RemoveAsActiveWidget(ui->edit_image_widget);
   }
 
+  last_canvas_selected_ = NULL;
   if( w != NULL ){
     CanvasWidgetContainer *canvas = dynamic_cast<CanvasWidgetContainer*>(w->widget());
     if( canvas != NULL ){
-      qDebug() << canvas->file_name();
+      //      qDebug() << canvas->file_name();
+      canvas->SetAsActiveWidget(ui->edit_image_widget);
       ui->color_palette_widget->SetImagePalette(canvas->GetImagePalette());
       ui->edit_image_widget->SetImagePalette(canvas->GetImagePalette());
       ui->color_palette_widget->update();
+
+      last_canvas_selected_ = canvas;
     }
   }
 
-  last_mdi_window_selected_ = w;
+
 }

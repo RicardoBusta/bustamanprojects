@@ -18,6 +18,97 @@
    sodipodi:docname="app_icons_edit.svg">
   <defs
      id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Sstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Sstart"
+       style="overflow:visible">
+      <path
+         id="path4897"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.2) translate(6,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path4891"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.4) translate(10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Send"
+       style="overflow:visible;">
+      <path
+         id="path4918"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Sstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Sstart"
+       style="overflow:visible">
+      <path
+         id="path4915"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mend"
+       style="overflow:visible;">
+      <path
+         id="path4912"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) rotate(180) translate(0,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path4906"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Mstart"
+       style="overflow:visible">
+      <path
+         id="path4909"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6) translate(0,0)" />
+    </marker>
     <linearGradient
        id="linearGradient4405">
       <stop
@@ -274,9 +365,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.313708"
-     inkscape:cx="129.30576"
-     inkscape:cy="49.898142"
+     inkscape:zoom="8"
+     inkscape:cx="69.038882"
+     inkscape:cy="78.385925"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1397,34 +1488,159 @@
        inkscape:export-ydpi="90"
        transform="translate(-144.93338,807.07547)">
       <rect
-         y="-706.87445"
-         x="351.78128"
+         y="-707.73309"
+         x="352.81421"
          height="16"
          width="16"
          id="rect4442"
          style="fill:#2a7fff;fill-opacity:0;stroke:none" />
       <g
          id="g4431"
-         transform="matrix(0.94117857,0,0,0.94117857,189.29764,-795.8919)">
+         transform="matrix(1.0021942,0,0,1.0021942,178.69703,-802.64441)">
         <path
            sodipodi:nodetypes="sccsccs"
            inkscape:connector-curvature="0"
            id="path4384"
            d="m 178.25372,98.660297 c -1.25727,2.177663 -1.14486,4.596353 0.25107,5.402293 l 6.44767,2.37454 c 1.03801,0.59928 2.62829,-0.23283 3.56319,-1.8521 0.93489,-1.61929 0.86038,-3.41257 -0.17763,-4.01186 l -5.28024,-4.396586 c -1.39593,-0.805945 -3.54678,0.30605 -4.80406,2.483713 z"
-           style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:1.06249762" />
+           style="fill:#b3b3b3;fill-opacity:1;stroke:#000000;stroke-width:0.9978106" />
         <path
            sodipodi:nodetypes="sssss"
            inkscape:connector-curvature="0"
-           style="fill:#666666;fill-opacity:1;stroke:#000000;stroke-width:1.06249762"
+           style="fill:#666666;fill-opacity:1;stroke:#000000;stroke-width:0.9978106"
            d="m 178.25372,98.660297 c -1.25727,2.177663 -1.14486,4.596353 0.25107,5.402293 1.39595,0.80594 3.5468,-0.30605 4.80407,-2.4837 1.25728,-2.177672 1.14487,-4.596362 -0.25108,-5.402306 -1.39593,-0.805945 -3.54678,0.30605 -4.80406,2.483713 z"
            id="path4392" />
         <path
-           sodipodi:nodetypes="sccccsscsscssccccs"
+           sodipodi:nodetypes="cccczccczcccsc"
            inkscape:connector-curvature="0"
            id="path4413"
-           d="m 182.12969,100.68871 c -0.2989,-0.005 -0.62174,-0.007 -0.93394,0.0291 -1.64239,0.19189 -2.98395,0.93546 -3.67742,1.8679 -0.007,0.0106 -0.0215,0.0185 -0.0291,0.0291 l 0,3.70661 c -0.37776,-0.0822 -0.78757,-0.11675 -1.2258,-0.11675 -1.7086,0 -3.0937,0.69255 -3.0937,1.54685 0,0.58106 0.65772,1.07817 1.60522,1.34255 -0.0507,0.1158 -0.0875,0.22638 -0.0875,0.35023 0,0.88654 1.37203,1.60522 3.06451,1.60522 1.59601,0 2.89105,-0.64302 3.03533,-1.45929 1.4821,-0.20827 2.59754,-0.97695 2.59754,-1.89708 0,-1.07997 -0.93205,-1.60522 -2.80184,-1.60522 -0.28701,0 -1.13479,0.0195 -1.40092,0.0584 l 0,-1.86789 c 1.34474,0.21753 3.04476,-0.83104 4.1152,-2.6851 0.13094,-0.2268 0.24891,-0.47053 0.35023,-0.70046 -0.46992,-0.1279 -0.97309,-0.19661 -1.51766,-0.2043 z"
-           style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:1.06249762" />
+           d="m 182.12969,100.68871 c -0.2989,-0.005 -0.62174,-0.007 -0.93394,0.0291 -1.64239,0.19189 -2.98395,0.93546 -3.67742,1.8679 -0.007,0.0106 -0.0215,0.0185 -0.0291,0.0291 0,0 0.14484,4.76927 -0.17976,4.5816 -0.3246,-0.18767 -2.64449,-1.52601 -3.04225,1.65918 0.10388,0.96065 3.40767,1.27083 3.67795,1.28165 1.48989,-0.24446 4.74606,-0.23768 3.2797,-2.59166 -0.57661,-0.85215 -1.55785,-0.55121 -1.90594,-0.55705 -0.34809,-0.006 -0.13683,-2.71013 -0.13683,-2.71013 1.34474,0.21753 3.04476,-0.83104 4.1152,-2.6851 0.13094,-0.2268 0.24891,-0.47053 0.35023,-0.70046 -0.46992,-0.1279 -0.97309,-0.19661 -1.51766,-0.2043 z"
+           style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.9978106" />
       </g>
+    </g>
+    <g
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\tile_size.png"
+       id="g4499"
+       transform="translate(38.972452,-64.23928)">
+      <g
+         id="g7865"
+         transform="matrix(0.84615385,0,0,0.84615385,10.593404,26.209573)">
+        <rect
+           y="160.90715"
+           x="68.857605"
+           height="11.818182"
+           width="11.818182"
+           id="rect4501"
+           style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
+           id="rect4503"
+           width="11.818182"
+           height="11.818182"
+           x="67.675323"
+           y="159.72581"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+        <rect
+           y="160.90764"
+           x="68.85714"
+           height="9.454545"
+           width="9.454545"
+           id="rect4505"
+           style="fill:#442178;fill-opacity:1;stroke:none"
+           inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.99999982px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Mstart);marker-end:url(#Arrow2Mend)"
+         d="m 81.456328,162.68656 0,12.25574 -12.274815,0"
+         id="path4511"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\show_divisions.png"
+       id="g7870"
+       transform="translate(59.390161,-59.050648)">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+         id="rect7872"
+         width="15"
+         height="15"
+         x="68.85714"
+         y="157.36218" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         y="156.36218"
+         x="67.85714"
+         height="15"
+         width="15"
+         id="rect7874"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <path
+         style="fill:#442178;fill-opacity:1;stroke:none"
+         d="M 60.375 926.0625 L 60.375 932.0625 L 66.375 932.0625 L 66.375 926.0625 L 60.375 926.0625 z M 67.375 926.0625 L 67.375 932.0625 L 73.375 932.0625 L 73.375 926.0625 L 67.375 926.0625 z M 60.375 933.0625 L 60.375 939.0625 L 66.375 939.0625 L 66.375 933.0625 L 60.375 933.0625 z M 67.375 933.0625 L 67.375 939.0625 L 73.375 939.0625 L 73.375 933.0625 L 67.375 933.0625 z "
+         transform="translate(8.466979,-768.58716)"
+         id="rect7876" />
+    </g>
+    <g
+       transform="translate(77.202661,-59.050648)"
+       id="g7897"
+       inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\show_grid.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="157.36218"
+         x="68.85714"
+         height="15"
+         width="15"
+         id="rect7899"
+         style="fill:#000000;fill-opacity:0.58823529;stroke:none"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="rect7901"
+         width="15"
+         height="15"
+         x="67.85714"
+         y="156.36218"
+         inkscape:export-filename="D:\Projects\QtCharacterMaker\icons\zoom_x1.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#442178;fill-opacity:1;stroke:none"
+         d="M 78.1875 933.0625 L 78.1875 935.8125 L 80.96875 935.8125 L 80.96875 933.0625 L 78.1875 933.0625 z M 81.4375 933.0625 L 81.4375 935.8125 L 84.1875 935.8125 L 84.1875 933.0625 L 81.4375 933.0625 z M 78.1875 936.28125 L 78.1875 939.0625 L 80.96875 939.0625 L 80.96875 936.28125 L 78.1875 936.28125 z M 81.4375 936.28125 L 81.4375 939.0625 L 84.1875 939.0625 L 84.1875 936.28125 L 81.4375 936.28125 z "
+         transform="translate(-9.345521,-768.58716)"
+         id="rect7903" />
+      <path
+         id="path7913"
+         d="m 68.842479,157.47584 0,2.75 2.78125,0 0,-2.75 -2.78125,0 z m 3.25,0 0,2.75 2.75,0 0,-2.75 -2.75,0 z m -3.25,3.21875 0,2.78125 2.78125,0 0,-2.78125 -2.78125,0 z m 3.25,0 0,2.78125 2.75,0 0,-2.78125 -2.75,0 z"
+         style="fill:#442178;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path7915"
+         d="m 75.842479,164.47534 0,2.75 2.78125,0 0,-2.75 -2.78125,0 z m 3.25,0 0,2.75 2.75,0 0,-2.75 -2.75,0 z m -3.25,3.21875 0,2.78125 2.78125,0 0,-2.78125 -2.78125,0 z m 3.25,0 0,2.78125 2.75,0 0,-2.78125 -2.75,0 z"
+         style="fill:#442178;fill-opacity:1;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#442178;fill-opacity:1;stroke:none"
+         d="m 75.842979,157.47584 0,2.75 2.78125,0 0,-2.75 -2.78125,0 z m 3.25,0 0,2.75 2.75,0 0,-2.75 -2.75,0 z m -3.25,3.21875 0,2.78125 2.78125,0 0,-2.78125 -2.78125,0 z m 3.25,0 0,2.78125 2.75,0 0,-2.78125 -2.75,0 z"
+         id="path7917" />
     </g>
   </g>
 </svg>

@@ -12,7 +12,7 @@ public:
 
 //    int cursor_x_;
 //    int cursor_y_;
-    void SetImage(const QImage &image);
+
 protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
@@ -21,12 +21,14 @@ protected:
 
 private:
     friend class CanvasWidgetContainer;
-    QImage image_;
+    void SetImage(const QImage &image);
 
+    friend class CanvasWidgetContainer;
+    QImage image_;
     bool anchor_down_;
     QRect anchor_;
-
     QRect PosToGrid(QPoint pos);
+    bool active_;
 signals:
     void SendPick(QImage);
     void GetPickRequest();

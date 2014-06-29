@@ -10,6 +10,7 @@ class MainWindow;
 }
 
 class QMdiSubWindow;
+class CanvasWidgetContainer;
 
 class MainWindow : public QMainWindow
 {
@@ -25,13 +26,19 @@ private:
     QMap<int,QAction*> tool_buttons_;
     QMap<int,QAction*> edit_mode_buttons_;
 
-    QMdiSubWindow *last_mdi_window_selected_;
+    CanvasWidgetContainer *last_canvas_selected_;
 private slots:
+    // Actions
     void OpenImage();
     void OpenImageCanvas(QString file_name);
     void NewImage();
     void SaveImage();
     void SetCursorSize();
+
+    //Tools
+    void SelectSelectionTool();
+    void SelectPencilTool();
+
     void PopMessage(QString message);
     void CurrentWindowChanged(QMdiSubWindow *w);
 };

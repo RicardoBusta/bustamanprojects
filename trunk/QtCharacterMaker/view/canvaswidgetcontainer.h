@@ -19,7 +19,8 @@ public:
 
   QVector<QRgb> GetImagePalette() const;
 
-  void ConnectWidgets(QWidget *image_edit_widget);
+  void SetAsActiveWidget(QWidget *image_edit_widget);
+  void RemoveAsActiveWidget(QWidget *image_edit_widget);
 private:
   CanvasWidget *canvas_widget_;
 

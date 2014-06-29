@@ -10,7 +10,8 @@
 
 CanvasWidget::CanvasWidget(QWidget *parent):
   QWidget(parent),
-  anchor_down_(false)
+  anchor_down_(false),
+  active_(false)
 {
   setMouseTracking(true);
 }
@@ -32,27 +33,29 @@ void CanvasWidget::paintEvent(QPaintEvent *event)
 
   painter.drawImage(image_.rect(),image_);
 
-  painter.setPen(Qt::yellow);
-  painter.setBrush(Qt::NoBrush);
-  painter.drawRect(Options::instance()->selection_);
+  if(active_){
+    painter.setPen(Qt::yellow);
+    painter.setBrush(Qt::NoBrush);
+    painter.drawRect(Options::instance()->selection_);
 
-  QVector<qreal> dashes;
-  dashes << 2 << 2;
+    QVector<qreal> dashes;
+    dashes << 2 << 2;
 
-  QPen pen;
-  pen.setColor(Qt::red);
-  pen.setDashPattern(dashes);
-  painter.setPen(pen);
-  painter.drawRect(Options::instance()->selection_);
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setDashPattern(dashes);
+    painter.setPen(pen);
+    painter.drawRect(Options::instance()->selection_);
+  }
 
-//  painter.setPen(Qt::yellow);
-//  painter.setBrush(Qt::NoBrush);
-//  painter.drawRect(anchor_);
+  //  painter.setPen(Qt::yellow);
+  //  painter.setBrush(Qt::NoBrush);
+  //  painter.drawRect(anchor_);
 
-//  pen.setColor(Qt::blue);
-//  pen.setDashPattern(dashes);
-//  painter.setPen(pen);
-//  painter.drawRect(anchor_);
+  //  pen.setColor(Qt::blue);
+  //  pen.setDashPattern(dashes);
+  //  painter.setPen(pen);
+  //  painter.drawRect(anchor_);
 
   painter.end();
 }
@@ -113,11 +116,11 @@ void CanvasWidget::SetPick(QImage pick)
         }
       }
     }
-//    paste_image = image_.convertToFormat(QImage::Format_ARGB32);
-//    QPainter painter(&paste_image);
-//    painter.drawImage(Options::instance()->selection_,pick);
+    //    paste_image = image_.convertToFormat(QImage::Format_ARGB32);
+    //    QPainter painter(&paste_image);
+    //    painter.drawImage(Options::instance()->selection_,pick);
 
-//    image_ = paste_image.convertToFormat(image_.format());
+    //    image_ = paste_image.convertToFormat(image_.format());
   }else{
     QPainter painter(&image_);
     painter.drawImage(Options::instance()->selection_,pick);

@@ -14,6 +14,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QMdiSubWindow>
+#include <QSettings>
+
+const QString kSettingsFileName = "settings.ini";
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -22,12 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  LoadSettings();
+
   edit_mode_buttons_[EDIT_MODE_IMAGE] = ui->actionEditModeImage;
   edit_mode_buttons_[EDIT_MODE_GRID] = ui->actionEditModeGrid;
   edit_mode_buttons_[EDIT_MODE_VOXEL] = ui->actionEditModeVoxel;
 
   if(edit_mode_buttons_.contains(Options::instance()->current_edit_mode_)){
-    edit_mode_buttons_[Options::instance()->current_edit_mode_]->toggle();
+    current_edit_mode_button_ = edit_mode_buttons_[Options::instance()->current_edit_mode_];
+    current_edit_mode_button_->setChecked(true);
   }
 
   tool_buttons_[TOOL_SELECTION] = ui->actionSelection_Tool;
@@ -39,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
   tool_buttons_[TOOL_ELIPSE] = ui->actionElipse_Tool;
 
   if(tool_buttons_.contains(Options::instance()->current_tool_)){
-    tool_buttons_[Options::instance()->current_tool_]->toggle();
+    current_tool_button_ = tool_buttons_[Options::instance()->current_tool_];
+    current_tool_button_->setChecked(true);
   }
 
   // Menu Actions
@@ -58,6 +65,32 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *)
+{
+  SaveSettings();
+}
+
+void MainWindow::LoadSettings()
+{
+  QSettings settings(kSettingsFileName,QSettings::IniFormat);
+
+  settings.beginReadArray("window");
+  setGeometry( (settings.value("geometry").toRect()) );
+  settings.beginReadArray("options");
+  Options::instance()->cursor_size_ = settings.value("cursor_size").toSize();
+}
+
+void MainWindow::SaveSettings()
+{
+  QSettings settings(kSettingsFileName,QSettings::IniFormat);
+
+  settings.beginWriteArray("window");
+  settings.setValue("geometry",geometry());
+
+  settings.beginWriteArray("options");
+  settings.setValue("cursor_size",Options::instance()->cursor_size_);
 }
 
 void MainWindow::OpenImage()
@@ -113,7 +146,8 @@ void MainWindow::SelectSelectionTool()
 {
   QMap<int,QAction*>::iterator it = tool_buttons_.begin();
   for(;it!=tool_buttons_.end();it++){
-924959
+    qDebug() << "action";
+    (*it)->setChecked(false);
   }
 }
 

@@ -24,9 +24,16 @@ private:
     Ui::MainWindow *ui;
 
     QMap<int,QAction*> tool_buttons_;
+    QAction *current_tool_button_;
     QMap<int,QAction*> edit_mode_buttons_;
+    QAction *current_edit_mode_button_;
 
     CanvasWidgetContainer *last_canvas_selected_;
+
+    void closeEvent(QCloseEvent *);
+
+    void LoadSettings();
+    void SaveSettings();
 private slots:
     // Actions
     void OpenImage();

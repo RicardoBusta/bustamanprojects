@@ -8,6 +8,7 @@ EditImageWidget::EditImageWidget(QWidget *parent) :
   QWidget(parent)
 {
   scale_ = 4;
+  current_color_index_ = 0;
 }
 
 void EditImageWidget::SetImagePalette(const QVector<QRgb> &color_table)

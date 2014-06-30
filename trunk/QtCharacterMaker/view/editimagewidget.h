@@ -17,6 +17,8 @@ protected:
 private:
   QImage image_;
   int scale_;
+
+  int current_color_index_;
 signals:
   void SendPick(QImage);
 public slots:

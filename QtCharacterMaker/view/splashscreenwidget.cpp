@@ -1,14 +1,12 @@
 #include "splashscreenwidget.h"
-#include "ui_splashscreenwidget.h"
 
 SplashScreenWidget::SplashScreenWidget(QWidget *parent) :
-  QWidget(parent),
-  ui(new Ui::SplashScreenWidget)
+  QSplashScreen(parent)
 {
-  ui->setupUi(this);
+  this->setPixmap(QPixmap(":/images/splash.png"));
 }
 
 SplashScreenWidget::~SplashScreenWidget()
 {
-  delete ui;
+
 }

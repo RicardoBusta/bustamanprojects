@@ -1,13 +1,13 @@
 #ifndef SPLASHSCREENWIDGET_H
 #define SPLASHSCREENWIDGET_H
 
-#include <QWidget>
+#include <QSplashScreen>
 
 namespace Ui {
   class SplashScreenWidget;
 }
 
-class SplashScreenWidget : public QWidget
+class SplashScreenWidget : public QSplashScreen
 {
   Q_OBJECT
 
@@ -16,7 +16,6 @@ public:
   ~SplashScreenWidget();
 
 private:
-  Ui::SplashScreenWidget *ui;
 };
 
 #endif // SPLASHSCREENWIDGET_H

@@ -41,8 +41,7 @@ HEADERS  += \
 FORMS    += \
     view/mainwindow.ui \
     view/setcursorsizedialog.ui \
-    view/newimagefiledialog.ui \
-    view/splashscreenwidget.ui
+    view/newimagefiledialog.ui
 
 TRANSLATIONS += \
     translations/tokens_enus.ts \

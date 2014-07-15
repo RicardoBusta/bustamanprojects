@@ -4,6 +4,8 @@
 #include <QMouseEvent>
 #include <QDebug>
 
+#include "view/options.h"
+
 EditImageWidget::EditImageWidget(QWidget *parent) :
   QWidget(parent)
 {
@@ -27,6 +29,7 @@ void EditImageWidget::paintEvent(QPaintEvent *e)
 
 void EditImageWidget::mousePressEvent(QMouseEvent *e)
 {
+  switch(Options::instance())
   image_.setPixel(e->pos()/scale_,0xff000000);
   repaint();
 }

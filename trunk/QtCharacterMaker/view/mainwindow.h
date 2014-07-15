@@ -44,7 +44,10 @@ private slots:
 
     //Tools
     void SelectSelectionTool();
+    void SelectFillTool();
     void SelectPencilTool();
+
+    void ClearToolSelection();
 
     void PopMessage(QString message);
     void CurrentWindowChanged(QMdiSubWindow *w);

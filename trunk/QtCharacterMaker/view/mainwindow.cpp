@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   // Tool Actions
   connect(ui->actionSelection_Tool,SIGNAL(triggered()),this,SLOT(SelectSelectionTool()));
+  connect(ui->actionFill_Tool,SIGNAL(triggered()),this,SLOT(SelectFillTool()));
   connect(ui->actionPencil_Tool,SIGNAL(triggered()),this,SLOT(SelectSelectionTool()));
 
   connect(ui->mdiArea,SIGNAL(subWindowActivated(QMdiSubWindow*)),this,SLOT(CurrentWindowChanged(QMdiSubWindow*)));
@@ -144,16 +145,31 @@ void MainWindow::SetCursorSize()
 
 void MainWindow::SelectSelectionTool()
 {
-  QMap<int,QAction*>::iterator it = tool_buttons_.begin();
-  for(;it!=tool_buttons_.end();it++){
-    qDebug() << "action";
-    (*it)->setChecked(false);
-  }
+  ClearToolSelection();
+  Options::instance()->current_tool_ = TOOL_SELECTION;
+  tool_buttons_[TOOL_SELECTION]->setChecked(true);
+}
+
+void MainWindow::SelectFillTool()
+{
+  ClearToolSelection();
+  Options::instance()->current_tool_ = TOOL_FILL;
+  tool_buttons_[TOOL_FILL]->setChecked(true);
 }
 
 void MainWindow::SelectPencilTool()
 {
+  ClearToolSelection();
+  Options::instance()->current_tool_ = TOOL_PENCIL;
+  tool_buttons_[TOOL_PENCIL]->setChecked(true);
+}
 
+void MainWindow::ClearToolSelection()
+{
+  QMap<int,QAction*>::iterator it = tool_buttons_.begin();
+  for(;it!=tool_buttons_.end();it++){
+    (*it)->setChecked(false);
+  }
 }
 
 void MainWindow::PopMessage(QString message)

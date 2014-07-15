@@ -21,7 +21,8 @@ SOURCES += \
     view/editimagewidget.cpp \
     view/setcursorsizedialog.cpp \
     view/newimagefiledialog.cpp \
-    view/colorpalettewidget.cpp
+    view/colorpalettewidget.cpp \
+    view/splashscreenwidget.cpp
 
 HEADERS  += \
     view/mainwindow.h \
@@ -34,12 +35,14 @@ HEADERS  += \
     view/editimagewidget.h \
     view/setcursorsizedialog.h \
     view/newimagefiledialog.h \
-    view/colorpalettewidget.h
+    view/colorpalettewidget.h \
+    view/splashscreenwidget.h
 
 FORMS    += \
     view/mainwindow.ui \
     view/setcursorsizedialog.ui \
-    view/newimagefiledialog.ui
+    view/newimagefiledialog.ui \
+    view/splashscreenwidget.ui
 
 TRANSLATIONS += \
     translations/tokens_enus.ts \

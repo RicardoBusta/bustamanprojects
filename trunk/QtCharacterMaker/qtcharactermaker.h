@@ -4,6 +4,7 @@
 #include <QApplication>
 
 class MainWindow;
+class SplashScreenWidget;
 
 #define cmApp ((QtCharacterMaker*)qApp)
 
@@ -17,6 +18,7 @@ public:
 
 private:
   MainWindow *main_window_;
+  SplashScreenWidget *splash_screen_widget_;
 };
 
 #endif // QTCHARACTERMAKER_H

@@ -1,8 +1,10 @@
 #include "qtcharactermaker.h"
 
 #include "view/mainwindow.h"
+#include "view/splashscreenwidget.h"
 
 #include <QTranslator>
+#include <QTimer>
 
 QtCharacterMaker::QtCharacterMaker(int argc, char *argv[]) :
   QApplication(argc, argv)
@@ -12,8 +14,13 @@ QtCharacterMaker::QtCharacterMaker(int argc, char *argv[]) :
 
   installTranslator(&translator);
 
+
   main_window_ = new MainWindow();
-  main_window_->show();
+  splash_screen_widget_ = new SplashScreenWidget();
+
+  splash_screen_widget_->show();
+  QTimer::singleShot(1000,splash_screen_widget_,SLOT(hide()));
+  QTimer::singleShot(1500,main_window_,SLOT(show()));
 }
 
 MainWindow *QtCharacterMaker::main_window()

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/shader">
+        <file>phong.fsh</file>
+        <file>phong.vsh</file>
+    </qresource>
+</RCC>

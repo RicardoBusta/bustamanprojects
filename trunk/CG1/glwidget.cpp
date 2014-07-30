@@ -40,15 +40,15 @@ void GLWidget::paintGL()
 {
   if(NULL == scene_) return;
 
-  shader_program_.bind();
-
   scene_->rotate(auto_delta_.x(),auto_delta_.y());
 
   scene_->pre_draw();
+  shader_program_.bind();
   scene_->draw();
+  shader_program_.release();
   scene_->post_draw();
 
-  shader_program_.release();
+
 }
 
 

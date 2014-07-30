@@ -31,7 +31,7 @@ void main(void)
 
     vec3 normal = normalize(normal);
     vec3 wo = normalize(-position.xyz);
-//    vec3 wo = normalize(vec3(0, 0, 1));
+    vec3 wo = normalize(vec3(0, 0, 1));
     float alpha = gl_FrontMaterial.diffuse.a;
     vec3 Kd = gl_FrontMaterial.diffuse.rgb;
     vec3 Ks = gl_FrontMaterial.specular.rgb;
@@ -60,6 +60,6 @@ void main(void)
 //    else I = Kd;
     //end
 
-    gl_FragColor = (vec4(I, 1) /** texture2D(color_texture, gl_TexCoord[0].st)*/);
+    gl_FragColor = (vec4(I, 1) * texture2D(color_texture, gl_TexCoord[0].st));
 //    gl_FragColor = vec4(1,1,0,1);
 }

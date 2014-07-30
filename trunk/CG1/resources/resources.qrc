@@ -1,1 +1,11 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/texture">
+        <file>tire.png</file>
+    </qresource>
+    <qresource prefix="/model">
+        <file>tire.obj</file>
+    </qresource>
+    <qresource prefix="/material">
+        <file>tire.mtl</file>
+    </qresource>
+</RCC>

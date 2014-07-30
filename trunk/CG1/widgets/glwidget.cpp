@@ -29,6 +29,9 @@ void GLWidget::initializeGL()
   qDebug() << "vert" << did_it;
   did_it = shader_program_.addShaderFromSourceFile(QGLShader::Fragment,":/shader/phong.fsh");
   qDebug() << "frag" << did_it;
+
+  QImage tex(":/texture/tire.png");
+  bindTexture(tex);
 }
 
 void GLWidget::resizeGL(int w, int h)

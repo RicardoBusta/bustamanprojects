@@ -1,6 +1,10 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <QVector>
+
+#include "opengl/object.h"
+
 class Scene
 {
 public:
@@ -26,6 +30,8 @@ private:
   int rot_x_;
   int rot_y_;
   int rot_z_;
+
+  QVector<Object> objects_;
 };
 
 #endif // SCENE_H

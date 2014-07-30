@@ -1,6 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include <QString>
+
 class Material
 {
 public:
@@ -13,6 +15,12 @@ public:
     white,
     black
   };
+
+  void load(QString file_name);
+
+  void apply();
+private:
+  bool invalid_;
 };
 
 #endif // MATERIAL_H

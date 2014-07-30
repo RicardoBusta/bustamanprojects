@@ -6,8 +6,9 @@ Scene::Scene():
   rot_x_(0),
   rot_y_(0),
   rot_z_(0),
-  zoom_(100)
+  zoom_(10000)
 {
+  objects_ = Object::load(":/model/tire.obj");
 }
 
 void Scene::setZoom(int zoom)
@@ -43,6 +44,8 @@ void Scene::initialize()
 
   glEnable(GL_NORMALIZE);
   glEnable(GL_COLOR_MATERIAL);
+
+  glEnable(GL_TEXTURE_2D);
 
   glShadeModel(GL_SMOOTH);
   glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
@@ -101,20 +104,15 @@ void Scene::pre_draw()
 void Scene::draw()
 {
   glEnable(GL_LIGHTING);
-  float zoom = 1000.0/float(zoom_);
+  float zoom = float(zoom_)/10000.0;
   glScalef(zoom,zoom,zoom);
   glRotatef(float(rot_x_)/50,1,0,0);
   glRotatef(float(rot_y_)/50,0,1,0);
   glRotatef(rot_z_,0,0,1);
 
-  glBegin(GL_QUADS);
-  glColor3f(1,0,0);
-    glNormal3f(0,0,1);
-    glVertex3f(0,0,0);
-    glVertex3f(1,0,0);
-    glVertex3f(1,1,0);
-    glVertex3f(0,1,0);
-  glEnd();
+  for(int i=0;i<objects_.size(); i++){
+    objects_[i].draw();
+  }
 }
 
 void Scene::post_draw()

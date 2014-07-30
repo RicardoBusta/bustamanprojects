@@ -4,7 +4,7 @@
 #include <QGLWidget>
 
 #include <QGLShaderProgram>
-#include "scene.h"
+#include "opengl/scene.h"
 
 class GLWidget : public QGLWidget
 {

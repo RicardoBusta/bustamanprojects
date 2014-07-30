@@ -16,18 +16,21 @@ SOURCES += \
     main.cpp\
     widgets/mainwindow.cpp \
     widgets/glwidget.cpp \
-    opengl/scene.cpp
+    opengl/scene.cpp \
+    opengl/material.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
-    glwidget.h \
-    scene.h
+    widgets/glwidget.h \
+    opengl/scene.h \
+    opengl/material.h
 
 FORMS    += \
     widgets/mainwindow.ui
 
 RESOURCES += \
-    shaders/shaders.qrc
+    shaders/shaders.qrc \
+    resources/resources.qrc
 
 OTHER_FILES += \
     shaders/phong.vsh \

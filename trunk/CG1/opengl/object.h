@@ -16,6 +16,9 @@ public:
   static QVector<Object> load(QString file_name);
 
   void draw();
+  void drawArtifacts();
+
+  void setEulerRotation(float x, float y, float z);
 
   Object operator=(Object o);
 
@@ -42,6 +45,9 @@ private:
   QVector<QVector3D> normal_;
   QVector<QVector2D> texture_;
   QVector<struct Face> face_;
+
+  QVector3D position_;
+  QVector3D euler_rotation_;
 };
 
 #endif // OBJECT_H

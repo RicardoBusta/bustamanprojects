@@ -18,14 +18,16 @@ SOURCES += \
     widgets/glwidget.cpp \
     opengl/scene.cpp \
     opengl/material.cpp \
-    opengl/object.cpp
+    opengl/object.cpp \
+    utils/options.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
     widgets/glwidget.h \
     opengl/scene.h \
     opengl/material.h \
-    opengl/object.h
+    opengl/object.h \
+    utils/options.h
 
 FORMS    += \
     widgets/mainwindow.ui

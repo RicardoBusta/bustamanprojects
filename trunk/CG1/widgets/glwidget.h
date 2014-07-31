@@ -34,7 +34,7 @@ private:
 signals:
 
 public slots:
-
+  void sceneStep();
 };
 
 #endif // GLWIDGET_H

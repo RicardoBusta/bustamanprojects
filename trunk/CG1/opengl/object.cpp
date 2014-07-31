@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QtOpenGL>
 
+#include "utils/options.h"
+
 QString ReadValidLine(QTextStream &in);
 
 Object::Object():
@@ -109,10 +111,12 @@ QString ReadValidLine(QTextStream &in)
 
 void Object::draw()
 {
-  glPushMatrix();
-  static int rot=0;
-  glRotatef(rot+=5,1,0,0);
   if(!valid_) return;
+
+  glPushMatrix();
+  glRotatef(euler_rotation_.x(),1,0,0);
+  glRotatef(euler_rotation_.y(),0,1,0);
+  glRotatef(euler_rotation_.z(),0,0,1);
 
   material_.apply();
 
@@ -129,6 +133,47 @@ void Object::draw()
   }
   glEnd();
   glPopMatrix();
+}
+
+void Object::drawArtifacts()
+{
+  if(!valid_) return;
+
+  if(!Options::instance()->show_normals()) return;
+
+  glPushMatrix();
+
+  glRotatef(euler_rotation_.x(),1,0,0);
+  glRotatef(euler_rotation_.y(),0,1,0);
+  glRotatef(euler_rotation_.z(),0,0,1);
+
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+  glDisable(GL_LIGHTING);
+  glDisable(GL_TEXTURE_2D);
+  glBegin(GL_LINES);
+  glColor3f(1,1,1);
+  for(int f=0;f<face_.size();f++){
+    for(int i=0;i<3;i++){
+      // Draw Vertex Normals
+      if(Options::instance()->show_normals()){
+        const QVector3D &vert = vertex_[face_[f].v[i]-1];
+        glVertex3f(vert.x(),vert.y(),vert.z());
+        const QVector3D &norm = normal_[face_[f].n[i]-1]*Options::instance()->normal_size() + vert;
+        glVertex3f(norm.x(),norm.y(),norm.z());
+      }
+    }
+  }
+  glEnd();
+  glPopAttrib();
+
+  glPopMatrix();
+}
+
+void Object::setEulerRotation(float x, float y, float z)
+{
+  if(!valid_) return;
+
+  euler_rotation_ = QVector3D(x,y,z);
 }
 
 Object Object::operator=(Object o)

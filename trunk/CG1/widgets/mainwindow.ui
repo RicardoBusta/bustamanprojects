@@ -53,11 +53,15 @@
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
+    <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionWireframe"/>
+   <addaction name="actionShader_Off"/>
+   <addaction name="actionNormals"/>
+   <addaction name="actionAnimation"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWireframe">
@@ -76,13 +80,29 @@
     <string>Shader Off</string>
    </property>
   </action>
+  <action name="actionNormals">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Normals</string>
+   </property>
+  </action>
+  <action name="actionAnimation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Animation</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>GLWidget</class>
    <extends>QWidget</extends>
-   <header>widgets/glwidget.h</header>
+   <header>glwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

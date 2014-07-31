@@ -39,7 +39,7 @@ private:
   };
 
   bool valid_;
-  Material material_;
+  QString material_;
 
   QVector<QVector3D> vertex_;
   QVector<QVector3D> normal_;

@@ -2,13 +2,16 @@
     <qresource prefix="/texture">
         <file>tire.png</file>
         <file>skybox.jpg</file>
+        <file>skydome.jpg</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>
         <file>skybox.obj</file>
+        <file>skydome.obj</file>
     </qresource>
     <qresource prefix="/material">
         <file>tire.mtl</file>
         <file>skybox.mtl</file>
+        <file>skydome.mtl</file>
     </qresource>
 </RCC>

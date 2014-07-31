@@ -22,9 +22,11 @@ private:
 
 private slots:
   void toggleWireframe(bool v);
-  void toggleShaderOff(bool v);
+  void toggleShader(bool v);
   void toggleNormals(bool v);
   void toggleAnimation(bool v);
+  void toggleTextures(bool v);
+  void toggleSkydome(bool v);
 };
 
 #endif // MAINWINDOW_H

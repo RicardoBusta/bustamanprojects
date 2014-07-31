@@ -3,6 +3,9 @@
 #include <QtOpenGL>
 
 #include "utils/options.h"
+#include "opengl/textures.h"
+
+Scene *Scene::instance_ = NULL;
 
 Scene::Scene():
   zoom_(Options::instance()->initial_zoom()),
@@ -10,8 +13,6 @@ Scene::Scene():
   rot_y_(Options::instance()->initial_rot_y()),
   rot_z_(Options::instance()->initial_rot_z())
 {
-  objects_ = Object::load(":/model/tire.obj");
-  skybox_ = Object::load(":/model/skybox.obj").first();
 }
 
 void Scene::setZoom(int zoom)
@@ -82,6 +83,9 @@ void Scene::initialize()
   //  glLightfv(GL_LIGHT2, GL_POSITION, light3pos);
   //  glLightfv(GL_LIGHT2, GL_DIFFUSE, light3diffuse);
   //  glLightfv(GL_LIGHT2, GL_SPECULAR, light3specular);
+
+  objects_ = Object::load(":/model/tire.obj");
+  skybox_ = Object::load(":/model/skydome.obj").first();
 }
 
 void Scene::resize(int w, int h)
@@ -91,8 +95,8 @@ void Scene::resize(int w, int h)
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-    glOrtho(-1,1,-1,1,-50,50);
-//  glFrustum(-.1,.1,-.1,.1,0.1,1000);
+  //  glOrtho(-1,1,-1,1,-50,50);
+  glFrustum(-.1,.1,-.1,.1,0.1,1000);
   glTranslatef(0,0,-1);
 
   glMatrixMode(GL_MODELVIEW);
@@ -135,29 +139,45 @@ void Scene::draw()
   glPopMatrix();
 }
 
+void Scene::drawSky()
+{
+  glPushMatrix();
+  //glLoadIdentity();
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+  glDisable(GL_LIGHTING);
+
+  glRotatef(float(rot_x_)/50,1,0,0);
+  glRotatef(float(rot_y_)/50,0,1,0);
+  glRotatef(rot_z_,0,0,1);
+
+  skybox_.draw();
+
+  glPopAttrib();
+
+  glPopMatrix();
+}
+
 void Scene::drawArtifacts()
 {
   glPushMatrix();
+
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+  glDisable(GL_LIGHTING);
+
   float zoom = float(zoom_)/10000.0;
 
   glRotatef(float(rot_x_)/50,1,0,0);
   glRotatef(float(rot_y_)/50,0,1,0);
   glRotatef(rot_z_,0,0,1);
 
-    skybox_.draw();
-
-    glScalef(zoom,zoom,zoom);
+  glScalef(zoom,zoom,zoom);
 
   for(int i=0;i<objects_.size(); i++){
     objects_[i].drawArtifacts();
   }
-
-  // Axis
-
-  glPushAttrib(GL_ALL_ATTRIB_BITS);
   glDisable(GL_TEXTURE_2D);
-  glDisable(GL_LIGHTING);
   glBegin(GL_LINES);
+  // Axis
   glColor3f(1,0,0);
   glVertex3f(0,0,0);
   glVertex3f(1,0,0);

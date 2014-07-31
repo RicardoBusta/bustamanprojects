@@ -19,7 +19,9 @@ SOURCES += \
     opengl/scene.cpp \
     opengl/material.cpp \
     opengl/object.cpp \
-    utils/options.cpp
+    utils/options.cpp \
+    opengl/textures.cpp \
+    utils/common.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -27,7 +29,9 @@ HEADERS  += \
     opengl/scene.h \
     opengl/material.h \
     opengl/object.h \
-    utils/options.h
+    utils/options.h \
+    opengl/textures.h \
+    utils/common.h
 
 FORMS    += \
     widgets/mainwindow.ui

@@ -59,9 +59,11 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionWireframe"/>
-   <addaction name="actionShader_Off"/>
+   <addaction name="actionShader"/>
    <addaction name="actionNormals"/>
    <addaction name="actionAnimation"/>
+   <addaction name="actionSkydome"/>
+   <addaction name="actionTextures"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWireframe">
@@ -72,12 +74,15 @@
     <string>Wireframe</string>
    </property>
   </action>
-  <action name="actionShader_Off">
+  <action name="actionShader">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Shader Off</string>
+    <string>Shader</string>
+   </property>
+   <property name="toolTip">
+    <string>Shader</string>
    </property>
   </action>
   <action name="actionNormals">
@@ -94,6 +99,34 @@
    </property>
    <property name="text">
     <string>Animation</string>
+   </property>
+  </action>
+  <action name="actionSkydome">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Skydome</string>
+   </property>
+   <property name="toolTip">
+    <string>Skydome</string>
+   </property>
+  </action>
+  <action name="actionTextures">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Textures</string>
+   </property>
+   <property name="toolTip">
+    <string>Textures</string>
    </property>
   </action>
  </widget>

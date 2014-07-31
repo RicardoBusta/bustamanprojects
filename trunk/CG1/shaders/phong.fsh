@@ -40,8 +40,8 @@ void main(void)
 
 //    vec4 texVal = texture2D();
 
-    if(dot(wo, normal) < 0.0)
-        normal = -normal;
+//    if(dot(wo, normal) < 0.0)
+//        normal = -normal;
 
     vec3 wr1 = normalize(reflect(-wi1, normal));
     vec3 wr2 = normalize(reflect(-wi2, normal));
@@ -49,8 +49,8 @@ void main(void)
 
     vec3 I = Ke;
     I += Kd * Id1 * max(0.0, dot(wi1, normal)) + Ks *Is1 * pow(max(0.0, dot(wr1, wo)), shininess);
-    I += Kd * Id2 * max(0.0, dot(wi2, normal)) + Ks *Is2 * pow(max(0.0, dot(wr2, wo)), shininess);
-    I += Kd * Id3 * max(0.0, dot(wi3, normal)) + Ks *Is3 * pow(max(0.0, dot(wr3, wo)), shininess);
+//    I += Kd * Id2 * max(0.0, dot(wi2, normal)) + Ks *Is2 * pow(max(0.0, dot(wr2, wo)), shininess);
+//    I += Kd * Id3 * max(0.0, dot(wi3, normal)) + Ks *Is3 * pow(max(0.0, dot(wr3, wo)), shininess);
 
     //added by Ricardo
 //    float intensity = dot(I,I);

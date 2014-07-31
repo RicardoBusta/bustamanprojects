@@ -109,22 +109,26 @@ QString ReadValidLine(QTextStream &in)
 
 void Object::draw()
 {
+  glPushMatrix();
+  static int rot=0;
+  glRotatef(rot+=5,1,0,0);
   if(!valid_) return;
 
   material_.apply();
 
-    glBegin(GL_TRIANGLES);
-    for(int f=0;f<face_.size();f++){
-      for(int i=0;i<3;i++){
-        const QVector2D &tex = texture_[face_[f].t[i]-1];
-        glTexCoord2f(tex.x(),tex.y());
-        const QVector3D &norm = normal_[face_[f].n[i]-1];
-        glNormal3f(norm.x(),norm.y(),norm.z());
-        const QVector3D &vert = vertex_[face_[f].v[i]-1];
-        glVertex3f(vert.x(),vert.y(),vert.z());
-      }
+  glBegin(GL_TRIANGLES);
+  for(int f=0;f<face_.size();f++){
+    for(int i=0;i<3;i++){
+      const QVector2D &tex = texture_[face_[f].t[i]-1];
+      glTexCoord2f(tex.x(),tex.y());
+      const QVector3D &norm = normal_[face_[f].n[i]-1];
+      glNormal3f(norm.x(),norm.y(),norm.z());
+      const QVector3D &vert = vertex_[face_[f].v[i]-1];
+      glVertex3f(vert.x(),vert.y(),vert.z());
     }
-    glEnd();
+  }
+  glEnd();
+  glPopMatrix();
 }
 
 Object Object::operator=(Object o)

@@ -21,17 +21,17 @@ void main(void)
     vec3 Id1 = gl_LightSource[0].diffuse.rgb;
     vec3 Is1 = gl_LightSource[0].specular.rgb;
 
-//    vec3 wi2 = gl_LightSource[1].position.rgb;
-//    vec3 Id2 = gl_LightSource[1].diffuse.rgb;
-//    vec3 Is2 = gl_LightSource[1].specular.rgb;
+    vec3 wi2 = gl_LightSource[1].position.rgb;
+    vec3 Id2 = gl_LightSource[1].diffuse.rgb;
+    vec3 Is2 = gl_LightSource[1].specular.rgb;
 
-//    vec3 wi3 = gl_LightSource[2].position.rgb;
-//    vec3 Id3 = gl_LightSource[2].diffuse.rgb;
-//    vec3 Is3 = gl_LightSource[2].specular.rgb;
+    vec3 wi3 = gl_LightSource[2].position.rgb;
+    vec3 Id3 = gl_LightSource[2].diffuse.rgb;
+    vec3 Is3 = gl_LightSource[2].specular.rgb;
 
     vec3 normal = normalize(normal);
-    vec3 wo = normalize(-position.xyz);
-    vec3 wo = normalize(vec3(0, 0, 1));
+    vec3 wo = normalize(position.xyz);
+//    vec3 wo = normalize(vec3(1, 1, 1));
     float alpha = gl_FrontMaterial.diffuse.a;
     vec3 Kd = gl_FrontMaterial.diffuse.rgb;
     vec3 Ks = gl_FrontMaterial.specular.rgb;
@@ -44,13 +44,13 @@ void main(void)
         normal = -normal;
 
     vec3 wr1 = normalize(reflect(-wi1, normal));
-//    vec3 wr2 = normalize(reflect(-wi2, normal));
-//    vec3 wr3 = normalize(reflect(-wi3, normal));
+    vec3 wr2 = normalize(reflect(-wi2, normal));
+    vec3 wr3 = normalize(reflect(-wi3, normal));
 
     vec3 I = Ke;
     I += Kd * Id1 * max(0.0, dot(wi1, normal)) + Ks *Is1 * pow(max(0.0, dot(wr1, wo)), shininess);
-//    I += Kd * Id2 * max(0.0, dot(wi2, normal)) + Ks *Is2 * pow(max(0.0, dot(wr2, wo)), shininess);
-//    I += Kd * Id3 * max(0.0, dot(wi3, normal)) + Ks *Is3 * pow(max(0.0, dot(wr3, wo)), shininess);
+    I += Kd * Id2 * max(0.0, dot(wi2, normal)) + Ks *Is2 * pow(max(0.0, dot(wr2, wo)), shininess);
+    I += Kd * Id3 * max(0.0, dot(wi3, normal)) + Ks *Is3 * pow(max(0.0, dot(wr3, wo)), shininess);
 
     //added by Ricardo
 //    float intensity = dot(I,I);
@@ -60,6 +60,5 @@ void main(void)
 //    else I = Kd;
     //end
 
-    gl_FragColor = (vec4(I, 1) * texture2D(color_texture, gl_TexCoord[0].st));
-//    gl_FragColor = vec4(1,1,0,1);
+    gl_FragColor = (vec4(I, alpha) * texture2D(color_texture, gl_TexCoord[0].st));
 }

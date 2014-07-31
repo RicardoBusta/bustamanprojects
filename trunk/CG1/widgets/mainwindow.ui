@@ -64,6 +64,7 @@
    <addaction name="actionAnimation"/>
    <addaction name="actionSkydome"/>
    <addaction name="actionTextures"/>
+   <addaction name="actionAxis"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWireframe">
@@ -127,6 +128,14 @@
    </property>
    <property name="toolTip">
     <string>Textures</string>
+   </property>
+  </action>
+  <action name="actionAxis">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Axis</string>
    </property>
   </action>
  </widget>

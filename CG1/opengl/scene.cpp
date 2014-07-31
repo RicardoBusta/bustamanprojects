@@ -2,14 +2,16 @@
 
 #include <QtOpenGL>
 
-Scene::Scene():
-  zoom_(5000),
-  rot_x_(0),
-  rot_y_(0),
-  rot_z_(0)
+#include "utils/options.h"
 
+Scene::Scene():
+  zoom_(Options::instance()->initial_zoom()),
+  rot_x_(Options::instance()->initial_rot_x()),
+  rot_y_(Options::instance()->initial_rot_y()),
+  rot_z_(Options::instance()->initial_rot_z())
 {
   objects_ = Object::load(":/model/tire.obj");
+  skybox_ = Object::load(":/model/skybox.obj").first();
 }
 
 void Scene::setZoom(int zoom)
@@ -28,11 +30,11 @@ void Scene::addZoom(int zoom)
   setZoom( zoom_ + zoom );
 }
 
-void Scene::rotate(int rot_x, int rot_y)
+void Scene::rotate(int rot_x, int rot_y, int rot_z)
 {
-  rot_x_ += rot_y*10;
-  rot_y_ += rot_x*10;
-  rot_z_ = 0;
+  rot_x_ += rot_x*10;
+  rot_y_ += rot_y*10;
+  rot_z_ += rot_z*10;
 }
 
 void Scene::initialize()
@@ -96,15 +98,31 @@ void Scene::resize(int w, int h)
   glMatrixMode(GL_MODELVIEW);
 }
 
-void Scene::pre_draw()
+void Scene::setOptions()
+{
+  if(Options::instance()->options_changed()){
+    const QColor &cc = Options::instance()->clear_color();
+    glClearColor(cc.redF(),cc.greenF(),cc.blueF(),1.0f);
+
+    Options::instance()->options_applied();
+  }
+}
+
+void Scene::preDraw()
 {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   glLoadIdentity();
+
+  if(Options::instance()->show_wireframe()){
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+  }else{
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+  }
 }
 
 void Scene::draw()
 {
-  glEnable(GL_LIGHTING);
+  glPushMatrix();
   float zoom = float(zoom_)/10000.0;
   glScalef(zoom,zoom,zoom);
   glRotatef(float(rot_x_)/50,1,0,0);
@@ -114,19 +132,57 @@ void Scene::draw()
   for(int i=0;i<objects_.size(); i++){
     objects_[i].draw();
   }
+  glPopMatrix();
 }
 
-void Scene::post_draw()
+void Scene::drawArtifacts()
 {
+  glPushMatrix();
+  float zoom = float(zoom_)/10000.0;
+
+  glRotatef(float(rot_x_)/50,1,0,0);
+  glRotatef(float(rot_y_)/50,0,1,0);
+  glRotatef(rot_z_,0,0,1);
+
+    skybox_.draw();
+
+    glScalef(zoom,zoom,zoom);
+
+  for(int i=0;i<objects_.size(); i++){
+    objects_[i].drawArtifacts();
+  }
+
+  // Axis
+
+  glPushAttrib(GL_ALL_ATTRIB_BITS);
+  glDisable(GL_TEXTURE_2D);
   glDisable(GL_LIGHTING);
   glBegin(GL_LINES);
+  glColor3f(1,0,0);
   glVertex3f(0,0,0);
   glVertex3f(1,0,0);
 
+  glColor3f(0,1,0);
   glVertex3f(0,0,0);
   glVertex3f(0,1,0);
 
+  glColor3f(0,0,1);
   glVertex3f(0,0,0);
   glVertex3f(0,0,1);
   glEnd();
+  glPopAttrib();
+
+  glPopMatrix();
+}
+
+void Scene::postDraw()
+{
+}
+
+void Scene::step()
+{
+  static int rot=0;
+  //glRotatef(rot+=5,1,0,0);
+
+  objects_.first().setEulerRotation(rot,0,0);
 }

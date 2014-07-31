@@ -11,6 +11,7 @@ GLWidget::GLWidget(QWidget *parent) :
 {
 
   QTimer *timer = new QTimer(this);
+  connect(timer,SIGNAL(timeout()),this,SLOT(sceneStep()));
   connect(timer,SIGNAL(timeout()),this,SLOT(updateGL()));
   timer->start(1000/60);
 }
@@ -43,15 +44,16 @@ void GLWidget::paintGL()
 {
   if(NULL == scene_) return;
 
-  scene_->rotate(auto_delta_.x(),auto_delta_.y());
+  scene_->setOptions();
 
-  scene_->pre_draw();
+  scene_->rotate(auto_delta_.y(),auto_delta_.x(),0);
+
+  scene_->preDraw();
   shader_program_.bind();
   scene_->draw();
   shader_program_.release();
-  scene_->post_draw();
-
-
+  scene_->drawArtifacts();
+  scene_->postDraw();
 }
 
 
@@ -98,9 +100,14 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
   delta_ = event->pos()-last_click_;
   last_click_ = event->pos();
   if(event->buttons() & Qt::LeftButton){
-    scene_->rotate(delta_.x(),delta_.y());
+    scene_->rotate(delta_.y(),delta_.x(),0);
   }
 
   update();
   event->accept();
+}
+
+void GLWidget::sceneStep()
+{
+  scene_->step();
 }

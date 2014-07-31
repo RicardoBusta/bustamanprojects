@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "utils/options.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +19,12 @@ public:
 
 private:
   Ui::MainWindow *ui;
+
+private slots:
+  void toggleWireframe(bool v);
+  void toggleShaderOff(bool v);
+  void toggleNormals(bool v);
+  void toggleAnimation(bool v);
 };
 
 #endif // MAINWINDOW_H

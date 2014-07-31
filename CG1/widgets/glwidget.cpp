@@ -5,10 +5,14 @@
 
 #include <QTimer>
 
+#include "opengl/textures.h"
+#include "utils/options.h"
+
 GLWidget::GLWidget(QWidget *parent) :
   QGLWidget(parent),
   scene_(new Scene())
 {
+  Textures::instance()->setGlWidget(this);
 
   QTimer *timer = new QTimer(this);
   connect(timer,SIGNAL(timeout()),this,SLOT(sceneStep()));
@@ -23,20 +27,21 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
+  if(NULL == scene_) return;
+
   scene_->initialize();
 
   bool did_it;
   did_it = shader_program_.addShaderFromSourceFile(QGLShader::Vertex,":/shader/phong.vsh");
-  qDebug() << "vert" << did_it;
+  qDebug() << "vert loaded:" << did_it;
   did_it = shader_program_.addShaderFromSourceFile(QGLShader::Fragment,":/shader/phong.fsh");
-  qDebug() << "frag" << did_it;
-
-  QImage tex(":/texture/tire.png");
-  bindTexture(tex);
+  qDebug() << "frag loaded:" << did_it;
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
+  if(NULL == scene_) return;
+
   scene_->resize(w,h);
 }
 
@@ -49,11 +54,21 @@ void GLWidget::paintGL()
   scene_->rotate(auto_delta_.y(),auto_delta_.x(),0);
 
   scene_->preDraw();
-  shader_program_.bind();
+  if(Options::instance()->shaders()){
+    shader_program_.bind();
+  }
   scene_->draw();
-  shader_program_.release();
+  if(Options::instance()->shaders()){
+    shader_program_.release();
+  }
+
+  scene_->drawSky();
   scene_->drawArtifacts();
   scene_->postDraw();
+
+  while(GLenum err= glGetError()){
+    qDebug() << "GL Error:" << err;
+  }
 }
 
 

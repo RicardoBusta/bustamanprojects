@@ -18,8 +18,10 @@ Options::Options():
   show_normals_(false),
   // Render
   show_wireframe_(false),
-  shaders_off_(false),
-  animation_(false),
+  shaders_(true),
+  animation_(true),
+  show_textures_(true),
+  show_skydome_(true),
   clear_color_(QColor(Qt::darkBlue))
 {
 }
@@ -77,14 +79,24 @@ bool Options::show_wireframe() const
   return show_wireframe_;
 }
 
-bool Options::shaders_off() const
+bool Options::shaders() const
 {
-  return shaders_off_;
+  return shaders_;
 }
 
 bool Options::animation() const
 {
   return animation_;
+}
+
+bool Options::show_skydome() const
+{
+  return show_skydome_;
+}
+
+bool Options::show_textures() const
+{
+  return show_textures_;
 }
 
 QColor Options::clear_color() const

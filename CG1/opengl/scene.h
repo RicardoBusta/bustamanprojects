@@ -24,12 +24,17 @@ public:
   void setOptions();
   void preDraw();
   void draw();
+  void drawSky();
   void drawArtifacts();
   void postDraw();
 
   // Scene Animation Manipulation
   void step();
 private:
+
+
+  static Scene *instance_;
+
   int zoom_;
 
   int rot_x_;

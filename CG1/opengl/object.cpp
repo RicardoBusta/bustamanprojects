@@ -6,6 +6,8 @@
 #include <QtOpenGL>
 
 #include "utils/options.h"
+#include "opengl/textures.h"
+#include "utils/common.h"
 
 QString ReadValidLine(QTextStream &in);
 
@@ -16,13 +18,13 @@ Object::Object():
 
 QVector<Object> Object::load(QString file_name)
 {
-  qDebug() << "opening" << file_name;
+  qDebug() << "opening object file:" << file_name;
   QFile file(file_name);
 
   QVector<Object> output;
 
   if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-    qDebug() << "Failed to open file!";
+    qWarning() << "Failed to open file!" << file_name;
     return output;
   }
 
@@ -36,10 +38,14 @@ QVector<Object> Object::load(QString file_name)
     QString line = ReadValidLine(in);
 
     if(line.startsWith("o ")){
+      //obj->name = line.mid(2);
       output.push_back(Object());
       obj = &(output.last());
       obj->valid_ = true;
-    }else if(obj!=NULL){
+    }else if(line.startsWith("mtllib ")){
+      QString mtl_name = line.mid(7);
+      Material::load(mtl_name);
+    }if(obj!=NULL){
       if(line.startsWith("v ")){
         // Vertex
         QStringList s = line.split(' ',QString::KeepEmptyParts);
@@ -91,7 +97,8 @@ QVector<Object> Object::load(QString file_name)
           }
         }
       }else if(line.startsWith("usemtl ")){
-
+        QString mtl_name = line.mid(7);
+        obj->material_ = mtl_name;
       }
     }
   }
@@ -99,26 +106,19 @@ QVector<Object> Object::load(QString file_name)
   return output;
 }
 
-QString ReadValidLine(QTextStream &in)
-{
-  QString out = in.readLine();
-  while(out.startsWith('#')){
-    //    qDebug() << out;
-    out = in.readLine();
-  }
-  return out;
-}
-
 void Object::draw()
 {
   if(!valid_) return;
+
+  Material *mtl = Material::get(material_);
+  if(mtl != NULL){
+    mtl->apply();
+  }
 
   glPushMatrix();
   glRotatef(euler_rotation_.x(),1,0,0);
   glRotatef(euler_rotation_.y(),0,1,0);
   glRotatef(euler_rotation_.z(),0,0,1);
-
-  material_.apply();
 
   glBegin(GL_TRIANGLES);
   for(int f=0;f<face_.size();f++){

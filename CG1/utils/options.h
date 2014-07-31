@@ -20,8 +20,11 @@ public:
   bool show_normals() const;
 
   bool show_wireframe() const;
-  bool shaders_off() const;
+  bool shaders() const;
   bool animation() const;
+  bool show_skydome() const;
+  bool show_textures() const;
+
   QColor clear_color() const;
 private :
   Options();
@@ -44,8 +47,10 @@ private :
 
   // Render Options
   bool show_wireframe_;
-  bool shaders_off_;
+  bool shaders_;
   bool animation_;
+  bool show_textures_;
+  bool show_skydome_;
   QColor clear_color_;
 };
 

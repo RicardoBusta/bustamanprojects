@@ -71,7 +71,7 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *event)
   if( NULL == scene_ ) return;
 
   if(delta_.manhattanLength() > 5){
-    auto_delta_ = delta_;
+    auto_delta_ = delta_/5;
   }else{
     auto_delta_ = QPoint(0,0);
   }

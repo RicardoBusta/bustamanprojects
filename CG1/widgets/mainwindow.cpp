@@ -3,6 +3,9 @@
 
 #include <QSignalMapper>
 
+#include "opengl/scene_pie.h"
+#include "opengl/scene_tire.h"
+
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
@@ -20,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
   connectCheckBox(ui->check_wireframe,false);
 
   connect(ui->check_shader,SIGNAL(toggled(bool)),this,SLOT(shaderToggle(bool)));
+
+//  Scene::addScene("none",new Scene);
+//  Scene::addScene("tire",new SceneTire);
+  Scene::addScene("pie",new ScenePie);
+  Scene::setCurrent("pie");
 }
 
 MainWindow::~MainWindow()

@@ -1,6 +1,7 @@
 #include "scene_tire.h"
 
-SceneTire::SceneTire()
+SceneTire::SceneTire():
+  Scene()
 {
 }
 

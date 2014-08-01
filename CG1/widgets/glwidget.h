@@ -24,8 +24,6 @@ protected:
   void mouseMoveEvent(QMouseEvent *event);
 
 private:
-  Scene *scene_;
-
   QPoint last_click_;
   QPoint delta_;
   QPoint auto_delta_;

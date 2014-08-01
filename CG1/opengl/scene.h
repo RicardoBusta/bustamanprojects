@@ -30,12 +30,20 @@ public:
 
   // Scene Animation Manipulation
   void step();
+
+  // Scenes
+  static void addScene(QString scene_name,Scene* scene);
+  static bool valid();
+  static Scene* current();
+  static void setCurrent(QString scene_name);
 protected:
-  virtual void setup()=0;
+  virtual void setup();
 
   Object skybox_;
   QVector<Object> objects_;
 private:
+
+  bool initialized_;
   static Scene *instance_;
 
   int zoom_;
@@ -43,6 +51,9 @@ private:
   int rot_x_;
   int rot_y_;
   int rot_z_;
+
+  static QMap<QString,Scene*> scene_;
+  static QString current_scene_;
 };
 
 #endif // SCENE_H

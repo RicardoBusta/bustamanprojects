@@ -9,10 +9,10 @@
 #include "utils/options.h"
 #include "opengl/shaders.h"
 #include "opengl/scene_tire.h"
+#include "opengl/scene_pie.h"
 
 GLWidget::GLWidget(QWidget *parent) :
-  QGLWidget(parent),
-  scene_(new SceneTire())
+  QGLWidget(parent)
 {
   Textures::instance()->setGlWidget(this);
 
@@ -29,45 +29,38 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-  if(NULL == scene_) return;
-
-  scene_->initialize();
-
-//  bool did_it;
-//  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Vertex,":/shaders/phong.vsh");
-//  qDebug() << "vert loaded:" << did_it;
-//  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Fragment,":/shaders/phong.fsh");
-//  qDebug() << "frag loaded:" << did_it;
-//  Shaders::instance()->bind("phong");
+//  Scene::current()->initialize();
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
-  if(NULL == scene_) return;
+  if(!Scene::valid()) return;
 
-  scene_->resize(w,h);
+  qDebug() << "resize";
+
+  Scene::current()->resize(w,h);
 }
 
 void GLWidget::paintGL()
 {
-  if(NULL == scene_) return;
+  if(!Scene::valid()) return;
 
-  scene_->setOptions();
+  Scene::current()->setOptions();
 
-  scene_->rotate(auto_delta_.y(),auto_delta_.x(),0);
+  Scene::current()->rotate(auto_delta_.y(),auto_delta_.x(),0);
 
-  scene_->preDraw();
+  Scene::current()->preDraw();
 //  if(Options::instance()->shaders()){
 //    shader_program_.bind();
 //  }
-  scene_->draw();
+  Scene::current()->draw();
 //  if(Options::instance()->shaders()){
 //    shader_program_.release();
 //  }
 
-  scene_->drawSky();
-  scene_->drawArtifacts();
-  scene_->postDraw();
+  Scene::current()->drawSky();
+  Scene::current()->drawArtifacts();
+  Scene::current()->postDraw();
 
   while(GLenum err= glGetError()){
     qDebug() << "GL Error:" << err;
@@ -77,7 +70,7 @@ void GLWidget::paintGL()
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
-  if( NULL == scene_ ) return;
+  if(!Scene::valid()) return;
 
   auto_delta_ = QPoint(0,0);
   last_click_ = event->pos();
@@ -88,7 +81,7 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-  if( NULL == scene_ ) return;
+  if(!Scene::valid()) return;
 
   if(delta_.manhattanLength() > 5){
     auto_delta_ = delta_/5;
@@ -102,9 +95,9 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void GLWidget::wheelEvent(QWheelEvent *event)
 {
-  if( NULL == scene_ ) return;
+  if(!Scene::valid()) return;
 
-  scene_->addZoom( event->delta() );
+  Scene::current()->addZoom( event->delta() );
 
   event->accept();
 }
@@ -112,12 +105,12 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-  if( NULL == scene_ ) return;
+  if(!Scene::valid()) return;
 
   delta_ = event->pos()-last_click_;
   last_click_ = event->pos();
   if(event->buttons() & Qt::LeftButton){
-    scene_->rotate(delta_.y(),delta_.x(),0);
+    Scene::current()->rotate(delta_.y(),delta_.x(),0);
   }
 
   event->accept();
@@ -125,5 +118,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void GLWidget::sceneStep()
 {
-  scene_->step();
+  if(!Scene::valid()) return;
+
+  Scene::current()->step();
 }

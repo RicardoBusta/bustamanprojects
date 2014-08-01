@@ -3,15 +3,21 @@
         <file>tire.png</file>
         <file>skybox.jpg</file>
         <file>skydome.jpg</file>
+        <file>pie_table.png</file>
+        <file>skydome.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>
         <file>skybox.obj</file>
         <file>skydome.obj</file>
+        <file>pie_table.obj</file>
+        <file>cube.obj</file>
     </qresource>
     <qresource prefix="/material">
         <file>tire.mtl</file>
         <file>skybox.mtl</file>
         <file>skydome.mtl</file>
+        <file>pie_table.mtl</file>
+        <file>cube.mtl</file>
     </qresource>
 </RCC>

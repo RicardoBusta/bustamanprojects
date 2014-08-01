@@ -65,6 +65,7 @@
    <addaction name="actionSkydome"/>
    <addaction name="actionTextures"/>
    <addaction name="actionAxis"/>
+   <addaction name="actionPerspective"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWireframe">
@@ -138,13 +139,18 @@
     <string>Axis</string>
    </property>
   </action>
+  <action name="actionPerspective">
+   <property name="text">
+    <string>Perspective</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>GLWidget</class>
    <extends>QWidget</extends>
-   <header>glwidget.h</header>
+   <header>widgets/glwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

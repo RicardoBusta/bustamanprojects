@@ -9,7 +9,7 @@
 #include "utils/options.h"
 #include "opengl/shaders.h"
 #include "opengl/scene_tire.h"
-#include "opengl/scene_pie.h"
+//#include "opengl/scene_pie.h"
 
 GLWidget::GLWidget(QWidget *parent) :
   QGLWidget(parent)
@@ -20,6 +20,9 @@ GLWidget::GLWidget(QWidget *parent) :
   connect(timer,SIGNAL(timeout()),this,SLOT(sceneStep()));
   connect(timer,SIGNAL(timeout()),this,SLOT(updateGL()));
   timer->start(1000/60);
+
+  Scene::addScene("pie",new SceneTire);
+  Scene::setCurrent("pie");
 }
 
 GLWidget::~GLWidget()
@@ -29,6 +32,7 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
+  Scene::initialize();
 //  Scene::current()->initialize();
 }
 

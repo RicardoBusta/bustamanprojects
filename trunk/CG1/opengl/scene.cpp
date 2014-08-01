@@ -44,6 +44,22 @@ void Scene::rotate(int rot_x, int rot_y, int rot_z)
 
 void Scene::initialize()
 {
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+
+  glEnable(GL_NORMALIZE);
+  glEnable(GL_COLOR_MATERIAL);
+
+  glShadeModel(GL_SMOOTH);
+  glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+  glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+}
+
+void Scene::setup()
+{
   if(initialized_) return;
 
   glLoadIdentity();
@@ -61,7 +77,7 @@ void Scene::initialize()
   glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
 
-  setup();
+  setup_spec();
   initialized_ = true;
 }
 
@@ -227,12 +243,12 @@ void Scene::setCurrent(QString scene_name)
 {
   if(scene_.contains(scene_name)){
     current_scene_ = scene_name;
-    scene_[current_scene_]->initialize();
+    scene_[current_scene_]->setup();
   }else{
     qWarning () << "Scene do not exist.";
   }
 }
 
-void Scene::setup()
+void Scene::setup_spec()
 {
 }

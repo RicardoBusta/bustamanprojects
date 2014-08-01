@@ -9,7 +9,7 @@ public:
   SceneTire();
 
 private:
-  void setup();
+  void setup_spec();
 };
 
 #endif // SCENE_TIRE_H

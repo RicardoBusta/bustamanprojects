@@ -5,7 +5,7 @@ SceneTire::SceneTire():
 {
 }
 
-void SceneTire::setup()
+void SceneTire::setup_spec()
 {
   objects_ = Object::load(":/model/tire.obj");
   skybox_ = Object::load(":/model/skydome.obj").first();

@@ -18,6 +18,8 @@ public:
   void draw();
   void drawArtifacts();
 
+  void step();
+
   void setEulerRotation(float x, float y, float z);
 
   Object operator=(Object o);
@@ -37,6 +39,8 @@ private:
       return *this;
     }
   };
+
+  QString name_;
 
   bool valid_;
   QString material_;

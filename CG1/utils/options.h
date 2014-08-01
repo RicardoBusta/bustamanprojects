@@ -2,7 +2,8 @@
 #define OPTIONS_H
 
 #include <QColor>
-
+#include <QMap>
+#include <QString>
 class Options
 {
 public:
@@ -17,19 +18,13 @@ public:
   int initial_rot_z() const;
 
   float normal_size() const;
-  bool show_normals() const;
 
-  bool show_wireframe() const;
-  bool shaders() const;
-  bool animation() const;
-  bool show_skydome() const;
-  bool show_textures() const;
+  bool get_option(QString option);
+  void set_option(QString option, bool v);
 
   QColor clear_color() const;
 private :
   Options();
-
-  friend class MainWindow;
 
   static Options *instance_;
 
@@ -43,14 +38,9 @@ private :
 
   // Artifacts Options
   float normal_size_;
-  bool show_normals_;
 
-  // Render Options
-  bool show_wireframe_;
-  bool shaders_;
-  bool animation_;
-  bool show_textures_;
-  bool show_skydome_;
+  QMap<QString,bool> check_options_;
+
   QColor clear_color_;
 };
 

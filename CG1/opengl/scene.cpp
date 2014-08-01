@@ -54,37 +54,36 @@ void Scene::initialize()
   glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
   glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
-    static GLfloat light1pos[4] = { -0.892, 0.3, 0.9, 0.0 };
-    static GLfloat light1diffuse[] = { 0.8f, 0.8f, 0.8, 1.0f };
-    static GLfloat light1specular[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+  //    static GLfloat light1pos[4] = { -0.892, 0.3, 0.9, 0.0 };
+  //    static GLfloat light1diffuse[] = { 0.8f, 0.8f, 0.8, 1.0f };
+  //    static GLfloat light1specular[] = { 0.5f, 0.5f, 0.5f, 1.0f };
 
-    static GLfloat light2pos[4] = { 0.588, 0.46, 0.248, 0.0 };
-    static GLfloat light2diffuse[] = { 0.498f, 0.5f, 0.6, 1.0f };
-    static GLfloat light2specular[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+  //    static GLfloat light2pos[4] = { 0.588, 0.46, 0.248, 0.0 };
+  //    static GLfloat light2diffuse[] = { 0.498f, 0.5f, 0.6, 1.0f };
+  //    static GLfloat light2specular[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
-    static GLfloat light3pos[4] = { 0.216, -0.392, -0.216, 0.0 };
-    static GLfloat light3diffuse[] = { 0.798f, 0.838f, 1.0, 1.0f };
-    static GLfloat light3specular[] = { 0.06f, 0.0f, 0.0f, 1.0f };
+  //    static GLfloat light3pos[4] = { 0.216, -0.392, -0.216, 0.0 };
+  //    static GLfloat light3diffuse[] = { 0.798f, 0.838f, 1.0, 1.0f };
+  //    static GLfloat light3specular[] = { 0.06f, 0.0f, 0.0f, 1.0f };
 
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHT1);
-    glEnable(GL_LIGHT2);
+  //    glEnable(GL_LIGHTING);
+  //    glEnable(GL_LIGHT0);
+  //    glEnable(GL_LIGHT1);
+  //    glEnable(GL_LIGHT2);
 
-    glLightfv(GL_LIGHT0, GL_POSITION, light1pos);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light1diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light1specular);
+  //    glLightfv(GL_LIGHT0, GL_POSITION, light1pos);
+  //    glLightfv(GL_LIGHT0, GL_DIFFUSE, light1diffuse);
+  //    glLightfv(GL_LIGHT0, GL_SPECULAR, light1specular);
 
-    glLightfv(GL_LIGHT1, GL_POSITION, light2pos);
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, light2diffuse);
-    glLightfv(GL_LIGHT1, GL_SPECULAR, light2specular);
+  //    glLightfv(GL_LIGHT1, GL_POSITION, light2pos);
+  //    glLightfv(GL_LIGHT1, GL_DIFFUSE, light2diffuse);
+  //    glLightfv(GL_LIGHT1, GL_SPECULAR, light2specular);
 
-    glLightfv(GL_LIGHT2, GL_POSITION, light3pos);
-    glLightfv(GL_LIGHT2, GL_DIFFUSE, light3diffuse);
-    glLightfv(GL_LIGHT2, GL_SPECULAR, light3specular);
+  //    glLightfv(GL_LIGHT2, GL_POSITION, light3pos);
+  //    glLightfv(GL_LIGHT2, GL_DIFFUSE, light3diffuse);
+  //    glLightfv(GL_LIGHT2, GL_SPECULAR, light3specular);
 
-  objects_ = Object::load(":/model/tire.obj");
-  skybox_ = Object::load(":/model/skydome.obj").first();
+  setup();
 }
 
 void Scene::resize(int w, int h)
@@ -107,7 +106,7 @@ void Scene::setOptions()
     const QColor &cc = Options::instance()->clear_color();
     glClearColor(cc.redF(),cc.greenF(),cc.blueF(),1.0f);
 
-    if(Options::instance()->show_textures()){
+    if(Options::instance()->get_option("check_textures")){
       glEnable(GL_TEXTURE_2D);
     }else{
       glDisable(GL_TEXTURE_2D);
@@ -124,7 +123,7 @@ void Scene::preDraw()
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   glLoadIdentity();
 
-  if(Options::instance()->show_wireframe()){
+  if(Options::instance()->get_option("check_wireframe")){
     glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
   }else{
     glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
@@ -150,6 +149,7 @@ void Scene::draw()
 
 void Scene::drawSky()
 {
+  if(Options::instance()->get_option("check_skydome")){
   glPushMatrix();
   //glLoadIdentity();
   glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -164,6 +164,7 @@ void Scene::drawSky()
   glPopAttrib();
 
   glPopMatrix();
+  }
 }
 
 void Scene::drawArtifacts()
@@ -184,23 +185,26 @@ void Scene::drawArtifacts()
   for(int i=0;i<objects_.size(); i++){
     objects_[i].drawArtifacts();
   }
-  glDisable(GL_TEXTURE_2D);
-  glBegin(GL_LINES);
-  // Axis
-  glColor3f(1,0,0);
-  glVertex3f(0,0,0);
-  glVertex3f(1,0,0);
 
-  glColor3f(0,1,0);
-  glVertex3f(0,0,0);
-  glVertex3f(0,1,0);
+  if(Options::instance()->get_option("check_axis")){
+    glDisable(GL_TEXTURE_2D);
+    glBegin(GL_LINES);
+    // Axis
+    glColor3f(1,0,0);
+    glVertex3f(0,0,0);
+    glVertex3f(1,0,0);
 
-  glColor3f(0,0,1);
-  glVertex3f(0,0,0);
-  glVertex3f(0,0,1);
-  glEnd();
+    glColor3f(0,1,0);
+    glVertex3f(0,0,0);
+    glVertex3f(0,1,0);
+
+    glColor3f(0,0,1);
+    glVertex3f(0,0,0);
+    glVertex3f(0,0,1);
+    glEnd();
+  }
+
   glPopAttrib();
-
   glPopMatrix();
 }
 
@@ -210,8 +214,7 @@ void Scene::postDraw()
 
 void Scene::step()
 {
-  static int rot=0;
-  //glRotatef(rot+=5,1,0,0);
-
-  objects_.first().setEulerRotation(rot,0,0);
+  for(int i=0;i<objects_.size(); i++){
+    objects_[i].step();
+  }
 }

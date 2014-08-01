@@ -23,7 +23,8 @@ SOURCES += \
     opengl/textures.cpp \
     utils/common.cpp \
     opengl/shaders.cpp \
-    opengl/scene_tire.cpp
+    opengl/scene_tire.cpp \
+    opengl/scene_pie.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -35,7 +36,8 @@ HEADERS  += \
     opengl/textures.h \
     utils/common.h \
     opengl/shaders.h \
-    opengl/scene_tire.h
+    opengl/scene_tire.h \
+    opengl/scene_pie.h
 
 FORMS    += \
     widgets/mainwindow.ui

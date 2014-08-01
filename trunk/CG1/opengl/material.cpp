@@ -96,6 +96,7 @@ void Material::load(QString file_name)
       }
     }
   }
+  qDebug() << "Finished loading.";
 }
 
 void Material::apply() const

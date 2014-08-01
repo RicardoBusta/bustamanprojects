@@ -26,9 +26,9 @@ public:
 
 private:
   struct Face{
-    int v[3];
-    int n[3];
-    int t[3];
+    QVector3D v[3];
+    QVector3D n[3];
+    QVector2D t[3];
 
     Face operator=(Face f){
       for(int i=0;i<3;i++){
@@ -45,9 +45,9 @@ private:
   bool valid_;
   QString material_;
 
-  QVector<QVector3D> vertex_;
-  QVector<QVector3D> normal_;
-  QVector<QVector2D> texture_;
+//  QVector<QVector3D> vertex_;
+//  QVector<QVector3D> normal_;
+//  QVector<QVector2D> texture_;
   QVector<struct Face> face_;
 
   QVector3D position_;

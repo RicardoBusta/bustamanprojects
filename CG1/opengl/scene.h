@@ -10,6 +10,8 @@ class Scene
 public:
   Scene();
 
+  void setup();
+
   // Camera Manipulation
   void setZoom(int zoom);
   void addZoom(int zoom);
@@ -17,7 +19,7 @@ public:
   void rotate(int rot_x, int rot_y, int rot_z);
 
   // Init OpenGL
-  void initialize();
+  static void initialize();
   void resize(int w,int h);
 
   // Paint OpenGL
@@ -37,7 +39,7 @@ public:
   static Scene* current();
   static void setCurrent(QString scene_name);
 protected:
-  virtual void setup();
+  virtual void setup_spec();
 
   Object skybox_;
   QVector<Object> objects_;

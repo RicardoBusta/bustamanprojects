@@ -1,8 +1,6 @@
 #include "options.h"
 
-#ifndef NULL
-#define NULL 0
-#endif
+#include <QDebug>
 
 Options *Options::instance_ = NULL;
 
@@ -15,13 +13,6 @@ Options::Options():
   initial_rot_z_(0),
   // Artifacts
   normal_size_(0.2),
-  show_normals_(false),
-  // Render
-  show_wireframe_(false),
-  shaders_(true),
-  animation_(true),
-  show_textures_(true),
-  show_skydome_(true),
   clear_color_(QColor(Qt::darkBlue))
 {
 }
@@ -69,34 +60,24 @@ float Options::normal_size() const
   return normal_size_;
 }
 
-bool Options::show_normals() const
+bool Options::get_option(QString option)
 {
-  return show_normals_;
+  if(check_options_.contains(option)){
+  return check_options_[option];
+  }else{
+    qWarning() << "Invalid Option:" << option;
+    return false;
+  }
 }
 
-bool Options::show_wireframe() const
+void Options::set_option(QString option, bool v)
 {
-  return show_wireframe_;
-}
-
-bool Options::shaders() const
-{
-  return shaders_;
-}
-
-bool Options::animation() const
-{
-  return animation_;
-}
-
-bool Options::show_skydome() const
-{
-  return show_skydome_;
-}
-
-bool Options::show_textures() const
-{
-  return show_textures_;
+  options_changed_ = true;
+  if(check_options_.contains(option)){
+    check_options_[option] = v;
+  }else{
+    check_options_.insert(option,v);
+  }
 }
 
 QColor Options::clear_color() const

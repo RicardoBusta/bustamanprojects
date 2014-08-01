@@ -32,15 +32,13 @@ QVector<Object> Object::load(QString file_name)
 
   Object *obj = NULL;
 
-  bool valid = true;
-
   while(!in.atEnd()){
     QString line = ReadValidLine(in);
 
     if(line.startsWith("o ")){
-      //obj->name = line.mid(2);
       output.push_back(Object());
       obj = &(output.last());
+      obj->name_ = line.mid(2);
       obj->valid_ = true;
     }else if(line.startsWith("mtllib ")){
       QString mtl_name = line.mid(7);
@@ -139,7 +137,8 @@ void Object::drawArtifacts()
 {
   if(!valid_) return;
 
-  if(!Options::instance()->show_normals()) return;
+  if(!Options::instance()->get_option("check_vertex_normals") &&
+     !Options::instance()->get_option("check_face_normals") ) return;
 
   glPushMatrix();
 
@@ -153,9 +152,22 @@ void Object::drawArtifacts()
   glBegin(GL_LINES);
   glColor3f(1,1,1);
   for(int f=0;f<face_.size();f++){
-    for(int i=0;i<3;i++){
-      // Draw Vertex Normals
-      if(Options::instance()->show_normals()){
+    if(Options::instance()->get_option("check_face_normals")){
+      QVector3D vert[] = {
+        vertex_[face_[f].v[0]-1],
+        vertex_[face_[f].v[1]-1],
+        vertex_[face_[f].v[2]-1]
+      };
+
+      QVector3D center = (vert[0]+vert[1]+vert[2])/3;
+      QVector3D normal = QVector3D::crossProduct( vert[1]-vert[0],vert[2]-vert[0] ).normalized()*Options::instance()->normal_size() + center;
+      glVertex3f(center.x(),center.y(),center.z());
+      glVertex3f(normal.x(),normal.y(),normal.z());
+    }
+    if(Options::instance()->get_option("check_vertex_normals")){
+      for(int i=0;i<3;i++){
+        // Draw Vertex Normals
+
         const QVector3D &vert = vertex_[face_[f].v[i]-1];
         glVertex3f(vert.x(),vert.y(),vert.z());
         const QVector3D &norm = normal_[face_[f].n[i]-1]*Options::instance()->normal_size() + vert;
@@ -167,6 +179,11 @@ void Object::drawArtifacts()
   glPopAttrib();
 
   glPopMatrix();
+}
+
+void Object::step()
+{
+
 }
 
 void Object::setEulerRotation(float x, float y, float z)

@@ -30,9 +30,12 @@ public:
 
   // Scene Animation Manipulation
   void step();
+protected:
+  virtual void setup()=0;
+
+  Object skybox_;
+  QVector<Object> objects_;
 private:
-
-
   static Scene *instance_;
 
   int zoom_;
@@ -40,9 +43,6 @@ private:
   int rot_x_;
   int rot_y_;
   int rot_z_;
-
-  Object skybox_;
-  QVector<Object> objects_;
 };
 
 #endif // SCENE_H

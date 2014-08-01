@@ -1,5 +1,7 @@
 #include "shaders.h"
 
+#include "utils/options.h"
+
 Shaders * Shaders::instance_ = NULL;
 
 Shaders::Shaders()
@@ -16,6 +18,8 @@ Shaders *Shaders::instance()
 
 bool Shaders::bind(QString shader_name)
 {
+  if(!Options::instance()->get_option("check_shader")) return true;
+
   if(instance_->map.contains(shader_name)){
     if(NULL != instance_->map[shader_name]){
       return instance_->map[shader_name]->bind();
@@ -42,6 +46,8 @@ bool Shaders::bind(QString shader_name)
 
 bool Shaders::release(QString shader_name)
 {
+  if(!Options::instance()->get_option("check_shader")) return true;
+
   if( instance_->map.contains(shader_name) && (NULL != instance_->map[shader_name]) ){
     instance_->map[shader_name]->release();
     return true;

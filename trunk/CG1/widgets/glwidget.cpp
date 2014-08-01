@@ -8,10 +8,11 @@
 #include "opengl/textures.h"
 #include "utils/options.h"
 #include "opengl/shaders.h"
+#include "opengl/scene_tire.h"
 
 GLWidget::GLWidget(QWidget *parent) :
   QGLWidget(parent),
-  scene_(new Scene())
+  scene_(new SceneTire())
 {
   Textures::instance()->setGlWidget(this);
 
@@ -105,7 +106,6 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 
   scene_->addZoom( event->delta() );
 
-  update();
   event->accept();
 }
 
@@ -120,7 +120,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
     scene_->rotate(delta_.y(),delta_.x(),0);
   }
 
-  update();
   event->accept();
 }
 

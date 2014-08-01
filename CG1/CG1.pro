@@ -21,7 +21,8 @@ SOURCES += \
     opengl/object.cpp \
     utils/options.cpp \
     opengl/textures.cpp \
-    utils/common.cpp
+    utils/common.cpp \
+    opengl/shaders.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -31,7 +32,8 @@ HEADERS  += \
     opengl/object.h \
     utils/options.h \
     opengl/textures.h \
-    utils/common.h
+    utils/common.h \
+    opengl/shaders.h
 
 FORMS    += \
     widgets/mainwindow.ui
@@ -42,4 +44,6 @@ RESOURCES += \
 
 OTHER_FILES += \
     shaders/phong.vsh \
-    shaders/phong.fsh
+    shaders/phong.fsh \
+    shaders/simple_texture.vsh \
+    shaders/simple_texture.fsh

@@ -7,6 +7,7 @@
 
 #include "opengl/textures.h"
 #include "utils/options.h"
+#include "opengl/shaders.h"
 
 GLWidget::GLWidget(QWidget *parent) :
   QGLWidget(parent),
@@ -31,11 +32,12 @@ void GLWidget::initializeGL()
 
   scene_->initialize();
 
-  bool did_it;
-  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Vertex,":/shader/phong.vsh");
-  qDebug() << "vert loaded:" << did_it;
-  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Fragment,":/shader/phong.fsh");
-  qDebug() << "frag loaded:" << did_it;
+//  bool did_it;
+//  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Vertex,":/shaders/phong.vsh");
+//  qDebug() << "vert loaded:" << did_it;
+//  did_it = shader_program_.addShaderFromSourceFile(QGLShader::Fragment,":/shaders/phong.fsh");
+//  qDebug() << "frag loaded:" << did_it;
+//  Shaders::instance()->bind("phong");
 }
 
 void GLWidget::resizeGL(int w, int h)
@@ -54,13 +56,13 @@ void GLWidget::paintGL()
   scene_->rotate(auto_delta_.y(),auto_delta_.x(),0);
 
   scene_->preDraw();
-  if(Options::instance()->shaders()){
-    shader_program_.bind();
-  }
+//  if(Options::instance()->shaders()){
+//    shader_program_.bind();
+//  }
   scene_->draw();
-  if(Options::instance()->shaders()){
-    shader_program_.release();
-  }
+//  if(Options::instance()->shaders()){
+//    shader_program_.release();
+//  }
 
   scene_->drawSky();
   scene_->drawArtifacts();

@@ -40,8 +40,8 @@ void main(void)
 
 //    vec4 texVal = texture2D();
 
-//    if(dot(wo, normal) < 0.0)
-//        normal = -normal;
+    if(dot(wo, normal) < 0.0)
+        normal = -normal;
 
     vec3 wr1 = normalize(reflect(-wi1, normal));
     vec3 wr2 = normalize(reflect(-wi2, normal));

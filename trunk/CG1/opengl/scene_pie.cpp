@@ -7,6 +7,6 @@ ScenePie::ScenePie():
 
 void ScenePie::setup()
 {
-  objects_ = Object::load(":/model/cube.obj");
+  objects_ = Object::load(":/model/pie_table.obj");
   skybox_ = Object::load(":/model/skydome.obj").first();
 }

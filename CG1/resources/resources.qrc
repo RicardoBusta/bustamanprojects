@@ -6,6 +6,8 @@
         <file>pie_table.png</file>
         <file>skydome.png</file>
         <file>panoramic_room.jpg</file>
+        <file>choco_donut.png</file>
+        <file>donut.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>
@@ -13,6 +15,7 @@
         <file>skydome.obj</file>
         <file>pie_table.obj</file>
         <file>cube.obj</file>
+        <file>donut.obj</file>
     </qresource>
     <qresource prefix="/material">
         <file>tire.mtl</file>
@@ -20,5 +23,6 @@
         <file>skydome.mtl</file>
         <file>pie_table.mtl</file>
         <file>cube.mtl</file>
+        <file>donut.mtl</file>
     </qresource>
 </RCC>

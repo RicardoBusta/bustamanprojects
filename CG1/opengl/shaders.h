@@ -16,6 +16,8 @@ private:
 
   QMap<QString,QGLShaderProgram*> map;
 
+  bool setParameters(const QString &shader_name);
+
   static Shaders * instance_;
 };
 

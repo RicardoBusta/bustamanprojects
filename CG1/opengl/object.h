@@ -26,6 +26,7 @@ public:
   void step();
 
   void setEulerRotation(float x, float y, float z);
+  void setPosition(QVector3D pos);
 
   void setOverrideTexture(QString s);
 

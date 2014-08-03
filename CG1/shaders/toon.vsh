@@ -1,5 +1,4 @@
-varying vec3 normal, lightDir, options;
-
+varying vec3 normal, lightDir;
 
 void main()
 {

@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "scene/scene_pie.h"
-#include "scene/scene_tire.h"
 #include "opengl/material.h"
 #include "opengl/textures.h"
+#include "scene/scene_pie.h"
+#include "scene/scene_tire.h"
+#include "scene/scene_truck.h"
+#include "scene/scene_donut.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -29,10 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(ui->button_hide_interface,SIGNAL(clicked()),this,SLOT(hideTabs()));
 
 //  Scene::addScene("none",new Scene);
-  Scene::addScene("none",new Scene);
+  Scene::addScene("-",new Scene);
   Scene::addScene("tire",new SceneTire);
   Scene::addScene("pie",new ScenePie);
-  Scene::setCurrent("none");
+  Scene::addScene("truck",new SceneTruck);
+  Scene::addScene("donut",new SceneDonut);
+  Scene::setCurrent("-");
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));
 

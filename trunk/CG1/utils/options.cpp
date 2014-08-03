@@ -7,7 +7,7 @@ Options *Options::instance_ = NULL;
 Options::Options():
   options_changed_(true),
   // Scene
-  initial_zoom_(1.f),
+  initial_zoom_(0.2f),
   zoom_to_size_(1000.f),
   max_zoom_(10.0f),
   min_zoom_(0.01f),

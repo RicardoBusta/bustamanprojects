@@ -27,7 +27,9 @@ SOURCES += \
     scene/scene_pie.cpp \
     opengl/model.cpp \
     opengl/animation.cpp \
-    animation/animation_spin.cpp
+    animation/animation_spin.cpp \
+    scene/scene_truck.cpp \
+    scene/scene_donut.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -43,7 +45,9 @@ HEADERS  += \
     scene/scene_pie.h \
     opengl/model.h \
     opengl/animation.h \
-    animation/animation_spin.h
+    animation/animation_spin.h \
+    scene/scene_truck.h \
+    scene/scene_donut.h
 
 FORMS    += \
     widgets/mainwindow.ui
@@ -56,4 +60,6 @@ OTHER_FILES += \
     shaders/phong.vsh \
     shaders/phong.fsh \
     shaders/simple_texture.vsh \
-    shaders/simple_texture.fsh
+    shaders/simple_texture.fsh \
+    shaders/toon.fsh \
+    shaders/toon.vsh

@@ -81,10 +81,13 @@ void Object::transform() const
   glRotatef(euler_rotation_.y(),0,1,0);
   glRotatef(euler_rotation_.z(),0,0,1);
 
+  glTranslatef(position_.x(),position_.y(),position_.z());
+
   for(QList<Animation*>::const_iterator it = animation_.begin(); it!=animation_.end(); it++){
     if((*it)!=NULL)
       (*it)->transform();
   }
+
 }
 
 void Object::step()
@@ -100,6 +103,11 @@ void Object::setEulerRotation(float x, float y, float z)
   if(!valid_) return;
 
   euler_rotation_ = QVector3D(x,y,z);
+}
+
+void Object::setPosition(QVector3D pos)
+{
+  position_ = pos;
 }
 
 void Object::setOverrideTexture(QString s)

@@ -93,6 +93,9 @@ void Scene::setup()
   glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
   glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable( GL_BLEND );
+
 
   setup_spec();
   initialized_ = true;
@@ -159,21 +162,6 @@ void Scene::preDraw() const
 void Scene::draw() const
 {
   preDraw();
-  // Draw Objects
-  Shaders::instance()->bind("phong");
-  glPushMatrix();
-  glScalef(zoom_,zoom_,zoom_);
-  glRotatef(rot_x_,1,0,0);
-  glRotatef(rot_y_,0,1,0);
-  glRotatef(rot_z_,0,0,1);
-
-  for(int i=0;i<objects_.size(); i++){
-    if(objects_[i]!=NULL){
-      objects_[i]->draw();
-    }
-  }
-  glPopMatrix();
-  Shaders::instance()->release("phong");
 
   // Draw Skybox
   if(Options::instance()->get_option("check_skydome")){
@@ -194,6 +182,23 @@ void Scene::draw() const
 
     glPopMatrix();
   }
+
+  // Draw Objects
+  Shaders::instance()->bind("phong");
+  glPushMatrix();
+  glScalef(zoom_,zoom_,zoom_);
+  glRotatef(rot_x_,1,0,0);
+  glRotatef(rot_y_,0,1,0);
+  glRotatef(rot_z_,0,0,1);
+
+  for(int i=0;i<objects_.size(); i++){
+    if(objects_[i]!=NULL){
+      objects_[i]->draw();
+    }
+  }
+  glPopMatrix();
+  Shaders::instance()->release("phong");
+
   postDraw();
 }
 

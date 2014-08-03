@@ -7,10 +7,14 @@ Options *Options::instance_ = NULL;
 Options::Options():
   options_changed_(true),
   // Scene
-  initial_zoom_(1000),
-  initial_rot_x_(0),
-  initial_rot_y_(0),
-  initial_rot_z_(0),
+  initial_zoom_(1.f),
+  zoom_to_size_(1000.f),
+  max_zoom_(10.0f),
+  min_zoom_(0.01f),
+  initial_rot_x_(45.f),
+  initial_rot_y_(0.f),
+  initial_rot_z_(0.f),
+  rot_to_angle_(0.2f),
   // Artifacts
   normal_size_(0.2),
   clear_color_(QColor(Qt::darkBlue))
@@ -35,24 +39,44 @@ void Options::options_applied()
   options_changed_ = false;
 }
 
-int Options::initial_zoom() const
+float Options::initial_zoom() const
 {
   return initial_zoom_;
 }
 
-int Options::initial_rot_x() const
+float Options::initial_rot_x() const
 {
   return initial_rot_x_;
 }
 
-int Options::initial_rot_y() const
+float Options::initial_rot_y() const
 {
   return initial_rot_y_;
 }
 
-int Options::initial_rot_z() const
+float Options::initial_rot_z() const
 {
   return initial_rot_z_;
+}
+
+float Options::rot_to_angle() const
+{
+  return rot_to_angle_;
+}
+
+float Options::zoom_to_size() const
+{
+  return zoom_to_size_;
+}
+
+float Options::max_zoom() const
+{
+  return max_zoom_;
+}
+
+float Options::min_zoom() const
+{
+  return min_zoom_;
 }
 
 float Options::normal_size() const

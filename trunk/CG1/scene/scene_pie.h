@@ -8,7 +8,7 @@ class ScenePie : public Scene
 public:
   ScenePie();
 private:
-  void setup();
+  void setup_spec();
 };
 
 #endif // SCENE_PIE_H

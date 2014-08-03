@@ -6,52 +6,50 @@
 #include <QVector2D>
 #include <QVector3D>
 
-#include "material.h"
+#include "model.h"
+
+class Animation;
 
 class Object
 {
 public:
   Object();
+  ~Object();
 
-  static QVector<Object> load(QString file_name);
+  static Object *create(QString object_name,QString model_name);
 
-  void draw();
-  void drawArtifacts();
+  void setModel(QString model_name);
+
+  void draw() const;
+  void drawArtifacts() const;
 
   void step();
 
   void setEulerRotation(float x, float y, float z);
 
+  void setOverrideTexture(QString s);
+
   Object operator=(Object o);
 
-private:
-  struct Face{
-    QVector3D v[3];
-    QVector3D n[3];
-    QVector2D t[3];
+  QString name() const;
 
-    Face operator=(Face f){
-      for(int i=0;i<3;i++){
-        v[i] = f.v[i];
-        n[i] = f.n[i];
-        t[i] = f.t[i];
-      }
-      return *this;
-    }
-  };
+  void addAnimation(Animation *animation);
+private:
+  void transform() const;
 
   QString name_;
 
   bool valid_;
   QString material_;
 
-//  QVector<QVector3D> vertex_;
-//  QVector<QVector3D> normal_;
-//  QVector<QVector2D> texture_;
-  QVector<struct Face> face_;
+  QString override_texture_;
 
   QVector3D position_;
   QVector3D euler_rotation_;
+
+  Model *model_;
+
+  QList<Animation*> animation_;
 };
 
 #endif // OBJECT_H

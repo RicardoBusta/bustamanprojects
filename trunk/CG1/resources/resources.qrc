@@ -5,6 +5,7 @@
         <file>skydome.jpg</file>
         <file>pie_table.png</file>
         <file>skydome.png</file>
+        <file>panoramic_room.jpg</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>

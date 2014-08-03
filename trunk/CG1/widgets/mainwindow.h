@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCheckBox>
 
 #include "utils/options.h"
 
@@ -23,12 +24,16 @@ public:
 private:
   Ui::MainWindow *ui;
 
-  void connectCheckBox(QWidget *check_box,bool value);
+  void connectCheckBox(QCheckBox *check_box, bool value);
 
 private slots:
+  void hideTabs();
+
   void shaderToggle(bool v);
 
   void optionToggled(bool v);
+
+  void setScene(QString s);
 };
 
 #undef DECLARE_TOGGLE_CHECK

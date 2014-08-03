@@ -20,9 +20,12 @@ public:
     black
   };
 
-  void apply() const;
+  void apply_material() const;
+  void apply_texture() const;
 
   static Material *get(QString mtl_name);
+
+    static QStringList getList();
 private:
   bool invalid_;
 

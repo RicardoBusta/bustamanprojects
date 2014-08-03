@@ -18,7 +18,7 @@ void Material::load(QString file_name)
   QVector<Material> output;
 
   if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-    qWarning() << "Failed to open file:" << file_name;
+    //qWarning() << "Failed to open file:" << file_name;
     file.setFileName(":/material/"+file_name);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
       qWarning() << "Failed to open file: :/material/"+file_name;
@@ -96,10 +96,15 @@ void Material::load(QString file_name)
       }
     }
   }
-  qDebug() << "Finished loading.";
+  qDebug() << "Finished loading material.";
 }
 
-void Material::apply() const
+void Material::apply_material() const
+{
+  if(invalid_) return;
+}
+
+void Material::apply_texture() const
 {
   if(invalid_) return;
 
@@ -109,4 +114,17 @@ void Material::apply() const
 Material *Material::get(QString mtl_name)
 {
   return &material_[mtl_name];
+}
+
+QStringList Material::getList()
+{
+  QStringList list;
+
+  for(QMap<QString,Material>::iterator it = material_.begin(); it!= material_.end(); it++){
+    list.push_back(it.key());
+  }
+
+  list.sort(Qt::CaseInsensitive);
+
+  return list;
 }

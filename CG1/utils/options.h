@@ -12,10 +12,17 @@ public:
   bool options_changed() const;
   void options_applied();
 
-  int initial_zoom() const;
-  int initial_rot_x() const;
-  int initial_rot_y() const;
-  int initial_rot_z() const;
+  float initial_zoom() const;
+  float zoom_to_size() const;
+  float max_zoom() const;
+  float min_zoom() const;
+
+  float initial_rot_x() const;
+  float initial_rot_y() const;
+  float initial_rot_z() const;
+
+  float rot_to_angle() const;
+
 
   float normal_size() const;
 
@@ -31,10 +38,15 @@ private :
   bool options_changed_;
 
   // Scene Options
-  const int initial_zoom_;
-  const int initial_rot_x_;
-  const int initial_rot_y_;
-  const int initial_rot_z_;
+  const float initial_zoom_;
+  const float max_zoom_;
+  const float min_zoom_;
+  const float zoom_to_size_;
+
+  const float initial_rot_x_;
+  const float initial_rot_y_;
+  const float initial_rot_z_;
+  const float rot_to_angle_;
 
   // Artifacts Options
   float normal_size_;

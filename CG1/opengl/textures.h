@@ -13,6 +13,7 @@ public:
 
   void setGlWidget(QGLWidget *gl_widget);
 
+  static QStringList getList();
 private:
   Textures();
 

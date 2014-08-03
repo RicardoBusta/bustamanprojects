@@ -9,11 +9,11 @@ class Scene
 {
 public:
   Scene();
+  ~Scene();
 
   void setup();
 
   // Camera Manipulation
-  void setZoom(int zoom);
   void addZoom(int zoom);
 
   void rotate(int rot_x, int rot_y, int rot_z);
@@ -24,11 +24,9 @@ public:
 
   // Paint OpenGL
   void setOptions();
-  void preDraw();
-  void draw();
-  void drawSky();
-  void drawArtifacts();
-  void postDraw();
+  void clear() const;
+  void draw() const;
+  void drawArtifacts() const;
 
   // Scene Animation Manipulation
   void step();
@@ -37,22 +35,30 @@ public:
   static void addScene(QString scene_name,Scene* scene);
   static bool valid();
   static Scene* current();
+  static QString current_name();
   static void setCurrent(QString scene_name);
+  static QStringList scene_list();
+
+  QStringList getObjectList() const;
 protected:
   virtual void setup_spec();
 
-  Object skybox_;
-  QVector<Object> objects_;
+  Object *skybox_;
+  QVector<Object*> objects_;
 private:
+  void setZoom(float zoom);
+
+  virtual void preDraw() const;
+  virtual void postDraw() const;
 
   bool initialized_;
   static Scene *instance_;
 
-  int zoom_;
+  float zoom_;
 
-  int rot_x_;
-  int rot_y_;
-  int rot_z_;
+  float rot_x_;
+  float rot_y_;
+  float rot_z_;
 
   static QMap<QString,Scene*> scene_;
   static QString current_scene_;

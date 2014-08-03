@@ -11,20 +11,36 @@ QMap<QString,Scene*> Scene::scene_;
 QString Scene::current_scene_ = "none";
 
 Scene::Scene():
+  skybox_(NULL),
+  initialized_(false),
   zoom_(Options::instance()->initial_zoom()),
   rot_x_(Options::instance()->initial_rot_x()),
   rot_y_(Options::instance()->initial_rot_y()),
-  rot_z_(Options::instance()->initial_rot_z()),
-  initialized_(false)
+  rot_z_(Options::instance()->initial_rot_z())
 {
 }
 
-void Scene::setZoom(int zoom)
+Scene::~Scene()
 {
-  if(zoom < 1){
-    zoom_ = 1;
-  }else if(zoom > 10000){
-    zoom_ = 10000;
+  for(QVector<Object*>::iterator it = objects_.begin(); it!= objects_.end(); it++){
+    if((*it)!=NULL){
+      delete (*it);
+    }
+  }
+  if(skybox_!=NULL){
+    delete skybox_;
+  }
+}
+
+void Scene::setZoom(float zoom)
+{
+  float max_zoom = Options::instance()->max_zoom();
+  float min_zoom = Options::instance()->min_zoom();
+
+  if(zoom < min_zoom){
+    zoom_ = min_zoom;
+  }else if(zoom > max_zoom){
+    zoom_ = max_zoom;
   }else{
     zoom_ = zoom;
   }
@@ -32,14 +48,15 @@ void Scene::setZoom(int zoom)
 
 void Scene::addZoom(int zoom)
 {
-  setZoom( zoom_ + zoom );
+  setZoom( zoom_ + zoom_*float(zoom)/Options::instance()->zoom_to_size() );
 }
 
 void Scene::rotate(int rot_x, int rot_y, int rot_z)
 {
-  rot_x_ += rot_x*10;
-  rot_y_ += rot_y*10;
-  rot_z_ += rot_z*10;
+  float rot_to_angle = Options::instance()->rot_to_angle();
+  rot_x_ += rot_x*rot_to_angle;
+  rot_y_ += rot_y*rot_to_angle;
+  rot_z_ += rot_z*rot_to_angle;
 }
 
 void Scene::initialize()
@@ -107,13 +124,22 @@ void Scene::setOptions()
       glDisable(GL_TEXTURE_2D);
     }
 
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if(Options::instance()->get_option("check_perspective")){
+      glFrustum(-.1,.1,-.1,.1,0.1,1000);
+      glTranslatef(0,0,-1);
+    }else{
+      glOrtho(-1,1,-1,1,-50,50);
+    }
+
+    glMatrixMode(GL_MODELVIEW);
+
     Options::instance()->options_applied();
   }
-
-
 }
 
-void Scene::preDraw()
+void Scene::clear() const
 {
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   glLoadIdentity();
@@ -125,44 +151,53 @@ void Scene::preDraw()
   }
 }
 
-void Scene::draw()
+void Scene::preDraw() const
 {
+
+}
+
+void Scene::draw() const
+{
+  preDraw();
+  // Draw Objects
   Shaders::instance()->bind("phong");
   glPushMatrix();
-  float zoom = float(zoom_)/10000.0;
-  glScalef(zoom,zoom,zoom);
-  glRotatef(float(rot_x_)/50,1,0,0);
-  glRotatef(float(rot_y_)/50,0,1,0);
+  glScalef(zoom_,zoom_,zoom_);
+  glRotatef(rot_x_,1,0,0);
+  glRotatef(rot_y_,0,1,0);
   glRotatef(rot_z_,0,0,1);
 
   for(int i=0;i<objects_.size(); i++){
-    objects_[i].draw();
+    if(objects_[i]!=NULL){
+      objects_[i]->draw();
+    }
   }
   glPopMatrix();
   Shaders::instance()->release("phong");
-}
 
-void Scene::drawSky()
-{
+  // Draw Skybox
   if(Options::instance()->get_option("check_skydome")){
-  glPushMatrix();
-  //glLoadIdentity();
-  glPushAttrib(GL_ALL_ATTRIB_BITS);
-  glDisable(GL_LIGHTING);
+    glPushMatrix();
+    glLoadIdentity();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glDisable(GL_LIGHTING);
 
-  glRotatef(float(rot_x_)/50,1,0,0);
-  glRotatef(float(rot_y_)/50,0,1,0);
-  glRotatef(rot_z_,0,0,1);
+    glRotatef(rot_x_,1,0,0);
+    glRotatef(rot_y_,0,1,0);
+    glRotatef(rot_z_,0,0,1);
 
-  skybox_.draw();
+    if(skybox_!=NULL){
+      skybox_->draw();
+    }
 
-  glPopAttrib();
+    glPopAttrib();
 
-  glPopMatrix();
+    glPopMatrix();
   }
+  postDraw();
 }
 
-void Scene::drawArtifacts()
+void Scene::drawArtifacts() const
 {
   glPushMatrix();
 
@@ -178,7 +213,9 @@ void Scene::drawArtifacts()
   glScalef(zoom,zoom,zoom);
 
   for(int i=0;i<objects_.size(); i++){
-    objects_[i].drawArtifacts();
+    if(objects_[i]!=NULL){
+      objects_[i]->drawArtifacts();
+    }
   }
 
   if(Options::instance()->get_option("check_axis")){
@@ -203,14 +240,18 @@ void Scene::drawArtifacts()
   glPopMatrix();
 }
 
-void Scene::postDraw()
+void Scene::postDraw() const
 {
 }
 
 void Scene::step()
 {
-  for(int i=0;i<objects_.size(); i++){
-    objects_[i].step();
+  if(Options::instance()->get_option("check_animation")){
+    for(int i=0;i<objects_.size(); i++){
+      if(objects_[i]!=NULL){
+        objects_[i]->step();
+      }
+    }
   }
 }
 
@@ -236,7 +277,14 @@ Scene *Scene::current()
 {
   if(valid()){
     return scene_[current_scene_];
+  }else{
+    return NULL;
   }
+}
+
+QString Scene::current_name()
+{
+  return current_scene_;
 }
 
 void Scene::setCurrent(QString scene_name)
@@ -247,6 +295,29 @@ void Scene::setCurrent(QString scene_name)
   }else{
     qWarning () << "Scene do not exist.";
   }
+}
+
+QStringList Scene::scene_list()
+{
+  QStringList out;
+  for(QMap<QString,Scene*>::iterator it = scene_.begin(); it!= scene_.end(); it++){
+    out.push_back(it.key());
+  }
+  out.sort(Qt::CaseInsensitive);
+  return out;
+}
+
+QStringList Scene::getObjectList() const
+{
+  QStringList list;
+
+  for(QVector<Object*>::const_iterator it = objects_.begin(); it!= objects_.end(); it++){
+    list.push_back((*it)->name());
+  }
+
+  list.sort(Qt::CaseInsensitive);
+
+  return list;
 }
 
 void Scene::setup_spec()

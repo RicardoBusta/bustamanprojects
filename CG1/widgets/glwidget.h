@@ -13,6 +13,8 @@ public:
   explicit GLWidget(QWidget *parent = 0);
   virtual ~GLWidget();
 
+  QTimer *timer_;
+
 protected:
   void initializeGL();
   void resizeGL(int w, int h);

@@ -29,7 +29,8 @@ SOURCES += \
     opengl/animation.cpp \
     animation/animation_spin.cpp \
     scene/scene_truck.cpp \
-    scene/scene_donut.cpp
+    scene/scene_donut.cpp \
+    animation/animationshake.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS  += \
     opengl/animation.h \
     animation/animation_spin.h \
     scene/scene_truck.h \
-    scene/scene_donut.h
+    scene/scene_donut.h \
+    animation/animationshake.h
 
 FORMS    += \
     widgets/mainwindow.ui

@@ -13,7 +13,7 @@ void SceneTire::setup_spec()
   Model::load(":/model/skydome.obj");
 
   Object *tire1 = Object::create("Tire 1","tire");
-  tire1->addAnimation(new AnimationSpin(10,AnimationSpin::SPIN_X));
+  tire1->addAnimation(new AnimationSpin(0,10,AnimationSpin::SPIN_X));
 
   skybox_ = Object::create("Skydome","skydome");
 

@@ -30,7 +30,8 @@ SOURCES += \
     animation/animation_spin.cpp \
     scene/scene_truck.cpp \
     scene/scene_donut.cpp \
-    animation/animationshake.cpp
+    animation/animationshake.cpp \
+    scene/scene_fur.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS  += \
     animation/animation_spin.h \
     scene/scene_truck.h \
     scene/scene_donut.h \
-    animation/animationshake.h
+    animation/animationshake.h \
+    scene/scene_fur.h
 
 FORMS    += \
     widgets/mainwindow.ui

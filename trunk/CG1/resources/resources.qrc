@@ -8,6 +8,8 @@
         <file>panoramic_room.jpg</file>
         <file>choco_donut.png</file>
         <file>donut.png</file>
+        <file>fur.png</file>
+        <file>fur_alt.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>
@@ -16,6 +18,7 @@
         <file>pie_table.obj</file>
         <file>cube.obj</file>
         <file>donut.obj</file>
+        <file>fur.obj</file>
     </qresource>
     <qresource prefix="/material">
         <file>tire.mtl</file>
@@ -24,5 +27,6 @@
         <file>pie_table.mtl</file>
         <file>cube.mtl</file>
         <file>donut.mtl</file>
+        <file>fur.mtl</file>
     </qresource>
 </RCC>

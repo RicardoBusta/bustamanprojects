@@ -7,6 +7,7 @@
 #include "scene/scene_tire.h"
 #include "scene/scene_truck.h"
 #include "scene/scene_donut.h"
+#include "scene/scene_fur.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
   connectCheckBox(ui->check_textures,true);
   connectCheckBox(ui->check_vertex_normals,false);
   connectCheckBox(ui->check_wireframe,false);
+  connectCheckBox(ui->check_alt_texture,false);
   connectCheckBox(ui->check_perspective,true);
 
   connect(ui->check_shader,SIGNAL(toggled(bool)),this,SLOT(shaderToggle(bool)));
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
   Scene::addScene("pie",new ScenePie);
   Scene::addScene("truck",new SceneTruck);
   Scene::addScene("donut",new SceneDonut);
+  Scene::addScene("fur",new SceneFur);
   Scene::setCurrent("-");
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));

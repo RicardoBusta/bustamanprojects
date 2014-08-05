@@ -23,7 +23,6 @@ public:
 
   float rot_to_angle() const;
 
-
   float normal_size() const;
 
   bool get_option(QString option);

@@ -102,6 +102,8 @@ void Material::load(QString file_name)
 void Material::apply_material() const
 {
   if(invalid_) return;
+
+  glColor3f(1,1,1);
 }
 
 void Material::apply_texture() const

@@ -12,6 +12,8 @@
 
 Object::Object():
   valid_(false),
+  scale_(1.0f),
+  has_custom_color_(false),
   model_(NULL)
 {
 }
@@ -47,9 +49,16 @@ void Object::draw() const
 
   glPushMatrix();
 
-  model_->setMaterial();
+  if(has_custom_color_){
+    glColor4f(custom_color_.redF(),custom_color_.greenF(),custom_color_.blueF(),custom_color_.alphaF());
+  }else{
+    model_->setMaterial();
+  }
 
-  if(override_texture_!=""){
+  if(Options::instance()->get_option("check_alt_texture") && alt_texture_!=""){
+    Textures::instance()->setTexture(alt_texture_);
+  }
+  else if(override_texture_!=""){
     Textures::instance()->setTexture(override_texture_);
   }else{
     model_->setTexture();
@@ -83,6 +92,8 @@ void Object::transform() const
 
   glTranslatef(position_.x(),position_.y(),position_.z());
 
+  glScalef(scale_,scale_,scale_);
+
   for(QList<Animation*>::const_iterator it = animation_.begin(); it!=animation_.end(); it++){
     if((*it)!=NULL)
       (*it)->transform();
@@ -108,6 +119,22 @@ void Object::setEulerRotation(float x, float y, float z)
 void Object::setPosition(QVector3D pos)
 {
   position_ = pos;
+}
+
+void Object::setScale(float s)
+{
+  scale_ = s;
+}
+
+void Object::setCustomColor(QColor c)
+{
+  has_custom_color_ = true;
+  custom_color_ = c;
+}
+
+void Object::setAltTexture(QString a)
+{
+  alt_texture_ = a;
 }
 
 void Object::setOverrideTexture(QString s)

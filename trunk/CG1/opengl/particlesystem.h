@@ -7,11 +7,11 @@ public:
   ParticleSystem();
 
 private:
-  position_
-  position_variation_
+//  position_
+//  position_variation_
 
-  speed_
-  speed_variation_
+//  speed_
+//  speed_variation_
 };
 
 #endif // PARTICLESYSTEM_H

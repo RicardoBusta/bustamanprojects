@@ -51,6 +51,9 @@ private:
   virtual void preDraw() const;
   virtual void postDraw() const;
 
+  virtual void drawSkybox() const;
+  virtual void drawObjects() const;
+
   bool initialized_;
   static Scene *instance_;
 

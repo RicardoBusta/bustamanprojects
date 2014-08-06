@@ -163,41 +163,8 @@ void Scene::draw() const
 {
   preDraw();
 
-  // Draw Skybox
-  if(Options::instance()->get_option("check_skydome")){
-    glPushMatrix();
-    glLoadIdentity();
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
-    glDisable(GL_LIGHTING);
-
-    glRotatef(rot_x_,1,0,0);
-    glRotatef(rot_y_,0,1,0);
-    glRotatef(rot_z_,0,0,1);
-
-    if(skybox_!=NULL){
-      skybox_->draw();
-    }
-
-    glPopAttrib();
-
-    glPopMatrix();
-  }
-
-  // Draw Objects
-  Shaders::instance()->bind("phong");
-  glPushMatrix();
-  glScalef(zoom_,zoom_,zoom_);
-  glRotatef(rot_x_,1,0,0);
-  glRotatef(rot_y_,0,1,0);
-  glRotatef(rot_z_,0,0,1);
-
-  for(int i=0;i<objects_.size(); i++){
-    if(objects_[i]!=NULL){
-      objects_[i]->draw();
-    }
-  }
-  glPopMatrix();
-  Shaders::instance()->release("phong");
+  drawSkybox();
+  drawObjects();
 
   postDraw();
 }
@@ -247,6 +214,48 @@ void Scene::drawArtifacts() const
 
 void Scene::postDraw() const
 {
+}
+
+void Scene::drawSkybox() const
+{
+  // Draw Skybox
+  if(Options::instance()->get_option("check_skydome")){
+    glPushMatrix();
+    glLoadIdentity();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glDisable(GL_LIGHTING);
+
+    glRotatef(rot_x_,1,0,0);
+    glRotatef(rot_y_,0,1,0);
+    glRotatef(rot_z_,0,0,1);
+
+    if(skybox_!=NULL){
+      skybox_->draw();
+    }
+
+    glPopAttrib();
+
+    glPopMatrix();
+  }
+}
+
+void Scene::drawObjects() const
+{
+  // Draw Objects
+  Shaders::instance()->bind("phong");
+  glPushMatrix();
+  glScalef(zoom_,zoom_,zoom_);
+  glRotatef(rot_x_,1,0,0);
+  glRotatef(rot_y_,0,1,0);
+  glRotatef(rot_z_,0,0,1);
+
+  for(int i=0;i<objects_.size(); i++){
+    if(objects_[i]!=NULL){
+      objects_[i]->draw();
+    }
+  }
+  glPopMatrix();
+  Shaders::instance()->release("phong");
 }
 
 void Scene::step()

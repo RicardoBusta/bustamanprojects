@@ -8,6 +8,8 @@
 #include "scene/scene_truck.h"
 #include "scene/scene_donut.h"
 #include "scene/scene_fur.h"
+#include "scene/scene_voxel.h"
+#include "scene/scene_bonfire.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -38,7 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
   Scene::addScene("pie",new ScenePie);
   Scene::addScene("truck",new SceneTruck);
   Scene::addScene("donut",new SceneDonut);
-  Scene::addScene("fur",new SceneFur);
+  Scene::addScene("Fur Alg",new SceneFur);
+  Scene::addScene("Voxel Alg",new SceneVoxel);
+  Scene::addScene("Bonfire",new SceneBonfire);
   Scene::setCurrent("-");
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));

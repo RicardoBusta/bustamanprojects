@@ -258,6 +258,26 @@ void Scene::drawObjects() const
   Shaders::instance()->release("phong");
 }
 
+float Scene::zoom() const
+{
+  return zoom_;
+}
+
+float Scene::rot_x() const
+{
+  return rot_x_;
+}
+
+float Scene::rot_y() const
+{
+  return rot_y_;
+}
+
+float Scene::rot_z() const
+{
+  return rot_z_;
+}
+
 void Scene::step()
 {
   if(Options::instance()->get_option("check_animation")){

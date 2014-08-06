@@ -10,6 +10,7 @@ public:
   static Textures *instance();
 
   void setTexture(QString texture);
+  void set3DTexture(QString texture);
 
   void setGlWidget(QGLWidget *gl_widget);
 

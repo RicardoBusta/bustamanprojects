@@ -8,7 +8,7 @@ class SceneVoxel : public Scene
 public:
   SceneVoxel();
 private:
-  void drawObjects();
+  void drawObjects() const;
   void setup_spec();
 };
 

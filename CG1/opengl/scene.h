@@ -45,14 +45,20 @@ protected:
 
   Object *skybox_;
   QVector<Object*> objects_;
-private:
-  void setZoom(float zoom);
 
   virtual void preDraw() const;
   virtual void postDraw() const;
 
   virtual void drawSkybox() const;
   virtual void drawObjects() const;
+
+  float zoom() const;
+  float rot_x() const;
+  float rot_y() const;
+  float rot_z() const;
+private:
+  void setZoom(float zoom);
+
 
   bool initialized_;
   static Scene *instance_;

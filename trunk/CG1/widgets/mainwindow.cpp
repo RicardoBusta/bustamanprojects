@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));
 
   ui->combo_scenes->addItems(Scene::scene_list());
-  ui->combo_scenes->setCurrentText(Scene::current_name());
+  ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText(Scene::current_name()));
 }
 
 MainWindow::~MainWindow()

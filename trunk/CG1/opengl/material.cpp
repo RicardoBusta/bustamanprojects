@@ -126,7 +126,7 @@ QStringList Material::getList()
     list.push_back(it.key());
   }
 
-  list.sort(Qt::CaseInsensitive);
+  list.sort();
 
   return list;
 }

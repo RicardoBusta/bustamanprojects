@@ -52,7 +52,7 @@ QStringList Textures::getList()
     }
   }
 
-  list.sort(Qt::CaseInsensitive);
+  list.sort();
 
   return list;
 }

@@ -31,7 +31,10 @@ SOURCES += \
     scene/scene_truck.cpp \
     scene/scene_donut.cpp \
     animation/animationshake.cpp \
-    scene/scene_fur.cpp
+    scene/scene_fur.cpp \
+    opengl/particlesystem.cpp \
+    scene/scene_bonfire.cpp \
+    scene/scene_voxel.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -51,7 +54,10 @@ HEADERS  += \
     scene/scene_truck.h \
     scene/scene_donut.h \
     animation/animationshake.h \
-    scene/scene_fur.h
+    scene/scene_fur.h \
+    opengl/particlesystem.h \
+    scene/scene_bonfire.h \
+    scene/scene_voxel.h
 
 FORMS    += \
     widgets/mainwindow.ui

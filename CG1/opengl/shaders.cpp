@@ -10,9 +10,12 @@ Shaders::Shaders()
 
 bool Shaders::setParameters(const QString &shader_name)
 {
-  int options_location = map[shader_name]->attributeLocation("gl_TexCoord[0]");
-  qDebug() << options_location;
-  map[shader_name]->setUniformValue(options_location,QVector4D(1,0,0,0));
+  bool ok = true;
+//  int options_location = map[shader_name]->attributeLocation("gl_TexCoord[0]");
+//  qDebug() << options_location;
+//  ok &= map[shader_name]->setUniformValue(options_location,QVector4D(1,0,0,0));
+
+  return ok;
 }
 
 Shaders *Shaders::instance()

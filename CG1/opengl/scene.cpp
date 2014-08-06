@@ -308,7 +308,7 @@ QStringList Scene::scene_list()
   for(QMap<QString,Scene*>::iterator it = scene_.begin(); it!= scene_.end(); it++){
     out.push_back(it.key());
   }
-  out.sort(Qt::CaseInsensitive);
+  out.sort();
   return out;
 }
 
@@ -320,7 +320,7 @@ QStringList Scene::getObjectList() const
     list.push_back((*it)->name());
   }
 
-  list.sort(Qt::CaseInsensitive);
+  list.sort();
 
   return list;
 }

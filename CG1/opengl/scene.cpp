@@ -5,6 +5,7 @@
 #include "utils/options.h"
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
+#include "opengl/opengl.h"
 
 Scene *Scene::instance_ = NULL;
 QMap<QString,Scene*> Scene::scene_;
@@ -123,8 +124,10 @@ void Scene::setOptions()
 
     if(Options::instance()->get_option("check_textures")){
       glEnable(GL_TEXTURE_2D);
+      glEnable(GL_TEXTURE_3D);
     }else{
       glDisable(GL_TEXTURE_2D);
+      glDisable(GL_TEXTURE_3D);
     }
 
     glMatrixMode(GL_PROJECTION);

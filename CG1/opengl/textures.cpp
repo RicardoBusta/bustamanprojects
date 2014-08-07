@@ -3,6 +3,7 @@
 #include <QString>
 
 #include "opengl/scene.h"
+#include "opengl/opengl.h"
 
 Textures *Textures::instance_ = NULL;
 
@@ -44,14 +45,19 @@ void Textures::set3DTexture(QString texture)
     glBindTexture(GL_TEXTURE_3D,tex_map_[texture]);
   }else{
     qDebug() << "Loading 3D texture:" << texture;
-    //    QImage tex = QImage(texture);
-    //    if(tex.isNull()){
-    //      tex = QImage(":/texture/"+texture);
-    //      if(tex.isNull()){
-    //        qWarning() << "Failed to open image file." << texture;
-    //        return;
-    //      }
-    //    }
+
+    QImage tex = QImage(texture);
+    if(tex.isNull()){
+      tex = QImage(":/texture/"+texture);
+      if(tex.isNull()){
+        qWarning() << "Failed to open image file." << texture;
+        return;
+      }
+      if(tex.height() != tex.width() * tex.width()){
+        qDebug() << "Image Height is not Width * Width. It should be a \"Cube\" Image";
+        return;
+      }
+    }
     GLuint textureID;
     glGenTextures(1,&textureID);
     glBindTexture(GL_TEXTURE_3D,textureID);
@@ -59,24 +65,23 @@ void Textures::set3DTexture(QString texture)
     glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP);
     glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-    const int XDIM = 256, YDIM = 256, ZDIM = 256;
-    const int size = XDIM * YDIM * ZDIM;
+    const UINT64 tex_side = tex.width();
+    const UINT64 tex_size = tex_side * tex_side * tex_side;
 
-    GLubyte* pVolume=new GLubyte[size];
+    GLubyte* tex_data = new GLubyte[tex_size*4];
 
-    for(int i=0;i<XDIM;i++){
-      for(int j=0;j<YDIM;j++){
-        for(int k=0;k<ZDIM;k++){
-            pVolume[i + YDIM * j + YDIM * ZDIM * k] = 0;
-        }
-      }
+    for(int i=0; i<tex_size; i++){
+      tex_data[4*i+0] = qRed(tex.pixel(i%tex_side,i/tex_side));
+      tex_data[4*i+1] = qGreen(tex.pixel(i%tex_side,i/tex_side));
+      tex_data[4*i+2] = qBlue(tex.pixel(i%tex_side,i/tex_side));
+      tex_data[4*i+3] = qAlpha(tex.pixel(i%tex_side,i/tex_side));
     }
 
-    glTexImage3D(GL_TEXTURE_3D,0,GL_INTENSITY,XDIM,YDIM,ZDIM,0,GL_LUMINANCE,GL_UNSIGNED_BYTE,pVolume);
-    delete [] pVolume;
+    OpenGL::instance()->texImage3D(GL_TEXTURE_3D,0,GL_RGBA,tex_side,tex_side,tex_side,0,GL_RGBA,GL_UNSIGNED_BYTE,tex_data);
+    delete [] tex_data;
 
     tex_map_.insert(texture,textureID);
   }

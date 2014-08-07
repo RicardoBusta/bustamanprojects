@@ -28,6 +28,9 @@ public:
   bool get_option(QString option);
   void set_option(QString option, bool v);
 
+  void setVoxelScene(QString scene);
+  QString getVoxelScene() const;
+
   QColor clear_color() const;
 private :
   Options();
@@ -51,6 +54,8 @@ private :
   float normal_size_;
 
   QMap<QString,bool> check_options_;
+
+  QString voxel_scene_;
 
   QColor clear_color_;
 };

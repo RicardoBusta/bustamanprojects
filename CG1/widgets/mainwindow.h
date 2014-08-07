@@ -34,6 +34,7 @@ private slots:
   void optionToggled(bool v);
 
   void setScene(QString s);
+  void setVoxelScene(QString s);
 };
 
 #undef DECLARE_TOGGLE_CHECK

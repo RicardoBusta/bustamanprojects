@@ -104,6 +104,16 @@ void Options::set_option(QString option, bool v)
   }
 }
 
+void Options::setVoxelScene(QString scene)
+{
+  voxel_scene_ = scene;
+}
+
+QString Options::getVoxelScene() const
+{
+  return voxel_scene_;
+}
+
 QColor Options::clear_color() const
 {
   return clear_color_;

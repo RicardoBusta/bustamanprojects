@@ -3,10 +3,7 @@
 #include <QtOpenGL>
 
 #include "opengl/textures.h"
-
-const int kVoxelCubeDimension = 10;
-const float kTexelSize = 1.0f / float(kVoxelCubeDimension-1);
-const float kVoxelSize = 1.0f / float(kVoxelCubeDimension);
+#include "utils/options.h"
 
 SceneVoxel::SceneVoxel():
   Scene()
@@ -30,16 +27,21 @@ void SceneVoxel::drawObjects() const
   glRotatef(rot_y(),0,1,0);
   glRotatef(rot_z(),0,0,1);
 
+  glRotatef(-90,1,0,0);
+
 //  glMatrixMode(GL_MODELVIEW);
 
-  Textures::instance()->set3DTexture("voxel_scene.png");
-  //    Textures::instance()->setTexture("fur.png");
+  Textures::instance()->set3DTexture(Options::instance()->getVoxelScene());
 
   glBegin(GL_QUADS);
 
-  for(int i=0; i<kVoxelCubeDimension; i++){
-    float tex_layer = kTexelSize * i;
-    float layer = 1.0 - (2.0*kVoxelSize*i) - 2*kVoxelSize;
+  int voxel_cube_dimension = Textures::instance()->getTextureSize(Options::instance()->getVoxelScene());
+  float texel_size = 1.0f / float(voxel_cube_dimension-1);
+  float voxel_size = 1.0f / float(voxel_cube_dimension);
+
+  for(int i=0; i<voxel_cube_dimension; i++){
+    float tex_layer = texel_size * i;
+    float layer = 1.0 - (2.0*voxel_size*i) - 2*voxel_size;
 
     // Front
     glNormal3f(0,0,1);
@@ -87,30 +89,25 @@ void SceneVoxel::drawObjects() const
 
     // Left
     glNormal3f(1,0,0);
-    glTexCoord3f(tex_layer,0,0);
-    glVertex3f(-layer,-1,-1);
     glTexCoord3f(tex_layer,1,0);
+    glVertex3f(-layer,-1,-1);
+    glTexCoord3f(tex_layer,0,0);
     glVertex3f(-layer,+1,-1);
-    glTexCoord3f(tex_layer,1,1);
-    glVertex3f(-layer,+1,+1);
     glTexCoord3f(tex_layer,0,1);
+    glVertex3f(-layer,+1,+1);
+    glTexCoord3f(tex_layer,1,1);
     glVertex3f(-layer,-1,+1);
 
     // Right
     glNormal3f(-1,0,0);
-    glTexCoord3f(1.0-tex_layer,0,0);
-    glVertex3f(layer,-1,-1);
-    glTexCoord3f(1.0-tex_layer,0,1);
-    glVertex3f(layer,-1,+1);
-    glTexCoord3f(1.0-tex_layer,1,1);
-    glVertex3f(layer,+1,+1);
     glTexCoord3f(1.0-tex_layer,1,0);
+    glVertex3f(layer,-1,-1);
+    glTexCoord3f(1.0-tex_layer,1,1);
+    glVertex3f(layer,-1,+1);
+    glTexCoord3f(1.0-tex_layer,0,1);
+    glVertex3f(layer,+1,+1);
+    glTexCoord3f(1.0-tex_layer,0,0);
     glVertex3f(layer,+1,-1);
-
-    //    glVertex3f(layer,-1,-1);
-    //    glVertex3f(layer,+1,-1);
-    //    glVertex3f(layer,+1,+1);
-    //    glVertex3f(layer,-1,+1);
   }
 
   glEnd();
@@ -121,13 +118,7 @@ void SceneVoxel::drawObjects() const
 
 void SceneVoxel::setup_spec()
 {
-  Model::load(":/model/tire.obj");
   Model::load(":/model/skydome.obj");
 
-  Object *tire1 = Object::create("Tire 1","tire");
-  //  tire1->addAnimation(new AnimationSpin(0,10,AnimationSpin::SPIN_X));
-
   skybox_ = Object::create("Skydome","skydome");
-
-  objects_.push_back(tire1);
 }

@@ -15,6 +15,8 @@ public:
   void setGlWidget(QGLWidget *gl_widget);
 
   static QStringList getList();
+
+  int getTextureSize(QString texture);
 private:
   Textures();
 
@@ -25,6 +27,7 @@ private:
   GLuint bindTexture(const QImage &tex);
 
   QMap<QString,int> tex_map_;
+  QMap<QString,int> tex_size_;
 };
 
 #endif // TEXTURES_H

@@ -40,15 +40,20 @@ MainWindow::MainWindow(QWidget *parent) :
   Scene::addScene("pie",new ScenePie);
   Scene::addScene("truck",new SceneTruck);
   Scene::addScene("donut",new SceneDonut);
-  Scene::addScene("Fur Alg",new SceneFur);
-  Scene::addScene("Voxel Alg",new SceneVoxel);
+  Scene::addScene("Fur",new SceneFur);
+  Scene::addScene("*Voxel",new SceneVoxel);
   Scene::addScene("Bonfire",new SceneBonfire);
   Scene::setCurrent("-");
 
+  ui->combo_voxel_texture->addItem("voxel_scene.png");
+  ui->combo_voxel_texture->addItem("voxatron.png");
+  Options::instance()->setVoxelScene(ui->combo_voxel_texture->currentText());
+
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));
+  connect(ui->combo_voxel_texture,SIGNAL(currentIndexChanged(QString)),this,SLOT(setVoxelScene(QString)));
 
   ui->combo_scenes->addItems(Scene::scene_list());
-  ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText(Scene::current_name()));
+  ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText("-"));
 }
 
 MainWindow::~MainWindow()
@@ -91,6 +96,12 @@ void MainWindow::setScene(QString s)
 {
   Scene::setCurrent(s);
 
+  if(s == "*Voxel"){
+    ui->voxel_group->show();
+  }else{
+    ui->voxel_group->hide();
+  }
+
   ui->widget->updateGL();
 
   ui->list_model->clear();
@@ -104,4 +115,11 @@ void MainWindow::setScene(QString s)
 
   ui->list_object->clear();
   ui->list_object->addItems(Scene::current()->getObjectList());
+}
+
+void MainWindow::setVoxelScene(QString s)
+{
+  Options::instance()->setVoxelScene(s);
+
+  ui->widget->updateGL();
 }

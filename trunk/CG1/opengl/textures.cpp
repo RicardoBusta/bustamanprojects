@@ -36,6 +36,7 @@ void Textures::setTexture(QString texture)
       }
     }
     tex_map_.insert(texture,bindTexture(tex));
+    tex_size_.insert(texture,tex.width());
   }
 }
 
@@ -84,6 +85,7 @@ void Textures::set3DTexture(QString texture)
     delete [] tex_data;
 
     tex_map_.insert(texture,textureID);
+    tex_size_.insert(texture,tex.width());
   }
 }
 
@@ -105,6 +107,15 @@ QStringList Textures::getList()
   list.sort();
 
   return list;
+}
+
+int Textures::getTextureSize(QString texture)
+{
+  if(tex_size_.contains(texture)){
+    return tex_size_[texture];
+  }else{
+    return -1;
+  }
 }
 
 GLuint Textures::bindTexture(const QImage &tex)

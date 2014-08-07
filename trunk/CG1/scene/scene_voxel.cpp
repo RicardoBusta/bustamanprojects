@@ -5,7 +5,8 @@
 #include "opengl/textures.h"
 
 const int kVoxelCubeDimension = 10;
-const float kVoxelSize = 2.0f / float(kVoxelCubeDimension-1);
+const float kTexelSize = 1.0f / float(kVoxelCubeDimension-1);
+const float kVoxelSize = 1.0f / float(kVoxelCubeDimension);
 
 SceneVoxel::SceneVoxel():
   Scene()
@@ -16,44 +17,100 @@ void SceneVoxel::drawObjects() const
 {
   glPushMatrix();
   glPushAttrib(GL_ALL_ATTRIB_BITS);
+//  glDisable(GL_DEPTH_TEST);
+  glEnable ( GL_ALPHA_TEST ) ;
+  glAlphaFunc ( GL_GREATER, 0.1 ) ;
 
-  glDisable(GL_CULL_FACE);
+  //  glDisable(GL_CULL_FACE);
+
+//  glMatrixMode(GL_TEXTURE);
 
   glScalef(zoom(),zoom(),zoom());
   glRotatef(rot_x(),1,0,0);
   glRotatef(rot_y(),0,1,0);
   glRotatef(rot_z(),0,0,1);
 
-//  Textures::instance()->set3DTexture("3DTex");
-    Textures::instance()->setTexture("fur.png");
+//  glMatrixMode(GL_MODELVIEW);
+
+  Textures::instance()->set3DTexture("voxel_scene.png");
+  //    Textures::instance()->setTexture("fur.png");
 
   glBegin(GL_QUADS);
 
-  glNormal3f(0,0,1);
-
   for(int i=0; i<kVoxelCubeDimension; i++){
-    float layer = 1.0 - kVoxelSize * i;
-    glTexCoord3f(0,0,1);
+    float tex_layer = kTexelSize * i;
+    float layer = 1.0 - (2.0*kVoxelSize*i) - 2*kVoxelSize;
+
+    // Front
+    glNormal3f(0,0,1);
+    glTexCoord3f(0,0,tex_layer);
+    glVertex3f(-1,-1,-layer);
+    glTexCoord3f(1,0,tex_layer);
+    glVertex3f(+1,-1,-layer);
+    glTexCoord3f(1,1,tex_layer);
+    glVertex3f(+1,+1,-layer);
+    glTexCoord3f(0,1,tex_layer);
+    glVertex3f(-1,+1,-layer);
+
+    //Back
+    glNormal3f(0,0,-1);
+    glTexCoord3f(0,0,1.0-tex_layer);
     glVertex3f(-1,-1,layer);
-    glTexCoord3f(1,0,1);
-    glVertex3f(+1,-1,layer);
-    glTexCoord3f(1,1,1);
-    glVertex3f(+1,+1,layer);
-    glTexCoord3f(0,1,1);
+    glTexCoord3f(0,1,1.0-tex_layer);
     glVertex3f(-1,+1,layer);
+    glTexCoord3f(1,1,1.0-tex_layer);
+    glVertex3f(+1,+1,layer);
+    glTexCoord3f(1,0,1.0-tex_layer);
+    glVertex3f(+1,-1,layer);
 
-//    glTexCoord3f(0,0,0);
-//    glVertex3f(-1,layer,-1);
-//    glTexCoord3f(0,0,1);
-//    glVertex3f(-1,layer,+1);
-//    glTexCoord3f(0,0,0);
-//    glVertex3f(+1,layer,+1);
-//    glVertex3f(+1,layer,-1);
+    // Top
+    glNormal3f(0,1,0);
+    glTexCoord3f(0,1-tex_layer,0);
+    glVertex3f(-1,-layer,-1);
+    glTexCoord3f(0,1-tex_layer,1);
+    glVertex3f(-1,-layer,+1);
+    glTexCoord3f(1,1-tex_layer,1);
+    glVertex3f(+1,-layer,+1);
+    glTexCoord3f(1,1-tex_layer,0);
+    glVertex3f(+1,-layer,-1);
 
-//    glVertex3f(layer,-1,-1);
-//    glVertex3f(layer,+1,-1);
-//    glVertex3f(layer,+1,+1);
-//    glVertex3f(layer,-1,+1);
+    // Bottom
+    glNormal3f(0,-1,0);
+    glTexCoord3f(0,tex_layer,0);
+    glVertex3f(-1,layer,-1);
+    glTexCoord3f(1,tex_layer,0);
+    glVertex3f(+1,layer,-1);
+    glTexCoord3f(1,tex_layer,1);
+    glVertex3f(+1,layer,+1);
+    glTexCoord3f(0,tex_layer,1);
+    glVertex3f(-1,layer,+1);
+
+    // Left
+    glNormal3f(1,0,0);
+    glTexCoord3f(tex_layer,0,0);
+    glVertex3f(-layer,-1,-1);
+    glTexCoord3f(tex_layer,1,0);
+    glVertex3f(-layer,+1,-1);
+    glTexCoord3f(tex_layer,1,1);
+    glVertex3f(-layer,+1,+1);
+    glTexCoord3f(tex_layer,0,1);
+    glVertex3f(-layer,-1,+1);
+
+    // Right
+    glNormal3f(-1,0,0);
+    glTexCoord3f(1.0-tex_layer,0,0);
+    glVertex3f(layer,-1,-1);
+    glTexCoord3f(1.0-tex_layer,0,1);
+    glVertex3f(layer,-1,+1);
+    glTexCoord3f(1.0-tex_layer,1,1);
+    glVertex3f(layer,+1,+1);
+    glTexCoord3f(1.0-tex_layer,1,0);
+    glVertex3f(layer,+1,-1);
+
+    //    glVertex3f(layer,-1,-1);
+    //    glVertex3f(layer,+1,-1);
+    //    glVertex3f(layer,+1,+1);
+    //    glVertex3f(layer,-1,+1);
   }
 
   glEnd();

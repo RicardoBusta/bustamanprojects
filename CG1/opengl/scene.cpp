@@ -124,10 +124,10 @@ void Scene::setOptions()
 
     if(Options::instance()->get_option("check_textures")){
       glEnable(GL_TEXTURE_2D);
-      glEnable(GL_TEXTURE_3D);
+      //glEnable(GL_TEXTURE_3D);
     }else{
       glDisable(GL_TEXTURE_2D);
-      glDisable(GL_TEXTURE_3D);
+      //glDisable(GL_TEXTURE_3D);
     }
 
     glMatrixMode(GL_PROJECTION);

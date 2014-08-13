@@ -59,6 +59,12 @@ void Textures::set3DTexture(QString texture)
         return;
       }
     }
+
+    // If indexed color, color index 0 will be transparent.
+    if(tex.format() == QImage::Format_Indexed8){
+      tex.setColor(0,0x00000000);
+    }
+
     GLuint textureID;
     glGenTextures(1,&textureID);
     glBindTexture(GL_TEXTURE_3D,textureID);

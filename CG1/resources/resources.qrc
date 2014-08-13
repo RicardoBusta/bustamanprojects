@@ -12,6 +12,7 @@
         <file>fur_alt.png</file>
         <file>voxel_scene.png</file>
         <file>voxatron.png</file>
+        <file>test_key.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>

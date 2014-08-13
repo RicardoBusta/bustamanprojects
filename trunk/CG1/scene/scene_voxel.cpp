@@ -14,6 +14,15 @@ void SceneVoxel::drawObjects() const
 {
   glPushMatrix();
   glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+  if(Options::instance()->get_option("check_textures")){
+//    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_3D);
+  }else{
+//    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_3D);
+  }
+
 //  glDisable(GL_DEPTH_TEST);
   glEnable ( GL_ALPHA_TEST ) ;
   glAlphaFunc ( GL_GREATER, 0.1 ) ;
@@ -27,7 +36,9 @@ void SceneVoxel::drawObjects() const
   glRotatef(rot_y(),0,1,0);
   glRotatef(rot_z(),0,0,1);
 
-  glRotatef(-90,1,0,0);
+  glRotatef(180,0,1,0);
+  glRotatef(90,1,0,0);
+
 
 //  glMatrixMode(GL_MODELVIEW);
 

@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
   ui->combo_voxel_texture->addItem("voxel_scene.png");
   ui->combo_voxel_texture->addItem("voxatron.png");
+  ui->combo_voxel_texture->addItem("test_key.png");
   Options::instance()->setVoxelScene(ui->combo_voxel_texture->currentText());
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));

@@ -1,12 +1,21 @@
 #include "scene_voxel.h"
 
 #include <QtOpenGL>
+#include <QComboBox>
+#include <QHBoxLayout>
+#include <QLabel>
 
 #include "opengl/textures.h"
 #include "utils/options.h"
+#include "opengl/opengl_typedef.h"
 
-SceneVoxel::SceneVoxel():
-  Scene()
+SceneVoxel::SceneVoxel(QObject *parent):
+  Scene(parent)
+{
+
+}
+
+SceneVoxel::~SceneVoxel()
 {
 }
 
@@ -16,20 +25,20 @@ void SceneVoxel::drawObjects() const
   glPushAttrib(GL_ALL_ATTRIB_BITS);
 
   if(Options::instance()->get_option("check_textures")){
-//    glEnable(GL_TEXTURE_2D);
+    //    glEnable(GL_TEXTURE_2D);
     glEnable(GL_TEXTURE_3D);
   }else{
-//    glDisable(GL_TEXTURE_2D);
+    //    glDisable(GL_TEXTURE_2D);
     glDisable(GL_TEXTURE_3D);
   }
 
-//  glDisable(GL_DEPTH_TEST);
+  //  glDisable(GL_DEPTH_TEST);
   glEnable ( GL_ALPHA_TEST ) ;
-  glAlphaFunc ( GL_GREATER, 0.1 ) ;
+  glAlphaFunc ( GL_GREATER, 0.1f ) ;
 
   //  glDisable(GL_CULL_FACE);
 
-//  glMatrixMode(GL_TEXTURE);
+  //  glMatrixMode(GL_TEXTURE);
 
   glScalef(zoom(),zoom(),zoom());
   glRotatef(rot_x(),1,0,0);
@@ -40,7 +49,7 @@ void SceneVoxel::drawObjects() const
   glRotatef(90,1,0,0);
 
 
-//  glMatrixMode(GL_MODELVIEW);
+  //  glMatrixMode(GL_MODELVIEW);
 
   Textures::instance()->set3DTexture(Options::instance()->getVoxelScene());
 
@@ -132,4 +141,26 @@ void SceneVoxel::setup_spec()
   Model::load(":/model/skydome.obj");
 
   skybox_ = Object::create("Skydome","skydome");
+}
+
+void SceneVoxel::buildControlWidget()
+{
+  layout = new QHBoxLayout;
+  QComboBox *combo_voxel_texture = new QComboBox();
+
+  layout->addWidget(new QLabel("Voxel Scene:"));
+  layout->addWidget(combo_voxel_texture);
+
+  combo_voxel_texture->addItem("voxel_scene.png");
+  combo_voxel_texture->addItem("voxatron.png");
+  combo_voxel_texture->addItem("test_key.png");
+  Options::instance()->setVoxelScene(combo_voxel_texture->currentText());
+  connect(combo_voxel_texture,SIGNAL(currentIndexChanged(QString)),this,SLOT(setVoxelScene(QString)));
+
+  control_widget_->setLayout(layout);
+}
+
+void SceneVoxel::setVoxelScene(QString scene)
+{
+  Options::instance()->setVoxelScene(scene);
 }

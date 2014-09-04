@@ -5,10 +5,13 @@
 
 class SceneDonut : public Scene
 {
+  Q_OBJECT
 public:
-  SceneDonut();
+  explicit SceneDonut(QObject *parent=0);
+  virtual ~SceneDonut();
 private:
   void setup_spec();
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_DONUT_H

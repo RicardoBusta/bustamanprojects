@@ -16,7 +16,16 @@ MainWindow::MainWindow(QWidget *parent) :
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+}
 
+MainWindow::~MainWindow()
+{
+  delete ui;
+}
+
+
+void MainWindow::init()
+{
   connectCheckBox(ui->check_animation,true);
   connectCheckBox(ui->check_axis,false);
   connectCheckBox(ui->check_face_normals,false);
@@ -34,32 +43,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
   connect(ui->button_hide_interface,SIGNAL(clicked()),this,SLOT(hideTabs()));
 
-//  Scene::addScene("none",new Scene);
-  Scene::addScene("-",new Scene);
-  Scene::addScene("tire",new SceneTire);
-  Scene::addScene("pie",new ScenePie);
-  Scene::addScene("truck",new SceneTruck);
-  Scene::addScene("donut",new SceneDonut);
-  Scene::addScene("Fur",new SceneFur);
-  Scene::addScene("*Voxel",new SceneVoxel);
-  Scene::addScene("Bonfire",new SceneBonfire);
+  //  Scene::addScene("none",new Scene);
+  Scene::addScene("-",new Scene(this));
+  Scene::addScene("tire",new SceneTire(this));
+  Scene::addScene("pie",new ScenePie(this));
+  Scene::addScene("truck",new SceneTruck(this));
+  Scene::addScene("donut",new SceneDonut(this));
+  Scene::addScene("Fur",new SceneFur(this));
+  Scene::addScene("*Voxel",new SceneVoxel(this));
+  Scene::addScene("Bonfire",new SceneBonfire(this));
   Scene::setCurrent("-");
 
-  ui->combo_voxel_texture->addItem("voxel_scene.png");
-  ui->combo_voxel_texture->addItem("voxatron.png");
-  ui->combo_voxel_texture->addItem("test_key.png");
-  Options::instance()->setVoxelScene(ui->combo_voxel_texture->currentText());
-
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));
-  connect(ui->combo_voxel_texture,SIGNAL(currentIndexChanged(QString)),this,SLOT(setVoxelScene(QString)));
 
   ui->combo_scenes->addItems(Scene::scene_list());
   ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText("-"));
-}
-
-MainWindow::~MainWindow()
-{
-  delete ui;
 }
 
 void MainWindow::connectCheckBox(QCheckBox *check_box, bool value)
@@ -96,6 +94,11 @@ void MainWindow::optionToggled(bool v)
 void MainWindow::setScene(QString s)
 {
   Scene::setCurrent(s);
+  if(Scene::current()->controlWidget() != NULL){
+    qDebug() << "teste";
+    ui->stackedWidget->setCurrentWidget(Scene::current()->controlWidget());
+    qDebug() << "eita";
+  }
 
   if(s == "*Voxel"){
     ui->voxel_group->show();
@@ -118,9 +121,9 @@ void MainWindow::setScene(QString s)
   ui->list_object->addItems(Scene::current()->getObjectList());
 }
 
-void MainWindow::setVoxelScene(QString s)
+void MainWindow::addSceneControlWidget(QWidget *widget)
 {
-  Options::instance()->setVoxelScene(s);
-
-  ui->widget->updateGL();
+  qDebug() << "add scene control widget" << widget;
+  ui->stackedWidget->addWidget(widget);
+  qDebug() << "added";
 }

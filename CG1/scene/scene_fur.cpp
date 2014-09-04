@@ -1,6 +1,11 @@
 #include "scene_fur.h"
 
-SceneFur::SceneFur()
+SceneFur::SceneFur(QObject *parent):
+  Scene(parent)
+{
+}
+
+SceneFur::~SceneFur()
 {
 }
 
@@ -42,4 +47,9 @@ void SceneFur::setup_spec()
   }
 
   skybox_ = Object::create("Skydome","skydome");
+}
+
+void SceneFur::buildControlWidget()
+{
+
 }

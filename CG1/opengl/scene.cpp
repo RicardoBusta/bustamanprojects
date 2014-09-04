@@ -6,23 +6,30 @@
 #include "opengl/textures.h"
 #include "opengl/shaders.h"
 #include "opengl/opengl.h"
+#include "cgapplication.h"
+#include "widgets/mainwindow.h"
 
 Scene *Scene::instance_ = NULL;
 QMap<QString,Scene*> Scene::scene_;
 QString Scene::current_scene_ = "none";
 
-Scene::Scene():
+Scene::Scene(QObject *parent):
+  QObject(parent),
   skybox_(NULL),
   initialized_(false),
   zoom_(Options::instance()->initial_zoom()),
   rot_x_(Options::instance()->initial_rot_x()),
   rot_y_(Options::instance()->initial_rot_y()),
-  rot_z_(Options::instance()->initial_rot_z())
+  rot_z_(Options::instance()->initial_rot_z()),
+  control_widget_(NULL)
 {
 }
 
 Scene::~Scene()
 {
+  if(control_widget_!=NULL){
+    delete control_widget_;
+  }
   for(QVector<Object*>::iterator it = objects_.begin(); it!= objects_.end(); it++){
     if((*it)!=NULL){
       delete (*it);
@@ -281,6 +288,22 @@ float Scene::rot_z() const
   return rot_z_;
 }
 
+QWidget *Scene::controlWidget()
+{
+  if(control_widget_==NULL){
+    control_widget_ = new QWidget();
+    ((CGApplication*)(qApp))->getMainWindow()->addSceneControlWidget(control_widget_);
+    buildControlWidget();
+  }
+
+  return control_widget_;
+}
+
+void Scene::buildControlWidget()
+{
+
+}
+
 void Scene::step()
 {
   if(Options::instance()->get_option("check_animation")){
@@ -294,6 +317,7 @@ void Scene::step()
 
 void Scene::addScene(QString scene_name, Scene *scene)
 {
+  qDebug() << "Adding Scene" << scene_name;
   if(scene_.contains(scene_name)){
     qWarning () << "scene with repeated name.";
     return;

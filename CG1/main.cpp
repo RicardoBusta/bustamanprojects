@@ -1,11 +1,7 @@
-#include "widgets/mainwindow.h"
-#include <QApplication>
+#include "cgapplication.h"
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
-
+  CGApplication a(argc, argv);
   return a.exec();
 }

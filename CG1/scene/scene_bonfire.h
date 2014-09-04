@@ -5,8 +5,13 @@
 
 class SceneBonfire : public Scene
 {
+  Q_OBJECT
 public:
-  SceneBonfire();
+  explicit SceneBonfire(QObject *parent=0);
+  virtual ~SceneBonfire();
+
+private:
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_BONFIRE_H

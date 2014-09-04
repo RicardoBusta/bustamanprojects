@@ -5,10 +5,13 @@
 
 class ScenePie : public Scene
 {
+  Q_OBJECT
 public:
-  ScenePie();
+  explicit ScenePie(QObject *parent=0);
+  virtual ~ScenePie();
 private:
   void setup_spec();
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_PIE_H

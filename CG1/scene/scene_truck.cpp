@@ -2,8 +2,8 @@
 
 #include "animation/animation_spin.h"
 
-SceneTruck::SceneTruck():
-  Scene()
+SceneTruck::SceneTruck(QObject *parent):
+  Scene(parent)
 {
 }
 
@@ -29,6 +29,11 @@ void SceneTruck::setup_spec()
 
   skybox_ = Object::create("Skydome","skydome");
 
+
+}
+
+void SceneTruck::buildControlWidget()
+{
 
 }
 

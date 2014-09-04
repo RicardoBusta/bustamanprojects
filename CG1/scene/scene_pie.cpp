@@ -1,7 +1,11 @@
 #include "scene_pie.h"
 
-ScenePie::ScenePie():
-  Scene()
+ScenePie::ScenePie(QObject *parent):
+  Scene(parent)
+{
+}
+
+ScenePie::~ScenePie()
 {
 }
 
@@ -15,4 +19,9 @@ void ScenePie::setup_spec()
   objects_.push_back(Object::create("Pie","pie"));
   skybox_ = Object::create("Skydome","skydome");
   skybox_->setOverrideTexture("panoramic_room.jpg");
+}
+
+void ScenePie::buildControlWidget()
+{
+
 }

@@ -5,11 +5,13 @@
 
 class SceneTire : public Scene
 {
+  Q_OBJECT
 public:
-  SceneTire();
-
+  explicit SceneTire(QObject *parent=0);
+  virtual ~SceneTire();
 private:
   void setup_spec();
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_TIRE_H

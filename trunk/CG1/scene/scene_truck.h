@@ -5,10 +5,12 @@
 
 class SceneTruck : public Scene
 {
+  Q_OBJECT
 public:
-  SceneTruck();
+  SceneTruck(QObject *parent=0);
 private:
   void setup_spec();
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_TRUCK_H

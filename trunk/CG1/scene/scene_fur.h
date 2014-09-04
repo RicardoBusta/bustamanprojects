@@ -5,10 +5,13 @@
 
 class SceneFur : public Scene
 {
+  Q_OBJECT
 public:
-  SceneFur();
+  explicit SceneFur(QObject *parent=0);
+  virtual ~SceneFur();
 private:
   void setup_spec();
+  virtual void buildControlWidget();
 };
 
 #endif // SCENE_FUR_H

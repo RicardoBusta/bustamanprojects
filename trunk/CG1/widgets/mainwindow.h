@@ -21,6 +21,9 @@ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
+  void addSceneControlWidget(QWidget *widget);
+
+  void init();
 private:
   Ui::MainWindow *ui;
 
@@ -34,7 +37,6 @@ private slots:
   void optionToggled(bool v);
 
   void setScene(QString s);
-  void setVoxelScene(QString s);
 };
 
 #undef DECLARE_TOGGLE_CHECK

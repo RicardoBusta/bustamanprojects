@@ -16,7 +16,7 @@ Options::Options():
   initial_rot_z_(0.f),
   rot_to_angle_(0.2f),
   // Artifacts
-  normal_size_(0.2),
+  normal_size_(0.2f),
   clear_color_(QColor(Qt::darkBlue))
 {
 }

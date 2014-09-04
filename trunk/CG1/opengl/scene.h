@@ -2,14 +2,17 @@
 #define SCENE_H
 
 #include <QVector>
+#include <QObject>
 
 #include "opengl/object.h"
 
-class Scene
+class Scene : public QObject
 {
+  Q_OBJECT
 public:
-  Scene();
-  ~Scene();
+
+  explicit Scene(QObject *parent=0);
+  virtual ~Scene();
 
   void setup();
 
@@ -40,6 +43,8 @@ public:
   static QStringList scene_list();
 
   QStringList getObjectList() const;
+
+  QWidget *controlWidget();
 protected:
   virtual void setup_spec();
 
@@ -56,6 +61,9 @@ protected:
   float rot_x() const;
   float rot_y() const;
   float rot_z() const;
+
+  virtual void buildControlWidget();
+  QWidget *control_widget_;
 private:
   void setZoom(float zoom);
 
@@ -71,6 +79,8 @@ private:
 
   static QMap<QString,Scene*> scene_;
   static QString current_scene_;
+
+
 };
 
 #endif // SCENE_H

@@ -2,8 +2,12 @@
 
 #include "animation/animation_spin.h"
 
-SceneTire::SceneTire():
-  Scene()
+SceneTire::SceneTire(QObject *parent):
+  Scene(parent)
+{
+}
+
+SceneTire::~SceneTire()
 {
 }
 
@@ -18,4 +22,9 @@ void SceneTire::setup_spec()
   skybox_ = Object::create("Skydome","skydome");
 
   objects_.push_back(tire1);
+}
+
+void SceneTire::buildControlWidget()
+{
+
 }

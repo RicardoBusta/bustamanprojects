@@ -1,7 +1,11 @@
 #include "scene_donut.h"
 
-SceneDonut::SceneDonut():
-  Scene()
+SceneDonut::SceneDonut(QObject *parent):
+  Scene(parent)
+{
+}
+
+SceneDonut::~SceneDonut()
 {
 }
 
@@ -31,4 +35,9 @@ void SceneDonut::setup_spec()
 
   skybox_ = Object::create("Skydome","skydome");
   skybox_->setOverrideTexture("panoramic_room.jpg");
+}
+
+void SceneDonut::buildControlWidget()
+{
+
 }

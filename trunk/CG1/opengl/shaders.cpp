@@ -10,6 +10,7 @@ Shaders::Shaders()
 
 bool Shaders::setParameters(const QString &shader_name)
 {
+  Q_UNUSED(shader_name);
   bool ok = true;
 //  int options_location = map[shader_name]->attributeLocation("gl_TexCoord[0]");
 //  qDebug() << options_location;

@@ -35,7 +35,8 @@ SOURCES += \
     opengl/particlesystem.cpp \
     scene/scene_bonfire.cpp \
     scene/scene_voxel.cpp \
-    opengl/opengl.cpp
+    opengl/opengl.cpp \
+    cgapplication.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -60,7 +61,8 @@ HEADERS  += \
     scene/scene_bonfire.h \
     scene/scene_voxel.h \
     opengl/opengl.h \
-    opengl/opengl_typedef.h
+    opengl/opengl_typedef.h \
+    cgapplication.h
 
 FORMS    += \
     widgets/mainwindow.ui

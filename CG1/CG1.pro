@@ -36,7 +36,9 @@ SOURCES += \
     scene/scene_bonfire.cpp \
     scene/scene_voxel.cpp \
     opengl/opengl.cpp \
-    cgapplication.cpp
+    scene/scene_obj.cpp \
+    cgapplication.cpp \
+    scene/scene_bezier.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -62,7 +64,9 @@ HEADERS  += \
     scene/scene_voxel.h \
     opengl/opengl.h \
     opengl/opengl_typedef.h \
-    cgapplication.h
+    scene/scene_obj.h \
+    cgapplication.h \
+    scene/scene_bezier.h
 
 FORMS    += \
     widgets/mainwindow.ui

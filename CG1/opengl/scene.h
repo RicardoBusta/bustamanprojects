@@ -62,6 +62,8 @@ protected:
   float rot_y() const;
   float rot_z() const;
 
+  void GlVertex(const QVector3D &v) const;
+
   virtual void buildControlWidget();
   QWidget *control_widget_;
 private:
@@ -79,8 +81,6 @@ private:
 
   static QMap<QString,Scene*> scene_;
   static QString current_scene_;
-
-
 };
 
 #endif // SCENE_H

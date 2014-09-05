@@ -10,6 +10,8 @@
 #include "scene/scene_fur.h"
 #include "scene/scene_voxel.h"
 #include "scene/scene_bonfire.h"
+#include "scene/scene_obj.h"
+#include "scene/scene_bezier.h"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -43,21 +45,22 @@ void MainWindow::init()
 
   connect(ui->button_hide_interface,SIGNAL(clicked()),this,SLOT(hideTabs()));
 
-  //  Scene::addScene("none",new Scene);
-  Scene::addScene("-",new Scene(this));
-  Scene::addScene("tire",new SceneTire(this));
-  Scene::addScene("pie",new ScenePie(this));
-  Scene::addScene("truck",new SceneTruck(this));
-  Scene::addScene("donut",new SceneDonut(this));
+  Scene::addScene("**Empty",new Scene(this));
+  Scene::addScene("*Obj File",new SceneObj(this));
+  Scene::addScene("Tire",new SceneTire(this));
+  Scene::addScene("*Bezier",new SceneBezier(this));
+  Scene::addScene("Pie",new ScenePie(this));
+  Scene::addScene("Truck",new SceneTruck(this));
+  Scene::addScene("Donut",new SceneDonut(this));
   Scene::addScene("Fur",new SceneFur(this));
   Scene::addScene("*Voxel",new SceneVoxel(this));
   Scene::addScene("Bonfire",new SceneBonfire(this));
-  Scene::setCurrent("-");
+  Scene::setCurrent("**Empty");
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));
 
   ui->combo_scenes->addItems(Scene::scene_list());
-  ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText("-"));
+  ui->combo_scenes->setCurrentIndex(ui->combo_scenes->findText("**Empty"));
 }
 
 void MainWindow::connectCheckBox(QCheckBox *check_box, bool value)

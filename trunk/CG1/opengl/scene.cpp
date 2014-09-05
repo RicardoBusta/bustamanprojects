@@ -27,9 +27,6 @@ Scene::Scene(QObject *parent):
 
 Scene::~Scene()
 {
-  if(control_widget_!=NULL){
-    delete control_widget_;
-  }
   for(QVector<Object*>::iterator it = objects_.begin(); it!= objects_.end(); it++){
     if((*it)!=NULL){
       delete (*it);
@@ -52,6 +49,11 @@ void Scene::setZoom(float zoom)
   }else{
     zoom_ = zoom;
   }
+}
+
+void Scene::GlVertex(const QVector3D &v) const
+{
+  glVertex3f(v.x(),v.y(),v.z());
 }
 
 void Scene::addZoom(int zoom)

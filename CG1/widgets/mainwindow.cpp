@@ -101,12 +101,6 @@ void MainWindow::setScene(QString s)
     ui->stackedWidget->setCurrentWidget(Scene::current()->controlWidget());
   }
 
-  if(s == "*Voxel"){
-    ui->voxel_group->show();
-  }else{
-    ui->voxel_group->hide();
-  }
-
   ui->widget->updateGL();
 
   ui->list_model->clear();

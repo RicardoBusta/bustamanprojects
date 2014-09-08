@@ -56,6 +56,11 @@ void Scene::GlVertex(const QVector3D &v) const
   glVertex3f(v.x(),v.y(),v.z());
 }
 
+void Scene::GlColor(const QColor &c) const
+{
+  glColor3f(c.redF(),c.greenF(),c.blueF());
+}
+
 void Scene::addZoom(int zoom)
 {
   setZoom( zoom_ + zoom_*float(zoom)/Options::instance()->zoom_to_size() );

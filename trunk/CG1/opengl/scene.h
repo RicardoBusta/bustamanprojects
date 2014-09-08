@@ -63,6 +63,7 @@ protected:
   float rot_z() const;
 
   void GlVertex(const QVector3D &v) const;
+  void GlColor(const QColor &c) const;
 
   virtual void buildControlWidget();
   QWidget *control_widget_;

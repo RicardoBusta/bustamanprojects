@@ -2,18 +2,18 @@
 #define CGAPPLICATION_H
 
 #include <QApplication>
-
-#include "widgets/mainwindow.h"
+class MainWindow;
 
 class CGApplication : public QApplication
 {
 public:
-  CGApplication(int argc, char *argv[]);
-  ~CGApplication();
+  explicit CGApplication(int argc, char *argv[]);
+  virtual ~CGApplication();
 
   MainWindow *getMainWindow();
+
 private:
-  MainWindow main_window_;
+  MainWindow *main_window_;
 };
 
 #endif // CGAPPLICATION_H

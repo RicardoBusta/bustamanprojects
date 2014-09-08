@@ -16,9 +16,11 @@ private:
     void setup_spec();
     void drawObjects() const;
 
-    QVector3D control_points[4][4];
+    QVector< QVector<QVector3D> > control_points;
+    QVector< QVector<QVector3D> > surface_points;
+    QVector< QVector<QColor> >    surface_colors;
 
-    QVector3D surfacePoint(float u, float v);
+    QVector3D surfacePoint(float u, float v) const;
 };
 
 #endif // SCENE_BEZIER_H

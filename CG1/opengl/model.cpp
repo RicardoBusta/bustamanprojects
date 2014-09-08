@@ -16,16 +16,16 @@ Model::Model()
 {
 }
 
-void Model::load(QString file_name)
+QStringList Model::load(QString file_name)
 {
+  QStringList openedObjects;
+
   qDebug() << "opening model (.obj) file:" << file_name;
   QFile file(file_name);
 
-  QVector<Model> output;
-
   if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
     qWarning() << "Failed to open file!" << file_name;
-    return;
+    return openedObjects;
   }
 
   QTextStream in(&file);
@@ -44,6 +44,7 @@ void Model::load(QString file_name)
         model_.insert(line.mid(2),new Model());
         model = model_[line.mid(2)];
         model->valid_ = true;
+        openedObjects.push_back(line.mid(2));
       }else{
         model = NULL;
       }
@@ -107,6 +108,8 @@ void Model::load(QString file_name)
       }
     }
   }
+
+  return openedObjects;
 
   qDebug() << "Finished loading model.";
 }

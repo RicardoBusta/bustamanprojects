@@ -12,7 +12,7 @@ class Model
 public:
   Model();
 
-  static void load(QString file_name);
+  static QStringList load(QString file_name);
 
   void setMaterial();
   void setTexture();

@@ -7,7 +7,13 @@ class SceneObj : public Scene
 {
   Q_OBJECT
 public:
-  SceneObj(QObject *parent=0);
+  explicit SceneObj(QObject *parent=0);
+
+private:
+  void buildControlWidget();
+
+private slots:
+  void loadObjFile();
 };
 
 #endif // SCENE_OBJ_H

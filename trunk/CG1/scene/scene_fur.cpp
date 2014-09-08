@@ -1,5 +1,7 @@
 #include "scene_fur.h"
 
+#include "ui_fur_widget.h"
+
 SceneFur::SceneFur(QObject *parent):
   Scene(parent)
 {
@@ -23,8 +25,8 @@ void SceneFur::setup_spec()
   const int num_layers_1 = 30;
   const float fur_size = 0.5;
 
-  const float gravity = -0.0003;
-  const float velocity = 0.001;
+  const float gravity = -0.0003f;
+  const float velocity = 0.001f;
 
   for(int i=0;i<num_layers;i++){
     int level;
@@ -51,5 +53,6 @@ void SceneFur::setup_spec()
 
 void SceneFur::buildControlWidget()
 {
-
+  Ui::FurWidget *ui = new Ui::FurWidget;
+  ui->setupUi(control_widget_);
 }

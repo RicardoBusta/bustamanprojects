@@ -32,13 +32,14 @@ SOURCES += \
     scene/scene_donut.cpp \
     animation/animationshake.cpp \
     scene/scene_fur.cpp \
-    opengl/particlesystem.cpp \
     scene/scene_bonfire.cpp \
     scene/scene_voxel.cpp \
     opengl/opengl.cpp \
     scene/scene_obj.cpp \
     cgapplication.cpp \
-    scene/scene_bezier.cpp
+    scene/scene_bezier.cpp \
+    opengl/particle_system.cpp \
+    opengl/particle.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -59,21 +60,23 @@ HEADERS  += \
     scene/scene_donut.h \
     animation/animationshake.h \
     scene/scene_fur.h \
-    opengl/particlesystem.h \
     scene/scene_bonfire.h \
     scene/scene_voxel.h \
     opengl/opengl.h \
     opengl/opengl_typedef.h \
     scene/scene_obj.h \
     cgapplication.h \
-    scene/scene_bezier.h
+    scene/scene_bezier.h \
+    opengl/particle_system.h \
+    opengl/particle.h
 
 FORMS    += \
     widgets/mainwindow.ui \
     widgets/bezier_widget.ui \
     widgets/voxel_widget.ui \
     widgets/particles_widget.ui \
-    widgets/obj_widget.ui
+    widgets/obj_widget.ui \
+    widgets/fur_widget.ui
 
 RESOURCES += \
     shaders/shaders.qrc \

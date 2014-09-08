@@ -69,7 +69,11 @@ HEADERS  += \
     scene/scene_bezier.h
 
 FORMS    += \
-    widgets/mainwindow.ui
+    widgets/mainwindow.ui \
+    widgets/bezier_widget.ui \
+    widgets/voxel_widget.ui \
+    widgets/particles_widget.ui \
+    widgets/obj_widget.ui
 
 RESOURCES += \
     shaders/shaders.qrc \

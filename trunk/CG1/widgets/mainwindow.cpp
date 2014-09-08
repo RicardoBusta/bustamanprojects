@@ -98,9 +98,7 @@ void MainWindow::setScene(QString s)
 {
   Scene::setCurrent(s);
   if(Scene::current()->controlWidget() != NULL){
-    qDebug() << "teste";
     ui->stackedWidget->setCurrentWidget(Scene::current()->controlWidget());
-    qDebug() << "eita";
   }
 
   if(s == "*Voxel"){
@@ -126,7 +124,5 @@ void MainWindow::setScene(QString s)
 
 void MainWindow::addSceneControlWidget(QWidget *widget)
 {
-  qDebug() << "add scene control widget" << widget;
   ui->stackedWidget->addWidget(widget);
-  qDebug() << "added";
 }

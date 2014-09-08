@@ -5,6 +5,10 @@
 
 #include <QVector3D>
 
+namespace Ui{
+  class BezierWidget;
+}
+
 class SceneBezier : public Scene
 {
   Q_OBJECT
@@ -16,11 +20,31 @@ private:
     void setup_spec();
     void drawObjects() const;
 
-    QVector< QVector<QVector3D> > control_points;
-    QVector< QVector<QVector3D> > surface_points;
-    QVector< QVector<QColor> >    surface_colors;
+    void recalculateControlPoints();
+    void recalculateSurface();
+
+    QVector< QVector<QVector3D> > control_points_;
+    QVector< QVector<QVector3D> > surface_points_;
+    QVector< QVector<QColor> >    surface_colors_;
 
     QVector3D surfacePoint(float u, float v) const;
+
+    int control_size_;
+    float control_size_f_;
+    int surface_size_;
+    float surface_size_f_;
+
+    QPoint current_control_point_;
+
+    Ui::BezierWidget *ui;
+
+private slots:
+    void currentControlPointChanged();
+    void controlPointValueXChanged();
+    void controlPointValueYChanged();
+    void controlPointValueZChanged();
+
+    void controlSizeChanged();
 };
 
 #endif // SCENE_BEZIER_H

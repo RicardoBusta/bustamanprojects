@@ -4,50 +4,47 @@
 #include <QDebug>
 
 #include "utils/common.h"
-
-const int kControlSize = 3;
-const int kSurfaceSize = 20;
-const float kSurfaceSizeF = float(kSurfaceSize);
+#include "ui_bezier_widget.h"
 
 SceneBezier::SceneBezier(QObject *parent) :
   Scene(parent)
 {
+  control_size_ = 4;
+  control_size_f_ = float(control_size_);
+  surface_size_ = 20;
+  surface_size_f_ = float(surface_size_);
+  current_control_point_ = QPoint(0,0);
+
 }
 
 void SceneBezier::buildControlWidget()
 {
+  ui = new Ui::BezierWidget;
+  ui->setupUi(control_widget_);
 
+  ui->spin_p_i->setMinimum(0);
+  ui->spin_p_i->setMaximum(control_size_-1);
+  ui->spin_p_j->setMinimum(0);
+  ui->spin_p_j->setMaximum(control_size_-1);
+
+  ui->spin_c_s->setValue(control_size_);
+
+  connect(ui->spin_p_i,SIGNAL(valueChanged(int)),this,SLOT(currentControlPointChanged()));
+  connect(ui->spin_p_j,SIGNAL(valueChanged(int)),this,SLOT(currentControlPointChanged()));
+
+  connect(ui->spin_v_x,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueXChanged()));
+  connect(ui->spin_v_y,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueYChanged()));
+  connect(ui->spin_v_z,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueZChanged()));
+
+  connect(ui->spin_c_s,SIGNAL(valueChanged(int)),this,SLOT(controlSizeChanged()));
+
+  currentControlPointChanged();
 }
 
 void SceneBezier::setup_spec()
 {
-  qsrand(QTime::currentTime().msec());
-
-  control_points.resize(kControlSize);
-
-  // Build Control Points
-  for(int i=0;i<kControlSize;i++){
-    float u = (2.0f*float(i)/3.0f)-1.0f;
-    control_points[i].resize(kControlSize);
-    for(int j=0;j<kControlSize;j++){
-      float v = (2.0f*float(j)/3.0f)-1.0f;
-      control_points[i][j] = QVector3D(u,v,(float(qrand()%1000)/1000.0f)-0.5);
-    }
-  }
-
-  // Build Surface Points
-  surface_points.resize(kSurfaceSize);
-  surface_colors.resize(kSurfaceSize);
-  for(int i=0;i<kSurfaceSize;i++){
-    float x = float(i)/(kSurfaceSizeF-1.f);
-    surface_points[i].resize(kSurfaceSize);
-    surface_colors[i].resize(kSurfaceSize);
-    for(int j=0;j<kSurfaceSize;j++){
-      float y = float(j)/(kSurfaceSizeF-1.f);
-      surface_points[i][j] = surfacePoint(x,y);
-      surface_colors[i][j] = QColor(255*x,255*y,255*(1.0f-(x*y)));
-    }
-  }
+  recalculateControlPoints();
+  recalculateSurface();
 }
 
 void SceneBezier::drawObjects() const
@@ -69,9 +66,9 @@ void SceneBezier::drawObjects() const
   glPointSize(10);
   glBegin(GL_POINTS);
   glColor3f(1,1,1);
-  for(int i=0;i<kControlSize;i++){
-    for(int j=0;j<kControlSize;j++){
-      GlVertex(control_points[i][j]);
+  for(int i=0;i<control_size_;i++){
+    for(int j=0;j<control_size_;j++){
+      GlVertex(control_points_[i][j]);
     }
   }
   glEnd();
@@ -80,12 +77,12 @@ void SceneBezier::drawObjects() const
   glDisable(GL_CULL_FACE);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glBegin(GL_QUADS);
-  for(int i=0;i<kControlSize-1;i++){
-    for(int j=0;j<kControlSize-1;j++){
-      GlVertex(control_points[i][j]);
-      GlVertex(control_points[i+1][j]);
-      GlVertex(control_points[i+1][j+1]);
-      GlVertex(control_points[i][j+1]);
+  for(int i=0;i<control_size_-1;i++){
+    for(int j=0;j<control_size_-1;j++){
+      GlVertex(control_points_[i][j]);
+      GlVertex(control_points_[i+1][j]);
+      GlVertex(control_points_[i+1][j+1]);
+      GlVertex(control_points_[i][j+1]);
     }
   }
   glEnd();
@@ -93,16 +90,16 @@ void SceneBezier::drawObjects() const
   // Draw Surface
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   glBegin(GL_QUADS);
-  for(int i=0;i<kSurfaceSize-1;i++){
-    for(int j=0;j<kSurfaceSize-1;j++){
-      GlColor(surface_colors[i][j]);
-      GlVertex(surface_points[i][j]);
-      GlColor(surface_colors[i+1][j]);
-      GlVertex(surface_points[i+1][j]);
-      GlColor(surface_colors[i+1][j+1]);
-      GlVertex(surface_points[i+1][j+1]);
-      GlColor(surface_colors[i][j+1]);
-      GlVertex(surface_points[i][j+1]);
+  for(int i=0;i<surface_size_-1;i++){
+    for(int j=0;j<surface_size_-1;j++){
+      GlColor(surface_colors_[i][j]);
+      GlVertex(surface_points_[i][j]);
+      GlColor(surface_colors_[i+1][j]);
+      GlVertex(surface_points_[i+1][j]);
+      GlColor(surface_colors_[i+1][j+1]);
+      GlVertex(surface_points_[i+1][j+1]);
+      GlColor(surface_colors_[i][j+1]);
+      GlVertex(surface_points_[i][j+1]);
     }
   }
   glEnd();
@@ -111,17 +108,104 @@ void SceneBezier::drawObjects() const
   glPopMatrix();
 }
 
+void SceneBezier::recalculateControlPoints()
+{
+  // Build Control Points
+  control_points_.resize(control_size_);
+  for(int i=0;i<control_size_;i++){
+    float u = (2.0f*float(i)/(control_size_f_-1.0f))-1.0f;
+    control_points_[i].resize(control_size_);
+    for(int j=0;j<control_size_;j++){
+      float v = (2.0f*float(j)/(control_size_f_-1.0f))-1.0f;
+      //      control_points_[i][j] = QVector3D(u,v,0);
+      control_points_[i][j].setX(u);
+      control_points_[i][j].setY(v);
+    }
+  }
+}
+
+void SceneBezier::recalculateSurface()
+{
+  // Build Surface Points
+  surface_points_.resize(surface_size_);
+  surface_colors_.resize(surface_size_);
+  for(int i=0;i<surface_size_;i++){
+    float x = float(i)/(surface_size_f_-1.f);
+    surface_points_[i].resize(surface_size_);
+    surface_colors_[i].resize(surface_size_);
+    for(int j=0;j<surface_size_;j++){
+      float y = float(j)/(surface_size_f_-1.f);
+      surface_points_[i][j] = surfacePoint(x,y);
+      surface_colors_[i][j] = QColor(255*x,255*y,255*(1.0f-(x*y)));
+    }
+  }
+}
+
 QVector3D SceneBezier::surfacePoint(float u, float v) const
 {
-  int m=kControlSize-1;
-  int n=kControlSize-1;
+  int m=control_size_-1;
+  int n=control_size_-1;
   QVector3D sum;
   for(int i=0;i<=n;i++){
     float bu = bernstein(u,n,i);
     for(int j=0;j<=m;j++){
       float bj = bernstein(v,m,j);
-      sum = (bu * bj * control_points[i][j]) + sum;
+      sum = (bu * bj * control_points_[i][j]) + sum;
     }
   }
   return sum;
+}
+
+void SceneBezier::currentControlPointChanged()
+{
+  current_control_point_ = QPoint(ui->spin_p_i->value(),ui->spin_p_j->value());
+
+  QVector3D p = control_points_[current_control_point_.x()][current_control_point_.y()];
+
+  disconnect(ui->spin_v_x,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueXChanged()));
+  disconnect(ui->spin_v_y,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueYChanged()));
+  disconnect(ui->spin_v_z,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueZChanged()));
+
+  ui->spin_v_x->setValue( p.x() );
+  ui->spin_v_y->setValue( p.y() );
+  ui->spin_v_z->setValue( p.z() );
+
+  connect(ui->spin_v_x,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueXChanged()));
+  connect(ui->spin_v_y,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueYChanged()));
+  connect(ui->spin_v_z,SIGNAL(valueChanged(double)),this,SLOT(controlPointValueZChanged()));
+}
+
+void SceneBezier::controlPointValueXChanged()
+{
+  control_points_[current_control_point_.x()][current_control_point_.y()].setX( ui->spin_v_x->value() );
+
+  recalculateSurface();
+}
+
+void SceneBezier::controlPointValueYChanged()
+{
+  control_points_[current_control_point_.x()][current_control_point_.y()].setY( ui->spin_v_y->value() );
+
+  recalculateSurface();
+}
+
+void SceneBezier::controlPointValueZChanged()
+{
+  control_points_[current_control_point_.x()][current_control_point_.y()].setZ( ui->spin_v_z->value() );
+
+  recalculateSurface();
+}
+
+void SceneBezier::controlSizeChanged()
+{
+  control_size_ = ui->spin_c_s->value();
+  control_size_f_ = float(control_size_);
+
+  ui->spin_p_i->setMinimum(0);
+  ui->spin_p_i->setMaximum(control_size_-1);
+  ui->spin_p_j->setMinimum(0);
+  ui->spin_p_j->setMaximum(control_size_-1);
+
+  recalculateControlPoints();
+  recalculateSurface();
 }

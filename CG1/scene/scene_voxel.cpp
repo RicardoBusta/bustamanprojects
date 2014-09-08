@@ -9,6 +9,8 @@
 #include "utils/options.h"
 #include "opengl/opengl_typedef.h"
 
+#include "ui_voxel_widget.h"
+
 SceneVoxel::SceneVoxel(QObject *parent):
   Scene(parent)
 {
@@ -145,19 +147,14 @@ void SceneVoxel::setup_spec()
 
 void SceneVoxel::buildControlWidget()
 {
-  layout = new QHBoxLayout;
-  QComboBox *combo_voxel_texture = new QComboBox();
+  Ui::VoxelWidget *ui = new Ui::VoxelWidget;
+  ui->setupUi(control_widget_);
 
-  layout->addWidget(new QLabel("Voxel Scene:"));
-  layout->addWidget(combo_voxel_texture);
-
-  combo_voxel_texture->addItem("voxel_scene.png");
-  combo_voxel_texture->addItem("voxatron.png");
-  combo_voxel_texture->addItem("test_key.png");
-  Options::instance()->setVoxelScene(combo_voxel_texture->currentText());
-  connect(combo_voxel_texture,SIGNAL(currentIndexChanged(QString)),this,SLOT(setVoxelScene(QString)));
-
-  control_widget_->setLayout(layout);
+  ui->comboBox->addItem("voxel_scene.png");
+  ui->comboBox->addItem("voxatron.png");
+  ui->comboBox->addItem("test_key.png");
+  Options::instance()->setVoxelScene(ui->comboBox->currentText());
+  connect(ui->comboBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(setVoxelScene(QString)));
 }
 
 void SceneVoxel::setVoxelScene(QString scene)

@@ -65,9 +65,13 @@ void SceneBezier::drawObjects() const
   glDisable(GL_TEXTURE_2D);
   glPointSize(10);
   glBegin(GL_POINTS);
-  glColor3f(1,1,1);
   for(int i=0;i<control_size_;i++){
     for(int j=0;j<control_size_;j++){
+      if(i == current_control_point_.x() && j == current_control_point_.y()){
+        glColor3f(1,0,0);
+      }else{
+        glColor3f(1,1,1);
+      }
       GlVertex(control_points_[i][j]);
     }
   }
@@ -77,6 +81,7 @@ void SceneBezier::drawObjects() const
   glDisable(GL_CULL_FACE);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glBegin(GL_QUADS);
+  glColor3f(1,1,0);
   for(int i=0;i<control_size_-1;i++){
     for(int j=0;j<control_size_-1;j++){
       GlVertex(control_points_[i][j]);

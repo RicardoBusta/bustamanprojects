@@ -13,6 +13,11 @@
         <file>voxel_scene.png</file>
         <file>voxatron.png</file>
         <file>test_key.png</file>
+        <file>huntingrifle_d.png</file>
+        <file>pickup_exterior_d.png</file>
+        <file>pickup_glass_d.png</file>
+        <file>pickup_interior_d.png</file>
+        <file>shotgundoublebarrelled_d.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>
@@ -22,6 +27,7 @@
         <file>cube.obj</file>
         <file>donut.obj</file>
         <file>fur.obj</file>
+        <file>pickup.obj</file>
     </qresource>
     <qresource prefix="/material">
         <file>tire.mtl</file>
@@ -31,5 +37,6 @@
         <file>cube.mtl</file>
         <file>donut.mtl</file>
         <file>fur.mtl</file>
+        <file>pickup.mtl</file>
     </qresource>
 </RCC>

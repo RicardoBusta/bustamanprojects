@@ -27,6 +27,7 @@ public:
   void step();
 
   void setEulerRotation(float x, float y, float z);
+  void setEulerRotation(QVector3D rot);
   void setPosition(QVector3D pos);
   void setScale(float s);
   void setCustomColor(QColor c);

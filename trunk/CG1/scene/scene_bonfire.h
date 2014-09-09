@@ -11,6 +11,7 @@ public:
   virtual ~SceneBonfire();
 
 private:
+  void setup_spec();
   virtual void buildControlWidget();
 };
 

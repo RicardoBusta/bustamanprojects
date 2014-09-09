@@ -109,9 +109,10 @@ QStringList Model::load(QString file_name)
     }
   }
 
+  qDebug() << "Finished loading model." << openedObjects.size() << "objects loaded.";
   return openedObjects;
 
-  qDebug() << "Finished loading model.";
+
 }
 
 void Model::setMaterial()

@@ -30,7 +30,7 @@ void SceneFur::setup_spec()
   const float gravity = -0.0003f*gravity_;
   const float velocity = 0.001f*speed_;
 
-  for(int i=0;i<num_layers;i++){
+  for(int i=0;i<fur_layer_.size();i++){
     int level;
     if(i < num_layers_0){
       level = 0;
@@ -58,16 +58,22 @@ void SceneFur::buildControlWidget()
   connect(ui->spin_gravity,SIGNAL(valueChanged(double)),this,SLOT(changeGravity(double)));
   connect(ui->spin_speed,SIGNAL(valueChanged(double)),this,SLOT(changeSpeed(double)));
   connect(ui->check_fur,SIGNAL(toggled(bool)),this,SLOT(toggleFur(bool)));
+
+  ui->spin_gravity->setValue(1.0);
+  ui->spin_speed->setValue(1.0);
+  ui->check_fur->setChecked(true);
+
 }
 
 void SceneFur::calcScene()
 {
+  qDebug() << "calc scene";
   const float gravity = -0.0003f*gravity_;
   const float velocity = 0.001f*speed_;
 
-  for(int i=0;i<num_layers;i++){
-    fur_layer_[i]->setScale(1.0 + (fur_size/float(num_layers))*i);
-    int alpha = 255*(1.0 - (1.0/float(num_layers))*i);
+  for(int i=0;i<fur_layer_.size();i++){
+    fur_layer_[i]->setScale(1.0 + (fur_size/float(fur_layer_.size()))*i);
+    int alpha = 255*(1.0 - (1.0/float(fur_layer_.size()))*i);
     int tone = 255.0 - alpha/2;
     float displacement = velocity*i + (gravity*i*i)/2;
     fur_layer_[i]->setCustomColor(QColor(tone,tone,tone,alpha));
@@ -77,20 +83,21 @@ void SceneFur::calcScene()
 
 void SceneFur::changeGravity(double g)
 {
-  qDebug() << "gravity";
   gravity_ = g;
   calcScene();
 }
 
 void SceneFur::changeSpeed(double s)
 {
-  qDebug() << "speed";
   speed_ = s;
   calcScene();
 }
 
 void SceneFur::toggleFur(bool f)
 {
-  draw_fur_ = f;
+  for(int i=1;i<fur_layer_.size();i++){
+    fur_layer_[i]->setVisible(f);
+  }
+
   calcScene();
 }

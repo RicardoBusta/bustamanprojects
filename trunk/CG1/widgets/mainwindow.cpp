@@ -54,7 +54,7 @@ void MainWindow::init()
   Scene::addScene("Donut",new SceneDonut(this));
   Scene::addScene("*Fur",new SceneFur(this));
   Scene::addScene("*Voxel",new SceneVoxel(this));
-  Scene::addScene("Bonfire",new SceneBonfire(this));
+  Scene::addScene("Campfire",new SceneBonfire(this));
   Scene::setCurrent("**Empty");
 
   connect(ui->combo_scenes,SIGNAL(currentIndexChanged(QString)),this,SLOT(setScene(QString)));

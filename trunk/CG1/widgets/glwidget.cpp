@@ -47,6 +47,7 @@ void GLWidget::paintGL()
   Scene::current()->rotate(auto_delta_.y(),auto_delta_.x(),0);
 
   Scene::current()->clear();
+  Scene::current()->applyCameraConstraint();
   Scene::current()->draw();
   Scene::current()->drawArtifacts();
 

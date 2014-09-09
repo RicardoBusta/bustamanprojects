@@ -36,6 +36,8 @@ QStringList Model::load(QString file_name)
   QVector<QVector3D> normal_;
   QVector<QVector2D> texture_;
 
+  QString current_mtl = "none";
+
   while(!in.atEnd()){
     QString line = ReadValidLine(in);
 
@@ -44,6 +46,7 @@ QStringList Model::load(QString file_name)
         model_.insert(line.mid(2),new Model());
         model = model_[line.mid(2)];
         model->valid_ = true;
+        model->material_ = current_mtl;
         openedObjects.push_back(line.mid(2));
       }else{
         model = NULL;
@@ -104,6 +107,7 @@ QStringList Model::load(QString file_name)
         }
       }else if(line.startsWith("usemtl ")){
         QString mtl_name = line.mid(7);
+        current_mtl = mtl_name;
         model->material_ = mtl_name;
       }
     }

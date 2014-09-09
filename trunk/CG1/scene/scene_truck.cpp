@@ -2,6 +2,8 @@
 
 #include "animation/animation_spin.h"
 
+#include "ui_truck_widget.h"
+
 SceneTruck::SceneTruck(QObject *parent):
   Scene(parent)
 {
@@ -59,12 +61,32 @@ void SceneTruck::setup_spec()
   }
 
   skybox_ = Object::create("Skydome","skydome");
-
-
 }
 
 void SceneTruck::buildControlWidget()
 {
+ Ui::TruckWidget *ui = new Ui::TruckWidget;
+ ui->setupUi(control_widget_);
 
+ connect(ui->checkBox,SIGNAL(toggled(bool)),this,SLOT(toggleCameraConstraint(bool)));
+
+ ui->checkBox->setChecked(true);
+}
+
+void SceneTruck::toggleCameraConstraint(bool v)
+{
+  camera_constraint_ = v;
+}
+
+void SceneTruck::applyCameraConstraint()
+{
+  if(!camera_constraint_) return;
+
+ if(rot_x_ > 90) {
+   rot_x_ = 90;
+ }
+ if(rot_x_ < 10){
+   rot_x_ = 10;
+ }
 }
 

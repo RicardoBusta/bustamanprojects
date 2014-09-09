@@ -43,6 +43,10 @@ void Object::setModel(QString model_name)
   model_ = Model::get(model_name);
 }
 
+void Object::preDraw()
+{
+}
+
 void Object::draw() const
 {
   if(model_==NULL) return;
@@ -171,6 +175,11 @@ Object Object::operator=(Object o)
 QString Object::name() const
 {
   return name_;
+}
+
+void Object::setName(QString name)
+{
+  name_ = name;
 }
 
 void Object::addAnimation(Animation *animation)

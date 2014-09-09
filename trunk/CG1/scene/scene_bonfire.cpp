@@ -3,6 +3,8 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include "opengl/particle_system.h"
+
 SceneBonfire::SceneBonfire(QObject *parent):
   Scene(parent)
 {
@@ -19,6 +21,9 @@ void SceneBonfire::setup_spec()
     Object *obj = Object::create(objects[i],objects[i]);
     objects_.push_back(obj);
   }
+
+  ParticleSystem *ps = ParticleSystem::create("Fire Generator");
+  objects_.push_back(ps);
 }
 
 void SceneBonfire::buildControlWidget()

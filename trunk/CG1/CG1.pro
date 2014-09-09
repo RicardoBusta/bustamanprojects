@@ -76,7 +76,8 @@ FORMS    += \
     widgets/voxel_widget.ui \
     widgets/particles_widget.ui \
     widgets/obj_widget.ui \
-    widgets/fur_widget.ui
+    widgets/fur_widget.ui \
+    widgets/truck_widget.ui
 
 RESOURCES += \
     shaders/shaders.qrc \

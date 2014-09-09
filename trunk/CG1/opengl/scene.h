@@ -45,6 +45,10 @@ public:
   QStringList getObjectList() const;
 
   QWidget *controlWidget();
+
+  virtual void applyCameraConstraint();
+
+  float zoom() const;
 protected:
   virtual void setup_spec();
 
@@ -57,7 +61,6 @@ protected:
   virtual void drawSkybox() const;
   virtual void drawObjects() const;
 
-  float zoom() const;
   float rot_x() const;
   float rot_y() const;
   float rot_z() const;
@@ -67,18 +70,18 @@ protected:
 
   virtual void buildControlWidget();
   QWidget *control_widget_;
+
+  float rot_x_;
+  float rot_y_;
+  float rot_z_;
+
 private:
   void setZoom(float zoom);
-
 
   bool initialized_;
   static Scene *instance_;
 
   float zoom_;
-
-  float rot_x_;
-  float rot_y_;
-  float rot_z_;
 
   static QMap<QString,Scene*> scene_;
   static QString current_scene_;

@@ -46,6 +46,7 @@ void Object::setModel(QString model_name)
 void Object::draw() const
 {
   if(model_==NULL) return;
+  if(visible_==false) return;
 
   glPushMatrix();
 
@@ -74,6 +75,7 @@ void Object::draw() const
 void Object::drawArtifacts() const
 {
   if(model_==NULL) return;
+  if(visible_==false) return;
 
   glPushMatrix();
 
@@ -143,6 +145,11 @@ void Object::setAltTexture(QString a)
 void Object::setOverrideTexture(QString s)
 {
   override_texture_ = s;
+}
+
+void Object::setVisible(bool visible)
+{
+  visible_ = visible;
 }
 
 Object Object::operator=(Object o)

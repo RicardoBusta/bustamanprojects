@@ -13,7 +13,6 @@ private:
   void setup_spec();
   virtual void buildControlWidget();
 
-  bool draw_fur_;
   float speed_;
   float gravity_;
 

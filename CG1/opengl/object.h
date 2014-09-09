@@ -35,6 +35,8 @@ public:
 
   void setOverrideTexture(QString s);
 
+  void setVisible(bool visible);
+
   Object operator=(Object o);
 
   QString name() const;
@@ -47,6 +49,8 @@ private:
 
   bool valid_;
   QString material_;
+
+  bool visible_;
 
   QString override_texture_;
 

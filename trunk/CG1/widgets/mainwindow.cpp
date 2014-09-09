@@ -52,7 +52,7 @@ void MainWindow::init()
   Scene::addScene("Pie",new ScenePie(this));
   Scene::addScene("Truck",new SceneTruck(this));
   Scene::addScene("Donut",new SceneDonut(this));
-  Scene::addScene("Fur",new SceneFur(this));
+  Scene::addScene("*Fur",new SceneFur(this));
   Scene::addScene("*Voxel",new SceneVoxel(this));
   Scene::addScene("Bonfire",new SceneBonfire(this));
   Scene::setCurrent("**Empty");

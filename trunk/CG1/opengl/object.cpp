@@ -86,11 +86,11 @@ void Object::drawArtifacts() const
 
 void Object::transform() const
 {
+  glTranslatef(position_.x(),position_.y(),position_.z());
+
   glRotatef(euler_rotation_.x(),1,0,0);
   glRotatef(euler_rotation_.y(),0,1,0);
   glRotatef(euler_rotation_.z(),0,0,1);
-
-  glTranslatef(position_.x(),position_.y(),position_.z());
 
   glScalef(scale_,scale_,scale_);
 
@@ -111,9 +111,12 @@ void Object::step()
 
 void Object::setEulerRotation(float x, float y, float z)
 {
-  if(!valid_) return;
-
   euler_rotation_ = QVector3D(x,y,z);
+}
+
+void Object::setEulerRotation(QVector3D rot)
+{
+  euler_rotation_ = rot;
 }
 
 void Object::setPosition(QVector3D pos)

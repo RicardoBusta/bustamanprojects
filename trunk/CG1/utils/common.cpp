@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include <cmath>
+
 QString ReadValidLine(QTextStream &in){
   QString out = in.readLine();
   while(out.startsWith('#')){

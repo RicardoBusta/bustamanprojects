@@ -18,6 +18,7 @@
         <file>pickup_glass_d.png</file>
         <file>pickup_interior_d.png</file>
         <file>shotgundoublebarrelled_d.png</file>
+        <file>pickup_exterior_alt.png</file>
     </qresource>
     <qresource prefix="/model">
         <file>tire.obj</file>

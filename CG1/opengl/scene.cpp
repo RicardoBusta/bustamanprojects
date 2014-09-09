@@ -51,6 +51,10 @@ void Scene::setZoom(float zoom)
   }
 }
 
+void Scene::applyCameraConstraint()
+{
+}
+
 void Scene::GlVertex(const QVector3D &v) const
 {
   glVertex3f(v.x(),v.y(),v.z());
@@ -193,13 +197,11 @@ void Scene::drawArtifacts() const
   glPushAttrib(GL_ALL_ATTRIB_BITS);
   glDisable(GL_LIGHTING);
 
-  float zoom = float(zoom_)/10000.0;
-
-  glRotatef(float(rot_x_)/50,1,0,0);
-  glRotatef(float(rot_y_)/50,0,1,0);
+  glRotatef(rot_x_,1,0,0);
+  glRotatef(rot_y_,0,1,0);
   glRotatef(rot_z_,0,0,1);
 
-  glScalef(zoom,zoom,zoom);
+  glScalef(zoom_,zoom_,zoom_);
 
   for(int i=0;i<objects_.size(); i++){
     if(objects_[i]!=NULL){
@@ -268,6 +270,7 @@ void Scene::drawObjects() const
 
   for(int i=0;i<objects_.size(); i++){
     if(objects_[i]!=NULL){
+      objects_[i]->preDraw();
       objects_[i]->draw();
     }
   }

@@ -21,10 +21,11 @@ public:
 
   void setModel(QString model_name);
 
-  void draw() const;
-  void drawArtifacts() const;
+  virtual void preDraw();
+  virtual void draw() const;
+  virtual void drawArtifacts() const;
 
-  void step();
+  virtual void step();
 
   void setEulerRotation(float x, float y, float z);
   void setEulerRotation(QVector3D rot);
@@ -40,6 +41,7 @@ public:
   Object operator=(Object o);
 
   QString name() const;
+  void setName(QString name);
 
   void addAnimation(Animation *animation);
 private:

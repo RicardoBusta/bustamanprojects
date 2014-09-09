@@ -27,8 +27,8 @@ void SceneFur::setup_spec()
 
   fur_layer_.resize(num_layers);
 
-  const float gravity = -0.0003f*gravity_;
-  const float velocity = 0.001f*speed_;
+//  const float gravity = -0.0003f*gravity_;
+//  const float velocity = 0.001f*speed_;
 
   for(int i=0;i<fur_layer_.size();i++){
     int level;

@@ -2,17 +2,23 @@
 #define PARTICLESYSTEM_H
 
 #include "opengl/particle.h"
+#include "opengl/object.h"
 
 #include <QList>
 
-class ParticleSystem
+class ParticleSystem : public Object
 {
 public:
   ParticleSystem();
 
-  void draw();
+  static ParticleSystem *create(QString object_name);
+
+  void preDraw();
+  void draw() const;
+  void step();
 private:
   QList<Particle> particles_;
+
 //  position_
 //  position_variation_
 

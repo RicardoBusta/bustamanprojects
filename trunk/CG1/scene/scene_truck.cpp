@@ -41,6 +41,7 @@ void SceneTruck::setup_spec()
   interior->setPosition(truck_translate);
   Object *exterior = Object::create("Exterior","exterior");
   exterior->setPosition(truck_translate);
+  exterior->setAltTexture("pickup_exterior_alt.png");
   Object *glass = Object::create("Glass","glass");
   glass->setPosition(truck_translate);
 

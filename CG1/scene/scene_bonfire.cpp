@@ -23,6 +23,7 @@ void SceneBonfire::setup_spec()
   }
 
   ParticleSystem *ps = ParticleSystem::create("Fire Generator", new ParticleBehavior());
+  ps->setPosition(QVector3D(0,0.5,0));
   objects_.push_back(ps);
 }
 

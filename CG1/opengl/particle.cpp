@@ -38,7 +38,7 @@ void Particle::draw() const
   glLoadMatrixf(transform);
 
   glNormal3f(0,0,1);
-  glColor3f(color_.redF(),color_.greenF(),color_.blueF());
+  glColor4f(color_.redF(),color_.greenF(),color_.blueF(),color_.alphaF());
 
   glBegin(GL_QUADS);
   glTexCoord2f(0,0);

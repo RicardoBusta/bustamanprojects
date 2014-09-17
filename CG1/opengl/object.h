@@ -44,7 +44,7 @@ public:
   void setName(QString name);
 
   void addAnimation(Animation *animation);
-private:
+protected:
   void transform() const;
 
   QString name_;

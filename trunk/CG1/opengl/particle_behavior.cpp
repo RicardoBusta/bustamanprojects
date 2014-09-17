@@ -5,7 +5,7 @@
 
 const QColor start_color = QColor(0xff,0xff,0x00,0xff);
 const QColor end_color = QColor(0xff,0x00,0x00,0x00);
-const int life = 90;
+const int life = 100;
 const float scale = 0.2;
 
 QColor color_mult(const QColor &c, const float &f){

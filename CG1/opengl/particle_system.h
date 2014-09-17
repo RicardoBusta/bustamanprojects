@@ -2,6 +2,7 @@
 #define PARTICLESYSTEM_H
 
 #include "opengl/particle.h"
+#include "opengl/particle_behavior.h"
 #include "opengl/object.h"
 
 #include <QList>
@@ -11,7 +12,9 @@ class ParticleSystem : public Object
 public:
   ParticleSystem();
 
-  static ParticleSystem *create(QString object_name);
+  static ParticleSystem *create(QString object_name, ParticleBehavior *source_behavior);
+
+  ParticleBehavior * source_behavior_;
 
   void preDraw();
   void draw() const;

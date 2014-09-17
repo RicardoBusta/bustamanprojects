@@ -6,6 +6,7 @@
 #include "opengl/opengl.h"
 
 Textures *Textures::instance_ = NULL;
+QString Textures::current_texture_ = "";
 
 Textures::Textures():
   gl_widget_(NULL)
@@ -22,9 +23,7 @@ Textures *Textures::instance()
 
 void Textures::setTexture(QString texture)
 {
-  if( tex_map_.contains(texture) ){
-    glBindTexture(GL_TEXTURE_2D,tex_map_[texture]);
-  }else{
+  if( !tex_map_.contains(texture) ){
     qDebug() << "Loading texture:" << texture;
     QImage tex = QImage(texture);
     if(tex.isNull()){
@@ -38,13 +37,16 @@ void Textures::setTexture(QString texture)
     tex_map_.insert(texture,bindTexture(tex));
     tex_size_.insert(texture,tex.width());
   }
+
+  if( tex_map_.contains(texture) && texture != current_texture_ ){
+    glBindTexture(GL_TEXTURE_2D,tex_map_[texture]);
+    current_texture_ = texture;
+  }
 }
 
 void Textures::set3DTexture(QString texture)
 {
-  if( tex_map_.contains(texture) ){
-    glBindTexture(GL_TEXTURE_3D,tex_map_[texture]);
-  }else{
+  if( !tex_map_.contains(texture) ){
     qDebug() << "Loading 3D texture:" << texture;
 
     QImage tex = QImage(texture);
@@ -92,6 +94,11 @@ void Textures::set3DTexture(QString texture)
 
     tex_map_.insert(texture,textureID);
     tex_size_.insert(texture,tex.width());
+  }
+
+  if( tex_map_.contains(texture) && texture != current_texture_ ){
+    glBindTexture(GL_TEXTURE_3D,tex_map_[texture]);
+    current_texture_ = texture;
   }
 }
 

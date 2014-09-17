@@ -2,15 +2,18 @@
 
 #include <QtOpenGL>
 #include "opengl/scene.h"
+#include "opengl/textures.h"
+#include "opengl/particle_behavior.h"
 
-Particle::Particle()
+Particle::Particle(ParticleBehavior * pb)
 {
-  life=0;
+  pb_ = pb;
+  pb_->initialize(this);
 }
 
 bool Particle::alive()
 {
-  if(life>0){
+  if(life_>0){
     return true;
   }
   return false;
@@ -19,22 +22,23 @@ bool Particle::alive()
 void Particle::preDraw()
 {
   glPushMatrix();
-  glTranslatef(pos.x(),pos.y(),pos.z());
+  glTranslatef(pos_.x(),pos_.y(),pos_.z());
   glGetFloatv(GL_MODELVIEW_MATRIX,transform);
-  transform[0]=transform[5]=transform[10]=Scene::current()->zoom();
+  transform[0]=transform[5]=transform[10]=scale_*Scene::current()->zoom();
   transform[1]=transform[2]=transform[4]=transform[6]=transform[8]=transform[9]=0.0;
   glPopMatrix();
 }
 
 void Particle::draw() const
 {
+  Textures::instance()->setTexture(texture_);
+
   glPushMatrix();
 
   glLoadMatrixf(transform);
-//    glTranslatef(pos.x(),pos.y(),pos.z());
 
   glNormal3f(0,0,1);
-  glColor3f(color.redF(),color.greenF(),color.blueF());
+  glColor3f(color_.redF(),color_.greenF(),color_.blueF());
 
   glBegin(GL_QUADS);
   glTexCoord2f(0,0);
@@ -51,10 +55,23 @@ void Particle::draw() const
 
 void Particle::step()
 {
-  life--;
-  pos+=speed;
+  pb_->behave(this);
+  life_--;
 }
 
 bool Particle::operator<(const Particle &p) const{
   return (this->transform[14]<p.transform[14]);
+}
+
+Particle Particle::operator=(const Particle &p)
+{
+  pos_ = p.pos_;
+  speed_ = p.speed_;
+  color_ = p.color_;
+  life_ = p.life_;
+  texture_ = p.texture_;
+  pb_ = p.pb_;
+  scale_ = p.scale_;
+  memcpy(transform,p.transform,sizeof(transform));
+  return *this;
 }

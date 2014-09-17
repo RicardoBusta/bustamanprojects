@@ -1,8 +1,11 @@
 #include "particle_system.h"
 
+#include <QtOpenGL>
+
 ParticleSystem::ParticleSystem()
 {
   source_behavior_ = NULL;
+  num_particles_generated_ = 10;
 }
 
 ParticleSystem *ParticleSystem::create(QString object_name, ParticleBehavior *source_behavior)
@@ -15,10 +18,13 @@ ParticleSystem *ParticleSystem::create(QString object_name, ParticleBehavior *so
 
 void ParticleSystem::preDraw()
 {
+  glPushMatrix();
+  glTranslatef(position_.x(),position_.y(),position_.z());
   for(int i=0;i<particles_.size();i++){
     particles_[i].preDraw();
   }
   qSort(particles_);
+  glPopMatrix();
 }
 
 void ParticleSystem::draw() const
@@ -37,7 +43,9 @@ void ParticleSystem::step()
   }
 
   if(source_behavior_!=NULL){
-    particles_.push_back(Particle(source_behavior_));
+    for(int i=0;i<num_particles_generated_;i++){
+      particles_.push_back(Particle(source_behavior_));
+    }
   }
 
   for(int i=0;i<particles_.size();i++){

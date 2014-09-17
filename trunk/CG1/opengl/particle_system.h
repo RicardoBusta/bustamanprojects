@@ -22,6 +22,8 @@ public:
 private:
   QList<Particle> particles_;
 
+  int num_particles_generated_;
+
 //  position_
 //  position_variation_
 

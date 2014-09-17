@@ -28,6 +28,8 @@ private:
 
   QMap<QString,int> tex_map_;
   QMap<QString,int> tex_size_;
+
+  static QString current_texture_;
 };
 
 #endif // TEXTURES_H

@@ -7,8 +7,6 @@
 CGApplication::CGApplication(int argc, char *argv[]):
   QApplication(argc,argv)
 {
-  qsrand(QTime::currentTime().msec());
-
   main_window_ = new MainWindow();
   main_window_->init();
   main_window_->show();

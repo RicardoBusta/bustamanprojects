@@ -39,7 +39,9 @@ SOURCES += \
     cgapplication.cpp \
     scene/scene_bezier.cpp \
     opengl/particle_system.cpp \
-    opengl/particle.cpp
+    opengl/particle.cpp \
+    utils/random.cpp \
+    opengl/particle_behavior.cpp
 
 HEADERS  += \
     widgets/mainwindow.h \
@@ -68,7 +70,9 @@ HEADERS  += \
     cgapplication.h \
     scene/scene_bezier.h \
     opengl/particle_system.h \
-    opengl/particle.h
+    opengl/particle.h \
+    utils/random.h \
+    opengl/particle_behavior.h
 
 FORMS    += \
     widgets/mainwindow.ui \

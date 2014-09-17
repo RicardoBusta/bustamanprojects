@@ -22,7 +22,7 @@ void SceneBonfire::setup_spec()
     objects_.push_back(obj);
   }
 
-  ParticleSystem *ps = ParticleSystem::create("Fire Generator");
+  ParticleSystem *ps = ParticleSystem::create("Fire Generator", new ParticleBehavior());
   objects_.push_back(ps);
 }
 

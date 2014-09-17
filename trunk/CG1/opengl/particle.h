@@ -4,18 +4,21 @@
 #include <QVector3D>
 #include <QColor>
 
+class ParticleBehavior;
+
 class Particle
 {
 private:
-  Particle();
-
   friend class ParticleSystem;
+  friend class ParticleBehavior;
 
-  QVector3D pos;
-  QVector3D speed;
-  QColor color;
-
-  int life;
+  QVector3D pos_;
+  QVector3D speed_;
+  QColor color_;
+  float scale_;
+  int life_;
+  QString texture_;
+  ParticleBehavior *pb_;
 
   float transform[16];
 
@@ -26,7 +29,10 @@ private:
   void step();
 
 public:
+  Particle(ParticleBehavior *pb);
+
   bool operator<(const Particle &p) const;
+  Particle operator=(const Particle &p);
 };
 
 #endif // PARTICLE_H

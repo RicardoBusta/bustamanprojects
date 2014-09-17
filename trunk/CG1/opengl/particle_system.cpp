@@ -1,14 +1,14 @@
 #include "particle_system.h"
 
-#include "opengl/textures.h"
-
 ParticleSystem::ParticleSystem()
 {
+  source_behavior_ = NULL;
 }
 
-ParticleSystem *ParticleSystem::create(QString object_name)
+ParticleSystem *ParticleSystem::create(QString object_name, ParticleBehavior *source_behavior)
 {
   ParticleSystem *p = new ParticleSystem();
+  p->source_behavior_ = source_behavior;
   p->setName(object_name);
   return p;
 }
@@ -23,7 +23,6 @@ void ParticleSystem::preDraw()
 
 void ParticleSystem::draw() const
 {
-  Textures::instance()->setTexture("fire_particle_texture.png");
   for(int i=0;i<particles_.size();i++){
     particles_[i].draw();
   }
@@ -37,9 +36,9 @@ void ParticleSystem::step()
     }
   }
 
-  particles_.push_back(Particle());
-  particles_.last().life = 30;
-  particles_.last().speed = QVector3D(0,0.1,0);
+  if(source_behavior_!=NULL){
+    particles_.push_back(Particle(source_behavior_));
+  }
 
   for(int i=0;i<particles_.size();i++){
     particles_[i].step();

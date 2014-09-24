@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/texture">
+        <file>texture_earth.jpg</file>
+        <file>texture_sun.jpg</file>
+        <file>texture_space_1.jpg</file>
+    </qresource>
+</RCC>

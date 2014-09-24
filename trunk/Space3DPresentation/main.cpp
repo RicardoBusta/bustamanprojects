@@ -1,11 +1,8 @@
 #include "mainwindow.h"
-#include <QApplication>
+#include "space3d.h"
 
 int main(int argc, char *argv[])
 {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
-
+  Space3D a(argc, argv);
   return a.exec();
 }

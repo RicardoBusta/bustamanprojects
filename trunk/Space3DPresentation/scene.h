@@ -14,7 +14,12 @@ public:
   void draw();
   void step();
 
-  QVector<Object> objects;
+  Object *light_object;
+
+  Object *camera_object;
+  QVector3D camera_position;
+
+  QVector<Object*> objects;
 };
 
 #endif // SCENE_H

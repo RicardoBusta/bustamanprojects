@@ -16,7 +16,6 @@ GLWidget::GLWidget(QWidget *parent) :
   QTimer *timer = new QTimer(this);
   timer->start(1000/60);
 
-  connect(timer,SIGNAL(timeout()),this,SLOT(updateGL()));
   connect(timer,SIGNAL(timeout()),this,SLOT(sceneStep()));
 }
 
@@ -59,10 +58,6 @@ void GLWidget::resizeGL(int w, int h)
 void GLWidget::paintGL()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glBegin(GL_LINES);
-  glVertex3f(0,0,0);
-  glVertex3f(1,1,1);
-  glEnd();
 
   glLoadIdentity();
   glScalef(zoom_,zoom_,zoom_);
@@ -114,4 +109,5 @@ void GLWidget::sceneStep()
   rot_+=auto_delta_;
 
   scene.step();
+  updateGL();
 }

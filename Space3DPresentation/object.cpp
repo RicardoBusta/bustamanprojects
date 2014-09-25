@@ -8,7 +8,7 @@
 Object::Object()
 {
   current_rotation_angle = 0;
-  rotation_angle = 1;
+  rotation_angle_step = 1;
   current_translation_angle=0;
   translation_step = 1;
   tilt = -15;
@@ -54,11 +54,16 @@ void Object::drawOrbit()
   if(!draw_orbit) return;
 
   glBegin(GL_LINE_LOOP);
+  QVector3D center;
+  if(orbit_center!=NULL){
+    center = orbit_center->pos;
+  }
   for(int i=0;i<360;i+=10){
     float angle = i*M_PI/180.0f;
     float s = sin(angle);
     float c = cos(angle);
-    QVector3D v = QVector3D(s*translation_x_radius,0,c*translation_z_radius);
+
+    QVector3D v = center+QVector3D(s*translation_x_radius,0,c*translation_z_radius);
     glVertex3f(v.x(),v.y(),v.z());
   }
   glEnd();
@@ -66,7 +71,7 @@ void Object::drawOrbit()
 
 void Object::step()
 {
-  current_rotation_angle += rotation_angle;
+  current_rotation_angle += rotation_angle_step;
   current_translation_angle += translation_step;
 
   // Translation

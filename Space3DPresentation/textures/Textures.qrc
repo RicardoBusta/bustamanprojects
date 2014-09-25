@@ -7,10 +7,10 @@
         <file>texture_mars.jpg</file>
         <file>texture_mercury.jpg</file>
         <file>texture_moon.jpg</file>
-        <file>texture_neptune.png</file>
         <file>texture_pluto.jpg</file>
         <file>texture_saturn.jpg</file>
         <file>texture_uranus.jpg</file>
         <file>texture_venus.jpg</file>
+        <file>texture_neptune.jpg</file>
     </qresource>
 </RCC>

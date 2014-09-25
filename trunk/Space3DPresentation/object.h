@@ -10,6 +10,8 @@ class Object
 public:
   Object();
 
+  QString object_name;
+
   QString model_name;
   QString texture;
 
@@ -26,14 +28,15 @@ public:
   bool orbit;
   bool draw_orbit;
 
-  // current
-  float current_rotation_angle;
-  float current_translation_angle;
   // step
-  float rotation_angle;
+  float rotation_angle_step;
   float translation_step;
 
   float tilt;
+
+  // current
+  float current_rotation_angle;
+  float current_translation_angle;
 
   void draw();
   void drawOrbit();

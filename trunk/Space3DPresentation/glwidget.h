@@ -22,12 +22,17 @@ public:
   void wheelEvent(QWheelEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
 
+  void keyPressEvent(QKeyEvent *event);
+  void keyReleaseEvent(QKeyEvent *event);
+
 private:
   QPoint last_click_;
   QPoint delta_;
   QPoint auto_delta_;
 
   float zoom_;
+
+  float step_back_;
 
   QPointF rot_;
 

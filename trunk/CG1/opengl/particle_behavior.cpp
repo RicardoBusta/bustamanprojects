@@ -3,10 +3,10 @@
 #include "utils/random.h"
 #include "opengl/particle.h"
 
-const QColor start_color = QColor(0xff,0xff,0x00,0xff);
+const QColor start_color = QColor(0xff,0xff,0x00,0x002);
 const QColor end_color = QColor(0xff,0x00,0x00,0x00);
 const int life = 100;
-const float scale = 0.2;
+const float scale = 0.2f;
 
 QColor color_mult(const QColor &c, const float &f){
   return QColor(c.red()*f,c.green()*f,c.blue()*f);

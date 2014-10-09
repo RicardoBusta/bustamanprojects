@@ -5,6 +5,7 @@
 
 #include "utils/common.h"
 #include "ui_bezier_widget.h"
+#include "utils/options.h"
 
 SceneBezier::SceneBezier(QObject *parent) :
   Scene(parent)
@@ -93,7 +94,11 @@ void SceneBezier::drawObjects() const
   glEnd();
 
   // Draw Surface
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  if(Options::instance()->get_option("check_wireframe")){
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+  }else{
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+  }
   glBegin(GL_QUADS);
   for(int i=0;i<surface_size_-1;i++){
     for(int j=0;j<surface_size_-1;j++){
